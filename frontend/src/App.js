@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './index.css';
+import ProductCard from './components/Card'; // Asegúrate de que la ruta sea correcta
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -16,20 +18,14 @@ function Products() {
   }, []);
 
   return (
-    <div>
-      <h1>Products</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <h1 className="text-4xl font-bold text-blue-500 mb-4">Products</h1>
       {products.length > 0 ? (
-        <ul>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {products.map(product => (
-            <li key={product.id}>{product.id}
-            {product.name} -
-             {product.price} -
-              {product.stock}
-
-            
-             </li>
+            <ProductCard key={product.id} product={product} />
           ))}
-        </ul>
+        </div>
       ) : (
         <p>Cargando productos...</p>
       )}
