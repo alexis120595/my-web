@@ -19,7 +19,7 @@ code {
 
 /* App.css */
 .background {
-  background-image: url('./assets/cover.jpg'); /* Ruta relativa a la imagen */
+  background-image: url('./assets/dollar.jpg'); /* Ruta relativa a la imagen */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

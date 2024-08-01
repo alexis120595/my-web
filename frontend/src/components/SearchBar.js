@@ -17,7 +17,7 @@ function SearchBar({ onSearch }) {
 
   return (
     <div className="flex justify-end w-full mb-4">
-      <div className="w-1/6">
+      <div className="relative">
         <TextField
           variant="outlined"
           value={query}
@@ -33,7 +33,11 @@ function SearchBar({ onSearch }) {
             ),
           }}
           fullWidth
+           className="bg-gray-200 border border-gray-400 focus:border-black"
         />
+         <div className="absolute top-0 right-0 mt-2 mr-2">
+          {/* Aquí puedes agregar cualquier otro contenido que desees */}
+        </div>
       </div>
     </div>
   );

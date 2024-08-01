@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, Request
 from typing import List  
 from Backend.schemas import Product
 from Backend.db.database import get_db
@@ -27,3 +27,24 @@ async def create_product(product: Product, db : Session = Depends(get_db)):
    db.commit()
    db.refresh(new_product)
    return product
+
+@router.get("/product")
+async def get_product_by_id(request: Request, db: Session = Depends(get_db)):
+    product_id = request.query_params.get('product_id')
+    
+    if product_id is None:
+        raise HTTPException(status_code=400, detail="Product ID is required")
+    
+    try:
+        product_id = int(product_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Product ID must be an integer")
+    
+    product = db.query(db_models.Product).filter(db_models.Product.id == product_id).first()
+    
+    if product is None:
+        raise HTTPException(status_code=404, detail="Product not found")
+    
+    return product
+
+
