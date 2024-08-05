@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../index.css';
 import ProductCard from '../components/Card'; // Asegúrate de que la ruta sea correcta
 import SearchBar from '../components/SearchBar'; // Importa el componente SearchBar
+import { Link } from 'react-router-dom';
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -34,7 +35,9 @@ function Products() {
       {filteredProducts.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {filteredProducts.map(product => (
-            <ProductCard key={product.id} product={product} />
+            <Link to={`/product/${product.id}`}>
+              <ProductCard key={product.id} product={product} />
+            </Link>
           ))}
         </div>
       ) : (
