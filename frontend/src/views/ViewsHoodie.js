@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import CardHoodieBlack from '../components/CardHoodieBlack';
+import CardHoodieWhite from '../components/CardHoodieWhite';
 
-const ViewsHoodie = () => {
+const Home = () => {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
 
@@ -21,12 +22,27 @@ const ViewsHoodie = () => {
         <div>
             <h1>Producto con ID {id}</h1>
             {product ? (
-                <CardHoodieBlack product={product} />
+                <>
+                    <CardHoodieBlack product={product} />,
+                 
+                </>
             ) : (
                 <p>Cargando producto...</p>
             )}
-        </div>
+        </div>,
+
+<div>
+<h1>Producto con ID {id}</h1>
+{product ? (
+    <>
+        <CardHoodieWhite product={product} />,
+     
+    </>
+) : (
+    <p>Cargando producto...</p>
+)}
+</div>
     );
 };
 
-export default ViewsHoodie;
+export default Home;
