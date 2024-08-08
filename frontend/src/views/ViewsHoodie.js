@@ -24,24 +24,15 @@ const Home = () => {
             {product ? (
                 <>
                     <CardHoodieBlack product={product} />,
+                    <CardHoodieWhite product={product} />,
+                    <CardHoodieBlack product={product} />,
+                    <CardHoodieWhite product={product} />
                  
                 </>
             ) : (
                 <p>Cargando producto...</p>
             )}
-        </div>,
-
-<div>
-<h1>Producto con ID {id}</h1>
-{product ? (
-    <>
-        <CardHoodieWhite product={product} />,
-     
-    </>
-) : (
-    <p>Cargando producto...</p>
-)}
-</div>
+        </div>
     );
 };
 

@@ -1,14 +1,15 @@
 import React from 'react';
 import { Card, CardContent, Typography, CardMedia } from '@mui/material';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
-import exampleImage from '../assets/remera.jpg'; // Importa la imagen desde la carpeta assets
+import { useNavigate } from 'react-router-dom';
+import image1 from '../assets/cover.jpg';
+
 
 function ProductCard({ product }) {
-  const navigate = useNavigate(); // Usa el hook useNavigate
-  const defaultImageUrl = exampleImage; // Usa la imagen importada como URL de imagen predeterminada
+  const navigate = useNavigate();
+  
 
   const handleClick = () => {
-    navigate('/viewshoodie'); // Redirige a /viewshoodie al hacer clic
+    navigate(`/product/${product.id}`); // Redirige a la página del producto específico
   };
 
   return (
@@ -16,14 +17,15 @@ function ProductCard({ product }) {
       <Card sx={{ width: 300, height: 400, margin: 2 }}>
         <CardMedia
           component="img"
-          sx={{ height: '85%' }} // Ajusta la altura de la imagen
-          image={product.imageUrl || defaultImageUrl}
+          sx={{ height: '85%' }}
+          image={image1}
           alt={product.name}
         />
         <CardContent>
           <Typography variant="h5" component="div">
             {product.name}
-          </Typography> 
+
+          </Typography>
         </CardContent>
       </Card>
     </div>

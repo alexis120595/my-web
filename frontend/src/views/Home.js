@@ -2,46 +2,36 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../index.css';
 import ProductCard from '../components/Card'; // Asegúrate de que la ruta sea correcta
-import SearchBar from '../components/SearchBar'; // Importa el componente SearchBar
 import { Link } from 'react-router-dom';
+import CardTshirt from '../components/CardTshirt';
 
 function Products() {
-  const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    // Reemplaza 'http://localhost:8000/products' con la URL de tu API
-    axios.get('http://127.0.0.1:8000/products')
+    // Reemplaza 'http://localhost:8000/product?product_id=1' con la URL de tu API
+    axios.get('http://127.0.0.1:8000/product?product_id=1')
       .then(response => {
-        setProducts(response.data.products);
-        setFilteredProducts(response.data.products);
+        setProduct(response.data);
       })
       .catch(error => {
-        console.error('Error fetching products:', error);
+        console.error('Error fetching product:', error);
       });
   }, []);
-
-  const handleSearch = (query) => {
-    const filtered = products.filter(product =>
-      product.name.toLowerCase().includes(query.toLowerCase())
-    );
-    setFilteredProducts(filtered);
-  };
 
   return (
     <div className="background flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <h1 className="text-6xl font-bold text-black-500 mb-4">Morphic Threads</h1>
-      <SearchBar onSearch={handleSearch} />
-      {filteredProducts.length > 0 ? (
+      {product ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {filteredProducts.map(product => (
-            <Link to={`/product/${product.id}`}>
-              <ProductCard key={product.id} product={product} />
-            </Link>
-          ))}
+          <Link to={`/product/${product.id}`}>
+            <ProductCard key={product.id} product={product} />,
+            <CardTshirt key={product.id} product={product}  />
+           
+          </Link>
         </div>
       ) : (
-        <p>Cargando productos...</p>
+        <p>Cargando producto...</p>
       )}
     </div>
   );

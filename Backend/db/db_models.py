@@ -9,4 +9,5 @@ class Product(Base):
     name = Column(String)
     price = Column(Integer)
     stock = Column(Integer)
+    
   
