@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Card, CardContent, Typography, CardMedia } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import image2 from '../assets/remera.jpg'; // Asegúrate de que la ruta sea correcta
+import image3 from '../../assets/dollar.jpg'; // Asegúrate de que la ruta sea correcta
 
-function CardTshirt() {
+function CardTshirtWhite() {
   const [product, setProduct] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     // Reemplaza 'http://localhost:8000/product?product_id=3' con la URL de tu API
-    axios.get('http://127.0.0.1:8000/product?product_id=3')
+    axios.get('http://127.0.0.1:8000/product?product_id=4')
       .then(response => {
         setProduct(response.data);
       })
@@ -32,7 +32,7 @@ function CardTshirt() {
           <CardMedia
             component="img"
             sx={{ height: '85%' }}
-            image={image2} // Usar la imagen importada
+            image={image3} // Usar la imagen importada
             alt={product.name}
           />
           <CardContent>
@@ -51,4 +51,4 @@ function CardTshirt() {
   );
 }
 
-export default CardTshirt;
+export default CardTshirtWhite;

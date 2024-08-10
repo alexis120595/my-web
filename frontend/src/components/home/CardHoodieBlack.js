@@ -1,10 +1,10 @@
 import React from 'react';
 import { Card, CardContent, Typography, CardMedia } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import image1 from '../assets/cover.jpg';
+import image1 from '../../assets/cover.jpg';
 
 
-function ProductCard({ product }) {
+function CardHoodieBlack({ product }) {
   const navigate = useNavigate();
   
 
@@ -32,4 +32,4 @@ function ProductCard({ product }) {
   );
 }
 
-export default ProductCard;
+export default CardHoodieBlack;

@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { Card, CardContent, Typography, CardMedia } from '@mui/material';
-import defaultImage from '../assets/remera.jpg'; // Importa la imagen desde la carpeta assets
+import defaultImage from '../../../assets/buzo2.jpg'; // Importa la imagen desde la carpeta assets
 
 
 
 
-function CardHoodieWhite({ product }) {
+function CardHoodieBlack2({ product }) {
 
     
 
@@ -30,4 +30,4 @@ function CardHoodieWhite({ product }) {
     }
 
 
-export default CardHoodieWhite;
+export default CardHoodieBlack2;

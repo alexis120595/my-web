@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../index.css';
-import ProductCard from '../components/Card'; // Asegúrate de que la ruta sea correcta
 import { Link } from 'react-router-dom';
-import CardTshirt from '../components/CardTshirt';
+import CardTshirt from '../components/home/CardTshirt';
+import CardHoodieBlack from '../components/home/CardHoodieBlack';
+import CardTshirtWhite from '../components/home/CardTshirtWhite';
 
-function Products() {
+function Home() {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
@@ -25,8 +26,9 @@ function Products() {
       {product ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           <Link to={`/product/${product.id}`}>
-            <ProductCard key={product.id} product={product} />,
+            <  CardHoodieBlack key={product.id} product={product} />,
             <CardTshirt key={product.id} product={product}  />
+            <CardTshirtWhite key={product.id} product={product} />
            
           </Link>
         </div>
@@ -37,4 +39,4 @@ function Products() {
   );
 }
 
-export default Products;
+export default Home;
