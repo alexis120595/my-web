@@ -1,6 +1,6 @@
 import React from 'react';
 import Home from './views/Home';
-import ViewsHoodie from './views/ViewsHoodie';
+
 import {  Route, Routes} from 'react-router-dom';
 
 
@@ -11,7 +11,7 @@ function App () {
       <Routes>
         
         <Route path="/" element={<Home />} />
-        <Route path="/product/:id"element={<ViewsHoodie />} />
+        
         {/* Agrega más rutas según sea necesario */}
         
       </Routes>
