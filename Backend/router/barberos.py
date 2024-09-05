@@ -19,3 +19,17 @@ def create_barbero(barbero: Barbero, db: Session = Depends(get_db)):
 def get_barberos(db: Session = Depends(get_db)):
     barberos = db.query(db_models.Barbero).all()
     return barberos
+
+@router.get("/barberos/{barbero_id}")
+def get_barbero(barbero_id: int, db: Session = Depends(get_db)):
+    barbero = db.query(db_models.Barbero).filter(db_models.Barbero.id == barbero_id).first()
+    if barbero is None:
+        raise HTTPException(status_code=404, detail="Barbero not found")
+    barbero_with_horarios = {
+        "id": barbero.id,
+        "nombre": barbero.nombre,
+        "apellido": barbero.apellido,
+        "servicios_id": barbero.servicios_id,
+        "horarios": barbero.horarios
+    }
+    return barbero_with_horarios

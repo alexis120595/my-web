@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from Backend.router import servicios, barberos, horarios, reservas
 from Backend.db.database import Base, engine
-from Backend.db.db_models import Servicio, Barbero, Horarios, Reservas
+from Backend.db.db_models import Servicio, Barbero, Horarios, Reservas, servicio_barbero_association
 
 def create_tables():
     Base.metadata.create_all(bind=engine)
@@ -18,6 +18,7 @@ app.include_router(servicios.router)
 app.include_router(barberos.router)
 app.include_router(horarios.router)
 app.include_router(reservas.router)
+
 
 
 

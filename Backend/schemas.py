@@ -1,9 +1,13 @@
 from pydantic import BaseModel
 from datetime import date
+from typing import List, Optional
+
+
 
 class Servicio(BaseModel):
     id: int
     nombre: str
+    barberos: List["Barbero"] = []
     
 
 
@@ -33,5 +37,7 @@ class Reservas(BaseModel):
     servicio_id: int
     barbero_id: int
     horario_id: int
+
+
 
 

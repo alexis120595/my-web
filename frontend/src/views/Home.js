@@ -41,6 +41,32 @@ const Home = () => {
       });
   }, []);
 
+  useEffect(() => {
+    if (selectedServicio) {
+      // Solicitud para obtener un servicio específico junto con los barberos relacionados
+      axios.get(`http://127.0.0.1:8000/servicios/${selectedServicio}`)
+        .then(response => {
+          setBarberos(response.data.barberos);
+        })
+        .catch(error => {
+          console.error('Error fetching barberos:', error);
+        });
+    }
+  }, [selectedServicio]);
+
+  useEffect(() => {
+    if (selectedBarbero) {
+      // Solicitud para obtener un barbero específico junto con los horarios relacionados
+      axios.get(`http://127.0.0.1:8000/barberos/${selectedBarbero}`)
+        .then(response => {
+          setHorarios(response.data.horarios);
+        })
+        .catch(error => {
+          console.error('Error fetching horarios:', error);
+        });
+    }
+  }, [selectedBarbero]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
