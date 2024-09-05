@@ -89,6 +89,17 @@ const Home = () => {
       .then(response => {
         console.log('Formulario enviado', response.data);
         // Puedes manejar la respuesta aquí, como mostrar un mensaje de éxito
+        axios.put(`http://127.0.0.1:8000/horarios/${selectedHorario}`, { estado: false })
+        .then(response => {
+          console.log('Horario actualizado', response.data);
+          // Actualizar la lista de horarios en el estado
+          setHorarios(prevHorarios => prevHorarios.map(horario => 
+            horario.id === selectedHorario ? { ...horario, estado: false } : horario
+          ));
+        })
+        .catch(error => {
+          console.error('Error actualizando el horario:', error);
+        });
       })
       .catch(error => {
         console.error('Error enviando el formulario:', error);
@@ -140,7 +151,7 @@ const Home = () => {
         >
           {horarios.map(horario => (
             <MenuItem key={horario.id} value={horario.id}>
-              {horario.hora}
+              {horario.hora} {horario.estado ? 'Disponible' : 'No disponible'}
             </MenuItem>
           ))}
         </Select>

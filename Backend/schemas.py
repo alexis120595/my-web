@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from datetime import date
-from typing import List, Optional
+from typing import List
 
 
 
@@ -23,6 +23,9 @@ class Horarios(BaseModel):
     hora: str
     estado: bool
     barbero_id: int
+
+class HorarioUpdate(BaseModel):
+    estado: bool    
 
 class ReservaCreate(BaseModel):
     

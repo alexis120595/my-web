@@ -1,13 +1,9 @@
 from Backend.db.database import Base
-from sqlalchemy import Column, Integer, String, Boolean, Date, Table
+from sqlalchemy import Column, Integer, String, Boolean, Date
 from sqlalchemy.schema import ForeignKey
 from sqlalchemy.orm import relationship
 
-servicio_barbero_association = Table(
-    'servicio_barbero', Base.metadata,
-    Column('servicios_id', Integer, ForeignKey('servicios.id', ondelete="CASCADE"), primary_key=True),
-    Column('barberos_id', Integer, ForeignKey('barberos.id', ondelete="CASCADE"), primary_key=True)
-)
+
 
 class Servicio(Base):
 
