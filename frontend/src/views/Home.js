@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {  MenuItem, Select, FormControl, InputLabel, Button } from '@mui/material';
 import Calendario from '../components/Calendario';
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
+
+
+
 
 const Home = () => {
   const [servicios, setServicios] = useState([]);
@@ -11,6 +15,8 @@ const Home = () => {
   const [selectedBarbero, setSelectedBarbero] = useState('');
   const [selectedHorario, setSelectedHorario] = useState('');
   const [selectedDate, setSelectedDate] = useState(null);
+  const [preferenceId, setPreferenceId] = useState(null);
+  initMercadoPago('APP_USR-b9c96612-c5c7-4108-9960-746706eafd35');
 
   useEffect(() => {
     // Solicitud para obtener los servicios
@@ -107,6 +113,20 @@ const Home = () => {
       });
   };
 
+  const handleCreatePreference = async () => {
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/create_preference', {
+        title: 'Reserva de servicio',
+        quantity: 1,
+        unit_price: 500, // Ajusta el precio según tu lógica
+      });
+      setPreferenceId(response.data.id);
+    } catch (error) {
+      console.error('Error creating preference:', error);
+    }
+  };
+
+
   return (
     <form onSubmit={handleSubmit}>
       <h1>Servicios</h1>
@@ -160,7 +180,12 @@ const Home = () => {
       <h1>Calendario</h1>
       <Calendario selectedDate={selectedDate} setSelectedDate={setSelectedDate} /> {/* Renderiza el componente Calendario */}
 
-      <Button type="submit" variant="contained" color="primary">Enviar</Button>
+      <Button type="submit" variant="contained" color="primary" onClick={handleCreatePreference}>Enviar</Button>
+      
+      {preferenceId && (
+        <Wallet initialization={{ preferenceId }} />
+      )}
+
     </form>
   );
 };
