@@ -16,6 +16,7 @@ const Home = () => {
   const [selectedHorario, setSelectedHorario] = useState('');
   const [selectedDate, setSelectedDate] = useState(null);
   const [preferenceId, setPreferenceId] = useState(null);
+  const [reservaId, setReservaId] = useState(null);
   initMercadoPago('APP_USR-b9c96612-c5c7-4108-9960-746706eafd35');
 
   useEffect(() => {
@@ -119,6 +120,7 @@ const Home = () => {
         title: 'Reserva de servicio',
         quantity: 1,
         unit_price: 500, // Ajusta el precio según tu lógica
+       
       });
       setPreferenceId(response.data.id);
     } catch (error) {
@@ -184,6 +186,13 @@ const Home = () => {
       
       {preferenceId && (
         <Wallet initialization={{ preferenceId }} />
+      )}
+
+      {reservaId && (
+        <div>
+          <h2>Reserva creada con éxito</h2>
+          <p>ID de la reserva: {reservaId}</p>
+        </div>
       )}
 
     </form>

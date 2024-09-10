@@ -8,6 +8,7 @@ sdk = mercadopago.SDK("APP_USR-7326986743119520-090914-8c171d7d35fe47dba8a546ad4
 @router.post("/create_preference")
 async def create_preference(request: Request):
     body = await request.json()
+
     preference_data = {
         "items": [
             {
@@ -17,7 +18,7 @@ async def create_preference(request: Request):
             }
         ],
         "back_urls": {
-            "success": "http://localhost:3000/success",
+            "success": "http://localhost:3000/",
             "failure": "http://localhost:3000/failure",
             "pending": "http://localhost:3000/pending"
         },
@@ -26,6 +27,11 @@ async def create_preference(request: Request):
     preference_response = sdk.preference().create(preference_data)
     preference = preference_response["response"]
     return {"id": preference["id"]}
+
+@router.get("/get_preference/{preference_id}")
+async def get_preference(preference_id: str):
+    preference = sdk.preference().get(preference_id)
+    return preference["response"]
 
 @router.post("/webhook")
 async def webhook(request: Request):
