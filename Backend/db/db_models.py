@@ -44,6 +44,7 @@ class Reservas(Base):
     barbero_id = Column(Integer, ForeignKey("barberos.id", ondelete="CASCADE"))
     horario_id = Column(Integer, ForeignKey("horarios.id", ondelete="CASCADE"))
 
+
    
 
    

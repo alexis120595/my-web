@@ -1,39 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import axios from 'axios';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
 
-const Reserva = () => {
-  const location = useLocation();
-  const [reserva, setReserva] = useState(null);
+const Reserva = ({ }) => {
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const reservaId = searchParams.get('reserva_id');
-
-    // Fetch reserva details using reservaId
-    axios.get(`http://127.0.0.1:8000/reservas/${reservaId}`)
-      .then(response => {
-        setReserva(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching reserva details:', error);
-      });
-  }, [location.search]);
-
-  if (!reserva) {
-    return <div>Loading...</div>;
-  }
+  const handleNavigateToDetalle = () => {
+    navigate(`/detalle`); // Navega a la vista de detalle con el ID de la reserva
+  };
 
   return (
     <div>
-      <h1>Reserva Exitosa</h1>
-      <p>Detalles de la Reserva:</p>
-      <ul>
-        <li>Servicio: {reserva.servicio}</li>
-        <li>Barbero: {reserva.barbero}</li>
-        <li>Fecha: {new Date(reserva.fecha).toLocaleDateString()}</li>
-        <li>Hora: {reserva.hora}</li>
-      </ul>
+      <h1>Reserva</h1>
+      <Button type="button" variant="contained" color="secondary" onClick={handleNavigateToDetalle}>
+        Ver Detalle de la Reserva
+      </Button>
     </div>
   );
 };
