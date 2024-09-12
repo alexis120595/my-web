@@ -44,7 +44,18 @@ class Reservas(Base):
     barbero_id = Column(Integer, ForeignKey("barberos.id", ondelete="CASCADE"))
     horario_id = Column(Integer, ForeignKey("horarios.id", ondelete="CASCADE"))
 
+class Registro (Base):
+    __tablename__ = "registro"
 
+    id = Column(Integer, primary_key=True, index=True)
+    nombre = Column(String, index=True)
+    apellido = Column(String, index=True)
+    email = Column(String, index=True)
+    password = Column(String, index=True)
+    telefono = Column(String, index=True)
+    dni = Column(String, index=True)
+    
+ 
    
 
    

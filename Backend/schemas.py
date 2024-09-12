@@ -41,6 +41,23 @@ class Reservas(BaseModel):
     barbero_id: int
     horario_id: int
 
+class Registro(BaseModel):
+    id: int
+    nombre: str
+    apellido: str
+    email: str
+    password: str
+    telefono: str
+    dni: str
+
+class RegistroCreate(BaseModel):
+    nombre: str
+    apellido: str
+    email: str
+    password: str
+    telefono: str
+    dni: str
+
 
 
     

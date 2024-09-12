@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-from Backend.router import servicios, barberos, horarios, reservas, mercado_pago
+from Backend.router import servicios, barberos, horarios, reservas, mercado_pago, registro, inicio_de_sesion
 from Backend.db.database import Base, engine
-from Backend.db.db_models import Servicio, Barbero, Horarios, Reservas
+from Backend.db.db_models import Servicio, Barbero, Horarios, Reservas, Registro
 import mercadopago
 
 sdk = mercadopago.SDK("APP_USR-7326986743119520-090914-8c171d7d35fe47dba8a546ad4601413f-1984732162")
@@ -27,6 +27,7 @@ app.include_router(barberos.router)
 app.include_router(horarios.router)
 app.include_router(reservas.router)
 app.include_router(mercado_pago.router)
+app.include_router(registro.router)
 
 
 
