@@ -58,6 +58,10 @@ class RegistroCreate(BaseModel):
     telefono: str
     dni: str
 
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
 
 
     

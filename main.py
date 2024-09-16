@@ -28,6 +28,7 @@ app.include_router(horarios.router)
 app.include_router(reservas.router)
 app.include_router(mercado_pago.router)
 app.include_router(registro.router)
+app.include_router(inicio_de_sesion.router)
 
 
 
