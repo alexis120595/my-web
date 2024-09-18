@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, Box } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import GoogleLogin1 from '../components/GoogleLogin1';
 
 const InicioDeSesion = () => {
   const [email, setEmail] = useState('');
@@ -56,6 +57,8 @@ const InicioDeSesion = () => {
             Iniciar Sesión
           </Button>
         </form>
+        
+          <GoogleLogin1 />
       </Box>
     </Container>
   );
