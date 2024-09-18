@@ -13,11 +13,11 @@ function App () {
     <div>
       <Routes>
         
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/reservas" element={<Reserva />} />
         <Route path="/detalle" element={<Detalle />} />
         <Route path="/registro" element={<Registro />} />
-        <Route path="/login" element={<InicioDeSesion />} />
+        <Route path="/" element={<InicioDeSesion />} />
         
         {/* Agrega más rutas según sea necesario */}
         
