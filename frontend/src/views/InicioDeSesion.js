@@ -17,7 +17,7 @@ const InicioDeSesion = () => {
       const response = await axios.post('http://127.0.0.1:8000/login', { email, password });
       setSuccess('Inicio de sesión exitoso');
       setError(null);
-      navigate('/');
+      navigate('/home');
     } catch (error) {
       setError('Error al iniciar sesión');
       setSuccess(null);

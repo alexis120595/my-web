@@ -62,6 +62,10 @@ class LoginRequest(BaseModel):
     email: str
     password: str
 
+class LoginRequestGoogle (BaseModel):
+    token: str
+    
+
 
 
     

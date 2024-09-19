@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-from Backend.router import servicios, barberos, horarios, reservas, mercado_pago, registro, inicio_de_sesion
+from Backend.router import servicios, barberos, horarios, reservas, mercado_pago, registro, inicio_de_sesion, inicio_de_sesion_google
 from Backend.db.database import Base, engine
 from Backend.db.db_models import Servicio, Barbero, Horarios, Reservas, Registro
 import mercadopago
@@ -29,6 +29,7 @@ app.include_router(reservas.router)
 app.include_router(mercado_pago.router)
 app.include_router(registro.router)
 app.include_router(inicio_de_sesion.router)
+app.include_router(inicio_de_sesion_google.router)
 
 
 
