@@ -4,6 +4,7 @@ import Reserva from './views/Reserva';
 import Detalle from './views/Detalle';
 import Registro from './views/Registro';
 import InicioDeSesion from './views/InicioDeSesion';
+import CrearServicio from './views/CrearServicio';
 import {  Route, Routes} from 'react-router-dom';
 
 
@@ -18,6 +19,7 @@ function App () {
         <Route path="/detalle" element={<Detalle />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/" element={<InicioDeSesion />} />
+        <Route path="/crear-servicio" element={<CrearServicio />} />
         
         {/* Agrega más rutas según sea necesario */}
         
