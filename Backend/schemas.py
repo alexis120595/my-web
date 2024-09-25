@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from datetime import date
 from typing import List
+from typing import Optional
 
 
 
@@ -64,7 +65,21 @@ class LoginRequest(BaseModel):
 
 class LoginRequestGoogle (BaseModel):
     token: str
-    
+
+class Empresa(BaseModel):
+    id: int
+    nombre: str
+    eslogan: str
+    rubro: str
+    ubicacion: str
+    imagen_url: Optional[str] = None
+
+class EmpresaCreate(BaseModel):
+    nombre: str
+    eslogan: str
+    rubro: str
+    ubicacion: str
+    imagen_url: Optional[str] = None
 
 
 

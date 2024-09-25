@@ -54,6 +54,16 @@ class Registro (Base):
     password = Column(String, index=True)
     telefono = Column(String, index=True)
     dni = Column(String, index=True)
+
+class Empresa(Base):
+    __tablename__ = 'empresa'
+
+    id = Column(Integer, primary_key=True, index=True)
+    nombre = Column(String, index=True)
+    eslogan = Column(String, index=True)
+    rubro = Column(String, index=True)
+    ubicacion = Column(String, index=True)
+    imagen_url = Column(String, index=True)     
     
  
    
