@@ -3,6 +3,7 @@ import Mapa from '../components/Mapa';
 import SubidaImagenes from '../components/SubidaImagenes';
 import { TextField, Button, Box, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import axios from 'axios';
+import HorariosEmpresa from '../components/HorariosEmpresa';
 
 const CrearServicio = () => {
   const [rubro, setRubro] = useState('');
@@ -10,6 +11,7 @@ const CrearServicio = () => {
   const [eslogan, setEslogan] = useState('');
   const [ubicacion, setUbicacion] = useState('');
   const [imagenUrl, setImagenUrl] = useState('');
+  const [horarios, setHorarios] = useState([]);
 
   const handleRubroChange = (event) => {
     setRubro(event.target.value);
@@ -19,15 +21,30 @@ const CrearServicio = () => {
     setImagenUrl(url);
   };
 
+  const handleHorariosChange = (newHorarios) => {
+    setHorarios(newHorarios);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // Convertir el array de horarios a un objeto JSON
+    const horariosJson = horarios.reduce((acc, horario) => {
+      acc[horario.dia] = horario.horarios;
+      return acc;
+    }, {});
+
+  
     const formData = {
       nombre: nombre,
       eslogan: eslogan,
       rubro: rubro,
       ubicacion: ubicacion,
-      imagen_url: imagenUrl
+      imagen_url: imagenUrl,
+      horarios: horariosJson,
     };
+
+    console.log('Form Data:', formData); 
 
     try {
       const response = await axios.post('http://localhost:8000/empresa', formData);
@@ -86,9 +103,11 @@ const CrearServicio = () => {
         </Box>
         <Mapa />
         <SubidaImagenes onImageUpload={handleImageUpload} />
+        <HorariosEmpresa onHorariosChange={handleHorariosChange} />
+       
         <Box mt={2}>
           <Button variant="contained" color="primary" type="submit">
-            Enviar
+            Crear
           </Button>
         </Box>
       </form>

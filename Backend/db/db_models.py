@@ -1,5 +1,5 @@
 from Backend.db.database import Base
-from sqlalchemy import Column, Integer, String, Boolean, Date
+from sqlalchemy import Column, Integer, String, Boolean, Date, JSON
 from sqlalchemy.schema import ForeignKey
 from sqlalchemy.orm import relationship
 
@@ -63,7 +63,14 @@ class Empresa(Base):
     eslogan = Column(String, index=True)
     rubro = Column(String, index=True)
     ubicacion = Column(String, index=True)
-    imagen_url = Column(String, index=True)     
+    imagen_url = Column(String, index=True)  
+    horarios = Column(JSON)
+    
+
+
+
+ 
+    
     
  
    

@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from datetime import date
 from typing import List
 from typing import Optional
+from typing import Dict
 
 
 
@@ -73,6 +74,8 @@ class Empresa(BaseModel):
     rubro: str
     ubicacion: str
     imagen_url: Optional[str] = None
+    horarios: Optional[Dict] = None 
+    
 
 class EmpresaCreate(BaseModel):
     nombre: str
@@ -80,6 +83,13 @@ class EmpresaCreate(BaseModel):
     rubro: str
     ubicacion: str
     imagen_url: Optional[str] = None
+    horarios: Optional[Dict] = None
+
+
+
+
+
+    
 
 
 

@@ -19,9 +19,18 @@ def crear_empresa(empresa: EmpresaCreate, db: Session = Depends(get_db)):
         eslogan=empresa.eslogan,
         rubro=empresa.rubro,
         ubicacion=empresa.ubicacion,
-        imagen_url=imagen_url
+        imagen_url=imagen_url,
+        horarios=empresa.horarios
+        
     )
     db.add(nueva_empresa)
     db.commit()
     db.refresh(nueva_empresa)
     return nueva_empresa
+
+@router.get("/empresa/{empresa_id}", response_model=Empresa)
+def obtener_empresa(empresa_id: int, db: Session = Depends(get_db)):
+    empresa = db.query(db_models.Empresa).filter(db_models.Empresa.id == empresa_id).first()
+    if empresa is None:
+        raise HTTPException(status_code=404, detail="La empresa no existe")
+    return empresa
