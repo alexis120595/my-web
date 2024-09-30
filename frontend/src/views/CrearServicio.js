@@ -4,6 +4,7 @@ import SubidaImagenes from '../components/SubidaImagenes';
 import { TextField, Button, Box, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import axios from 'axios';
 import HorariosEmpresa from '../components/HorariosEmpresa';
+import { useNavigate } from 'react-router-dom';
 
 const CrearServicio = () => {
   const [rubro, setRubro] = useState('');
@@ -12,6 +13,7 @@ const CrearServicio = () => {
   const [ubicacion, setUbicacion] = useState('');
   const [imagenUrl, setImagenUrl] = useState('');
   const [horarios, setHorarios] = useState([]);
+  const navigate = useNavigate();
 
   const handleRubroChange = (event) => {
     setRubro(event.target.value);
@@ -49,6 +51,7 @@ const CrearServicio = () => {
     try {
       const response = await axios.post('http://localhost:8000/empresa', formData);
       console.log('Response:', response.data);
+      navigate('/mi-empresa');
     } catch (error) {
       console.error('Error:', error);
     }

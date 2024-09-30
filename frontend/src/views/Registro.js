@@ -39,29 +39,12 @@ const Registro = () => {
     <Container maxWidth="sm">
       <Box sx={{ mt: 5 }}>
         <Typography variant="h4" component="h1" gutterBottom>
-          Registro de Usuario
+          Registrarme
         </Typography>
         <form onSubmit={handleSubmit}>
+      
           <TextField
-            label="Nombre"
-            name="nombre"
-            value={form.nombre}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            required
-          />
-          <TextField
-            label="Apellido"
-            name="apellido"
-            value={form.apellido}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            required
-          />
-          <TextField
-            label="Email"
+            label="ingresar email"
             name="email"
             type="email"
             value={form.email}
@@ -71,7 +54,7 @@ const Registro = () => {
             required
           />
           <TextField
-            label="Contraseña"
+            label="ingresar contraseña"
             name="password"
             type="password"
             value={form.password}
@@ -80,28 +63,21 @@ const Registro = () => {
             margin="normal"
             required
           />
-          <TextField
-            label="Teléfono"
-            name="telefono"
-            value={form.telefono}
+           <TextField
+            label="repetir contraseña"
+            name="password"
+            type="password"
+            value={form.password}
             onChange={handleChange}
             fullWidth
             margin="normal"
             required
           />
-          <TextField
-            label="DNI"
-            name="dni"
-            value={form.dni}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            required
-          />
+       
           {error && <Typography color="error">{error}</Typography>}
           {success && <Typography color="primary">{success}</Typography>}
           <Button type="submit" variant="contained" color="primary" onClick={handleSubmit} fullWidth sx={{ mt: 2 }}>
-            Registrar
+            Registrarme
           </Button>
         </form>
       </Box>

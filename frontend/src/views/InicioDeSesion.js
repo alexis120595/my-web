@@ -3,6 +3,7 @@ import { TextField, Button, Container, Typography, Box } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import GoogleLogin1 from '../components/GoogleLogin1';
+import { Link } from 'react-router-dom';
 
 const InicioDeSesion = () => {
   const [email, setEmail] = useState('');
@@ -17,7 +18,7 @@ const InicioDeSesion = () => {
       const response = await axios.post('http://127.0.0.1:8000/login', { email, password });
       setSuccess('Inicio de sesión exitoso');
       setError(null);
-      navigate('/home');
+      navigate('/opciones');
     } catch (error) {
       setError('Error al iniciar sesión');
       setSuccess(null);
@@ -28,11 +29,11 @@ const InicioDeSesion = () => {
     <Container maxWidth="sm">
       <Box sx={{ mt: 5 }}>
         <Typography variant="h4" component="h1" gutterBottom>
-          Inicio de Sesión
+          Ingresar a mi cuenta
         </Typography>
         <form onSubmit={handleSubmit}>
           <TextField
-            label="Email"
+            label="ingresar email"
             name="email"
             type="email"
             value={email}
@@ -42,7 +43,7 @@ const InicioDeSesion = () => {
             required
           />
           <TextField
-            label="Contraseña"
+            label="ingresar contraseña"
             name="password"
             type="password"
             value={password}
@@ -59,6 +60,9 @@ const InicioDeSesion = () => {
         </form>
         
           <GoogleLogin1 />
+          <Button component={Link} to="/registro" variant="outlined" color="secondary" fullWidth sx={{ mt: 2 }}>
+            Registrarse
+          </Button>
       </Box>
     </Container>
   );

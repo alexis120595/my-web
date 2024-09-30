@@ -5,8 +5,19 @@ import Detalle from './views/Detalle';
 import Registro from './views/Registro';
 import InicioDeSesion from './views/InicioDeSesion';
 import CrearServicio from './views/CrearServicio';
+import Opciones from './views/Opciones';
 import {  Route, Routes} from 'react-router-dom';
-
+import BuscarEmpresa from './views/BuscarEmpresa';
+import MiEmpresa from './views/MiEmpresa';
+import AgendaEmpresa from './views/AgendaEmpresa';
+import ServiciosDisponibles from './views/ServiciosDisponibles';
+import CrearServicio1 from './views/CrearServicio1';
+import Personal from './views/Personal';
+import CrearEmpleado from './views/CrearEmpleado';
+import Clientes from './views/Clientes';
+import Sucursales from './views/Sucursales';
+import CrearSucursal from './views/CrearSucursal';
+import AjustesEmpresa from './views/AjustesEmpresa';
 
 function App () {
   return (
@@ -20,6 +31,20 @@ function App () {
         <Route path="/registro" element={<Registro />} />
         <Route path="/" element={<InicioDeSesion />} />
         <Route path="/crear-servicio" element={<CrearServicio />} />
+        <Route path="/opciones" element={<Opciones/>} />
+        <Route path="/buscar-empresa" element={<BuscarEmpresa />} />
+        <Route path="/mi-empresa" element={<MiEmpresa/>} />
+        <Route path="/agenda-empresa" element={<AgendaEmpresa/>} />
+        <Route path="/servicios-disponibles" element={<ServiciosDisponibles/>} />
+        <Route path="/crear-servicio1" element={<CrearServicio1/>} />
+        <Route path="/personal" element={<Personal/>} />
+        <Route path="/crear-empleado" element={<CrearEmpleado/>} />
+        <Route path="/clientes" element={<Clientes/>} />
+        <Route path="/sucursales" element={<Sucursales/>} />
+        <Route path="/crear-sucursal" element={<CrearSucursal/>} />
+        <Route path="/ajustes-empresa" element={<AjustesEmpresa/>} />
+       
+      
         
         {/* Agrega más rutas según sea necesario */}
         
