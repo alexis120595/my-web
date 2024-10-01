@@ -9,7 +9,9 @@ from typing import Dict
 class Servicio(BaseModel):
     id: int
     nombre: str
+    sucursal_id: int
     barberos: List["Barbero"] = []
+   
     
 
 
@@ -67,6 +69,13 @@ class LoginRequest(BaseModel):
 class LoginRequestGoogle (BaseModel):
     token: str
 
+class Sucursal(BaseModel):
+    id: int
+    nombre: str
+    ubicacion: str
+    empresa_id: int
+    
+
 class Empresa(BaseModel):
     id: int
     nombre: str
@@ -75,6 +84,7 @@ class Empresa(BaseModel):
     ubicacion: str
     imagen_url: Optional[str] = None
     horarios: Optional[Dict] = None 
+    sucursales: List[Sucursal] = []
     
 
 class EmpresaCreate(BaseModel):
@@ -86,6 +96,11 @@ class EmpresaCreate(BaseModel):
     horarios: Optional[Dict] = None
 
 
+
+class SucursalCreate(BaseModel):
+    nombre: str
+    ubicacion: str
+    empresa_id: int
 
 
 

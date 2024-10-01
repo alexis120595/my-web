@@ -9,7 +9,7 @@ const  CrearSucursal = () => {
   useEffect(() => {
     const fetchServicios = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/servicios');
+        const response = await axios.post('http://localhost:8000/servicios');
         setServicios(response.data);
       } catch (error) {
         console.error('Error fetching servicios:', error);

@@ -3,7 +3,26 @@ from sqlalchemy import Column, Integer, String, Boolean, Date, JSON
 from sqlalchemy.schema import ForeignKey
 from sqlalchemy.orm import relationship
 
+class Empresa(Base):
+    __tablename__ = 'empresa'
 
+    id = Column(Integer, primary_key=True, index=True)
+    nombre = Column(String, index=True)
+    eslogan = Column(String, index=True)
+    rubro = Column(String, index=True)
+    ubicacion = Column(String, index=True)
+    imagen_url = Column(String, index=True)  
+    horarios = Column(JSON)
+    sucursales = relationship('Sucursal', backref='empresa', cascade='delete, merge')
+
+class Sucursal(Base):
+    __tablename__ = 'sucursal'
+
+    id = Column(Integer, primary_key=True, index=True)
+    nombre = Column(String, index=True)
+    ubicacion = Column(String, index=True)
+    empresa_id = Column(Integer, ForeignKey('empresa.id', ondelete='CASCADE'))
+    servicios = relationship('Servicio', backref='sucursal', cascade='delete, merge')
 
 class Servicio(Base):
 
@@ -11,6 +30,7 @@ class Servicio(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String, index=True)
+    sucursal_id = Column(Integer, ForeignKey('sucursal.id', ondelete='CASCADE'))
     barberos = relationship("Barbero", backref="servicios", cascade="delete, merge")
 
 
@@ -55,16 +75,7 @@ class Registro (Base):
     telefono = Column(String, index=True)
     dni = Column(String, index=True)
 
-class Empresa(Base):
-    __tablename__ = 'empresa'
 
-    id = Column(Integer, primary_key=True, index=True)
-    nombre = Column(String, index=True)
-    eslogan = Column(String, index=True)
-    rubro = Column(String, index=True)
-    ubicacion = Column(String, index=True)
-    imagen_url = Column(String, index=True)  
-    horarios = Column(JSON)
     
 
 

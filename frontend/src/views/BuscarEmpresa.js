@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Container, Box, TextField, Typography, List, ListItem, ListItemText, InputAdornment, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -6,34 +7,32 @@ const BuscarEmpresa = () => {
   const [busqueda, setBusqueda] = useState('');
   const [resultados, setResultados] = useState([]);
 
-  const empresas = [
-    { id: 1, nombre: 'Empresa 1' },
-    { id: 2, nombre: 'Empresa 2' },
-    { id: 3, nombre: 'Empresa 3' },
-    // Agrega más empresas según sea necesario
-  ];
-
-  const handleBuscar = () => {
-    const resultadosFiltrados = empresas.filter(empresa =>
-      empresa.nombre.toLowerCase().includes(busqueda.toLowerCase())
-    );
-    setResultados(resultadosFiltrados);
+  const handleBuscar = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/empresa', {
+        params: {
+          nombre: busqueda
+        }
+      });
+      setResultados([response.data]);
+    } catch (error) {
+      console.error("Error al buscar la empresa:", error);
+      setResultados([]);
+    }
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box mt={5} textAlign="center">
-        <Typography variant="h4" gutterBottom>
+    <Container>
+      <Box my={4}>
+        <Typography variant="h4" component="h1" gutterBottom>
           Buscar Empresa
         </Typography>
-        <p>Si conoces una empresa o negocio realiza la busqueda</p>
         <TextField
-          label="Ingresa nombre o direccion"
+          label="Buscar Empresa"
           variant="outlined"
           fullWidth
           value={busqueda}
           onChange={(e) => setBusqueda(e.target.value)}
-          sx={{ mt: 2 }}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -44,10 +43,10 @@ const BuscarEmpresa = () => {
             ),
           }}
         />
-        <List sx={{ mt: 2 }}>
+        <List>
           {resultados.map((empresa) => (
             <ListItem key={empresa.id}>
-              <ListItemText primary={empresa.nombre} />
+              <ListItemText primary={empresa.nombre} secondary={empresa.eslogan} />
             </ListItem>
           ))}
         </List>

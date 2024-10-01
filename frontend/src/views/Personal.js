@@ -4,20 +4,20 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const   Personal = () => {
-  const [servicios, setServicios] = useState([]);
+  const [barberos, setBarberos] = useState([]);
     const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchServicios = async () => {
+    const fetchBarberos = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/servicios');
-        setServicios(response.data);
+        const response = await axios.get('http://localhost:8000/barberos');
+        setBarberos(response.data);
       } catch (error) {
-        console.error('Error fetching servicios:', error);
+        console.error('Error fetching barberos:', error);
       }
     };
 
-    fetchServicios();
+    fetchBarberos();
   }, []);
 
   const handleAddEmpleadoClick = () => {
@@ -31,9 +31,9 @@ const   Personal = () => {
           Personal
         </Typography>
         <List>
-          {servicios.map((servicio) => (
-            <ListItem key={servicio.id}>
-              <ListItemText primary={servicio.nombre} secondary={servicio.descripcion} />
+          {barberos.map((barberos) => (
+            <ListItem key={barberos.id}>
+              <ListItemText primary={barberos.nombre} />
             </ListItem>
           ))}
         </List>

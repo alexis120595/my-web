@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from Backend.schemas import Empresa, EmpresaCreate
 from Backend.db import db_models
@@ -31,6 +31,13 @@ def crear_empresa(empresa: EmpresaCreate, db: Session = Depends(get_db)):
 @router.get("/empresa/{empresa_id}", response_model=Empresa)
 def obtener_empresa(empresa_id: int, db: Session = Depends(get_db)):
     empresa = db.query(db_models.Empresa).filter(db_models.Empresa.id == empresa_id).first()
+    if empresa is None:
+        raise HTTPException(status_code=404, detail="La empresa no existe")
+    return empresa
+
+@router.get("/empresa", response_model=Empresa)
+def buscar_empresa_por_nombre(nombre: str = Query(..., description="Nombre de la empresa"), db: Session = Depends(get_db)):
+    empresa = db.query(db_models.Empresa).filter(db_models.Empresa.nombre == nombre).first()
     if empresa is None:
         raise HTTPException(status_code=404, detail="La empresa no existe")
     return empresa

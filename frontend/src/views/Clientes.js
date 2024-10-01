@@ -1,29 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Box, Typography, List, ListItem, ListItemText, Button } from '@mui/material';
+import { Container, Box, Typography, List, ListItem, ListItemText} from '@mui/material';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 
 const Clientes = () => {
-  const [servicios, setServicios] = useState([]);
-    const navigate = useNavigate();
+  const [registro, setRegistro] = useState([]);
+    
 
   useEffect(() => {
-    const fetchServicios = async () => {
+    const fetchRegistro = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/servicios');
-        setServicios(response.data);
+        const response = await axios.get('http://localhost:8000/registro');
+        setRegistro(response.data);
       } catch (error) {
-        console.error('Error fetching servicios:', error);
+        console.error('Error fetching registro:', error);
       }
     };
 
-    fetchServicios();
+    fetchRegistro();
   }, []);
 
-  const handleAddEmpleadoClick = () => {
-    navigate('/crear-empleado');
-  };
+
 
   return (
     <Container maxWidth="sm">
@@ -32,21 +29,13 @@ const Clientes = () => {
           Clientes
         </Typography>
         <List>
-          {servicios.map((servicio) => (
-            <ListItem key={servicio.id}>
-              <ListItemText primary={servicio.nombre} secondary={servicio.descripcion} />
+          {registro.map((registro) => (
+            <ListItem key={registro.id}>
+              <ListItemText primary={registro.nombre} />
             </ListItem>
           ))}
         </List>
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          sx={{ mt: 2 }}
-          onClick={handleAddEmpleadoClick}
-        >
-          Añadir Personal
-        </Button>
+   
       </Box>
     </Container>
   );

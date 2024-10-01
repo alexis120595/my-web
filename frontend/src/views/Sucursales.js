@@ -4,20 +4,20 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const   Sucursales = () => {
-  const [servicios, setServicios] = useState([]);
+  const [sucursales, setSucursales] = useState([]);
     const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchServicios = async () => {
+    const fetchSucursales = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/servicios');
-        setServicios(response.data);
+        const response = await axios.get('http://localhost:8000/sucursales');
+        setSucursales(response.data);
       } catch (error) {
         console.error('Error fetching servicios:', error);
       }
     };
 
-    fetchServicios();
+    fetchSucursales();
   }, []);
 
   const handleAddSucursalClick = () => {
@@ -31,9 +31,9 @@ const   Sucursales = () => {
           Sucursales
         </Typography>
         <List>
-          {servicios.map((servicio) => (
-            <ListItem key={servicio.id}>
-              <ListItemText primary={servicio.nombre} secondary={servicio.descripcion} />
+          {sucursales.map((sucursales) => (
+            <ListItem key={sucursales.id}>
+              <ListItemText primary={sucursales.nombre}  />
             </ListItem>
           ))}
         </List>
