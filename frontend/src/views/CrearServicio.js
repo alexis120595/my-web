@@ -51,6 +51,10 @@ const CrearServicio = () => {
     try {
       const response = await axios.post('http://localhost:8000/empresa', formData);
       console.log('Response:', response.data);
+
+      const { nombre: empresaNombre } = response.data;
+      console.log('Nombre de la empresa almacenado:', empresaNombre);
+      localStorage.setItem('empresaNombre', empresaNombre);
       navigate('/mi-empresa');
     } catch (error) {
       console.error('Error:', error);

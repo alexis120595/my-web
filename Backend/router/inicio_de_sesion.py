@@ -11,4 +11,4 @@ async def login(request: LoginRequest, db: Session = Depends(get_db)):
     user = db.query(db_models.Registro).filter(db_models.Registro.email == request.email).first()
     if not user or user.password != request.password:
         raise HTTPException(status_code=401, detail="Invalid email or password")
-    return {"message": "Login successful", "user_id": user.id}
+    return {"message": "Login successful", "email": user.email }

@@ -1,9 +1,18 @@
-import React from 'react';
-import { Container, Box, Button } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Container, Box, Button  } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const MiEmpresa = () => {
+  const [empresaNombre, setEmpresaNombre] = useState(null);
     const navigate = useNavigate();
+
+    useEffect(() => {
+      const nombre = localStorage.getItem('empresaNombre');
+      console.log('Nombre de la empresa recuperado:',nombre);
+      if (nombre) {
+        setEmpresaNombre(nombre);
+      }
+    }, []);
 
     const handleAgendaClick = () => {
         navigate('/agenda-empresa');
@@ -29,6 +38,8 @@ const MiEmpresa = () => {
   return (
     <Container maxWidth="sm">
         <h1>Mi Empresa</h1>
+        {empresaNombre && <h2>{empresaNombre}</h2>}
+      
       <Box mt={5} textAlign="center">
         <Button variant="contained" color="primary" fullWidth sx={{ mt: 2 }} onClick={handleAgendaClick}>
           Agenda

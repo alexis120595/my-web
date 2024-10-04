@@ -18,14 +18,17 @@ import Clientes from './views/Clientes';
 import Sucursales from './views/Sucursales';
 import CrearSucursal from './views/CrearSucursal';
 import AjustesEmpresa from './views/AjustesEmpresa';
+import CrearHorarios from './views/CrearHorarios';
+import Header from './components/Header';
 
 function App () {
   return (
     
     <div>
+      <Header />
       <Routes>
-        
-        <Route path="/home" element={<Home />} />
+      
+        <Route path="/home/:empresaId" element={<Home />} />
         <Route path="/reservas" element={<Reserva />} />
         <Route path="/detalle" element={<Detalle />} />
         <Route path="/registro" element={<Registro />} />
@@ -43,6 +46,8 @@ function App () {
         <Route path="/sucursales" element={<Sucursales/>} />
         <Route path="/crear-sucursal" element={<CrearSucursal/>} />
         <Route path="/ajustes-empresa" element={<AjustesEmpresa/>} />
+        <Route path="/crear-horarios" element={<CrearHorarios/>} />
+      
        
       
         

@@ -9,6 +9,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
 }
 
 code {
@@ -17,18 +18,3 @@ code {
 }
 
 
-/* App.css */
-.background {
-  background-image: url('./assets/dollar.jpg'); /* Ruta relativa a la imagen */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 100vh; /* Asegura que cubra toda la altura de la pantalla */
-}
-
-/* index.css o App.css */
-.search-bar {
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-}

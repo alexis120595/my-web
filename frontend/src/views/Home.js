@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {  MenuItem, Select, FormControl, InputLabel, Button } from '@mui/material';
+import {  MenuItem, ListItemIcon, ListItemText, Button, Typography, Box, Dialog, DialogTitle, DialogContent, DialogActions} from '@mui/material';
 import Calendario from '../components/Calendario';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
+import { useParams } from 'react-router-dom';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import FaceIcon from '@mui/icons-material/Face';
+import BarberoCard from '../components/BarberoCard'
 
 
 
 
 const Home = () => {
+  
+  const { Id } = useParams();
   const [servicios, setServicios] = useState([]);
   const [barberos, setBarberos] = useState([]);
   const [horarios, setHorarios] = useState([]);
@@ -16,10 +23,31 @@ const Home = () => {
   const [selectedHorario, setSelectedHorario] = useState('');
   const [selectedDate, setSelectedDate] = useState(null);
   const [preferenceId, setPreferenceId] = useState(null);
- 
+  const [openHorarioDialog, setOpenHorarioDialog] = useState(false);
+  const [openServicioDialog, setOpenServicioDialog] = useState(false);
+  const [openBarberoDialog, setOpenBarberoDialog] = useState(false);
+
   initMercadoPago('APP_USR-b9c96612-c5c7-4108-9960-746706eafd35');
 
   useEffect(() => {
+    const fetchServicios = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/empresa/${Id}/servicios`);
+        setServicios(response.data);
+      } catch (error) {
+        console.error('Error fetching servicios:', error);
+      }
+    };
+
+    if (Id) {
+      fetchServicios();
+    }
+  }, [Id]);
+
+
+  useEffect(() => {
+
+    
     // Solicitud para obtener los servicios
     axios.get('http://127.0.0.1:8000/servicios')
       .then(response => {
@@ -47,6 +75,8 @@ const Home = () => {
         console.error('Error fetching horarios:', error);
       });
   }, []);
+
+
 
   useEffect(() => {
     if (selectedServicio) {
@@ -128,69 +158,191 @@ const Home = () => {
     }
   };
 
+  const handleOpenHorarioDialog = () => {
+    setOpenHorarioDialog(true);
+  };
+
+  const handleCloseHorarioDialog = () => {
+    setOpenHorarioDialog(false);
+  };
+
+  const handleSelectHorario = (horarioId) => {
+    setSelectedHorario(horarioId);
+    handleCloseHorarioDialog();
+  };
+
+  const handleOpenServicioDialog = () => {
+    setOpenServicioDialog(true);
+  };
+
+  const handleCloseServicioDialog = () => {
+    setOpenServicioDialog(false);
+  };
+
+  const handleSelectServicio = (servicioId) => {
+    setSelectedServicio(servicioId);
+    handleCloseServicioDialog();
+  };
+
+  const handleOpenBarberoDialog = () => {
+    setOpenBarberoDialog(true);
+  };
+
+  const handleCloseBarberoDialog = () => {
+    setOpenBarberoDialog(false);
+  };
+
+  const handleSelectBarbero = (barberoId) => {
+    setSelectedBarbero(barberoId);
+    handleCloseBarberoDialog();
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Servicios</h1>
-      <FormControl fullWidth margin="normal">
-        <InputLabel id="servicio-label">Servicio</InputLabel>
-        <Select
-          labelId="servicio-label"
-          value={selectedServicio}
-          onChange={(e) => setSelectedServicio(e.target.value)}
-        >
-          {servicios.map(servicio => (
-            <MenuItem key={servicio.id} value={servicio.id}>
-              {servicio.nombre}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+    <>
+    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 2 }}>
+        <Typography variant="h4" component="h1" gutterBottom>
+          Reservar turno
+        </Typography>
+      </Box>
 
-      <h1>Barberos</h1>
-      <FormControl fullWidth margin="normal">
-        <InputLabel id="barbero-label">Barbero</InputLabel>
-        <Select
-          labelId="barbero-label"
-          value={selectedBarbero}
-          onChange={(e) => setSelectedBarbero(e.target.value)}
-        >
-          {barberos.map(barbero => (
-            <MenuItem key={barbero.id} value={barbero.id}>
-              {barbero.nombre} {barbero.apellido}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+    <form onSubmit={handleSubmit}  style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+    
+    <Button variant="outlined" onClick={handleOpenServicioDialog}  startIcon={<NotificationsIcon />} sx={{ mt: 2,  borderRadius: '20px', // Bordes redondeados
+    borderColor: 'black', // Color del borde negro
+    color: 'black', // Color del texto negro
+    width: '300px', // Ancho del botón
+    height: '55px', // Alto del botón
+    '&:hover': {
+      borderColor: 'black', // Mantener el color del borde negro al pasar el cursor
+      backgroundColor: 'rgba(0, 0, 0, 0.1)', // Fondo ligeramente oscuro al pasar el cursor
+    },
+  }} >
+          
+          {selectedServicio
+            ? ` ${servicios.find(servicio => servicio.id === selectedServicio)?.nombre}`
+            : 'Seleccionar Servicio'}
+        </Button>
+       
 
-      <h1>Horarios</h1>
-      <FormControl fullWidth margin="normal">
-        <InputLabel id="horario-label">Horario</InputLabel>
-        <Select
-          labelId="horario-label"
-          value={selectedHorario}
-          onChange={(e) => setSelectedHorario(e.target.value)}
-        >
-          {horarios.map(horario => (
-            <MenuItem key={horario.id} value={horario.id}>
-              {horario.hora} {horario.estado ? 'Disponible' : 'No disponible'}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+        <Dialog open={openServicioDialog} onClose={handleCloseServicioDialog}>
+          <DialogTitle>Seleccionar Servicio</DialogTitle>
+          <DialogContent>
+            {Array.isArray(servicios) && servicios.map(servicio => (
+              <MenuItem key={servicio.id} value={servicio.id}
+                onClick={() => handleSelectServicio(servicio.id)}
+                sx={{
+                  border: '1px solid black',
+                  borderRadius: '20px',
+                  margin: '5px 0',
+                  '&:hover': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                  },
+                }}
+              >
+             {servicio.nombre}
+              </MenuItem>
+            ))}
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseServicioDialog} color="primary">
+              Cancelar
+            </Button>
+          </DialogActions>
+        </Dialog>
 
-      <h1>Calendario</h1>
-      <Calendario selectedDate={selectedDate} setSelectedDate={setSelectedDate} /> {/* Renderiza el componente Calendario */}
+       
+        <Button variant="outlined" onClick={handleOpenBarberoDialog}  startIcon={<FaceIcon />} sx={{ mt: 2,  borderRadius: '20px', // Bordes redondeados
+    borderColor: 'black', // Color del borde negro
+    color: 'black', // Color del texto negro
+    width: '300px', // Ancho del botón
+    height: '55px', // Alto del botón
+    '&:hover': {
+      borderColor: 'black', // Mantener el color del borde negro al pasar el cursor
+      backgroundColor: 'rgba(0, 0, 0, 0.1)', // Fondo ligeramente oscuro al pasar el cursor
+    },
+   }}>
+            {selectedBarbero
+    ? `${barberos.find(barbero => barbero.id === selectedBarbero)?.nombre} ${barberos.find(barbero => barbero.id === selectedBarbero)?.apellido}`
+    : 'Seleccionar Barbero'}
+        </Button>
+       
+      
+        <Dialog open={openBarberoDialog} onClose={handleCloseBarberoDialog}>
+          <DialogTitle>Seleccionar Barbero</DialogTitle>
+          <DialogContent>
+            {barberos.map(barbero => (
+              <MenuItem key={barbero.id} value={barbero.id}
+                onClick={() => handleSelectBarbero(barbero.id)}
+              
+              >
+                 
+                <BarberoCard barbero={barbero} />
+              </MenuItem>
+            ))}
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseBarberoDialog} color="primary">
+              Cancelar
+            </Button>
+          </DialogActions>
+        </Dialog>
 
-      <Button type="submit" variant="contained" color="primary" onClick={handleCreatePreference}>Enviar</Button>
+      
+      <Button variant="outlined" onClick={handleOpenHorarioDialog }  startIcon={<AccessTimeIcon />} sx={{ mt: 2,  borderRadius: '20px', // Bordes redondeados
+    borderColor: 'black', // Color del borde negro
+    color: 'black', // Color del texto negro
+    width: '300px', // Ancho del botón
+    height: '55px', // Alto del botón
+    '&:hover': {
+      borderColor: 'black', // Mantener el color del borde negro al pasar el cursor
+      backgroundColor: 'rgba(0, 0, 0, 0.1)', // Fondo ligeramente oscuro al pasar el cursor
+    },
+   }}>
+           {selectedHorario
+    ? `${horarios.find(horario => horario.id === selectedHorario)?.hora}`
+    : 'Seleccionar Horario'}
+        </Button>
+        
+
+        <Dialog open={openHorarioDialog} onClose={handleCloseHorarioDialog}>
+          <DialogTitle>Seleccionar Horario</DialogTitle>
+          <DialogContent>
+            {horarios.map(horario => (
+              <MenuItem key={horario.id} value={horario.id}
+                onClick={() => handleSelectHorario(horario.id)}
+                sx={{
+                  border: '1px solid black',
+                  borderRadius: '10px',
+                  margin: '5px 0',
+                  '&:hover': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                  },
+                }}
+              >
+                {horario.hora} {horario.estado ? 'Disponible' : 'No disponible'}
+              </MenuItem>
+            ))}
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseHorarioDialog} color="primary">
+              Cancelar
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+     
+     
+        <Calendario selectedDate={selectedDate} setSelectedDate={setSelectedDate}   />
+      
+
+      <Button type="submit" variant="contained" color="primary" onClick={handleCreatePreference}  sx={{ width: '300px', mt: 4 }}>Reservar</Button>
       
       {preferenceId && (
         <Wallet initialization={{ preferenceId }} />
       )}
 
-  
-
     </form>
+    </>
   );
 };
 

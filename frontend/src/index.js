@@ -5,6 +5,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { UserProvider } from './context/UserContext';
 
 
 
@@ -12,9 +13,12 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
   <BrowserRouter>
-   <GoogleOAuthProvider clientId="">.
+   <GoogleOAuthProvider clientId="">
+    <UserProvider>
     
       <App />
+
+    </UserProvider>
     </GoogleOAuthProvider>
   </BrowserRouter>
 );

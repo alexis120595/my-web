@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from Backend.schemas import Servicio
+from Backend.schemas import Servicio, ServicioCreate
 from sqlalchemy.orm import Session
 from Backend.db import db_models
 from Backend.db.database import get_db
@@ -8,8 +8,8 @@ from Backend.db.database import get_db
 router = APIRouter()
 
 @router.post("/servicios")
-def create_servicio(servicio: Servicio, db: Session = Depends(get_db)):
-    db_servicio = db_models.Servicio(nombre=servicio.nombre, sucursal_id=servicio.sucursal_id)
+def create_servicio(servicio: ServicioCreate, db: Session = Depends(get_db)):
+    db_servicio = db_models.Servicio(nombre=servicio.nombre, empresa_id=servicio.empresa_id)
     db.add(db_servicio)
     db.commit()
     db.refresh(db_servicio)
@@ -31,6 +31,7 @@ def get_servicio_barberos(servicio_id: int, db: Session = Depends(get_db)):
     servicio_with_barberos = {
         "id": servicio.id,
         "nombre": servicio.nombre,
+        "empresa_id": servicio.empresa_id,
         "barberos": servicio.barberos
     }
     return servicio_with_barberos

@@ -13,16 +13,10 @@ class Empresa(Base):
     ubicacion = Column(String, index=True)
     imagen_url = Column(String, index=True)  
     horarios = Column(JSON)
-    sucursales = relationship('Sucursal', backref='empresa', cascade='delete, merge')
+    servicios = relationship('Servicio', backref='empresa', cascade='delete, merge')
+    barberos = relationship('Barbero', backref='empresa', cascade='delete, merge')
+    
 
-class Sucursal(Base):
-    __tablename__ = 'sucursal'
-
-    id = Column(Integer, primary_key=True, index=True)
-    nombre = Column(String, index=True)
-    ubicacion = Column(String, index=True)
-    empresa_id = Column(Integer, ForeignKey('empresa.id', ondelete='CASCADE'))
-    servicios = relationship('Servicio', backref='sucursal', cascade='delete, merge')
 
 class Servicio(Base):
 
@@ -30,7 +24,7 @@ class Servicio(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String, index=True)
-    sucursal_id = Column(Integer, ForeignKey('sucursal.id', ondelete='CASCADE'))
+    empresa_id = Column(Integer, ForeignKey('empresa.id', ondelete='CASCADE'))
     barberos = relationship("Barbero", backref="servicios", cascade="delete, merge")
 
 
@@ -43,6 +37,7 @@ class Barbero(Base):
     nombre = Column(String, index=True)
     apellido = Column(String, index=True)
     servicios_id = Column(Integer, ForeignKey("servicios.id", ondelete="CASCADE"))
+    empresa_id = Column(Integer, ForeignKey('empresa.id', ondelete='CASCADE'))
     horarios = relationship("Horarios", backref="barberos", cascade="delete, merge")
 
 class Horarios(Base):
@@ -53,6 +48,7 @@ class Horarios(Base):
     hora = Column(String, index=True)
     estado = Column(Boolean, default=True, index=True)
     barbero_id = Column(Integer, ForeignKey("barberos.id", ondelete="CASCADE"))
+    empresa_id = Column(Integer, ForeignKey('empresa.id', ondelete='CASCADE'))
 
 class Reservas(Base):
 

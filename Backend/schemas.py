@@ -9,8 +9,12 @@ from typing import Dict
 class Servicio(BaseModel):
     id: int
     nombre: str
-    sucursal_id: int
+    empresa_id: int
     barberos: List["Barbero"] = []
+
+class ServicioCreate(BaseModel):
+    nombre: str
+    empresa_id: int
    
     
 
@@ -20,6 +24,13 @@ class Barbero(BaseModel):
     nombre: str
     apellido: str
     servicios_id: int
+    empresa_id: int
+
+class BarberoCreate(BaseModel):
+    nombre: str
+    apellido: str
+    servicios_id: int
+    empresa_id: int
 
   
 class Horarios(BaseModel):
@@ -27,6 +38,14 @@ class Horarios(BaseModel):
     hora: str
     estado: bool
     barbero_id: int
+    empresa_id: int
+
+class HorariosCreate(BaseModel):
+    hora: str
+    barbero_id: int
+    empresa_id: int
+
+
 
 class HorarioUpdate(BaseModel):
     estado: bool    
@@ -69,11 +88,7 @@ class LoginRequest(BaseModel):
 class LoginRequestGoogle (BaseModel):
     token: str
 
-class Sucursal(BaseModel):
-    id: int
-    nombre: str
-    ubicacion: str
-    empresa_id: int
+
     
 
 class Empresa(BaseModel):
@@ -84,8 +99,9 @@ class Empresa(BaseModel):
     ubicacion: str
     imagen_url: Optional[str] = None
     horarios: Optional[Dict] = None 
-    sucursales: List[Sucursal] = []
     
+class EmpresaConServicios(Empresa):
+    servicios: List[Servicio]
 
 class EmpresaCreate(BaseModel):
     nombre: str
@@ -95,12 +111,12 @@ class EmpresaCreate(BaseModel):
     imagen_url: Optional[str] = None
     horarios: Optional[Dict] = None
 
+class EmpresaDetalles(Empresa):
+    servicios: List[Servicio]
+    barberos: List[Barbero]
+    horarios: List[Horarios]
 
 
-class SucursalCreate(BaseModel):
-    nombre: str
-    ubicacion: str
-    empresa_id: int
 
 
 
