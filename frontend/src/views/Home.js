@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {  MenuItem, ListItemIcon, ListItemText, Button, Typography, Box, Dialog, DialogTitle, DialogContent, DialogActions} from '@mui/material';
+import {  MenuItem, Button, Typography, Box, Dialog, DialogTitle, DialogContent, DialogActions, Collapse} from '@mui/material';
 import Calendario from '../components/Calendario';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import { useParams } from 'react-router-dom';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import FaceIcon from '@mui/icons-material/Face';
-import BarberoCard from '../components/BarberoCard'
+import BarberoCard from '../components/BarberoCard';
+import InfoIcon from '@mui/icons-material/Info';
+import IconButton from '@mui/material/IconButton';
+
 
 
 
@@ -25,6 +28,7 @@ const Home = () => {
   const [preferenceId, setPreferenceId] = useState(null);
   const [openHorarioDialog, setOpenHorarioDialog] = useState(false);
   const [openServicioDialog, setOpenServicioDialog] = useState(false);
+  const [expanded, setExpanded] = useState({});
   const [openBarberoDialog, setOpenBarberoDialog] = useState(false);
 
   initMercadoPago('APP_USR-b9c96612-c5c7-4108-9960-746706eafd35');
@@ -197,6 +201,13 @@ const Home = () => {
     handleCloseBarberoDialog();
   };
 
+  const handleToggleExpand = (id) => {
+    setExpanded((prevExpanded) => ({
+      ...prevExpanded,
+      [id]: !prevExpanded[id],
+    }));
+  };
+
   return (
     <>
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 2 }}>
@@ -234,12 +245,34 @@ const Home = () => {
                   border: '1px solid black',
                   borderRadius: '20px',
                   margin: '5px 0',
+                  position: 'relative',
                   '&:hover': {
                     backgroundColor: 'rgba(0, 0, 0, 0.1)',
                   },
                 }}
               >
-             {servicio.nombre}
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        <Typography variant="h6">{servicio.nombre}</Typography>
+        <Typography variant="body2"> {servicio.duracion}</Typography>
+        <Typography variant="body2"> ${servicio.precio}</Typography>
+        <IconButton
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleToggleExpand(servicio.id);
+                  }}
+                  sx={{
+                    position: 'absolute', // Posición absoluta para mover el icono
+                    top: 0, // Alinearlo en la parte superior
+                    right: 0, // Alinearlo a la derecha
+                  }}
+                >
+                  <InfoIcon />
+                </IconButton>
+                <Collapse in={expanded[servicio.id]} timeout="auto" unmountOnExit>
+                  <Typography variant="body2">{servicio.descripcion}</Typography>
+                </Collapse>
+        
+      </Box>
               </MenuItem>
             ))}
           </DialogContent>

@@ -51,16 +51,16 @@ const Detalle = () => {
           {reservas ? (
             <>
               <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                <strong>Servicio:</strong> {reservas.servicio_id}
+                <strong>Servicio:</strong> {reservas.servicio}
               </Typography>
               <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                <strong>Barbero:</strong> {reservas.barbero_id}
+                <strong>Barbero:</strong> {reservas.barbero}
               </Typography>
               <Typography sx={{ mb: 1.5 }} color="text.secondary">
                 <strong>Fecha:</strong> {reservas.fecha}
               </Typography>
               <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                <strong>Hora:</strong> {reservas.horario_id}
+                <strong>Hora:</strong> {reservas.horario}
               </Typography>
             </>
           ) : (

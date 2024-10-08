@@ -51,22 +51,27 @@ const Header = () => {
             Mi Perfil
           </Typography>
           <Divider />
-          
-          <MenuItem onClick={() => handleMenuItemClick('/logout')}>Cerrar Sesión</MenuItem>
+          <MenuItem onClick={() => handleMenuItemClick('/mi-perfil')}>Configuracion</MenuItem>
+
           <Divider />
+
           <Typography variant="h6" sx={{ padding: '8px 16px' }}>
             Sección Empresa
           </Typography>
           <Divider />
           <MenuItem onClick={() => handleMenuItemClick('/mi-empresa')}>Mi Empresa</MenuItem>
-          <MenuItem onClick={() => handleMenuItemClick('/crear-servicio')}>Crear Servicio</MenuItem>
+          <MenuItem onClick={() => handleMenuItemClick('/crear-servicio')}>Crear Empresa</MenuItem>
           <Divider />
           <Typography variant="h6" sx={{ padding: '8px 16px' }}>
             Sección Cliente
           </Typography>
           <Divider />
           <MenuItem onClick={() => handleMenuItemClick('/buscar-empresa')}>Reservar turno</MenuItem>
-          <MenuItem onClick={() => handleMenuItemClick('/reservas')}>Reservas</MenuItem>
+          <MenuItem onClick={() => handleMenuItemClick('/detalle')}>Mis Turnos</MenuItem>
+          <Divider />
+
+          <MenuItem onClick={() => handleMenuItemClick('/logout')} style={{ color: 'red' }}>Cerrar Sesión</MenuItem>
+          <Divider />
         </Menu>
       </Toolbar>
     </AppBar>

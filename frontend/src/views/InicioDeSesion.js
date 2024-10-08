@@ -36,7 +36,7 @@ const InicioDeSesion = () => {
 
   return (
     <Container maxWidth="sm">
-      <Box sx={{ mt: 5 }}>
+      <Box mt={5} textAlign="center">
         <Typography variant="h4" component="h1" gutterBottom  sx={{ color: 'black' }}>
           Ingresar a mi cuenta
         </Typography>
@@ -131,9 +131,13 @@ const InicioDeSesion = () => {
               mt: 2, // Margen inferior
               display: 'block', // Para centrar el botón
                // M
+               ml: 16,
+               backgroundColor: 'yellow', // Color de fondo del botón
+               color: 'black',
+               borderRadius: '20px',
               width: '300px', // Ancho del botón ajustado al contenido
               '& .MuiOutlinedInput-root': {
-                borderRadius: '30px', // Bordes más redondeados
+                borderRadius: '20px', // Bordes más redondeados
               }
             }} >
             Iniciar Sesión
@@ -142,15 +146,38 @@ const InicioDeSesion = () => {
         <Box sx={{ textAlign: 'center', mt: 2, mb: 4  }}>
           <p>O ingresar con</p>
         </Box>
-          <GoogleLogin1  />
-          <Button component={Link} to="/registro" variant="outlined" color="secondary" size="small" // Tamaño pequeño
-            sx={{ 
-              mt: 2, // Margen superior
+          <GoogleLogin1 
+           sx={{ 
+            mb:2,
+            mt: 2, // Margen inferior
+            display: 'block', // Para centrar el botón
+             // M
+             ml: 16,
+             backgroundColor: 'yellow', // Color de fondo del botón
+             color: 'black',
+             borderRadius: '20px',
+            width: '300px', // Ancho del botón ajustado al contenido
+            '& .MuiOutlinedInput-root': {
+              borderRadius: '20px', // Bordes más redondeados
+            }
+          }}  />
+
+<Typography variant="h6" component="h1" gutterBottom  sx={{ color: 'black', mt:2}}>
+          Todavia no tenes una  cuenta
+        </Typography>
+          <Button component={Link} to="/registro" variant="text"  size="small" // Tamaño pequeño
+             sx={{ 
+              mb:2,
+              mt: 2, // Margen inferior
               display: 'block', // Para centrar el botón
-              width:"300px", // Margen izquierdo y derecho automáticos
-              borderRadius: '30px',
-              textAlign: 'center'
-            }}
+               // M
+               ml: 16,
+                 // Color de fondo del botón
+               color: 'yellow',
+               
+              width: '300px', // Ancho del botón ajustado al contenido
+              
+            }} 
            >
             Registrarse
           </Button>

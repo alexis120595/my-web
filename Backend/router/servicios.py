@@ -9,7 +9,7 @@ router = APIRouter()
 
 @router.post("/servicios")
 def create_servicio(servicio: ServicioCreate, db: Session = Depends(get_db)):
-    db_servicio = db_models.Servicio(nombre=servicio.nombre, empresa_id=servicio.empresa_id)
+    db_servicio = db_models.Servicio(nombre=servicio.nombre, descripcion=servicio.descripcion, precio=servicio.precio, duracion=servicio.duracion,  empresa_id=servicio.empresa_id)
     db.add(db_servicio)
     db.commit()
     db.refresh(db_servicio)

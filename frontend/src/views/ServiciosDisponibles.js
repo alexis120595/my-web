@@ -32,7 +32,14 @@ const ServiciosDisponibles = () => {
         </Typography>
         <List>
           {servicios.map((servicio) => (
-            <ListItem key={servicio.id}>
+            <ListItem key={servicio.id}
+            sx={{ 
+              border: '1px solid #ccc', 
+              borderRadius: '8px', 
+              mb: 2, 
+              padding: 2,
+              width: '400px'
+            }}>
               <ListItemText primary={servicio.nombre} secondary={servicio.descripcion} />
             </ListItem>
           ))}
@@ -40,8 +47,8 @@ const ServiciosDisponibles = () => {
         <Button
           variant="contained"
           color="primary"
-          fullWidth
-          sx={{ mt: 2 }}
+          
+          sx={{ mt: 2, borderRadius: '25px', ml: -50, backgroundColor: 'yellow',  color: 'black'   }}
           onClick={handleAddServiceClick}
         >
           Añadir Servicio

@@ -1,15 +1,27 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from Backend.schemas import Barbero, BarberoCreate
 from sqlalchemy.orm import Session
 from Backend.db import db_models
 from Backend.db.database import get_db
+import cloudinary
+import cloudinary.uploader
 
 
 router = APIRouter()
 
 @router.post("/barberos")
 def create_barbero(barbero: BarberoCreate, db: Session = Depends(get_db)):
-    db_barbero = db_models.Barbero(nombre=barbero.nombre, apellido=barbero.apellido, servicios_id=barbero.servicios_id, empresa_id=barbero.empresa_id)
+    # Subir la imagen a Cloudinary
+    result = cloudinary.uploader.upload(barbero.imagen_url)
+    imagen_url = result.get("secure_url")
+
+    db_barbero = db_models.Barbero(
+        nombre=barbero.nombre,
+        apellido=barbero.apellido,
+        servicios_id=barbero.servicios_id,
+        empresa_id=barbero.empresa_id,
+        imagen_url=imagen_url  # Guardar la URL de la imagen
+    )
     db.add(db_barbero)
     db.commit()
     db.refresh(db_barbero)

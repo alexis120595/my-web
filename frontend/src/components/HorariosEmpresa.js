@@ -3,23 +3,23 @@ import 'tailwindcss/tailwind.css'; // Importa los estilos de Tailwind CSS
 
 const HorariosEmpresa = ({ onHorariosChange }) => {
   const [horarios, setHorarios] = useState([
-    { dia: "lunes", horarios: [{ horaApertura: "09:00", horaCierre: "17:00" }] },
-    { dia: "martes", horarios: [{ horaApertura: "09:00", horaCierre: "17:00" }] },
-    { dia: "miercoles", horarios: [{ horaApertura: "09:00", horaCierre: "17:00" }] },
-    { dia: "jueves", horarios: [{ horaApertura: "09:00", horaCierre: "17:00" }] },
-    { dia: "viernes", horarios: [{ horaApertura: "09:00", horaCierre: "17:00" }] },
-    { dia: "sabados", horarios: [{ horaApertura: "09:00", horaCierre: "17:00" }] },
-    { dia: "domingos", horarios: [{ horaApertura: "09:00", horaCierre: "17:00" }] }
+    { dia: "lun", horarios: [{ horaApertura: "09:00", horaCierre: "17:00" }] },
+    { dia: "mar", horarios: [{ horaApertura: "09:00", horaCierre: "17:00" }] },
+    { dia: "mie", horarios: [{ horaApertura: "09:00", horaCierre: "17:00" }] },
+    { dia: "jue", horarios: [{ horaApertura: "09:00", horaCierre: "17:00" }] },
+    { dia: "vie", horarios: [{ horaApertura: "09:00", horaCierre: "17:00" }] },
+    { dia: "sab", horarios: [{ horaApertura: "09:00", horaCierre: "17:00" }] },
+    { dia: "dom", horarios: [{ horaApertura: "09:00", horaCierre: "17:00" }] }
   ]);
 
   const [checkboxes, setCheckboxes] = useState({
-    lunes: true,
-    martes: true,
-    miercoles: true,
-    jueves: true,
-    viernes: true,
-    sabados: true,
-    domingos: true
+    lun: true,
+    mar: true,
+    mie: true,
+    jue: true,
+    vie: true,
+    sab: true,
+    dom: true
   });
 
   const opcionesHora = [
@@ -59,6 +59,9 @@ const HorariosEmpresa = ({ onHorariosChange }) => {
       <h1 className="text-2xl font-bold mb-4">Horarios de Atención</h1>
       {horarios.map((horarioDia, indexDia) => (
         <div key={indexDia} className="mb-4">
+          <div className="flex items-center">
+        
+        <label className="switch">
           <input 
             type="checkbox" 
             id={horarioDia.dia} 
@@ -68,6 +71,8 @@ const HorariosEmpresa = ({ onHorariosChange }) => {
             checked={checkboxes[horarioDia.dia]} 
             onChange={() => handleCheckboxChange(horarioDia.dia)} 
           />
+          <span className="slider round"></span>
+          </label>
           <label htmlFor={horarioDia.dia} className="mr-4">{horarioDia.dia.charAt(0).toUpperCase() + horarioDia.dia.slice(1)}</label>
           {horarioDia.horarios.map((horario, indexHorario) => (
             <div key={indexHorario} className="flex items-center mb-2">
@@ -75,7 +80,7 @@ const HorariosEmpresa = ({ onHorariosChange }) => {
                 const newHorarios = [...horarios];
                 newHorarios[indexDia].horarios[indexHorario].horaApertura = e.target.value;
                 setHorarios(newHorarios);
-              }} className="mr-2 p-1 border rounded">
+              }} className="mr-2 p-1 border rounded-full ">
                 {opcionesHora.map((opcion) => (
                   <option key={opcion.value} value={opcion.value}>
                     {opcion.label}
@@ -86,7 +91,7 @@ const HorariosEmpresa = ({ onHorariosChange }) => {
                 const newHorarios = [...horarios];
                 newHorarios[indexDia].horarios[indexHorario].horaCierre = e.target.value;
                 setHorarios(newHorarios);
-              }} className="p-1 border rounded">
+              }} className="p-1 border rounded-full">
                 {opcionesHora.map((opcion) => (
                   <option key={opcion.value} value={opcion.value}>
                     {opcion.label}
@@ -95,9 +100,14 @@ const HorariosEmpresa = ({ onHorariosChange }) => {
               </select>
             </div>
           ))}
-          <button onClick={() => agregarHorario(horarioDia.dia)} className="flex items-center bg-blue-500 text-white px-4 py-2 rounded">
-            Agregar
-          </button>
+        <button 
+  onClick={() => agregarHorario(horarioDia.dia)} 
+  className="flex items-center justify-center bg-yellow-500 text-black w-7 h-7 rounded-full ml-4 "
+>
+  +
+</button>
+        </div>
+
         </div>
       ))}
     </div>

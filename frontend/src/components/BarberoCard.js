@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, Typography } from '@mui/material';
+import { Card, CardContent, Typography, Box} from '@mui/material';
 
 const BarberoCard = ({ barbero }) => {
   return (
@@ -9,8 +9,8 @@ const BarberoCard = ({ barbero }) => {
         borderRadius: '10px', // Bordes redondeados
         margin: '5px', // Margen entre opciones
         padding: '10px', // Ajusta el padding
-        width: '200px', // Ancho fijo
-        height: '100px', // Altura fija
+        width: '150px', // Ancho fijo
+        height: '150px', // Altura fija
         display: 'flex', // Flexbox para centrar el contenido
       
         justifyContent: 'center', // Centrar horizontalmente
@@ -21,7 +21,19 @@ const BarberoCard = ({ barbero }) => {
       }}
     >
       <CardContent>
-        <Typography variant="h6">{barbero.nombre} {barbero.apellido}</Typography>
+      <Box
+          component="img"
+          sx={{
+            height: 60,
+            width: 60,
+            borderRadius: '50%', // Hacer la imagen redonda
+            mt: 1, // Margen inferior
+            ml:4
+          }}
+          alt={`${barbero.nombre} ${barbero.apellido}`}
+          src={barbero.imagen_url} // URL de la imagen del barbero
+        />
+        <Typography variant="h6">{barbero.nombre} {barbero.apellido} </Typography>
       </CardContent>
     </Card>
   );

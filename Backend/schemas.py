@@ -11,10 +11,16 @@ class Servicio(BaseModel):
     nombre: str
     empresa_id: int
     barberos: List["Barbero"] = []
+    descripcion: Optional[str] = None
+    precio: Optional[int] = None
+    duracion: Optional[str] = None
 
 class ServicioCreate(BaseModel):
     nombre: str
     empresa_id: int
+    descripcion: Optional[str] = None
+    precio: Optional[int] = None
+    duracion: Optional[str] = None
    
     
 
@@ -25,12 +31,14 @@ class Barbero(BaseModel):
     apellido: str
     servicios_id: int
     empresa_id: int
+    imagen_url: Optional[str] = None
 
 class BarberoCreate(BaseModel):
     nombre: str
     apellido: str
     servicios_id: int
     empresa_id: int
+    imagen_url: Optional[str] = None
 
   
 class Horarios(BaseModel):
@@ -60,9 +68,10 @@ class ReservaCreate(BaseModel):
 class Reservas(BaseModel):
     id: int
     fecha: date
-    servicio_id: int
-    barbero_id: int
-    horario_id: int
+    servicio: str
+    barbero: str
+    horario: str
+    
 
 class Registro(BaseModel):
     id: int
@@ -102,6 +111,7 @@ class Empresa(BaseModel):
     
 class EmpresaConServicios(Empresa):
     servicios: List[Servicio]
+    
 
 class EmpresaCreate(BaseModel):
     nombre: str

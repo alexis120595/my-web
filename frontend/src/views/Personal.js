@@ -32,7 +32,14 @@ const   Personal = () => {
         </Typography>
         <List>
           {barberos.map((barberos) => (
-            <ListItem key={barberos.id}>
+            <ListItem key={barberos.id}
+            sx={{ 
+              border: '1px solid #ccc', 
+              borderRadius: '8px', 
+              mb: 2, 
+              padding: 2,
+              width: '400px'
+            }}>
               <ListItemText primary={barberos.nombre} />
             </ListItem>
           ))}
@@ -41,7 +48,7 @@ const   Personal = () => {
           variant="contained"
           color="primary"
           fullWidth
-          sx={{ mt: 2 }}
+          sx={{ mt: 2, borderRadius: '25px', backgroundColor: 'yellow',  color: 'black', width: '300px', ml: -20 }}
           onClick={handleAddEmpleadoClick}
         >
           Añadir Personal

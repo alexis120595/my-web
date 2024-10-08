@@ -42,8 +42,9 @@ def obtener_empresa(empresa_id: int, db: Session = Depends(get_db)):
         "rubro": empresa.rubro,
         "ubicacion": empresa.ubicacion,
         "imagen_url": empresa.imagen_url,
-         "horarios":empresa.horarios,
+        "horarios":empresa.horarios,
         "servicios": servicios
+        
     }
 
 @router.get("/empresa", response_model=Empresa)

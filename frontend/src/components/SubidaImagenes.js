@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CloudinaryContext, Image } from 'cloudinary-react';
 import axios from 'axios';
+import { Button, CircularProgress, Box } from '@mui/material';
 
 const SubidaImagenes = ({ onImageUpload }) => {
   const [url, setUrl] = useState('');
@@ -31,13 +32,41 @@ const SubidaImagenes = ({ onImageUpload }) => {
   };
 
   return (
-    <CloudinaryContext cloudName="dndrldskx"> {/* Reemplaza con tu cloud name */}
-      <div>
-        <input type="file" onChange={uploadImage} />
+<CloudinaryContext cloudName="dndrldskx"> {/* Reemplaza con tu cloud name */}
+<Box display="flex" justifyContent="flex-start" alignItems="center">
+        <input
+          accept="image/*"
+          style={{ display: 'none' }}
+          id="upload-button"
+          type="file"
+          onChange={uploadImage}
+        />
+        <label htmlFor="upload-button">
+          <Button
+            variant="contained"
+            component="span"
+            sx={{
+              borderRadius: '50%',
+              width: 70,
+              height: 70,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: '#808080',
+              color: 'white',
+              mr: 65,
+              mt:-10,
+              
+              
+            }}
+          >
+            {loading ? <CircularProgress size={24} color="inherit" /> : 'Logo'}
+          </Button>
+        </label>
         {loading && <p>Cargando...</p>}
         {error && <p style={{ color: 'red' }}>{error}</p>}
-        {url && <Image src={url} alt="Uploaded Image" />}
-      </div>
+        {url && <Image src={url} alt="Uploaded Image" style={{ borderRadius: '50%', marginTop: 16 }} />}
+      </Box>
     </CloudinaryContext>
   );
 };

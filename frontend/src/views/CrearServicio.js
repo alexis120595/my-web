@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Mapa from '../components/Mapa';
 import SubidaImagenes from '../components/SubidaImagenes';
-import { TextField, Button, Box, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
+import { TextField, Button, Box, Select, MenuItem, InputLabel, FormControl, Typography } from '@mui/material';
 import axios from 'axios';
 import HorariosEmpresa from '../components/HorariosEmpresa';
 import { useNavigate } from 'react-router-dom';
@@ -63,57 +63,161 @@ const CrearServicio = () => {
 
   return (
     <div>
-      <h1>Crear Empresa</h1>
+     <Box display="flex" justifyContent="center" mb={2} >
+        <Typography variant="h4" component="h6" gutterBottom style={{ marginTop: '40px', fontSize: '2rem', marginRight:'70px'}}>
+          Crear empresa
+        </Typography>
+      </Box>
       <form onSubmit={handleSubmit}>
-        <Box mb={2}>
+      <Box display="flex" justifyContent="flex-end" >
+          <SubidaImagenes onUpload={handleImageUpload} />
+        </Box>
+        <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
           <TextField
-            fullWidth
+          
             label="Nombre de la Empresa"
             variant="outlined"
             margin="normal"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
+            sx={{ 
+
+              
+              width:"300px",
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '20px', // Bordes más redondeados
+                color: 'black', // Color del texto
+                '& fieldset': {
+                  borderColor: 'black', // Color del borde
+                },
+                '&:hover fieldset': {
+                  borderColor: 'black', // Color del borde al pasar el mouse
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'black', // Color del borde al enfocar
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: 'black', // Color del label
+              },
+              '& .MuiInputAdornment-root': {
+                color: 'black', // Color del icono
+              },
+            }} 
           />
           <TextField
-            fullWidth
+            
             label="Eslogan"
             variant="outlined"
             margin="normal"
             value={eslogan}
             onChange={(e) => setEslogan(e.target.value)}
+            sx={{ 
+
+              
+              width:"300px",
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '20px', // Bordes más redondeados
+                color: 'black', // Color del texto
+                '& fieldset': {
+                  borderColor: 'black', // Color del borde
+                },
+                '&:hover fieldset': {
+                  borderColor: 'black', // Color del borde al pasar el mouse
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'black', // Color del borde al enfocar
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: 'black', // Color del label
+              },
+              '& .MuiInputAdornment-root': {
+                color: 'black', // Color del icono
+              },
+            }} 
           />
-          <FormControl fullWidth variant="outlined" margin="normal">
-            <InputLabel>Selecciona un rubro</InputLabel>
-            <Select
-              value={rubro}
-              onChange={handleRubroChange}
-              label="Selecciona un rubro"
-            >
-              <MenuItem value="">
-                <em>Ninguno</em>
-              </MenuItem>
-              <MenuItem value="rubro1">Rubro 1</MenuItem>
-              <MenuItem value="rubro2">Rubro 2</MenuItem>
-              <MenuItem value="rubro3">Rubro 3</MenuItem>
-            </Select>
-          </FormControl>
+          <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" mb={2}>
+  <FormControl fullWidth variant="outlined" margin="normal" sx={{ width: "300px" }}>
+    <InputLabel>Selecciona un rubro</InputLabel>
+    <Select
+      value={rubro}
+      onChange={handleRubroChange}
+      label="Selecciona un rubro"
+      sx={{
+        borderRadius: '20px', // Aseguramos que el Select tenga borderRadius
+        '& .MuiOutlinedInput-root': {
+          borderRadius: '20px', // Bordes más redondeados
+          color: 'black', // Color del texto
+          '& fieldset': {
+            borderColor: 'black', // Color del borde
+          },
+          '&:hover fieldset': {
+            borderColor: 'black', // Color del borde al pasar el mouse
+          },
+          '&.Mui-focused fieldset': {
+            borderColor: 'black', // Color del borde al enfocar
+          },
+        },
+        '& .MuiInputLabel-root': {
+          color: 'black', // Color del label
+        },
+        '& .MuiInputAdornment-root': {
+          color: 'black', // Color del icono
+        },
+      }}
+    >
+      <MenuItem value="">
+        <em>Ninguno</em>
+      </MenuItem>
+      <MenuItem value="rubro1">Rubro 1</MenuItem>
+      <MenuItem value="rubro2">Rubro 2</MenuItem>
+      <MenuItem value="rubro3">Rubro 3</MenuItem>
+    </Select>
+  </FormControl>
+</Box>
         </Box>
-        <h1>Ubicacion</h1>
-        <Box mb={2}>
+        
+        <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
           <TextField
             fullWidth
             label="Buscar ubicación"
             variant="outlined"
             value={ubicacion}
             onChange={(e) => setUbicacion(e.target.value)}
+            sx={{
+              width: "300px",
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '20px',
+                color: 'black',
+                '& fieldset': {
+                  borderColor: 'black',
+                },
+                '&:hover fieldset': {
+                  borderColor: 'black',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'black',
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: 'black',
+              },
+              '& .MuiInputAdornment-root': {
+                color: 'black',
+              },
+            }}
           />
         </Box>
-        <Mapa />
-        <SubidaImagenes onImageUpload={handleImageUpload} />
-        <HorariosEmpresa onHorariosChange={handleHorariosChange} />
-       
-        <Box mt={2}>
-          <Button variant="contained" color="primary" type="submit">
+        <Box display="flex" justifyContent="center" mb={2}>
+          <Mapa />
+        </Box>
+        <Box display="flex" justifyContent="center" mb={2}>
+          <HorariosEmpresa onHorariosChange={handleHorariosChange} />
+        </Box>
+        <Box display="flex" justifyContent="center" mt={2}>
+          <Button variant="contained" color="primary" type="submit"
+           sx={{ width: '300px', height: '50px', borderRadius: '20px', backgroundColor: 'yellow', color: 'black', mb:5  }}>
             Crear
           </Button>
         </Box>

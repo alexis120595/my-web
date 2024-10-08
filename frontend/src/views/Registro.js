@@ -37,7 +37,7 @@ const Registro = () => {
 
   return (
     <Container maxWidth="sm">
-      <Box sx={{ mt: 5 }}>
+      <Box mt={5} textAlign="center">
         <Typography variant="h4" component="h1" gutterBottom>
           Registrarme
         </Typography>
@@ -52,6 +52,28 @@ const Registro = () => {
             fullWidth
             margin="normal"
             required
+            sx={{ 
+              width:"300px",
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '20px', // Bordes más redondeados
+                color: 'black', // Color del texto
+                '& fieldset': {
+                  borderColor: 'black', // Color del borde
+                },
+                '&:hover fieldset': {
+                  borderColor: 'black', // Color del borde al pasar el mouse
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'black', // Color del borde al enfocar
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: 'black', // Color del label
+              },
+              '& .MuiInputAdornment-root': {
+                color: 'black', // Color del icono
+              },
+            }} 
           />
           <TextField
             label="ingresar contraseña"
@@ -62,6 +84,28 @@ const Registro = () => {
             fullWidth
             margin="normal"
             required
+            sx={{ 
+              width:"300px",
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '20px', // Bordes más redondeados
+                color: 'black', // Color del texto
+                '& fieldset': {
+                  borderColor: 'black', // Color del borde
+                },
+                '&:hover fieldset': {
+                  borderColor: 'black', // Color del borde al pasar el mouse
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'black', // Color del borde al enfocar
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: 'black', // Color del label
+              },
+              '& .MuiInputAdornment-root': {
+                color: 'black', // Color del icono
+              },
+            }} 
           />
            <TextField
             label="repetir contraseña"
@@ -72,11 +116,46 @@ const Registro = () => {
             fullWidth
             margin="normal"
             required
+            sx={{ 
+              width:"300px",
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '20px', // Bordes más redondeados
+                color: 'black', // Color del texto
+                '& fieldset': {
+                  borderColor: 'black', // Color del borde
+                },
+                '&:hover fieldset': {
+                  borderColor: 'black', // Color del borde al pasar el mouse
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'black', // Color del borde al enfocar
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: 'black', // Color del label
+              },
+              '& .MuiInputAdornment-root': {
+                color: 'black', // Color del icono
+              },
+            }} 
           />
        
           {error && <Typography color="error">{error}</Typography>}
           {success && <Typography color="primary">{success}</Typography>}
-          <Button type="submit" variant="contained" color="primary" onClick={handleSubmit} fullWidth sx={{ mt: 2 }}>
+          <Button type="submit" variant="contained" color="primary" onClick={handleSubmit} fullWidth   sx={{ 
+              mb:2,
+              mt: 2, // Margen inferior
+              backgroundColor: 'yellow', // Color de fondo del botón
+              color: 'black', // Color del texto
+              borderRadius: '25px', // Bordes redondeados
+              display: 'block', // Para centrar el botón
+               // M
+               ml: 25, // Margen izquierdo
+              width: '150px', // Ancho del botón ajustado al contenido
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '20px', // Bordes más redondeados
+              }
+            }}>
             Registrarme
           </Button>
         </form>
