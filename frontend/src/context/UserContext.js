@@ -5,14 +5,15 @@ export const UserContext = createContext();
 
 // Proveedor del contexto del usuario
 export const UserProvider = ({ children }) => {
-  const [userEmail, setUserEmail] = useState(null);
+  const [userEmail, setUserEmail] = useState(localStorage.getItem('userEmail') || null);
 
   useEffect(() => {
-    const email = localStorage.getItem('userEmail');
-    if (email) {
-      setUserEmail(email);
+    if (userEmail) {
+      localStorage.setItem('userEmail', userEmail);
+    } else {
+      localStorage.removeItem('userEmail');
     }
-  }, []);
+  }, [userEmail]);
 
   return (
     <UserContext.Provider value={{ userEmail, setUserEmail }}>

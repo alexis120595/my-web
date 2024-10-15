@@ -106,10 +106,5 @@ def agregar_horario_a_barbero(barbero_id: int, horario: HorariosCreate, db: Sess
     db.refresh(nuevo_horario)
     return nuevo_horario
 
-@router.get("/empresa/{empresa_id}/horarios", response_model=Empresa)
-def obtener_horarios_de_empresa(empresa_id: int, db: Session = Depends(get_db)):
-    horarios = db.query(db_models.Horarios).filter(db_models.Horarios.empresa_id == empresa_id).all()
-    if not horarios:
-        raise HTTPException(status_code=404, detail="No se encontraron horarios para esta empresa")
-    return horarios
+
 

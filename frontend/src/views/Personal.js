@@ -7,18 +7,21 @@ const   Personal = () => {
   const [barberos, setBarberos] = useState([]);
     const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchBarberos = async () => {
+    useEffect(() => {
+      const empresaId = localStorage.getItem('empresaId');
+      if (empresaId) {
+        fetchBarberos(empresaId);
+      }
+    }, []);
+  
+    const fetchBarberos = async (empresaId) => {
       try {
-        const response = await axios.get('http://localhost:8000/barberos');
+        const response = await axios.get(`http://localhost:8000/empresa/${empresaId}/barberos`);
         setBarberos(response.data);
       } catch (error) {
-        console.error('Error fetching barberos:', error);
+        console.error('Error fetching personal:', error);
       }
     };
-
-    fetchBarberos();
-  }, []);
 
   const handleAddEmpleadoClick = () => {
     navigate('/crear-empleado');
@@ -31,18 +34,24 @@ const   Personal = () => {
           Personal
         </Typography>
         <List>
-          {barberos.map((barberos) => (
-            <ListItem key={barberos.id}
-            sx={{ 
-              border: '1px solid #ccc', 
-              borderRadius: '8px', 
-              mb: 2, 
-              padding: 2,
-              width: '400px'
-            }}>
-              <ListItemText primary={barberos.nombre} />
-            </ListItem>
-          ))}
+          {barberos.length > 0 ? (
+            barberos.map((barbero) => (
+              <ListItem
+                key={barbero.id}
+                sx={{
+                  border: '1px solid #ccc',
+                  borderRadius: '8px',
+                  mb: 2,
+                  padding: 2,
+                  width: '400px'
+                }}
+              >
+                <ListItemText primary={`${barbero.nombre} ${barbero.apellido}`} secondary={barbero.servicios_id} />
+              </ListItem>
+            ))
+          ) : (
+            <Typography>No hay personal disponible para esta empresa.</Typography>
+          )}
         </List>
         <Button
           variant="contained"

@@ -146,13 +146,14 @@ const InicioDeSesion = () => {
         <Box sx={{ textAlign: 'center', mt: 2, mb: 4  }}>
           <p>O ingresar con</p>
         </Box>
+        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2, mt: 2 }}>
           <GoogleLogin1 
            sx={{ 
             mb:2,
             mt: 2, // Margen inferior
             display: 'block', // Para centrar el botón
              // M
-             ml: 16,
+             mr: 16,
              backgroundColor: 'yellow', // Color de fondo del botón
              color: 'black',
              borderRadius: '20px',
@@ -161,6 +162,7 @@ const InicioDeSesion = () => {
               borderRadius: '20px', // Bordes más redondeados
             }
           }}  />
+           </Box>
 
 <Typography variant="h6" component="h1" gutterBottom  sx={{ color: 'black', mt:2}}>
           Todavia no tenes una  cuenta

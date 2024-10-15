@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, Box } from '@mui/material';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Registro = () => {
   const [form, setForm] = useState({
-    nombre: '',
-    apellido: '',
+   
     email: '',
     password: '',
-    telefono: '',
-    dni: ''
+   
   });
 
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,6 +29,7 @@ const Registro = () => {
       const response = await axios.post('http://localhost:8000/registro', form);
       setSuccess(response.data.message);
       setError(null);
+      navigate('/');
     } catch (error) {
       setError(error.response?.data?.message || 'Error al registrar el usuario');
       setSuccess(null);
@@ -111,7 +112,7 @@ const Registro = () => {
             label="repetir contraseña"
             name="password"
             type="password"
-            value={form.password}
+            
             onChange={handleChange}
             fullWidth
             margin="normal"

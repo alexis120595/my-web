@@ -101,8 +101,10 @@ const HorariosEmpresa = ({ onHorariosChange }) => {
             </div>
           ))}
         <button 
+        type="button"
   onClick={() => agregarHorario(horarioDia.dia)} 
-  className="flex items-center justify-center bg-yellow-500 text-black w-7 h-7 rounded-full ml-4 "
+  className="flex items-center justify-center  w-7 h-7 rounded-full ml-4 "
+  style={{ backgroundColor: 'yellow', color: 'black' }}
 >
   +
 </button>

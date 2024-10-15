@@ -5,6 +5,26 @@ from typing import Optional
 from typing import Dict
 
 
+class Empresa(BaseModel):
+    id: int
+    nombre: str
+    eslogan: str
+    rubro: str
+    ubicacion: str
+    imagen_url: Optional[str] = None
+    horarios: Optional[Dict] = None 
+    
+
+class EmpresaCreate(BaseModel):
+    nombre: str
+    eslogan: str
+    rubro: str
+    ubicacion: str
+    imagen_url: Optional[str] = None
+    horarios: Optional[Dict] = None
+
+
+
 
 class Servicio(BaseModel):
     id: int
@@ -65,30 +85,26 @@ class ReservaCreate(BaseModel):
     barbero_id: int
     horario_id: int
 
+
 class Reservas(BaseModel):
     id: int
     fecha: date
-    servicio: str
-    barbero: str
-    horario: str
+    servicio: Servicio
+    barbero: Barbero
+    horario: Horarios
+    
     
 
 class Registro(BaseModel):
     id: int
-    nombre: str
-    apellido: str
     email: str
     password: str
-    telefono: str
-    dni: str
-
+   
 class RegistroCreate(BaseModel):
-    nombre: str
-    apellido: str
+  
     email: str
     password: str
-    telefono: str
-    dni: str
+   
 
 class LoginRequest(BaseModel):
     email: str
@@ -99,35 +115,13 @@ class LoginRequestGoogle (BaseModel):
 
 
     
-
-class Empresa(BaseModel):
-    id: int
-    nombre: str
-    eslogan: str
-    rubro: str
-    ubicacion: str
-    imagen_url: Optional[str] = None
-    horarios: Optional[Dict] = None 
-    
-class EmpresaConServicios(Empresa):
-    servicios: List[Servicio]
-    
-
-class EmpresaCreate(BaseModel):
-    nombre: str
-    eslogan: str
-    rubro: str
-    ubicacion: str
-    imagen_url: Optional[str] = None
-    horarios: Optional[Dict] = None
-
 class EmpresaDetalles(Empresa):
     servicios: List[Servicio]
     barberos: List[Barbero]
     horarios: List[Horarios]
 
-
-
+class EmpresaConServicios(Empresa):
+    servicios: List[Servicio]
 
 
     

@@ -18,7 +18,7 @@ async def create_preference(request: Request):
             }
         ],
         "back_urls": {
-            "success": "http://localhost:3000/reservas",
+            "success": "http://localhost:3000/detalle",
             "failure": "http://localhost:3000/failure",
             "pending": "http://localhost:3000/pending"
         },

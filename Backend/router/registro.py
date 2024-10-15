@@ -9,12 +9,10 @@ router = APIRouter()
 @router.post("/registro", response_model=Registro)
 def create_registro(registro: RegistroCreate, db: Session = Depends(get_db)):
     db_registro = db_models.Registro(
-        nombre=registro.nombre,
-        apellido=registro.apellido,
+       
         email=registro.email,
         password=registro.password,
-        telefono=registro.telefono,
-        dni=registro.dni
+       
     )
     db.add(db_registro)
     db.commit()

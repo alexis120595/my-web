@@ -1,11 +1,13 @@
 import { GoogleLogin } from '@react-oauth/google';
 import decodeJwt from '../utils/decodeJwt';
-import { useState } from 'react';
+
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../context/UserContext';
 
 const GoogleLogin1 = () => {
-  const [email, setEmail] = useState(null);
+  const { setUserEmail } = useContext(UserContext);
   const navigate = useNavigate();
 
  async function handleSuccess(credentialResponse) {
@@ -14,7 +16,8 @@ const GoogleLogin1 = () => {
       const { payload } = decodeJwt(credentialResponse.credential);
       console.log("payload credential", payload);
       if (payload && payload.email) {
-        setEmail(payload.email);
+        setUserEmail(payload.email);
+        localStorage.setItem('userEmail', payload.email);
 
         console.log("Token JWT:", credentialResponse.credential);
         // Send the token to the server
@@ -24,7 +27,7 @@ const GoogleLogin1 = () => {
             token: credentialResponse.credential
           });
           console.log("Respuesta del backend:", response.data);
-          navigate('/home');
+          navigate('/opciones');
           // Manejar la respuesta del backend según sea necesario
         } catch (error) {
           console.error("Error al verificar el usuario:", error);
@@ -39,13 +42,12 @@ const GoogleLogin1 = () => {
 
   return (
     <div>
-      {email === null && (
+     
         <GoogleLogin
           onSuccess={handleSuccess}
           onError={handleError}
         />
-      )}
-      {email && <p>El usuario inició sesión: {email}</p>}
+     
     </div>
   );
 }

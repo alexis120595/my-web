@@ -3,7 +3,7 @@ import axios from 'axios';
 import {  MenuItem, Button, Typography, Box, Dialog, DialogTitle, DialogContent, DialogActions, Collapse} from '@mui/material';
 import Calendario from '../components/Calendario';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
-import { useParams } from 'react-router-dom';
+
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import FaceIcon from '@mui/icons-material/Face';
@@ -12,12 +12,9 @@ import InfoIcon from '@mui/icons-material/Info';
 import IconButton from '@mui/material/IconButton';
 
 
-
-
-
 const Home = () => {
   
-  const { Id } = useParams();
+  
   const [servicios, setServicios] = useState([]);
   const [barberos, setBarberos] = useState([]);
   const [horarios, setHorarios] = useState([]);
@@ -30,83 +27,86 @@ const Home = () => {
   const [openServicioDialog, setOpenServicioDialog] = useState(false);
   const [expanded, setExpanded] = useState({});
   const [openBarberoDialog, setOpenBarberoDialog] = useState(false);
-
+  const [servicioNombre, setServicioNombre] = useState('');
+  const [barberoNombre, setBarberoNombre] = useState('');
+  const [horarioHora, setHorarioHora] = useState('');
+  
   initMercadoPago('APP_USR-b9c96612-c5c7-4108-9960-746706eafd35');
 
   useEffect(() => {
-    const fetchServicios = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8000/empresa/${Id}/servicios`);
-        setServicios(response.data);
-      } catch (error) {
-        console.error('Error fetching servicios:', error);
-      }
-    };
-
-    if (Id) {
-      fetchServicios();
+    const empresaId = localStorage.getItem('empresaId');
+    if (empresaId) {
+      fetchServicios(empresaId);
+      fetchBarberos(empresaId);
     }
-  }, [Id]);
-
-
-  useEffect(() => {
-
-    
-    // Solicitud para obtener los servicios
-    axios.get('http://127.0.0.1:8000/servicios')
-      .then(response => {
-        setServicios(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching servicios:', error);
-      });
-
-    // Solicitud para obtener los barberos
-    axios.get('http://127.0.0.1:8000/barberos')
-      .then(response => {
-        setBarberos(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching barberos:', error);
-      });
-
-    // Solicitud para obtener los horarios
-    axios.get('http://127.0.0.1:8000/horarios')
-      .then(response => {
-        setHorarios(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching horarios:', error);
-      });
   }, []);
-
-
 
   useEffect(() => {
     if (selectedServicio) {
-      // Solicitud para obtener un servicio específico junto con los barberos relacionados
-      axios.get(`http://127.0.0.1:8000/servicios/${selectedServicio}`)
-        .then(response => {
-          setBarberos(response.data.barberos);
-        })
-        .catch(error => {
-          console.error('Error fetching barberos:', error);
-        });
+      fetchServicioNombre(selectedServicio);
     }
-  }, [selectedServicio]);
-
-  useEffect(() => {
     if (selectedBarbero) {
-      // Solicitud para obtener un barbero específico junto con los horarios relacionados
-      axios.get(`http://127.0.0.1:8000/barberos/${selectedBarbero}`)
-        .then(response => {
-          setHorarios(response.data.horarios);
-        })
-        .catch(error => {
-          console.error('Error fetching horarios:', error);
-        });
+      fetchBarberoNombre(selectedBarbero);
+      fetchHorariosByBarbero(selectedBarbero);
     }
-  }, [selectedBarbero]);
+    if (selectedHorario) {
+      fetchHorarioHora(selectedHorario);
+    }
+  }, [selectedServicio, selectedBarbero, selectedHorario]);
+
+  const fetchServicios = async (empresaId) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/empresa/${empresaId}/servicios`);
+      setServicios(response.data);
+    } catch (error) {
+      console.error('Error fetching servicios:', error);
+    }
+  };
+
+  const fetchBarberos = async (empresaId) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/empresa/${empresaId}/barberos`);
+      setBarberos(response.data);
+    } catch (error) {
+      console.error('Error fetching barberos:', error);
+    }
+  };
+
+  const fetchHorariosByBarbero = async (barberoId) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/horarios/barbero/${barberoId}`);
+      setHorarios(response.data);
+    } catch (error) {
+      console.error('Error fetching horarios:', error);
+    }
+  };
+
+  const fetchServicioNombre = async (servicioId) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/servicios/${servicioId}`);
+      setServicioNombre(response.data.nombre);
+    } catch (error) {
+      console.error('Error fetching servicio nombre:', error);
+    }
+  };
+
+  const fetchBarberoNombre = async (barberoId) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/barberos/${barberoId}`);
+      setBarberoNombre(response.data.nombre);
+    } catch (error) {
+      console.error('Error fetching barbero nombre:', error);
+    }
+  };
+
+  const fetchHorarioHora = async (horarioId) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/horarios/${horarioId}`);
+      setHorarioHora(response.data.hora);
+    } catch (error) {
+      console.error('Error fetching horario hora:', error);
+    }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -229,9 +229,7 @@ const Home = () => {
     },
   }} >
           
-          {selectedServicio
-            ? ` ${servicios.find(servicio => servicio.id === selectedServicio)?.nombre}`
-            : 'Seleccionar Servicio'}
+          {selectedServicio ? ` ${servicioNombre}` : 'Seleccionar Servicio'}
         </Button>
        
 
@@ -294,9 +292,7 @@ const Home = () => {
       backgroundColor: 'rgba(0, 0, 0, 0.1)', // Fondo ligeramente oscuro al pasar el cursor
     },
    }}>
-            {selectedBarbero
-    ? `${barberos.find(barbero => barbero.id === selectedBarbero)?.nombre} ${barberos.find(barbero => barbero.id === selectedBarbero)?.apellido}`
-    : 'Seleccionar Barbero'}
+        {selectedBarbero ? `${barberoNombre}` : 'Seleccionar Barbero'}
         </Button>
        
       
@@ -331,9 +327,7 @@ const Home = () => {
       backgroundColor: 'rgba(0, 0, 0, 0.1)', // Fondo ligeramente oscuro al pasar el cursor
     },
    }}>
-           {selectedHorario
-    ? `${horarios.find(horario => horario.id === selectedHorario)?.hora}`
-    : 'Seleccionar Horario'}
+          {selectedHorario ? `${horarioHora}` : 'Seleccionar Horario'}
         </Button>
         
 
@@ -368,7 +362,8 @@ const Home = () => {
         <Calendario selectedDate={selectedDate} setSelectedDate={setSelectedDate}   />
       
 
-      <Button type="submit" variant="contained" color="primary" onClick={handleCreatePreference}  sx={{ width: '300px', mt: 4 }}>Reservar</Button>
+      <Button type="submit" variant="contained" color="primary" onClick={handleCreatePreference}  sx={{ width: '300px', mt: 4, backgroundColor: 'yellow',
+    color: 'black', }}>Reservar</Button>
       
       {preferenceId && (
         <Wallet initialization={{ preferenceId }} />

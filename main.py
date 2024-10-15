@@ -15,7 +15,8 @@ sdk = mercadopago.SDK("APP_USR-7326986743119520-090914-8c171d7d35fe47dba8a546ad4
 cloudinary.config(
   cloud_name='dndrldskx',  # Reemplaza con tu cloud name
   api_key='',        # Reemplaza con tu API key
-  api_secret=''   # Reemplaza con tu API secret
+  api_secret=''   # Reemplaza con tu AP secre
+
 )
 
 def create_tables():

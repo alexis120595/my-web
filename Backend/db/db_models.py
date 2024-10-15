@@ -44,6 +44,7 @@ class Barbero(Base):
     imagen_url = Column(String, index=True)  
     horarios = relationship("Horarios", backref="barberos", cascade="delete, merge")
     reservas = relationship("Reservas", back_populates="barbero")
+    
 class Horarios(Base):
 
     __tablename__ = "horarios"
@@ -54,6 +55,7 @@ class Horarios(Base):
     barbero_id = Column(Integer, ForeignKey("barberos.id", ondelete="CASCADE"))
     empresa_id = Column(Integer, ForeignKey('empresa.id', ondelete='CASCADE'))
     reservas = relationship("Reservas", back_populates="horario")
+    
 class Reservas(Base):
 
     __tablename__ = "reservas"
@@ -63,7 +65,7 @@ class Reservas(Base):
     servicio_id = Column(Integer, ForeignKey("servicios.id", ondelete="CASCADE"))
     barbero_id = Column(Integer, ForeignKey("barberos.id", ondelete="CASCADE"))
     horario_id = Column(Integer, ForeignKey("horarios.id", ondelete="CASCADE"))
-
+    
     
     servicio = relationship("Servicio", back_populates="reservas")
     barbero = relationship("Barbero", back_populates="reservas")
@@ -73,12 +75,10 @@ class Registro (Base):
     __tablename__ = "registro"
 
     id = Column(Integer, primary_key=True, index=True)
-    nombre = Column(String, index=True)
-    apellido = Column(String, index=True)
     email = Column(String, index=True)
     password = Column(String, index=True)
-    telefono = Column(String, index=True)
-    dni = Column(String, index=True)
+   
+   
 
 
     

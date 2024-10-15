@@ -29,6 +29,11 @@ def get_horario(horario_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Horario not found")
     return horario
 
+@router.get("/horarios/barbero/{barbero_id}")
+def get_horarios_by_barbero(barbero_id: int, db: Session = Depends(get_db)):
+    horarios = db.query(db_models.Horarios).filter(db_models.Horarios.barbero_id == barbero_id).all()
+    return horarios
+
 @router.put("/horarios/{horario_id}")
 def update_horario(horario_id: int, horario: HorarioUpdate, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     db_horario = db.query(db_models.Horarios).filter(db_models.Horarios.id == horario_id).first()
@@ -51,6 +56,8 @@ async def reset_horario_estado(horario_id: int, delay: int, db: Session):
         db.commit()
         db.refresh(db_horario)
         print(f"Horario {horario_id} reseteado a True")
+
+
 
 
 

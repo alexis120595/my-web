@@ -1,5 +1,6 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import axios from 'axios';
 
 
 const containerStyle = {
@@ -12,7 +13,35 @@ const center = {
   lng: -68.845839
 };
 
-const Mapa = () => {
+const Mapa = ({ onLocationSelect }) => {
+
+  const [markerPosition, setMarkerPosition] = useState(center);
+
+  const handleMapClick = async (event) => {
+    const location = {
+      lat: event.latLng.lat(),
+      lng: event.latLng.lng()
+    };
+
+    const address = await getGeocodedAddress(location);
+    onLocationSelect(address);
+    setMarkerPosition(location);
+  };
+
+  const getGeocodedAddress = async (location) => {
+    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${location.lat}&lon=${location.lng}`;
+    try {
+      const response = await axios.get(url);
+      if (response.data && response.data.display_name) {
+        return response.data.display_name;
+      } else {
+        return 'No results found';
+      }
+    } catch (error) {
+      return 'Geocoder failed due to: ' + error.message;
+    }
+  };
+
   return (
     
     
@@ -21,9 +50,10 @@ const Mapa = () => {
           mapContainerStyle={containerStyle}
           center={center}
           zoom={10}
+          onClick={handleMapClick}
         >
           { /* Child components, such as markers, info windows, etc. */ }
-          <Marker position={center} />
+          <Marker position={markerPosition} />
         </GoogleMap>
       </LoadScript>
   

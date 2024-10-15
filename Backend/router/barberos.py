@@ -45,3 +45,8 @@ def get_barbero(barbero_id: int, db: Session = Depends(get_db)):
         "horarios": barbero.horarios
     }
     return barbero_with_horarios
+
+@router.get("/empresa/{empresa_id}/barberos", response_model=list[Barbero])
+def get_barberos_by_empresa(empresa_id: int, db: Session = Depends(get_db)):
+    barberos = db.query(db_models.Barbero).filter(db_models.Barbero.empresa_id == empresa_id).all()
+    return barberos

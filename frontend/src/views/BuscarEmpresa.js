@@ -24,7 +24,8 @@ const BuscarEmpresa = () => {
   };
 
   const handleSeleccionarEmpresa = (empresa) => {
-    navigate(`/home/${empresa.id}`);
+    localStorage.setItem('empresaId', empresa.id);
+    navigate('/home');
   };
 
   return (

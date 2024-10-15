@@ -19,12 +19,14 @@ const CrearServicio = () => {
     setRubro(event.target.value);
   };
 
-  const handleImageUpload = (url) => {
-    setImagenUrl(url);
-  };
+ 
 
   const handleHorariosChange = (newHorarios) => {
     setHorarios(newHorarios);
+  };
+
+  const handleLocationSelect = (address) => {
+    setUbicacion(address);
   };
 
   const handleSubmit = async (event) => {
@@ -52,9 +54,13 @@ const CrearServicio = () => {
       const response = await axios.post('http://localhost:8000/empresa', formData);
       console.log('Response:', response.data);
 
-      const { nombre: empresaNombre } = response.data;
+      const {id: empresaId, nombre: empresaNombre, imagen_url: empresaImagenUrl  } = response.data;
+      console.log('ID de la empresa almacenado:', empresaId);
       console.log('Nombre de la empresa almacenado:', empresaNombre);
+      console.log('URL de la imagen de la empresa almacenada:', empresaImagenUrl);
+      localStorage.setItem('empresaId', empresaId);
       localStorage.setItem('empresaNombre', empresaNombre);
+      localStorage.setItem('empresaImagenUrl', empresaImagenUrl);
       navigate('/mi-empresa');
     } catch (error) {
       console.error('Error:', error);
@@ -70,7 +76,7 @@ const CrearServicio = () => {
       </Box>
       <form onSubmit={handleSubmit}>
       <Box display="flex" justifyContent="flex-end" >
-          <SubidaImagenes onUpload={handleImageUpload} />
+      <SubidaImagenes onImageUpload={setImagenUrl} />
         </Box>
         <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
           <TextField
@@ -210,7 +216,7 @@ const CrearServicio = () => {
           />
         </Box>
         <Box display="flex" justifyContent="center" mb={2}>
-          <Mapa />
+          <Mapa onLocationSelect={handleLocationSelect} />
         </Box>
         <Box display="flex" justifyContent="center" mb={2}>
           <HorariosEmpresa onHorariosChange={handleHorariosChange} />

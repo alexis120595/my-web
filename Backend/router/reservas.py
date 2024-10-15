@@ -17,7 +17,7 @@ def create_reserva(reserva: ReservaCreate, db: Session = Depends(get_db)):
 @router.get("/reservas/ultima")
 async def get_ultima_reserva(db: Session = Depends(get_db)):
     ultima_reserva = db.query(db_models.Reservas).options(
-        joinedload(db_models.Reservas.servicio),
+        joinedload(db_models.Reservas.servicio).joinedload(db_models.Servicio.empresa),
         joinedload(db_models.Reservas.barbero),
         joinedload(db_models.Reservas.horario)
     ).order_by(db_models.Reservas.id.desc()).first()
@@ -32,7 +32,8 @@ async def get_ultima_reserva(db: Session = Depends(get_db)):
         "barbero": ultima_reserva.barbero.nombre,
         "horario": ultima_reserva.horario.hora,
         "empresa": ultima_reserva.servicio.empresa.nombre,
-        "ubicacion": ultima_reserva.servicio.empresa.ubicacion
+        "ubicacion": ultima_reserva.servicio.empresa.ubicacion,
+        "precio": ultima_reserva.servicio.precio
     }
     
     return reserva_detalle
@@ -59,6 +60,19 @@ def read_reserva(reserva_id: int, db: Session = Depends(get_db)):
     }
     
     return reserva_detalle
+
+@router.delete("/reservas/{reserva_id}")
+def delete_reserva(reserva_id: int, db: Session = Depends(get_db)):
+    db_reserva = db.query(db_models.Reservas).filter(db_models.Reservas.id == reserva_id).first()
+    
+    if db_reserva is None:
+        raise HTTPException(status_code=404, detail="Reserva not found")
+    
+    db.delete(db_reserva)
+    db.commit()
+    return {"message": "Reserva deleted successfully"}
+
+
 
 
 

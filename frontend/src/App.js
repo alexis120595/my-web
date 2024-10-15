@@ -20,6 +20,7 @@ import CrearSucursal from './views/CrearSucursal';
 import AjustesEmpresa from './views/AjustesEmpresa';
 import CrearHorarios from './views/CrearHorarios';
 import Header from './components/Header';
+import CrearCategoria from './views/CrearCategoria';
 
 function App () {
   return (
@@ -28,7 +29,7 @@ function App () {
       <Header />
       <Routes>
       
-        <Route path="/home/:empresaId" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/reservas" element={<Reserva />} />
         <Route path="/detalle" element={<Detalle />} />
         <Route path="/registro" element={<Registro />} />
@@ -47,6 +48,7 @@ function App () {
         <Route path="/crear-sucursal" element={<CrearSucursal/>} />
         <Route path="/ajustes-empresa" element={<AjustesEmpresa/>} />
         <Route path="/crear-horarios" element={<CrearHorarios/>} />
+        <Route path="/crear-categoria" element={<CrearCategoria/>} />
       
        
       
