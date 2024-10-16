@@ -56,7 +56,7 @@ const HorariosEmpresa = ({ onHorariosChange }) => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Horarios de Atención</h1>
+     
       {horarios.map((horarioDia, indexDia) => (
         <div key={indexDia} className="mb-4">
           <div className="flex items-center">

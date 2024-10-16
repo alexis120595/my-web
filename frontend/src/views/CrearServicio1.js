@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Box, TextField, Button, Typography, Checkbox, FormControlLabel } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Empleados from '../components/Empleados';
 
 const CrearServicio1 = () => {
   const [nombre, setNombre] = useState('');
@@ -360,6 +361,8 @@ const CrearServicio1 = () => {
 <Typography variant="h4" gutterBottom>
           Profecional del  Servicio
         </Typography>
+
+        <Empleados />
           
           <Button type="submit" variant="contained" color="primary"
             sx={{ 

@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Box, Typography, List, ListItem, ListItemText, Button } from '@mui/material';
+import { Container, Box, Typography, List, ListItem, ListItemText, Button, Avatar, IconButton } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import SearchBar from '../components/SearchBar'; 
+import EditIcon from '@mui/icons-material/Edit';
+import LinkIcon from '@mui/icons-material/Link';
+
 
 const   Personal = () => {
   const [barberos, setBarberos] = useState([]);
@@ -30,9 +34,12 @@ const   Personal = () => {
   return (
     <Container maxWidth="sm">
       <Box mt={5} textAlign="center">
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" gutterBottom sx={{ textAlign: 'left', ml: 2 }}>
           Personal
         </Typography>
+        <Box display="flex" justifyContent="center" mb={2}>
+          <SearchBar />
+        </Box>
         <List>
           {barberos.length > 0 ? (
             barberos.map((barbero) => (
@@ -46,7 +53,35 @@ const   Personal = () => {
                   width: '400px'
                 }}
               >
+                  <Avatar
+                alt={`${barbero.nombre} ${barbero.apellido}`}
+                src={barbero.imagen_url}
+                sx={{ width: 56, height: 56, mr: 2 }}
+              />
                 <ListItemText primary={`${barbero.nombre} ${barbero.apellido}`} secondary={barbero.servicios_id} />
+                <IconButton edge="end" aria-label="edit" onClick={() => (barbero.id)}
+                   sx={{
+                    backgroundColor: 'yellow',
+                    borderRadius: '50%',
+                    padding: '10px',
+                    '&:hover': {
+                      backgroundColor: 'darkyellow',
+                    },
+                  }}>
+                <EditIcon  sx={{ color: 'black' }} />
+              </IconButton>
+              <IconButton edge="end" aria-label="edit" onClick={() => (barbero.id)}
+                 sx={{
+                  ml: 2,
+                  backgroundColor: 'yellow',
+                  borderRadius: '50%',
+                  padding: '10px',
+                  '&:hover': {
+                    backgroundColor: 'darkyellow',
+                  },
+                }}>
+                <LinkIcon  sx={{ color: 'black' }} />
+              </IconButton>
               </ListItem>
             ))
           ) : (
@@ -57,7 +92,7 @@ const   Personal = () => {
           variant="contained"
           color="primary"
           fullWidth
-          sx={{ mt: 2, borderRadius: '25px', backgroundColor: 'yellow',  color: 'black', width: '300px', ml: -20 }}
+          sx={{ mt: 2, borderRadius: '25px', backgroundColor: 'yellow',  color: 'black', width: '300px', ml: -31 }}
           onClick={handleAddEmpleadoClick}
         >
           Añadir Personal

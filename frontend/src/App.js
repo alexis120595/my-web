@@ -21,6 +21,8 @@ import AjustesEmpresa from './views/AjustesEmpresa';
 import CrearHorarios from './views/CrearHorarios';
 import Header from './components/Header';
 import CrearCategoria from './views/CrearCategoria';
+import AñadirProfesional from './views/AñadirProfesional';
+import EditarProfesional from './views/EditarProfesional';
 
 function App () {
   return (
@@ -49,6 +51,8 @@ function App () {
         <Route path="/ajustes-empresa" element={<AjustesEmpresa/>} />
         <Route path="/crear-horarios" element={<CrearHorarios/>} />
         <Route path="/crear-categoria" element={<CrearCategoria/>} />
+        <Route path="/añadir-profesional" element={<AñadirProfesional/>} />
+        <Route path="/editar-profesional" element={<EditarProfesional/>} />
       
        
       
