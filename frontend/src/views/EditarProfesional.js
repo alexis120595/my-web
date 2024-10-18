@@ -65,7 +65,7 @@ const EditarProfesional = ({ sucursales }) => {
 
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" height="100vh" sx={{ mt: 90 }}>
+    <Box display="flex" flexDirection="column" alignItems="center" height="100vh" sx={{ mt:100 }}>
       <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="50%">
         <Typography variant="h4" component="h1" align="center">
           Editar Profesional
@@ -124,10 +124,22 @@ const EditarProfesional = ({ sucursales }) => {
           Permisos 
         </Typography>
 
-        <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
+        <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1,}}>
   <Typography variant="body1" align="center" sx={{ mr: 7, mb:3}}>
     Otorgar permisos al profesional
   </Typography>
+  <Box
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      sx={{
+        mt: 1,
+        borderRadius: '20px', // Bordes redondeados
+        backgroundColor: 'lightgrey', // Color de fondo gris
+        padding: 2, // Espaciado interno
+      }}
+    >
   <FormControlLabel
               control={
                 <Checkbox
@@ -184,6 +196,8 @@ const EditarProfesional = ({ sucursales }) => {
               label="Resivir señas en su MP"
               sx={{ mr: 6}}
             />
+
+</Box>    
  
 </Box>
 

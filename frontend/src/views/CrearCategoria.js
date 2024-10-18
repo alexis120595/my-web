@@ -1,9 +1,24 @@
 import React, {useState}from 'react';
-import { Typography, Box, TextField, Button } from '@mui/material';
+import { Typography, Box, TextField, Button, Checkbox, FormControlLabel } from '@mui/material';
 
 const CrearCategoria = () => {
 
     const [nombreCategoria, setNombreCategoria] = useState('');
+    const [permisos, setPermisos] = useState({
+      permiso1: false,
+      permiso2: false,
+      permiso3: false,
+      permiso4: false,
+      permiso5: false,
+    });
+
+    const handlePermisoChange = (event) => {
+      setPermisos({
+        ...permisos,
+        [event.target.name]: event.target.checked,
+      });
+    };
+  
 
     const handleSubmit = (event) => {
       event.preventDefault();
@@ -40,6 +55,67 @@ const CrearCategoria = () => {
               },
             }}
           />
+ <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1,   borderRadius: '20px', // Bordes redondeados
+        backgroundColor: 'lightgrey', // Color de fondo gris
+        padding: 2,  }}>
+  <FormControlLabel
+              control={
+                <Checkbox
+                  checked={permisos.permiso1}
+                  onChange={handlePermisoChange}
+                  name="permiso1"
+                 
+                />
+              }
+              label="Opcion reservar online"
+              sx={{ mr: 7 }}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={permisos.permiso2}
+                  onChange={handlePermisoChange}
+                  name="permiso2"
+                />
+              }
+              label="Agendar turnos en su agenda"
+              sx={{ mr: 1}}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={permisos.permiso3}
+                  onChange={handlePermisoChange}
+                  name="permiso3"
+                />
+              }
+              label="Editar turnos en su agenda"
+              sx={{ mr: 3}}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={permisos.permiso4}
+                  onChange={handlePermisoChange}
+                  name="permiso4"
+                />
+              }
+              label="Ver datos de clientes"
+              sx={{ mr:9}}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={permisos.permiso5}
+                  onChange={handlePermisoChange}
+                  name="permiso5"
+                />
+              }
+              label="Resivir señas en su MP"
+              sx={{ mr: 6}}
+            />
+        </Box>
+ 
         
           <Button type="submit" variant="contained" color="primary"  sx={{
               mt: 2,

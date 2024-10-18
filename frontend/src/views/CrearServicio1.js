@@ -128,6 +128,7 @@ const CrearServicio1 = () => {
            
             value={descripcion}
             onChange={(e) => setDescripcion(e.target.value)}
+            
             sx={{ 
               mb: 2,
               width:"300px",

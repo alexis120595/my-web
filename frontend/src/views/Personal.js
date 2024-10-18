@@ -40,6 +40,10 @@ const   Personal = () => {
         <Box display="flex" justifyContent="center" mb={2}>
           <SearchBar />
         </Box>
+
+        <Typography variant="h4" gutterBottom sx={{ textAlign: 'left', ml: 2 }}>
+          Profesionales disponibles
+        </Typography>
         <List>
           {barberos.length > 0 ? (
             barberos.map((barbero) => (

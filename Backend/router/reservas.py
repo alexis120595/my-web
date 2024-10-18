@@ -72,6 +72,11 @@ def delete_reserva(reserva_id: int, db: Session = Depends(get_db)):
     db.commit()
     return {"message": "Reserva deleted successfully"}
 
+@router.get("/reservas")
+def get_reservas(db: Session = Depends(get_db)):
+    reservas = db.query(db_models.Reservas).all()
+    return reservas
+
 
 
 

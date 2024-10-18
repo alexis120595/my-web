@@ -82,13 +82,7 @@ const AjustesEmpresa = ({  }) => {
           Ajustes
         </Typography>
         <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
-  <Typography variant="body1" align="center" sx={{ ml: 1, mt:2}}>
-    Ingresa el valor que el profesional cobrara
-  </Typography>
-
-  <Typography variant="body1" align="center" sx={{ mr: 15}}>
-    por prestar este servicio 
-  </Typography>
+  
 
 </Box>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
