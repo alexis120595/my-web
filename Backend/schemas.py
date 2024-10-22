@@ -29,18 +29,28 @@ class EmpresaCreate(BaseModel):
 class Servicio(BaseModel):
     id: int
     nombre: str
-    empresa_id: int
-    barberos: List["Barbero"] = []
+    tipo_de_servicio: str
     descripcion: Optional[str] = None
     precio: Optional[int] = None
+    seña: Optional[int] = None
     duracion: Optional[str] = None
+    modalidad: Optional[str] = None
+    empresa_id: int
+    barberos: List["Barbero"] = []
 
 class ServicioCreate(BaseModel):
     nombre: str
-    empresa_id: int
+    tipo_de_servicio: str
     descripcion: Optional[str] = None
     precio: Optional[int] = None
+    seña: Optional[int] = None
     duracion: Optional[str] = None
+    modalidad: Optional[str] = None
+    empresa_id: int
+    barberos_ids: List[int] = []
+
+class Config:
+        orm_mode = True
    
     
 
@@ -49,14 +59,12 @@ class Barbero(BaseModel):
     id: int
     nombre: str
     apellido: str
-    servicios_id: int
     empresa_id: int
     imagen_url: Optional[str] = None
 
 class BarberoCreate(BaseModel):
     nombre: str
     apellido: str
-    servicios_id: int
     empresa_id: int
     imagen_url: Optional[str] = None
 
@@ -122,6 +130,15 @@ class EmpresaDetalles(Empresa):
 
 class EmpresaConServicios(Empresa):
     servicios: List[Servicio]
+
+
+    
+
+
+
+    
+
+
 
 
     

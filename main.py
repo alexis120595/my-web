@@ -45,8 +45,6 @@ app.include_router(crear_empresa.router)
 
 
 
-
-
 origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
@@ -61,10 +59,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-
-
 
 
 if __name__ == '__main__':

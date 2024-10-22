@@ -9,7 +9,7 @@ import cloudinary.uploader
 
 router = APIRouter()
 
-@router.post("/barberos")
+@router.post("/barberos", response_model=Barbero)
 def create_barbero(barbero: BarberoCreate, db: Session = Depends(get_db)):
     # Subir la imagen a Cloudinary
     result = cloudinary.uploader.upload(barbero.imagen_url)
@@ -18,9 +18,8 @@ def create_barbero(barbero: BarberoCreate, db: Session = Depends(get_db)):
     db_barbero = db_models.Barbero(
         nombre=barbero.nombre,
         apellido=barbero.apellido,
-        servicios_id=barbero.servicios_id,
-        empresa_id=barbero.empresa_id,
-        imagen_url=imagen_url  # Guardar la URL de la imagen
+        imagen_url=imagen_url,  # Guardar la URL de la imagen
+        empresa_id=barbero.empresa_id
     )
     db.add(db_barbero)
     db.commit()
@@ -41,7 +40,7 @@ def get_barbero(barbero_id: int, db: Session = Depends(get_db)):
         "id": barbero.id,
         "nombre": barbero.nombre,
         "apellido": barbero.apellido,
-        "servicios_id": barbero.servicios_id,
+       
         "horarios": barbero.horarios
     }
     return barbero_with_horarios

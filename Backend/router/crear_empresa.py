@@ -107,4 +107,3 @@ def agregar_horario_a_barbero(barbero_id: int, horario: HorariosCreate, db: Sess
     return nuevo_horario
 
 
-

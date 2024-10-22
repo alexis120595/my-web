@@ -8,7 +8,8 @@ import EditIcon from '@mui/icons-material/Edit';
 
 const ServiciosDisponibles = () => {
   const [servicios, setServicios] = useState([]);
-    const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const empresaId = localStorage.getItem('empresaId');
@@ -26,7 +27,15 @@ const ServiciosDisponibles = () => {
       }
     };
 
-    
+
+    const handleSearch = async (query) => {
+      try {
+        const response = await axios.get(`http://localhost:8000/servicios/buscar?nombre=${query}`);
+        setServicios(response.data);
+      } catch (error) {
+        console.error('Error searching servicios:', error);
+      }
+    };
   
 
   const handleAddServiceClick = () => {
@@ -48,7 +57,7 @@ const ServiciosDisponibles = () => {
           Servicios 
         </Typography>
         <Box display="flex" justifyContent="center" mb={2} mr={15}>
-          <SearchBar  />
+          <SearchBar onSearch={handleSearch}  />
         </Box>
         <List>
         {servicios.length > 0 ? (

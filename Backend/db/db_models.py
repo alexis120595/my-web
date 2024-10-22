@@ -1,7 +1,15 @@
 from Backend.db.database import Base
-from sqlalchemy import Column, Integer, String, Boolean, Date, JSON
+from sqlalchemy import Column, Integer, String, Boolean, Date, JSON, Table
 from sqlalchemy.schema import ForeignKey
 from sqlalchemy.orm import relationship
+
+
+servicio_barbero = Table(
+    'servicio_barbero',
+    Base.metadata,
+    Column('servicio_id', Integer, ForeignKey('servicios.id', ondelete='CASCADE'), primary_key=True),
+    Column('barbero_id', Integer, ForeignKey('barberos.id', ondelete='CASCADE'), primary_key=True)
+)
 
 class Empresa(Base):
     __tablename__ = 'empresa'
@@ -13,8 +21,9 @@ class Empresa(Base):
     ubicacion = Column(String, index=True)
     imagen_url = Column(String, index=True)  
     horarios = Column(JSON)
-    servicios = relationship('Servicio', backref='empresa', cascade='delete, merge')
-    barberos = relationship('Barbero', backref='empresa', cascade='delete, merge')
+    servicios = relationship('Servicio', back_populates='empresa', cascade='delete, merge')
+    barberos = relationship('Barbero', back_populates='empresa', cascade='delete, merge')
+   
     
 
 
@@ -24,12 +33,16 @@ class Servicio(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String, index=True)
-    empresa_id = Column(Integer, ForeignKey('empresa.id', ondelete='CASCADE'))
+    tipo_de_servicio = Column(String, index=True)
     descripcion = Column(String, index=True)
     precio = Column(Integer, index=True)
+    seña = Column(Integer, index=True)
     duracion = Column(String, index=True)
-    barberos = relationship("Barbero", backref="servicios", cascade="delete, merge")
+    modalidad = Column(String, index=True)
+    empresa_id = Column(Integer, ForeignKey('empresa.id', ondelete='CASCADE'))
+    barberos = relationship("Barbero", secondary=servicio_barbero, back_populates="servicios")
     reservas = relationship("Reservas", back_populates="servicio")
+    empresa = relationship('Empresa', back_populates='servicios')
 
 
 class Barbero(Base):
@@ -39,11 +52,13 @@ class Barbero(Base):
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String, index=True)
     apellido = Column(String, index=True)
-    servicios_id = Column(Integer, ForeignKey("servicios.id", ondelete="CASCADE"))
     empresa_id = Column(Integer, ForeignKey('empresa.id', ondelete='CASCADE'))
+    
     imagen_url = Column(String, index=True)  
     horarios = relationship("Horarios", backref="barberos", cascade="delete, merge")
     reservas = relationship("Reservas", back_populates="barbero")
+    servicios = relationship("Servicio", secondary=servicio_barbero, back_populates="barberos")
+    empresa = relationship('Empresa', back_populates='barberos')
     
 class Horarios(Base):
 
@@ -77,23 +92,3 @@ class Registro (Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, index=True)
     password = Column(String, index=True)
-   
-   
-
-
-    
-
-
-
- 
-    
-    
- 
-   
-
-   
-
-
-   
-    
-  

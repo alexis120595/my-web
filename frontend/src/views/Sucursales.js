@@ -8,22 +8,22 @@ import {useNavigate} from 'react-router-dom';
 
 
 const Sucursales = () => {
-  const [registro, setRegistro] = useState([]);
+  const [sucursales, setSucursales] = useState([]);
   const navigate = useNavigate();
     
 
   useEffect(() => {
-    const fetchRegistro = async () => {
+    const fetchSucursal = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/registro');
+        const response = await axios.get('http://localhost:8000/sucursales');
         console.log('Datos recibidos:', response.data); 
-        setRegistro(response.data);
+        setSucursales(response.data);
       } catch (error) {
         console.error('Error fetching registro:', error);
       }
     };
 
-    fetchRegistro();
+    fetchSucursal();
   }, []);
 
   const handleAddSucursalClick = () => {
@@ -51,8 +51,8 @@ const Sucursales = () => {
           Mis sucursales
         </Typography>
         <List>
-          {registro.map((registro) => (
-            <ListItem key={registro.id}
+          {sucursales.map((sucursales) => (
+            <ListItem key={sucursales.id}
             sx={{
               border: '1px solid #ccc',
               borderRadius: '8px',
@@ -62,9 +62,9 @@ const Sucursales = () => {
               width: '400px'
             }}>
                 
-              <ListItemText primary={registro.email} />
+              <ListItemText primary={sucursales.nombre} />
 
-              <IconButton edge="end" aria-label="edit" onClick={() => (registro.id)}
+              <IconButton edge="end" aria-label="edit" onClick={() => (sucursales.id)}
                   sx={{
                     backgroundColor: 'yellow',
                     borderRadius: '50%',
@@ -75,7 +75,7 @@ const Sucursales = () => {
                   }}>
                   <EditIcon sx={{ color: 'black' }} />
                 </IconButton>
-                <IconButton edge="end" aria-label="link" onClick={() => (registro.id)}
+                <IconButton edge="end" aria-label="link" onClick={() => (sucursales.id)}
                   sx={{
                     ml: 2,
                     backgroundColor: 'yellow',

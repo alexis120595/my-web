@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import { Container, Box, TextField, Button, Typography } from '@mui/material';
 import Mapa from '../components/Mapa';
@@ -7,16 +7,24 @@ import Mapa from '../components/Mapa';
 const CrearSucursal = () => {
   const [nombre, setNombre] = useState('');
   const [ubicacion, setUbicacion] = useState('');
-  const [empresa, setEmpresa] = useState('');
+  const [empresaId, setEmpresaId] = useState(null);
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Supongamos que obtienes el ID de la empresa desde el almacenamiento local o algún contexto
+    const storedEmpresaId = localStorage.getItem('empresaId');
+    if (storedEmpresaId) {
+      setEmpresaId(parseInt(storedEmpresaId, 10));
+    }
+  }, []);
 
   const handleCrearSucursal = async (event) => {
     event.preventDefault();
     const form = {
       nombre,
       ubicacion  ,
-      empresa_id: parseInt(empresa, 10) 
+      empresa_id: empresaId
     };
     console.log('Formulario enviado:', form); 
     try {
@@ -26,7 +34,7 @@ const CrearSucursal = () => {
       // Limpiar los campos del formulario después de crear la sucursal
       setNombre('');
       setUbicacion('');
-      setEmpresa('');
+      
     } catch (error) {
       setError(error.response?.data?.message || 'Error al crear la sucursal');
       setSuccess(null);
@@ -95,15 +103,7 @@ const CrearSucursal = () => {
 <Box display="flex" justifyContent="center" >
         <Mapa onLocationSelect={handleLocationSelect}  />
         </Box>
-        <TextField
-          label="ID de Empresa"
-          type="number" // Asegurar que solo se acepten números
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={empresa}
-          onChange={(e) => setEmpresa(e.target.value)}
-        />
+       
           <Button variant="contained" color="primary" onClick={handleCrearSucursal}
            sx={{ mt: 2, borderRadius: '25px', backgroundColor: 'yellow',  color: 'black', width: '300px', mr: 1, mb:4 }}>
             Guardar

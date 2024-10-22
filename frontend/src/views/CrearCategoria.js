@@ -67,7 +67,7 @@ const CrearCategoria = () => {
                  
                 />
               }
-              label="Opcion reservar online"
+              label="Barba"
               sx={{ mr: 7 }}
             />
             <FormControlLabel
