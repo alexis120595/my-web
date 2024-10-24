@@ -11,6 +11,12 @@ servicio_barbero = Table(
     Column('barbero_id', Integer, ForeignKey('barberos.id', ondelete='CASCADE'), primary_key=True)
 )
 
+categoria_servicio = Table(
+    'categoria_servicio', Base.metadata,
+    Column('categoria_id', Integer, ForeignKey('categorias.id', ondelete='CASCADE'), primary_key=True),
+    Column('servicio_id', Integer, ForeignKey('servicios.id', ondelete='CASCADE'), primary_key=True)
+)
+
 class Empresa(Base):
     __tablename__ = 'empresa'
 
@@ -23,9 +29,25 @@ class Empresa(Base):
     horarios = Column(JSON)
     servicios = relationship('Servicio', back_populates='empresa', cascade='delete, merge')
     barberos = relationship('Barbero', back_populates='empresa', cascade='delete, merge')
+    categorias = relationship('Categoria', back_populates='empresa', cascade='delete, merge')
+    sucursales = relationship('Sucursal', back_populates='empresa', cascade='delete, merge')
    
-    
+class Sucursal(Base):
+    __tablename__ = 'sucursales'
+    id = Column(Integer, primary_key=True, index=True)
+    nombre = Column(String, nullable=False)
+    ubicacion = Column(String, nullable=False)
+    empresa_id = Column(Integer, ForeignKey('empresa.id', ondelete='CASCADE'))
+    empresa = relationship('Empresa', back_populates='sucursales')
 
+class Categoria(Base):
+    __tablename__ = "categorias"
+
+    id = Column(Integer, primary_key=True, index=True)
+    nombre = Column(String, index=True)
+    empresa_id = Column(Integer, ForeignKey('empresa.id', ondelete='CASCADE'))
+    servicios = relationship('Servicio', secondary=categoria_servicio, back_populates='categorias')
+    empresa = relationship('Empresa', back_populates='categorias')
 
 class Servicio(Base):
 
@@ -43,6 +65,7 @@ class Servicio(Base):
     barberos = relationship("Barbero", secondary=servicio_barbero, back_populates="servicios")
     reservas = relationship("Reservas", back_populates="servicio")
     empresa = relationship('Empresa', back_populates='servicios')
+    categorias = relationship("Categoria", secondary=categoria_servicio, back_populates="servicios")
 
 
 class Barbero(Base):
@@ -53,7 +76,6 @@ class Barbero(Base):
     nombre = Column(String, index=True)
     apellido = Column(String, index=True)
     empresa_id = Column(Integer, ForeignKey('empresa.id', ondelete='CASCADE'))
-    
     imagen_url = Column(String, index=True)  
     horarios = relationship("Horarios", backref="barberos", cascade="delete, merge")
     reservas = relationship("Reservas", back_populates="barbero")

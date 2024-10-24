@@ -23,7 +23,31 @@ class EmpresaCreate(BaseModel):
     imagen_url: Optional[str] = None
     horarios: Optional[Dict] = None
 
+class Sucursal(BaseModel):
+        id: int
+        nombre: str
+        ubicacion: str
+        empresa_id: int
 
+class SucursalCreate(BaseModel):
+    nombre: str
+    ubicacion: str
+    empresa_id: int
+
+class Categoria(BaseModel):
+    id: int
+    nombre: str
+    empresa_id: int
+    servicios: List["Servicio"] = []
+
+class CategoriaCreate(BaseModel):
+    nombre: str
+    empresa_id: int
+    servicios_ids: List[int] = []
+
+
+class Config:
+        orm_mode = True
 
 
 class Servicio(BaseModel):

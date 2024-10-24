@@ -10,12 +10,14 @@ import {useNavigate} from 'react-router-dom';
 const Sucursales = () => {
   const [sucursales, setSucursales] = useState([]);
   const navigate = useNavigate();
+  const empresaId = localStorage.getItem('empresaId'); // Obtener el ID de la empresa desde el almacenamiento local
+
     
 
   useEffect(() => {
-    const fetchSucursal = async () => {
+    const fetchSucursales = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/sucursales');
+        const response = await axios.get(`http://localhost:8000/empresa/${empresaId}/sucursales`);
         console.log('Datos recibidos:', response.data); 
         setSucursales(response.data);
       } catch (error) {
@@ -23,8 +25,21 @@ const Sucursales = () => {
       }
     };
 
-    fetchSucursal();
-  }, []);
+    if (empresaId) {
+      fetchSucursales();
+    }
+  }, [empresaId]);
+
+  const handleSearch = async (query) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/sucursales/buscar?nombre=${encodeURIComponent(query)}`);
+      console.log('Datos recibidos:', response.data);
+      setSucursales(response.data);
+    } catch (error) {
+      console.error('Error searching sucursales:', error);
+    }
+  };
+
 
   const handleAddSucursalClick = () => {
     navigate('/crear-sucursal');
@@ -42,7 +57,7 @@ const Sucursales = () => {
           Sucursales
         </Typography>
 
-        <SearchBarClientes onSearch={console.log} />
+        <SearchBarClientes onSearch={handleSearch} />
 
         <Typography  gutterBottom sx={{
              

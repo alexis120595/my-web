@@ -1,30 +1,68 @@
-import React, {useState}from 'react';
-import { Typography, Box, TextField, Button, Checkbox, FormControlLabel } from '@mui/material';
+import React, {useState, useEffect}from 'react';
+import { Typography, Box, TextField, Button, Checkbox, FormControlLabel,  List, ListItem } from '@mui/material';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const CrearCategoria = () => {
 
     const [nombreCategoria, setNombreCategoria] = useState('');
-    const [permisos, setPermisos] = useState({
-      permiso1: false,
-      permiso2: false,
-      permiso3: false,
-      permiso4: false,
-      permiso5: false,
-    });
+    const [servicios, setServicios] = useState([]);
+    const [selectedServicios, setSelectedServicios] = useState([]);
+    const [empresaId, setEmpresaId] = useState(null);
+    const [success, setSuccess] = useState(null);
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
-    const handlePermisoChange = (event) => {
-      setPermisos({
-        ...permisos,
-        [event.target.name]: event.target.checked,
-      });
+    useEffect(() => {
+      const storedEmpresaId = localStorage.getItem('empresaId');
+      if (storedEmpresaId) {
+        setEmpresaId(parseInt(storedEmpresaId, 10));
+      }
+      fetchServicios();
+    }, []);
+  
+    const fetchServicios = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/servicios');
+        setServicios(response.data);
+      } catch (error) {
+        console.error('Error fetching servicios:', error);
+      }
+    };
+
+    const handleServicioChange = (event) => {
+      const servicioId = parseInt(event.target.value, 10);
+      if (event.target.checked) {
+        setSelectedServicios([...selectedServicios, servicioId]);
+      } else {
+        setSelectedServicios(selectedServicios.filter(id => id !== servicioId));
+      }
     };
   
-
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
       event.preventDefault();
-      // Aquí puedes manejar el envío del formulario, por ejemplo, enviando los datos a una API
-      console.log('Nombre de la Categoría:', nombreCategoria);
+      const nuevaCategoria = {
+        nombre: nombreCategoria,
+        empresa_id: empresaId,
+        servicios_ids: selectedServicios,
+      };
+  
+      try {
+        const response = await axios.post('http://localhost:8000/categorias', nuevaCategoria);
+        console.log('Respuesta del servidor:', response.data);
+        setSuccess('Categoría creada exitosamente');
+        setError(null);
+        // Limpiar los campos del formulario después de crear la categoría
+        setNombreCategoria('');
+        setSelectedServicios([]);
+        navigate('/categorias');
+      } catch (error) {
+        console.error('Error al crear la categoría:', error.response || error.message);
+        setError(error.response?.data?.message || 'Error al crear la categoría');
+        setSuccess(null);
+      }
     };
+  
   return (
     <Box display="flex" flexDirection="column" alignItems="center" height="100vh">
     <Box display="flex" flexDirection="column" justifyContent="center" height="50%">
@@ -58,62 +96,24 @@ const CrearCategoria = () => {
  <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1,   borderRadius: '20px', // Bordes redondeados
         backgroundColor: 'lightgrey', // Color de fondo gris
         padding: 2,  }}>
-  <FormControlLabel
-              control={
-                <Checkbox
-                  checked={permisos.permiso1}
-                  onChange={handlePermisoChange}
-                  name="permiso1"
-                 
-                />
-              }
-              label="Barba"
-              sx={{ mr: 7 }}
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={permisos.permiso2}
-                  onChange={handlePermisoChange}
-                  name="permiso2"
-                />
-              }
-              label="Agendar turnos en su agenda"
-              sx={{ mr: 1}}
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={permisos.permiso3}
-                  onChange={handlePermisoChange}
-                  name="permiso3"
-                />
-              }
-              label="Editar turnos en su agenda"
-              sx={{ mr: 3}}
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={permisos.permiso4}
-                  onChange={handlePermisoChange}
-                  name="permiso4"
-                />
-              }
-              label="Ver datos de clientes"
-              sx={{ mr:9}}
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={permisos.permiso5}
-                  onChange={handlePermisoChange}
-                  name="permiso5"
-                />
-              }
-              label="Resivir señas en su MP"
-              sx={{ mr: 6}}
-            />
+
+              <List>
+              {servicios.map((servicio) => (
+                <ListItem key={servicio.id}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={selectedServicios.includes(servicio.id)}
+                        onChange={handleServicioChange}
+                        value={servicio.id}
+                      />
+                    }
+                    label={servicio.nombre}
+                  />
+                </ListItem>
+              ))}
+            </List>
+  
         </Box>
  
         
@@ -130,6 +130,8 @@ const CrearCategoria = () => {
             Crear
           </Button>
         </form>
+        {success && <Typography color="primary">{success}</Typography>}
+        {error && <Typography color="error">{error}</Typography>}
     </Box>
   </Box>
     );

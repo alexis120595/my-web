@@ -1,11 +1,10 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import axios from 'axios';
 
-
 const containerStyle = {
-  width: '20%',
-  height: '200px'
+  width: '100%',
+  height: '400px'
 };
 
 const center = {
@@ -14,7 +13,6 @@ const center = {
 };
 
 const Mapa = ({ onLocationSelect }) => {
-
   const [markerPosition, setMarkerPosition] = useState(center);
 
   const handleMapClick = async (event) => {
@@ -43,20 +41,16 @@ const Mapa = ({ onLocationSelect }) => {
   };
 
   return (
-    
-    
-      <LoadScript googleMapsApiKey="">
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={center}
-          zoom={10}
-          onClick={handleMapClick}
-        >
-          { /* Child components, such as markers, info windows, etc. */ }
-          <Marker position={markerPosition} />
-        </GoogleMap>
-      </LoadScript>
-  
+    <LoadScript googleMapsApiKey="" loadingElement={<div>Loading...</div>}>
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={10}
+        onClick={handleMapClick}
+      >
+        <Marker position={markerPosition} />
+      </GoogleMap>
+    </LoadScript>
   );
 }
 

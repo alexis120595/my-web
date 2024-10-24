@@ -1,10 +1,11 @@
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Query
 from Backend.schemas import Barbero, BarberoCreate
 from sqlalchemy.orm import Session
 from Backend.db import db_models
 from Backend.db.database import get_db
 import cloudinary
 import cloudinary.uploader
+from typing import List
 
 
 router = APIRouter()
@@ -31,6 +32,14 @@ def get_barberos(db: Session = Depends(get_db)):
     barberos = db.query(db_models.Barbero).all()
     return barberos
 
+@router.get("/barberos/buscar", response_model=List[Barbero])
+def search_barberos_by_name(nombre: str = Query(None, min_length=1), db: Session = Depends(get_db)):
+    if nombre:
+        barberos = db.query(db_models.Barbero).filter(db_models.Barbero.nombre.ilike(f"%{nombre}%")).all()
+    else:
+        barberos = db.query(db_models.Barbero).all()
+    return barberos
+
 @router.get("/barberos/{barbero_id}")
 def get_barbero(barbero_id: int, db: Session = Depends(get_db)):
     barbero = db.query(db_models.Barbero).filter(db_models.Barbero.id == barbero_id).first()
@@ -49,3 +58,6 @@ def get_barbero(barbero_id: int, db: Session = Depends(get_db)):
 def get_barberos_by_empresa(empresa_id: int, db: Session = Depends(get_db)):
     barberos = db.query(db_models.Barbero).filter(db_models.Barbero.empresa_id == empresa_id).all()
     return barberos
+
+
+

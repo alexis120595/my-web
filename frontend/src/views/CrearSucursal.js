@@ -28,7 +28,7 @@ const CrearSucursal = () => {
     };
     console.log('Formulario enviado:', form); 
     try {
-      const response = await axios.post('http://localhost:8000/sucursal', form);
+      const response = await axios.post('http://localhost:8000/sucursales', form);
       setSuccess(response.data.message);
       setError(null);
       // Limpiar los campos del formulario después de crear la sucursal
