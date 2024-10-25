@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Box, Typography, List, ListItem, ListItemText, ButtonBase } from '@mui/material';
 import axios from 'axios';
-import Calendario from '../components/Calendario';
+import CalendarioAgenda from '../components/Calendario';
 import SearchBarReservas from '../components/SearchBarReservas';
 import { useNavigate } from 'react-router-dom';
 
 
 const AgendaEmpresa = () => {
   const [reservas, setReservas] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedReservaId, setSelectedReservaId] = useState(null); // Estado para almacenar el ID de la reserva seleccionada
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,8 +26,22 @@ const AgendaEmpresa = () => {
   }, []);
 
   const handleReservaClick = (id) => {
-    navigate(`/detalle-reserva-empresa`);
+    setSelectedReservaId(id); // Guardar el ID de la reserva seleccionada en el estado
+    navigate(`/detalle-reserva-empresa/${id}`);
   };
+
+  const handleDayClick = async (date) => {
+    setSelectedDate(date);
+    try {
+      const formattedDate = date.toISOString().split('T')[0];
+      const response = await axios.get(`http://localhost:8000/reservas/fecha?fecha=${formattedDate}`);
+      console.log('Reservas del día:', response.data);
+      setReservas(response.data);
+    } catch (error) {
+      console.error('Error fetching reservas for selected date:', error);
+    }
+  };
+
 
   return (
     <Container maxWidth="sm">
@@ -34,14 +50,14 @@ const AgendaEmpresa = () => {
           Agenda 
         </Typography>
         <Box>
-        <Calendario sx={{mb:2}} />
+        <CalendarioAgenda selectedDate={selectedDate} setSelectedDate={handleDayClick} sx={{mb:2}} />
         </Box>
 
         <Typography variant="h4" gutterBottom  sx={{mt:2, mr:5}}>
           Proximos turnos
         </Typography>
 
-        <SearchBarReservas onSearch={(query) => console.log(query)} />
+        <SearchBarReservas />
         <List>
           {reservas.map((reservas) => (
 
@@ -61,7 +77,8 @@ sx={{ width: '100%', display: 'block', textAlign: 'left' }}
               
             }}>
                <Box display="flex" justifyContent="space-between" width="100%" >
-              <ListItemText primary={reservas.id}  />
+              <ListItemText   primary={`Servicio: ${reservas.servicio || 'N/A'}`}
+                    secondary={`Barbero: ${reservas.barbero || 'N/A'}`}  />
               <Box
                   display="flex"
                   alignItems="center"

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, CardContent, Typography, CircularProgress, Box, Button, Snackbar,Alert, Dialog,  DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams} from 'react-router-dom';
 
 const DetalleReservaEmpresa = () => {
   const [reservas, setReserva] = useState(null);
@@ -10,12 +10,13 @@ const DetalleReservaEmpresa = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
+  const {id}= useParams();
   
 
   useEffect(() => {
-    const fetchUltimaReserva = async () => {
+    const fetchReserva = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/reservas/ultima');
+        const response = await axios.get(`http://127.0.0.1:8000/reservas/${id}`);
         setReserva(response.data);
       } catch (error) {
         setError('Error fetching ultima reserva');
@@ -24,8 +25,8 @@ const DetalleReservaEmpresa = () => {
       }
     };
 
-    fetchUltimaReserva();
-  }, []);
+    fetchReserva();
+  }, [id]);
 
   const handleAnularClick = () => {
     setOpenDialog(true);

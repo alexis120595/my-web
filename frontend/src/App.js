@@ -56,7 +56,7 @@ function App () {
         <Route path="/añadir-profesional" element={<AñadirProfesional/>} />
         <Route path="/editar-profesional" element={<EditarProfesional/>} />
         <Route path="/personalizar-servicio" element={<PersonalizarServicio/>} />
-        <Route path="/detalle-reserva-empresa" element={<DetalleReservaEmpresa/>} />
+        <Route path="/detalle-reserva-empresa/:id" element={<DetalleReservaEmpresa/>} />
       
        
       
