@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Query
-from Backend.schemas import Barbero, BarberoCreate
+from Backend.schemas import Barbero, BarberoCreate, BarberoUpdate
 from sqlalchemy.orm import Session
 from Backend.db import db_models
 from Backend.db.database import get_db
@@ -19,8 +19,11 @@ def create_barbero(barbero: BarberoCreate, db: Session = Depends(get_db)):
     db_barbero = db_models.Barbero(
         nombre=barbero.nombre,
         apellido=barbero.apellido,
+        email=barbero.email,
+        sucursal_id=barbero.sucursal_id,
         imagen_url=imagen_url,  # Guardar la URL de la imagen
         empresa_id=barbero.empresa_id
+
     )
     db.add(db_barbero)
     db.commit()
@@ -58,6 +61,23 @@ def get_barbero(barbero_id: int, db: Session = Depends(get_db)):
 def get_barberos_by_empresa(empresa_id: int, db: Session = Depends(get_db)):
     barberos = db.query(db_models.Barbero).filter(db_models.Barbero.empresa_id == empresa_id).all()
     return barberos
+
+@router.put("/barberos/{barbero_id}", response_model=Barbero)
+def update_barbero(barbero_id: int, barbero_update: BarberoUpdate, db: Session = Depends(get_db)):
+    barbero = db.query(db_models.Barbero).filter(db_models.Barbero.id == barbero_id).first()
+    if not barbero:
+        raise HTTPException(status_code=404, detail="Barbero not found")
+
+    if barbero_update.email:
+        barbero.email = barbero_update.email
+    if barbero_update.sucursal_id:
+        barbero.sucursal_id = barbero_update.sucursal_id
+    if barbero_update.servicio_id:
+        barbero.servicios = db.query(db_models.Servicio).filter(db_models.Servicio.id.in_(barbero_update.servicio_id)).all()
+
+    db.commit()
+    db.refresh(barbero)
+    return barbero
 
 
 

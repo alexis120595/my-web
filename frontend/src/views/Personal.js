@@ -44,6 +44,15 @@ const   Personal = () => {
     navigate('/crear-empleado');
   };
 
+ 
+  const handleEditClick = (id) => {
+    navigate(`/editar-profesional/${id}`);
+  };
+
+  const handleLinkClick = (id) => {
+    navigate(`/link-profesional/${id}`);
+  };
+
 
 
   return (
@@ -78,7 +87,9 @@ const   Personal = () => {
                 sx={{ width: 56, height: 56, mr: 2 }}
               />
                 <ListItemText primary={`${barbero.nombre} ${barbero.apellido}`} secondary={barbero.servicios_id} />
-                <IconButton edge="end" aria-label="edit" onClick={() => (barbero.id)}
+                <IconButton edge="end" 
+                aria-label="edit"
+                 onClick={() => handleEditClick(barbero.id)}
                    sx={{
                     backgroundColor: 'yellow',
                     borderRadius: '50%',
@@ -89,7 +100,9 @@ const   Personal = () => {
                   }}>
                 <EditIcon  sx={{ color: 'black' }} />
               </IconButton>
-              <IconButton edge="end" aria-label="edit" onClick={() => (barbero.id)}
+              <IconButton edge="end"
+               aria-label="edit" 
+               onClick={() => handleLinkClick(barbero.id)}
                  sx={{
                   ml: 2,
                   backgroundColor: 'yellow',

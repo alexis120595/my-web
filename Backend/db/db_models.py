@@ -39,6 +39,7 @@ class Sucursal(Base):
     ubicacion = Column(String, nullable=False)
     empresa_id = Column(Integer, ForeignKey('empresa.id', ondelete='CASCADE'))
     empresa = relationship('Empresa', back_populates='sucursales')
+    barberos = relationship('Barbero', back_populates='sucursal', cascade='delete, merge')
 
 class Categoria(Base):
     __tablename__ = "categorias"
@@ -75,12 +76,15 @@ class Barbero(Base):
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String, index=True)
     apellido = Column(String, index=True)
+    email = Column(String, unique=True, index=True)
     empresa_id = Column(Integer, ForeignKey('empresa.id', ondelete='CASCADE'))
+    sucursal_id = Column(Integer, ForeignKey('sucursales.id', ondelete='CASCADE'))
     imagen_url = Column(String, index=True)  
     horarios = relationship("Horarios", backref="barberos", cascade="delete, merge")
     reservas = relationship("Reservas", back_populates="barbero")
     servicios = relationship("Servicio", secondary=servicio_barbero, back_populates="barberos")
     empresa = relationship('Empresa', back_populates='barberos')
+    sucursal = relationship('Sucursal', back_populates='barberos')
     
 class Horarios(Base):
 

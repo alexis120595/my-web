@@ -77,20 +77,29 @@ class Config:
         orm_mode = True
    
     
-
-
 class Barbero(BaseModel):
     id: int
     nombre: str
     apellido: str
+    email: Optional[str] = None
     empresa_id: int
+    sucursal_id: Optional[int] = None
     imagen_url: Optional[str] = None
 
 class BarberoCreate(BaseModel):
     nombre: str
     apellido: str
+    email: Optional[str] = None
     empresa_id: int
+    sucursal_id: Optional[int] = None
     imagen_url: Optional[str] = None
+
+class BarberoUpdate(BaseModel):
+    
+    email: Optional[str] = None
+    sucursal_id: Optional[int] = None
+    servicio_id: List[int] = []
+    
 
   
 class Horarios(BaseModel):
