@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Typography, Box, TextField, Button, Checkbox, FormControlLabel, IconButton, InputAdornment} from '@mui/material';
 import SubidaImagenesAjustes from '../components/SubidaImagenesAjustes';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -8,6 +8,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import LinkIcon from '@mui/icons-material/Link';
+import axios from 'axios';
 
 
 
@@ -25,6 +26,7 @@ const AjustesEmpresa = ({  }) => {
   const [tiktok, setTiktok] = useState('');
   const [mostrarOnline, setMostrarOnline] = useState(false);
   const [id, setId] = useState('');
+  const [imagenUrl, setImagenUrl] = useState(''); 
   
   
   const [opciones, setOpciones] = useState({
@@ -34,17 +36,62 @@ const AjustesEmpresa = ({  }) => {
     
   });
 
-  const handleSubmit = (event) => {
+  useEffect(() => {
+    const fetchEmpresa = async () => {
+      const empresaId = localStorage.getItem('empresaId');
+      try {
+        const response = await axios.get(`http://localhost:8000/empresa/${empresaId}`);
+        const empresa = response.data;
+        setNombreEmpresa(empresa.nombre);
+        setSloganEmpresa(empresa.eslogan);
+        setImagenUrl(empresa.imagen_url);
+        setWhatsapp(empresa.whatsapp || '');
+        setInstagram(empresa.instagram || '');
+        setFacebook(empresa.facebook || '');
+        setYoutube(empresa.youtube || '');
+        setTiktok(empresa.tiktok || '');
+      } catch (error) {
+        console.error('Error fetching empresa:', error);
+      }
+    };
+
+    fetchEmpresa();
+  }, []);
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Aquí puedes manejar el envío del formulario, por ejemplo, enviando los datos a una API
-  
-  
-    console.log('Opcioness:', opciones);
+    const empresaId = localStorage.getItem('empresaId');
+
+    const updatedEmpresa = {
+      nombre: nombreEmpresa,
+      eslogan: sloganEmpresa,
+      imagen_url: imagenUrl,
+    };
+
+    try {
+      await axios.put(`http://localhost:8000/empresa/${empresaId}`, updatedEmpresa);
+      alert('Información de la empresa actualizada correctamente');
+    } catch (error) {
+      console.error('Error updating empresa:', error);
+      alert('Error al actualizar la información de la empresa');
+    }
   };
 
   const handleCancel = () => {
     // Aquí puedes manejar la acción de cancelar, por ejemplo, limpiando los campos del formulario
- 
+    setNombreEmpresa('');
+    setSloganEmpresa('');
+    setDescripcionEmpresa('');
+    setReprogramarTurnos('');
+    setAnticipacionReserva('');
+    setAnticipacionReprogramar('');
+    setWhatsapp('');
+    setInstagram('');
+    setFacebook('');
+    setYoutube('');
+    setTiktok('');
+    setMostrarOnline(false);
+    setId('');
+    setImagenUrl('');
   
     setOpciones({
         opcion1: false,
@@ -137,7 +184,7 @@ const AjustesEmpresa = ({  }) => {
             }}
           />
 
-<SubidaImagenesAjustes />
+<SubidaImagenesAjustes onImageUpload={setImagenUrl} />
 
 
         <Typography variant="h4" component="h1" align="center"  sx={{ ml:1, mt:2}}>

@@ -23,6 +23,11 @@ class EmpresaCreate(BaseModel):
     imagen_url: Optional[str] = None
     horarios: Optional[Dict] = None
 
+class EmpresaUpdate(BaseModel):
+    nombre: Optional[str]
+    eslogan: Optional[str]
+    imagen_url: Optional[str]
+
 class Sucursal(BaseModel):
         id: int
         nombre: str

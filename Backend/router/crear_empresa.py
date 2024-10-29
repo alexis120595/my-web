@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
-from Backend.schemas import Empresa, EmpresaCreate, Servicio, ServicioCreate, Barbero, BarberoCreate, Horarios, HorariosCreate, EmpresaConServicios
+from Backend.schemas import Empresa, EmpresaCreate, EmpresaUpdate, Servicio, ServicioCreate, Barbero, BarberoCreate, Horarios, HorariosCreate, EmpresaConServicios
 from Backend.db import db_models
 from Backend.db.database import get_db
 import cloudinary.uploader
@@ -106,4 +106,19 @@ def agregar_horario_a_barbero(barbero_id: int, horario: HorariosCreate, db: Sess
     db.refresh(nuevo_horario)
     return nuevo_horario
 
+@router.put("/empresa/{empresa_id}", response_model=Empresa)
+def update_empresa(empresa_id: int, empresa_update: EmpresaUpdate, db: Session = Depends(get_db)):
+    empresa = db.query(db_models.Empresa).filter(db_models.Empresa.id == empresa_id).first()
+    if not empresa:
+        raise HTTPException(status_code=404, detail="Empresa no encontrada")
 
+    if empresa_update.nombre:
+        empresa.nombre = empresa_update.nombre
+    if empresa_update.eslogan:
+        empresa.eslogan = empresa_update.eslogan
+    if empresa_update.imagen_url:
+        empresa.imagen_url = empresa_update.imagen_url
+
+    db.commit()
+    db.refresh(empresa)
+    return empresa

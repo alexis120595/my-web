@@ -12,35 +12,26 @@ import axios from 'axios';
 
 
 const MiEmpresa = () => {
-  const [empresaNombre, setEmpresaNombre] = useState(null);
-  const [imagenUrl, setImagenUrl] = useState(null);
-  const [empresaData, setEmpresaData] = useState(null);
-    const navigate = useNavigate();
+  const [empresaNombre, setEmpresaNombre] = useState('');
+  const [imagenUrl, setImagenUrl] = useState('');
+  const [empresaData, setEmpresaData] = useState({});
+  const navigate = useNavigate();
 
-    useEffect(() => {
+  useEffect(() => {
       const empresaId = localStorage.getItem('empresaId');
-      const nombre = localStorage.getItem('empresaNombre');
-      const imagen = localStorage.getItem('empresaImagenUrl');
-
-      console.log('ID de la empresa recuperado:', empresaId);
-      console.log('Nombre de la empresa recuperado:',nombre);
-      console.log('URL de la imagen de la empresa recuperada:', imagen);
-      if (nombre) {
-        setEmpresaNombre(nombre);
-      }
-
-      if (imagen) {
-        setImagenUrl(imagen);
-      }
       if (empresaId) {
         fetchEmpresaData(empresaId);
       }
     }, []);
+  
 
     const fetchEmpresaData = async (id) => {
       try {
         const response = await axios.get(`http://localhost:8000/empresa/${id}`);
-        setEmpresaData(response.data);
+        const empresa = response.data;
+        setEmpresaNombre(empresa.nombre);
+        setImagenUrl(empresa.imagen_url);
+        setEmpresaData(empresa);
       } catch (error) {
         console.error('Error al obtener los datos de la empresa:', error);
       }
