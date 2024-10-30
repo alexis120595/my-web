@@ -25,6 +25,7 @@ import AñadirProfesional from './views/AñadirProfesional';
 import EditarProfesional from './views/EditarProfesional';
 import PersonalizarServicio from './views/PersonalizarServicio';
 import DetalleReservaEmpresa from './views/DetalleReservaEmpresa';
+import EditarServicio from './views/EditarServicio';
 
 function App () {
   return (
@@ -57,6 +58,7 @@ function App () {
         <Route path="/editar-profesional/:id" element={<EditarProfesional/>} />
         <Route path="/personalizar-servicio" element={<PersonalizarServicio/>} />
         <Route path="/detalle-reserva-empresa/:id" element={<DetalleReservaEmpresa/>} />
+        <Route path="/editar-servicio/:id" element={<EditarServicio/>} />
       
        
       

@@ -55,6 +55,7 @@ class Config:
         orm_mode = True
 
 
+
 class Servicio(BaseModel):
     id: int
     nombre: str
@@ -78,8 +79,18 @@ class ServicioCreate(BaseModel):
     empresa_id: int
     barberos_ids: List[int] = []
 
+
+
+class ServicioUpdate(BaseModel):
+    
+    precio: Optional[int]
+    duracion: Optional[str]
+    modalidad: Optional[str]
+
+    
 class Config:
-        orm_mode = True
+        orm_mode = True   
+    
    
     
 class Barbero(BaseModel):

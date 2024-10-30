@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
-from Backend.schemas import Servicio, ServicioCreate
+from Backend.schemas import Servicio, ServicioCreate, ServicioUpdate
 from sqlalchemy.orm import Session
 from Backend.db import db_models
 from Backend.db.database import get_db
@@ -69,4 +69,21 @@ def get_servicio_barberos(servicio_id: int, db: Session = Depends(get_db)):
 def get_servicios_by_empresa(empresa_id: int, db: Session = Depends(get_db)):
     servicios = db.query(db_models.Servicio).filter(db_models.Servicio.empresa_id == empresa_id).all()
     return servicios
+
+@router.put("/servicios/{servicio_id}", response_model=Servicio)
+def update_servicio(servicio_id: int, servicio_update: ServicioUpdate, db: Session = Depends(get_db)):
+    servicio = db.query(db_models.Servicio).filter(db_models.Servicio.id == servicio_id).first()
+    if not servicio:
+        raise HTTPException(status_code=404, detail="Servicio not found")
+
+    if servicio_update.precio is not None:
+        servicio.precio = servicio_update.precio
+    if servicio_update.duracion is not None:
+        servicio.duracion = servicio_update.duracion
+    if servicio_update.modalidad is not None:
+        servicio.modalidad = servicio_update.modalidad
+
+    db.commit()
+    db.refresh(servicio)
+    return servicio
 

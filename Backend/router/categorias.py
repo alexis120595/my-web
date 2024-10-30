@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from Backend.schemas import CategoriaCreate, Categoria
 from Backend.db import db_models
 from Backend.db.database import get_db
 from typing import List
+
 
 router = APIRouter()
 
@@ -28,5 +29,5 @@ def create_categoria(categoria: CategoriaCreate, db: Session = Depends(get_db)):
 
 @router.get("/categorias", response_model=List[Categoria])
 def get_categorias(db: Session = Depends(get_db)):
-    categorias = db.query(db_models.Categoria).all()
+    categorias = db.query(db_models.Categoria).options(joinedload(db_models.Categoria.servicios)).all()
     return categorias

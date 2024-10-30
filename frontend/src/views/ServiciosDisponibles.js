@@ -72,7 +72,19 @@ const ServiciosDisponibles = () => {
                   width: '400px',
                   
                 }}>
-              <ListItemText primary={servicio.nombre} secondary={servicio.descripcion} />
+
+              <ListItemText primary={servicio.nombre}
+                           secondary={
+                            <Box component="span" display="flex" flexDirection="column">
+                              <Typography variant="body2" color="textSecondary">
+                                 {servicio.duracion}
+                              </Typography>
+                              <Typography variant="body2" color="textSecondary">
+                                 $ {servicio.precio}
+                              </Typography>
+                            </Box>
+                          }
+                        />
               <IconButton
               edge="end"
               aria-label="edit"

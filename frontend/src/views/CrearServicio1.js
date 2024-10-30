@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Box, TextField, Button, Typography, Checkbox, FormControlLabel,MenuItem } from '@mui/material';
+import { Container, Box, TextField, Button, Typography, Checkbox, FormControlLabel,MenuItem,  Card, CardContent, CardMedia, IconButton } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -82,10 +82,19 @@ const CrearServicio1 = () => {
     setDescripcionChecked(event.target.checked);
   };
 
+  const handleSelectBarbero = (barberoId) => {
+    setSelectedBarberos((prevSelected) =>
+      prevSelected.includes(barberoId)
+        ? prevSelected.filter((id) => id !== barberoId)
+        : [...prevSelected, barberoId]
+    );
+  };
+
+
   return (
     <Container maxWidth="sm">
       <Box mt={5} textAlign="center">
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" gutterBottom  sx={{mr:7}}>
           Añadir Servicio
         </Typography>
         <form onSubmit={handleCrearServicio}>
@@ -187,8 +196,6 @@ const CrearServicio1 = () => {
           Precio del Servicio
         </Typography>
 
-         
-
 <Box mb={2}>
           <FormControlLabel
             control={
@@ -196,6 +203,7 @@ const CrearServicio1 = () => {
                 checked={precioServicioChecked}
                 onChange={handlePrecioServicioCheckedChange}
                 color="primary"
+                sx={{mr:20}}
               />
             }
             label={
@@ -208,8 +216,8 @@ const CrearServicio1 = () => {
             onChange={(e) => setPrecio(e.target.value)}
             sx={{ 
               mb: 2,
-              ml:2,
-              width:"300px",
+              ml:10,
+              width:"200px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
                 color: 'black', // Color del texto
@@ -236,7 +244,7 @@ const CrearServicio1 = () => {
             }
               labelPlacement="start"
           />
-          <Typography variant="body1" sx={{ ml: 55, mt:-6}}>
+          <Typography variant="body1" sx={{ ml: 30, mt:-6}}>
           A definir
         </Typography>
         </Box>
@@ -247,6 +255,8 @@ const CrearServicio1 = () => {
                 checked={descripcionChecked}
                 onChange={handleDescripcionCheckedChange}
                 color="primary"
+
+                sx={{mr:20}}
               />
             }
             label={
@@ -258,9 +268,9 @@ const CrearServicio1 = () => {
             onChange={(e) => setSeña(e.target.value)}
             sx={{ 
               mb: 2,
-              ml:2,
+              ml:10,
               mt:2,
-              width:"300px",
+              width:"200px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
                 color: 'black', // Color del texto
@@ -286,12 +296,12 @@ const CrearServicio1 = () => {
             }
               labelPlacement="start"
           />
-           <Typography variant="body1" sx={{ ml: 55, mt:-7}}>
+           <Typography variant="body1" sx={{ ml: 30, mt:-7}}>
           Sin seña
         </Typography>
         </Box>
 
-<Typography variant="h4" gutterBottom sx={{ mt:4}}>
+<Typography variant="h4" gutterBottom sx={{ mt:4, ml:5}}>
           Modalidad y Duracion 
         </Typography>
 
@@ -361,46 +371,36 @@ const CrearServicio1 = () => {
           Profecional del  Servicio
         </Typography>
 
-        <TextField
-            select
-            label="Barberos"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            value={selectedBarberos}
-            onChange={(e) => setSelectedBarberos(e.target.value)}
-            SelectProps={{
-              multiple: true,
-            }}
-            sx={{ 
-              width:"300px",
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes más redondeados
-                color: 'black', // Color del texto
-                '& fieldset': {
-                  borderColor: 'black', // Color del borde
-                },
-                '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
-                },
-                '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
-                },
-              },
-              '& .MuiInputLabel-root': {
-                color: 'black', // Color del label
-              },
-              '& .MuiInputAdornment-root': {
-                color: 'black', // Color del icono
-              },
-            }} 
-          >
+        <Box display="flex" flexWrap="wrap" justifyContent="center">
             {barberos.map((barbero) => (
-              <MenuItem key={barbero.id} value={barbero.id}>
-                {barbero.nombre} {barbero.apellido}
-              </MenuItem>
+              <Card key={barbero.id} sx={{ maxWidth: 345, m: 2,  borderRadius: '10%',}}>
+                <CardMedia
+                  component="img"
+                  sx={{
+                    height: 60,
+                    width: 60,
+                    borderRadius: '50%', // Hacer la imagen redonda
+                    mt: 1, // Margen inferior
+                    ml:4
+                  }}
+                  image={barbero.imagen_url} // Asegúrate de que la URL de la foto esté disponible en el objeto barbero
+                  alt={`${barbero.nombre} ${barbero.apellido}`}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {barbero.nombre} {barbero.apellido}
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    color={selectedBarberos.includes(barbero.id) ? 'secondary' : 'primary'}
+                    onClick={() => handleSelectBarbero(barbero.id)}
+                  >
+                    {selectedBarberos.includes(barbero.id) ? 'Seleccionado' : 'Seleccionar'}
+                  </Button>
+                </CardContent>
+              </Card>
             ))}
-          </TextField>
+          </Box>
           
           <Button type="submit" variant="contained" color="primary"
             sx={{ 

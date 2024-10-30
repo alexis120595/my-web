@@ -95,17 +95,20 @@ const CrearCategoria = () => {
           />
  <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1,   borderRadius: '20px', // Bordes redondeados
         backgroundColor: 'lightgrey', // Color de fondo gris
-        padding: 2,  }}>
+        padding: 2, width: '300px' }}>
 
               <List>
               {servicios.map((servicio) => (
-                <ListItem key={servicio.id}>
+                <ListItem key={servicio.id}
+                sx={{mr:40}}
+                >
                   <FormControlLabel
                     control={
                       <Checkbox
                         checked={selectedServicios.includes(servicio.id)}
                         onChange={handleServicioChange}
                         value={servicio.id}
+                        sx={{ml:19}}
                       />
                     }
                     label={servicio.nombre}
