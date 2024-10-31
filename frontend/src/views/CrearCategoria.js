@@ -66,14 +66,14 @@ const CrearCategoria = () => {
   return (
     <Box display="flex" flexDirection="column" alignItems="center" height="100vh">
     <Box display="flex" flexDirection="column" justifyContent="center" height="50%">
-      <Typography variant="h4" component="h1" align="center">
+      <Typography variant="h4" component="h1" align="center" sx={{mt:40, mr:6}}>
         Crear Categoría
       </Typography>
       <Typography variant="body1" component="p" sx={{ mt: 2 }} align="center">
         Elegi el nombre de tu nueva categoria y
         
       </Typography>
-      <Typography variant="body1" component="p" sx={{ mt: 2 }} align="center">
+      <Typography variant="body1" component="p" sx={{ mt: 2, mr:3 }} align="center">
         
         
          seleciona los servicios de la misma.

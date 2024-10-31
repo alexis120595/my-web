@@ -39,6 +39,10 @@ class SucursalCreate(BaseModel):
     ubicacion: str
     empresa_id: int
 
+class SucursalUpdate(BaseModel):
+    nombre: Optional[str]
+    ubicacion: Optional[str]
+
 class Categoria(BaseModel):
     id: int
     nombre: str

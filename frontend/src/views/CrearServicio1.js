@@ -367,13 +367,13 @@ const CrearServicio1 = () => {
             }} 
           />
 
-<Typography variant="h4" gutterBottom>
+<Typography variant="h4" gutterBottom sx={{ml:7}}>
           Profecional del  Servicio
         </Typography>
 
         <Box display="flex" flexWrap="wrap" justifyContent="center">
             {barberos.map((barbero) => (
-              <Card key={barbero.id} sx={{ maxWidth: 345, m: 2,  borderRadius: '10%',}}>
+              <Card key={barbero.id} sx={{ maxWidth: 345, ml: 4,  borderRadius: '10%',}}>
                 <CardMedia
                   component="img"
                   sx={{
@@ -411,7 +411,7 @@ const CrearServicio1 = () => {
               borderRadius: '25px', // Bordes redondeados
               display: 'block', // Para centrar el botón
                // M
-               ml: 35, // Margen izquierdo
+               ml: 40, // Margen izquierdo
               width: '150px', // Ancho del botón ajustado al contenido
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
@@ -432,7 +432,7 @@ const CrearServicio1 = () => {
     color: 'black', // Color del texto
     borderRadius: '25px', // Bordes redondeados
     display: 'block', // Para centrar el botón
-    ml: 12, // Margen izquierdo para separar los botones
+    ml: 15, // Margen izquierdo para separar los botones
     width: '150px', // Ancho del botón ajustado al contenido
     '& .MuiOutlinedInput-root': {
       borderRadius: '20px', // Bordes más redondeados

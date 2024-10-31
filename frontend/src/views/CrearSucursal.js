@@ -100,7 +100,7 @@ const CrearSucursal = () => {
             },
           }}
         />
-<Box display="flex" justifyContent="center" >
+<Box display="flex" justifyContent="center" sx={{width:"300px",ml:53}} >
         <Mapa onLocationSelect={handleLocationSelect}  />
         </Box>
        

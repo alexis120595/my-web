@@ -45,6 +45,21 @@ const Sucursales = () => {
     navigate('/crear-sucursal');
   };
 
+  const handleEditClick = (id) => {
+    navigate(`/editar-sucursal/${id}`);
+  };
+
+  const handleDeleteClick = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8000/sucursales/${id}`);
+      setSucursales(sucursales.filter((sucursal) => sucursal.id !== id));
+      alert('Sucursal eliminada correctamente');
+    } catch (error) {
+      console.error('Error deleting sucursal:', error);
+      alert('Error al eliminar la sucursal');
+    }
+  };
+
 
 
   return (
@@ -79,7 +94,7 @@ const Sucursales = () => {
                 
               <ListItemText primary={sucursales.nombre} />
 
-              <IconButton edge="end" aria-label="edit" onClick={() => (sucursales.id)}
+              <IconButton edge="end" aria-label="edit" onClick={() => handleEditClick (sucursales.id)}
                   sx={{
                     backgroundColor: 'yellow',
                     borderRadius: '50%',
@@ -90,7 +105,7 @@ const Sucursales = () => {
                   }}>
                   <EditIcon sx={{ color: 'black' }} />
                 </IconButton>
-                <IconButton edge="end" aria-label="link" onClick={() => (sucursales.id)}
+                <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteClick(sucursales.id)}
                   sx={{
                     ml: 2,
                     backgroundColor: 'yellow',

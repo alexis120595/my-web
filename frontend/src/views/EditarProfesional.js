@@ -68,8 +68,7 @@ const EditarProfesional = () => {
     event.preventDefault();
 
     const updatedBarbero = {
-      nombre,
-      apellido,
+     
       email,
       sucursal_id: sucursal,
       servicio_id: servicios,
@@ -128,34 +127,7 @@ const EditarProfesional = () => {
           </Typography>
         </Box>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <TextField
-            label="Nombre"
-            variant="outlined"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-            sx={{
-              mt: 2,
-              mb: 2,
-              width: '300px',
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '20px',
-              },
-            }}
-          />
-          <TextField
-            label="Apellido"
-            variant="outlined"
-            value={apellido}
-            onChange={(e) => setApellido(e.target.value)}
-            sx={{
-              mt: 2,
-              mb: 2,
-              width: '300px',
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '20px',
-              },
-            }}
-          />
+         
           <TextField
             label="Email"
             type="email"
@@ -293,7 +265,9 @@ const EditarProfesional = () => {
             <Typography variant="body1" align="center" sx={{ mr: 2, mb: 3 }}>
               más para agregar otro rango horario
             </Typography>
+            <Box display="flex" justifyContent="center" alignItems="center" sx={{ mt: 1, ml:5 }}>
             <HorariosEmpresa onHorariosChange={onHorariosChange} />
+          </Box>
           </Box>
           <Typography variant="h4" component="h1" align="center" sx={{ mr: 16, mt: 2 }}>
             Servicios
@@ -309,8 +283,11 @@ const EditarProfesional = () => {
               para encontrarlos rápidamente
             </Typography>
           </Box>
-          <Box display="flex" justifyContent="center" mb={2} mr={15}>
-            <SearchBar onSearch={() => {}} />
+          <Box display="flex" justifyContent="center" 
+          sx={{  ml:15, width: '400px' }}
+          >
+            <SearchBar onSearch={() => {}} 
+            />
           </Box>
           <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
             {todosServicios.map((servicio) => (

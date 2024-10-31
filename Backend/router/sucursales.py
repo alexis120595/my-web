@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
-from Backend.schemas import  SucursalCreate, Sucursal
+from Backend.schemas import  SucursalCreate, Sucursal, SucursalUpdate
 from sqlalchemy.orm import Session
 from Backend.db import db_models
 from Backend.db.database import get_db
@@ -23,6 +23,8 @@ def get_sucursales_by_empresa(empresa_id: int, db: Session = Depends(get_db)):
     sucursales = db.query(db_models.Sucursal).filter(db_models.Sucursal.empresa_id == empresa_id).all()
     return sucursales
 
+
+
 @router.get("/sucursales/buscar", response_model=List[Sucursal])
 def search_sucursales_by_name(nombre: str = Query(None, min_length=1), db: Session = Depends(get_db)):
     if nombre:
@@ -30,5 +32,35 @@ def search_sucursales_by_name(nombre: str = Query(None, min_length=1), db: Sessi
     else:
         sucursales = db.query(db_models.Sucursal).all()
     return sucursales
+
+@router.put("/sucursales/{sucursal_id}", response_model=Sucursal)
+def update_sucursal(sucursal_id: int, sucursal_update: SucursalUpdate, db: Session = Depends(get_db)):
+    sucursal = db.query(db_models.Sucursal).filter(db_models.Sucursal.id == sucursal_id).first()
+    if not sucursal:
+        raise HTTPException(status_code=404, detail="Sucursal not found")
+
+    if sucursal_update.nombre is not None:
+        sucursal.nombre = sucursal_update.nombre
+    if sucursal_update.ubicacion is not None:
+        sucursal.ubicacion = sucursal_update.ubicacion
+
+    db.commit()
+    db.refresh(sucursal)
+    return sucursal
+
+@router.delete("/sucursales/{sucursal_id}") 
+def delete_sucursal(sucursal_id: int, db: Session = Depends(get_db)):
+    sucursal = db.query(db_models.Sucursal).filter(db_models.Sucursal.id == sucursal_id).first()
+    if not sucursal:
+        raise HTTPException(status_code=404, detail="Sucursal not found")
+    db.delete(sucursal)
+    db.commit()
+    return {"message": "Sucursal deleted"}
+
+
+
+
+
+
 
 
