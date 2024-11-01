@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {  MenuItem, Button, Typography, Box, Dialog, DialogTitle, DialogContent, DialogActions, Collapse} from '@mui/material';
 import Calendario from '../components/Calendario';
-import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
-
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import FaceIcon from '@mui/icons-material/Face';
 import BarberoCard from '../components/BarberoCard';
 import InfoIcon from '@mui/icons-material/Info';
 import IconButton from '@mui/material/IconButton';
+import { useNavigate } from 'react-router-dom';
 
 
 const Home = () => {
@@ -30,6 +30,10 @@ const Home = () => {
   const [servicioNombre, setServicioNombre] = useState('');
   const [barberoNombre, setBarberoNombre] = useState('');
   const [horarioHora, setHorarioHora] = useState('');
+  const [barberosRelacionados, setBarberosRelacionados] = useState([]);
+  const navigate = useNavigate();
+
+  
   
   initMercadoPago('APP_USR-b9c96612-c5c7-4108-9960-746706eafd35');
 
@@ -44,6 +48,7 @@ const Home = () => {
   useEffect(() => {
     if (selectedServicio) {
       fetchServicioNombre(selectedServicio);
+     
     }
     if (selectedBarbero) {
       fetchBarberoNombre(selectedBarbero);
@@ -85,6 +90,7 @@ const Home = () => {
     try {
       const response = await axios.get(`http://localhost:8000/servicios/${servicioId}`);
       setServicioNombre(response.data.nombre);
+      setBarberosRelacionados(response.data.barberos);
     } catch (error) {
       console.error('Error fetching servicio nombre:', error);
     }
@@ -108,6 +114,8 @@ const Home = () => {
     }
   };
 
+ 
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -129,6 +137,10 @@ const Home = () => {
     axios.post('http://127.0.0.1:8000/reservas', formData)
       .then(response => {
         console.log('Formulario enviado', response.data);
+
+        localStorage.setItem('lastReservaId', response.data.id);
+
+        navigate(`/detalle/${response.data.id}`);
         // Puedes manejar la respuesta aquí, como mostrar un mensaje de éxito
         axios.put(`http://127.0.0.1:8000/horarios/${selectedHorario}`, { estado: false })
         .then(response => {
@@ -299,7 +311,7 @@ const Home = () => {
         <Dialog open={openBarberoDialog} onClose={handleCloseBarberoDialog}>
           <DialogTitle>Seleccionar Barbero</DialogTitle>
           <DialogContent>
-            {barberos.map(barbero => (
+            {barberosRelacionados.map(barbero => (
               <MenuItem key={barbero.id} value={barbero.id}
                 onClick={() => handleSelectBarbero(barbero.id)}
               
@@ -315,6 +327,8 @@ const Home = () => {
             </Button>
           </DialogActions>
         </Dialog>
+
+        <Calendario selectedDate={selectedDate} setSelectedDate={setSelectedDate}   />
 
       
       <Button variant="outlined" onClick={handleOpenHorarioDialog }  startIcon={<AccessTimeIcon />} sx={{ mt: 2,  borderRadius: '20px', // Bordes redondeados
@@ -356,11 +370,6 @@ const Home = () => {
             </Button>
           </DialogActions>
         </Dialog>
-
-     
-     
-        <Calendario selectedDate={selectedDate} setSelectedDate={setSelectedDate}   />
-      
 
       <Button type="submit" variant="contained" color="primary" onClick={handleCreatePreference}  sx={{ width: '300px', mt: 4, backgroundColor: 'yellow',
     color: 'black', }}>Reservar</Button>

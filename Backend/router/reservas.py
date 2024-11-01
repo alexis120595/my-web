@@ -16,11 +16,6 @@ def create_reserva(reserva: ReservaCreate, db: Session = Depends(get_db)):
     db.refresh(db_reserva)
     return db_reserva
 
-
-
-
-
-
 @router.get("/reservas/fecha", response_model=List[Reservas])
 def get_reservas_by_fecha(fecha: date = Query(...), db: Session = Depends(get_db)):
     reservas = db.query(db_models.Reservas).options(
@@ -30,9 +25,6 @@ def get_reservas_by_fecha(fecha: date = Query(...), db: Session = Depends(get_db
 
    
     return reservas
-
-
-
 
 
 @router.delete("/reservas/{reserva_id}")
@@ -65,7 +57,6 @@ def get_reservas( db: Session = Depends(get_db)):
     ]
     
     return reservas_detalle
-
 
 
 @router.get("/reservas/{reserva_id}")

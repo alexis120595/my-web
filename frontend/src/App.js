@@ -37,7 +37,7 @@ function App () {
       
         <Route path="/home" element={<Home />} />
         <Route path="/reservas" element={<Reserva />} />
-        <Route path="/detalle" element={<Detalle />} />
+        <Route path="/detalle/:id" element={<Detalle />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/" element={<InicioDeSesion />} />
         <Route path="/crear-servicio" element={<CrearServicio />} />
