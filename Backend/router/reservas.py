@@ -16,6 +16,19 @@ def create_reserva(reserva: ReservaCreate, db: Session = Depends(get_db)):
     db.refresh(db_reserva)
     return db_reserva
 
+@router.get("/reservas/usuario/{user_id}", response_model=List[Reservas])
+def get_reservas_by_usuario(user_id: int, db: Session = Depends(get_db)):
+    reservas = db.query(db_models.Reservas).options(
+        joinedload(db_models.Reservas.servicio).joinedload(db_models.Servicio.empresa),
+        joinedload(db_models.Reservas.barbero),
+        joinedload(db_models.Reservas.horario)
+    ).filter(db_models.Reservas.user_id == user_id).all()
+
+    if not reservas:
+        raise HTTPException(status_code=404, detail="No reservations found for this user")
+    
+    return reservas
+
 @router.get("/reservas/fecha", response_model=List[Reservas])
 def get_reservas_by_fecha(fecha: date = Query(...), db: Session = Depends(get_db)):
     reservas = db.query(db_models.Reservas).options(

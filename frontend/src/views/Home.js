@@ -31,6 +31,7 @@ const Home = () => {
   const [barberoNombre, setBarberoNombre] = useState('');
   const [horarioHora, setHorarioHora] = useState('');
   const [barberosRelacionados, setBarberosRelacionados] = useState([]);
+  const [userId, setUserId] = useState(null);
   const navigate = useNavigate();
 
   
@@ -39,9 +40,15 @@ const Home = () => {
 
   useEffect(() => {
     const empresaId = localStorage.getItem('empresaId');
+    const storedUserId = localStorage.getItem('userId');
     if (empresaId) {
       fetchServicios(empresaId);
       fetchBarberos(empresaId);
+    }
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }else {
+      console.error('No se encontró el ID del usuario en el almacenamiento local');
     }
   }, []);
 
@@ -120,7 +127,7 @@ const Home = () => {
     event.preventDefault();
 
     // Verifica que todos los campos requeridos estén seleccionados
-    if (!selectedServicio || !selectedBarbero || !selectedHorario || !selectedDate) {
+    if (!selectedServicio || !selectedBarbero || !selectedHorario || !selectedDate || !userId) {
       console.error('Todos los campos son requeridos');
       return;
     }
@@ -130,17 +137,20 @@ const Home = () => {
       barbero_id: selectedBarbero,
       horario_id: selectedHorario,
       fecha: selectedDate.toISOString().split('T')[0], // Asegúrate de que la fecha esté en el formato correcto
+      user_id: userId,
     };
 
     console.log('Formulario enviado', formData);
 
+    
     axios.post('http://127.0.0.1:8000/reservas', formData)
       .then(response => {
         console.log('Formulario enviado', response.data);
 
         localStorage.setItem('lastReservaId', response.data.id);
+        
 
-        navigate(`/detalle/${response.data.id}`);
+       
         // Puedes manejar la respuesta aquí, como mostrar un mensaje de éxito
         axios.put(`http://127.0.0.1:8000/horarios/${selectedHorario}`, { estado: false })
         .then(response => {
@@ -160,7 +170,7 @@ const Home = () => {
       });
   };
 
-  const handleCreatePreference = async () => {
+  const handleCreatePreference = async (reservaId) => {
     try {
       const response = await axios.post('http://127.0.0.1:8000/create_preference', {
         title: 'Reserva de servicio',
@@ -169,6 +179,7 @@ const Home = () => {
        
       });
       setPreferenceId(response.data.id);
+     
     } catch (error) {
       console.error('Error creating preference:', error);
     }

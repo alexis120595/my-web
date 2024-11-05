@@ -106,11 +106,12 @@ class Reservas(Base):
     servicio_id = Column(Integer, ForeignKey("servicios.id", ondelete="CASCADE"))
     barbero_id = Column(Integer, ForeignKey("barberos.id", ondelete="CASCADE"))
     horario_id = Column(Integer, ForeignKey("horarios.id", ondelete="CASCADE"))
-    
-    
+    user_id = Column(Integer, ForeignKey("registro.id", ondelete="CASCADE"))  # Nueva columna para la relación con usuarios
+
     servicio = relationship("Servicio", back_populates="reservas")
     barbero = relationship("Barbero", back_populates="reservas")
     horario = relationship("Horarios", back_populates="reservas")
+    usuario = relationship("Registro", back_populates="reservas")  # Definir la relación con el modelo Registro
 
 class Registro (Base):
     __tablename__ = "registro"
@@ -118,3 +119,5 @@ class Registro (Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, index=True)
     password = Column(String, index=True)
+    
+    reservas = relationship("Reservas", back_populates="usuario")

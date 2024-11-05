@@ -35,7 +35,7 @@ const Header = () => {
 
   const handleMisTurnosClick = () => {
     if (lastReservaId) {
-      navigate(`/detalle/${lastReservaId}`);
+      navigate('/reservas-usuario');
     } else {
       console.error('No hay reservas disponibles');
     }

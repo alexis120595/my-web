@@ -21,12 +21,13 @@ const InicioDeSesion = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://127.0.0.1:8000/login', { email, password });
-      const {  email: userEmail } = response.data;
-    
+      const {id: userId, email: userEmail } = response.data;
+      localStorage.setItem('userId', userId);
       localStorage.setItem('userEmail', userEmail);
       setUserEmail(userEmail);
       setSuccess('Inicio de sesión exitoso');
       setError(null);
+      console.log('ID del usuario guardado en localStorage:', userId); // Verificar el ID del usuario
       navigate('/opciones');
     } catch (error) {
       setError('Error al iniciar sesión');

@@ -117,10 +117,6 @@ class ServicioUpdate(BaseModel):
 class Config:
         orm_mode = True   
     
-   
-    
-
-
   
 class Horarios(BaseModel):
     id: int
@@ -134,10 +130,17 @@ class HorariosCreate(BaseModel):
     barbero_id: int
     empresa_id: int
 
-
-
 class HorarioUpdate(BaseModel):
-    estado: bool    
+    estado: bool   
+
+class Registro(BaseModel):
+    id: int
+    email: str
+    password: str
+
+class Config:
+        orm_mode = True
+
 
 class ReservaCreate(BaseModel):
     
@@ -145,6 +148,7 @@ class ReservaCreate(BaseModel):
     servicio_id: int
     barbero_id: int
     horario_id: int
+    user_id: int
 
 
 class Reservas(BaseModel):
@@ -153,13 +157,11 @@ class Reservas(BaseModel):
     servicio: Servicio
     barbero: Barbero
     horario: Horarios
-    
-    
+    usuario: Registro
 
-class Registro(BaseModel):
-    id: int
-    email: str
-    password: str
+class Config:
+     orm_mode = True
+    
    
 class RegistroCreate(BaseModel):
   
@@ -171,9 +173,16 @@ class LoginRequest(BaseModel):
     email: str
     password: str
 
+class User(BaseModel):
+    id: int
+    email: str
+
+class config:
+    orm_mode = True
+    
+
 class LoginRequestGoogle (BaseModel):
     token: str
-
 
     
 class EmpresaDetalles(Empresa):

@@ -27,7 +27,8 @@ import PersonalizarServicio from './views/PersonalizarServicio';
 import DetalleReservaEmpresa from './views/DetalleReservaEmpresa';
 import EditarServicio from './views/EditarServicio';
 import EditarSucursal from './views/EditarSucursal';
-
+import ReservaExitosa from './views/ReservaExitosa';
+import ReservasUsuario from './views/ReservasUsuario';
 function App () {
   return (
     
@@ -61,6 +62,9 @@ function App () {
         <Route path="/detalle-reserva-empresa/:id" element={<DetalleReservaEmpresa/>} />
         <Route path="/editar-servicio/:id" element={<EditarServicio/>} />
         <Route path="/editar-sucursal/:id" element={<EditarSucursal/>} />
+        <Route path="/reserva-exitosa" element={<ReservaExitosa/>} />
+        <Route path="/reservas-usuario" element={<ReservasUsuario/>} />
+       
       
        
       
