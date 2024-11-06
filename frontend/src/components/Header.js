@@ -3,12 +3,14 @@ import { UserContext } from '../context/UserContext';
 import { AppBar, Toolbar, Typography,  IconButton, Menu, MenuItem, Divider  } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 const Header = () => {
   const { userEmail } = useContext(UserContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const [lastReservaId, setLastReservaId] = useState(null);
+  const [empresas, setEmpresas] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,9 +18,21 @@ const Header = () => {
     if (storedReservaId) {
       setLastReservaId(storedReservaId);
     }
+
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      fetchEmpresasUsuario(userId);
+    }
   }, []);
 
-
+  const fetchEmpresasUsuario = async (userId) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/empresas/usuario/${userId}`);
+      setEmpresas(response.data);
+    } catch (error) {
+      console.error('Error fetching user companies:', error);
+    }
+  };
   
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -78,8 +92,15 @@ const Header = () => {
             Sección Empresa
           </Typography>
           <Divider />
-          <MenuItem onClick={() => handleMenuItemClick('/mi-empresa')}>Mi Empresa</MenuItem>
-          <MenuItem onClick={() => handleMenuItemClick('/crear-servicio')}>Crear Empresa</MenuItem>
+          <Typography variant="h6" sx={{ padding: '8px 16px' }}>
+            Mis Empresas
+          </Typography>
+          {empresas.map((empresa) => (
+            <MenuItem key={empresa.id} onClick={() => handleMenuItemClick(`/empresa/${empresa.id}`)}>
+              {empresa.nombre}
+            </MenuItem>
+          ))}
+          <MenuItem onClick={() => handleMenuItemClick('/crear-servicio') }>Añadir Empresa</MenuItem>
           <Divider />
           <Typography variant="h6" sx={{ padding: '8px 16px' }}>
             Sección Cliente

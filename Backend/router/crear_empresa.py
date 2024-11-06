@@ -4,6 +4,7 @@ from Backend.schemas import Empresa, EmpresaCreate, EmpresaUpdate, Servicio, Ser
 from Backend.db import db_models
 from Backend.db.database import get_db
 import cloudinary.uploader
+from typing import List
 
 router = APIRouter()
 
@@ -20,7 +21,8 @@ def crear_empresa(empresa: EmpresaCreate, db: Session = Depends(get_db)):
         rubro=empresa.rubro,
         ubicacion=empresa.ubicacion,
         imagen_url=imagen_url,
-        horarios=empresa.horarios
+        horarios=empresa.horarios,
+        user_id=empresa.user_id
         
     )
     db.add(nueva_empresa)
@@ -43,6 +45,7 @@ def obtener_empresa(empresa_id: int, db: Session = Depends(get_db)):
         "ubicacion": empresa.ubicacion,
         "imagen_url": empresa.imagen_url,
         "horarios":empresa.horarios,
+        "user_id": empresa.user_id,
         "servicios": servicios
         
     }
@@ -122,3 +125,10 @@ def update_empresa(empresa_id: int, empresa_update: EmpresaUpdate, db: Session =
     db.commit()
     db.refresh(empresa)
     return empresa
+
+@router.get("/empresas/usuario/{user_id}", response_model=List[Empresa])
+def get_empresas_by_usuario(user_id: int, db: Session = Depends(get_db)):
+    empresas = db.query(db_models.Empresa).filter(db_models.Empresa.user_id == user_id).all()
+    if not empresas:
+        raise HTTPException(status_code=404, detail="No companies found for this user")
+    return empresas

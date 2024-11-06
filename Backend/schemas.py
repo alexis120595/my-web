@@ -13,6 +13,7 @@ class Empresa(BaseModel):
     ubicacion: str
     imagen_url: Optional[str] = None
     horarios: Optional[Dict] = None 
+    user_id: int
     
 
 class EmpresaCreate(BaseModel):
@@ -22,6 +23,7 @@ class EmpresaCreate(BaseModel):
     ubicacion: str
     imagen_url: Optional[str] = None
     horarios: Optional[Dict] = None
+    user_id: int
 
 class EmpresaUpdate(BaseModel):
     nombre: Optional[str]

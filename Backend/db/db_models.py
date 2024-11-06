@@ -27,6 +27,8 @@ class Empresa(Base):
     ubicacion = Column(String, index=True)
     imagen_url = Column(String, index=True)  
     horarios = Column(JSON)
+    user_id = Column(Integer, ForeignKey('registro.id', ondelete='CASCADE'))  # Relacionar con el usuario
+    usuario = relationship("Registro", back_populates="empresas")  # Relación inversa con Registro
     servicios = relationship('Servicio', back_populates='empresa', cascade='delete, merge')
     barberos = relationship('Barbero', back_populates='empresa', cascade='delete, merge')
     categorias = relationship('Categoria', back_populates='empresa', cascade='delete, merge')
@@ -121,3 +123,4 @@ class Registro (Base):
     password = Column(String, index=True)
     
     reservas = relationship("Reservas", back_populates="usuario")
+    empresas = relationship("Empresa", back_populates="usuario") 

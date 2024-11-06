@@ -38,7 +38,8 @@ const CrearServicio = () => {
       return acc;
     }, {});
 
-  
+    const userId = localStorage.getItem('userId');
+    
     const formData = {
       nombre: nombre,
       eslogan: eslogan,
@@ -46,6 +47,7 @@ const CrearServicio = () => {
       ubicacion: ubicacion,
       imagen_url: imagenUrl,
       horarios: horariosJson,
+      user_id: userId,
     };
 
     console.log('Form Data:', formData); 
