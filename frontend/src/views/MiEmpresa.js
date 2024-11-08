@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Box, Button, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import GroupIcon from '@mui/icons-material/Group';
@@ -12,17 +12,18 @@ import axios from 'axios';
 
 
 const MiEmpresa = () => {
+  const { empresaId } = useParams();
   const [empresaNombre, setEmpresaNombre] = useState('');
   const [imagenUrl, setImagenUrl] = useState('');
   const [empresaData, setEmpresaData] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
-      const empresaId = localStorage.getItem('empresaId');
+      
       if (empresaId) {
         fetchEmpresaData(empresaId);
       }
-    }, []);
+    }, [empresaId]);
   
 
     const fetchEmpresaData = async (id) => {

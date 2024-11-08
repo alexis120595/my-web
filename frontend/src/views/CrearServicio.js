@@ -63,7 +63,7 @@ const CrearServicio = () => {
       localStorage.setItem('empresaId', empresaId);
       localStorage.setItem('empresaNombre', empresaNombre);
       localStorage.setItem('empresaImagenUrl', empresaImagenUrl);
-      navigate('/mi-empresa');
+      navigate(`/mi-empresa/${empresaId}`);
     } catch (error) {
       console.error('Error:', error);
     }

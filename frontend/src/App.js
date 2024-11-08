@@ -44,7 +44,7 @@ function App () {
         <Route path="/crear-servicio" element={<CrearServicio />} />
         <Route path="/opciones" element={<Opciones/>} />
         <Route path="/buscar-empresa" element={<BuscarEmpresa />} />
-        <Route path="/mi-empresa" element={<MiEmpresa/>} />
+        <Route path="/mi-empresa/:empresaId" element={<MiEmpresa/>} />
         <Route path="/agenda-empresa" element={<AgendaEmpresa/>} />
         <Route path="/servicios-disponibles" element={<ServiciosDisponibles/>} />
         <Route path="/crear-servicio1" element={<CrearServicio1/>} />

@@ -1,10 +1,15 @@
-import React, { useContext, useState, useEffect} from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../context/UserContext';
-import { AppBar, Toolbar, Typography,  IconButton, Menu, MenuItem, Divider  } from '@mui/material';
+import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, Divider, ListItemIcon } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import SettingsIcon from '@mui/icons-material/Settings';
+import HomeIcon from '@mui/icons-material/Home';
+import StoreIcon from '@mui/icons-material/Store';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import EventIcon from '@mui/icons-material/Event';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
 
 const Header = () => {
   const { userEmail } = useContext(UserContext);
@@ -33,7 +38,7 @@ const Header = () => {
       console.error('Error fetching user companies:', error);
     }
   };
-  
+
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -46,6 +51,13 @@ const Header = () => {
     navigate(path);
     handleMenuClose();
   };
+
+  const handleEmpresaClick = (empresaId) => {
+    localStorage.setItem('empresaId', empresaId); // Guardar el ID de la empresa en el almacenamiento local
+    navigate(`/mi-empresa/${empresaId}`); // Navegar a la página de detalles de la empresa
+    handleMenuClose();
+  };
+
 
   const handleMisTurnosClick = () => {
     if (lastReservaId) {
@@ -64,10 +76,10 @@ const Header = () => {
         </Typography>
         {userEmail && (
           <Typography variant="h6">
-             {userEmail}
+            {userEmail}
           </Typography>
         )}
-         <IconButton
+        <IconButton
           edge="end"
           color="inherit"
           aria-label="menu"
@@ -80,37 +92,73 @@ const Header = () => {
           open={Boolean(anchorEl)}
           onClose={handleMenuClose}
         >
-             <Typography variant="h6" sx={{ padding: '8px 16px' }}>
+          <Typography variant="h6" sx={{ padding: '8px 16px' }}>
             Mi Perfil
           </Typography>
           <Divider />
-          <MenuItem onClick={() => handleMenuItemClick('/mi-perfil')}>Configuracion</MenuItem>
-
+          <MenuItem onClick={() => handleMenuItemClick('/mi-perfil')}>
+            <ListItemIcon>
+              <SettingsIcon fontSize="small" />
+            </ListItemIcon>
+            Configuración
+          </MenuItem>
           <Divider />
-
           <Typography variant="h6" sx={{ padding: '8px 16px' }}>
             Sección Empresa
           </Typography>
           <Divider />
-          <Typography variant="h6" sx={{ padding: '8px 16px' }}>
-            Mis Empresas
-          </Typography>
+          <MenuItem disabled>
+            <ListItemIcon>
+              <HomeIcon fontSize="small" />
+            </ListItemIcon>
+            <Typography variant="h6" sx={{ padding: '8px 16px', color: 'black' }}>
+              Mis Empresas
+            </Typography>
+          </MenuItem>
           {empresas.map((empresa) => (
-            <MenuItem key={empresa.id} onClick={() => handleMenuItemClick(`/empresa/${empresa.id}`)}>
-              {empresa.nombre}
+            <MenuItem key={empresa.id} onClick={() => handleEmpresaClick(empresa.id)} sx={{ justifyContent: 'flex-start' }}>
+              {empresa.imagen_url && (
+                <img
+                  src={empresa.imagen_url}
+                  alt={empresa.nombre}
+                  style={{ width: '30px', height: '30px', borderRadius: '50%', marginLeft: '20px' }}
+                />
+              )}
+              <Typography variant="body1" sx={{ marginLeft: '10px' }}>
+                {empresa.nombre}
+              </Typography>
             </MenuItem>
           ))}
-          <MenuItem onClick={() => handleMenuItemClick('/crear-servicio') }>Añadir Empresa</MenuItem>
+          <MenuItem onClick={() => handleMenuItemClick('/crear-servicio')} sx={{ fontSize: '1.2rem' }}>
+            <ListItemIcon>
+              <StoreIcon fontSize="small" />
+            </ListItemIcon>
+            Añadir Empresa
+          </MenuItem>
           <Divider />
           <Typography variant="h6" sx={{ padding: '8px 16px' }}>
             Sección Cliente
           </Typography>
           <Divider />
-          <MenuItem onClick={() => handleMenuItemClick('/buscar-empresa')}>Reservar turno</MenuItem>
-          <MenuItem onClick={handleMisTurnosClick}>Mis Turnos</MenuItem>
+          <MenuItem onClick={() => handleMenuItemClick('/buscar-empresa')}>
+            <ListItemIcon>
+              <CalendarTodayIcon fontSize="small" />
+            </ListItemIcon>
+            Reservar turno
+          </MenuItem>
+          <MenuItem onClick={handleMisTurnosClick}>
+            <ListItemIcon>
+              <EventIcon fontSize="small" />
+            </ListItemIcon>
+            Mis Turnos
+          </MenuItem>
           <Divider />
-
-          <MenuItem onClick={() => handleMenuItemClick('/logout')} style={{ color: 'red' }}>Cerrar Sesión</MenuItem>
+          <MenuItem onClick={() => handleMenuItemClick('/logout')} style={{ color: 'red' }}>
+            <ListItemIcon>
+              <LogoutIcon fontSize="small" />
+            </ListItemIcon>
+            Cerrar Sesión
+          </MenuItem>
           <Divider />
         </Menu>
       </Toolbar>
