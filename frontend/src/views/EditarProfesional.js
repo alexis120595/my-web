@@ -337,9 +337,10 @@ const EditarProfesional = () => {
                 backgroundColor: 'yellow',
                 color: 'black',
                 borderRadius: '20px',
+                mb:3,
                 width: '45%',
                 '&:hover': {
-                  backgroundColor: 'darkyellow',
+                  backgroundColor: 'darkgrey',
                 },
               }}
             >
@@ -349,12 +350,13 @@ const EditarProfesional = () => {
               type="button"
               variant="contained"
               sx={{
-                backgroundColor: 'grey',
-                color: 'white',
+                backgroundColor: 'yellow',
+                color: 'black',
                 borderRadius: '20px',
+                mb:3,
                 width: '45%',
                 '&:hover': {
-                  backgroundColor: 'darkgrey',
+                  backgroundColor: 'red',
                 },
               }}
               onClick={handleCancel}

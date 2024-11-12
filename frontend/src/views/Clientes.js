@@ -76,7 +76,7 @@ const Clientes = () => {
                 <IconButton edge="end" aria-label="link" onClick={() => (registro.id)}
                   sx={{
                     ml: 2,
-                    backgroundColor: 'yellow',
+                    backgroundColor: 'red',
                     borderRadius: '50%',
                     padding: '10px',
                     '&:hover': {
@@ -90,15 +90,24 @@ const Clientes = () => {
         </List>
 
         <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          sx={{ mt: 2, borderRadius: '25px', backgroundColor: 'yellow',  color: 'black', width: '300px', mr: 1, mb:4 }}
-         
-        >
-          Invitar cliente
-        </Button>
-   
+  variant="contained"
+  color="primary"
+  fullWidth
+  sx={{ 
+    mt: 2, 
+    borderRadius: '25px', 
+    backgroundColor: 'yellow',  
+    color: 'black', 
+    width: '300px', 
+    mr: 1, 
+    mb: 4,
+    '&:hover': {
+      backgroundColor: 'gray', // Cambia el fondo a gris al hacer hover
+    },
+  }}
+>
+  Invitar cliente
+</Button>
       </Box>
     </Container>
   );

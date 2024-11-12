@@ -94,13 +94,16 @@ const MiEmpresa = () => {
           color: 'black', 
           width: '200px', 
           height: '100px',
-           borderRadius: '25px'
+          borderRadius: '25px'
           
             // Added borderRadius for rounded corners
             }} onClick={handleAgendaClick}
-            startIcon={<CalendarTodayIcon />}
             >
-              Agenda
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <CalendarTodayIcon sx={{ fontSize: 40, mb: 1 }} />
+            <Typography variant="h6">Agenda</Typography>
+          </Box>
+               
             </Button>
             <Button variant="contained" sx={{ 
               mr: 2, 
@@ -111,9 +114,11 @@ const MiEmpresa = () => {
               height: '100px',
               borderRadius: '25px' // Added borderRadius for rounded corners
             }} onClick={handleServiciosClick}
-            startIcon={<NotificationsIcon />}
             >
-              Servicios
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <NotificationsIcon sx={{ fontSize: 40, mb: 1 }} />
+            <Typography variant="h6">Servicios</Typography>
+          </Box>
             </Button>
             <Button variant="contained" sx={{ 
               mr: 2, 
@@ -126,9 +131,11 @@ const MiEmpresa = () => {
           height: '100px',
           borderRadius: '25px' // Added borderRadius for rounded corners
         }} onClick={handlePersonalClick}
-        startIcon={<GroupIcon />}
         >
-          Personal
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <GroupIcon sx={{ fontSize: 40, mb: 1 }} />
+        <Typography variant="h6">Personal</Typography>
+      </Box>
         </Button>
         <Button variant="contained" sx={{ 
           mr: 2, 
@@ -139,9 +146,11 @@ const MiEmpresa = () => {
           height: '100px',
           borderRadius: '25px' // Added borderRadius for rounded corners
         }} onClick={handleClientesClick}
-        startIcon={<PersonIcon />} 
         >
-          Clientes
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <PersonIcon sx={{ fontSize: 40, mb: 1 }} />
+        <Typography variant="h6">Clientes</Typography>
+      </Box>
         </Button>
         <Button variant="contained" sx={{ 
           mr: 2, 
@@ -154,9 +163,11 @@ const MiEmpresa = () => {
           height: '100px',
           borderRadius: '25px' // Added borderRadius for rounded corners
         }} onClick={handleSucursalesClick}
-        startIcon={<LocationOnIcon />}
         >
-          Sucursales
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <LocationOnIcon sx={{ fontSize: 40, mb: 1 }} />
+        <Typography variant="h6">Sucursales</Typography>
+      </Box>
         </Button>
         <Button variant="contained" sx={{ 
           mr: 2, 
@@ -167,9 +178,11 @@ const MiEmpresa = () => {
           height: '100px',
           borderRadius: '25px' // Added borderRadius for rounded corners
         }} onClick={handleAjustesEmpresaClick}
-        startIcon={<SettingsIcon />}
         >
-          Ajustes
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <SettingsIcon sx={{ fontSize: 40, mb: 1 }} />
+        <Typography variant="h6">Ajustes</Typography>
+      </Box>
         </Button>
       </Box>
     </Container>

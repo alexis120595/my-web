@@ -104,10 +104,25 @@ const CrearSucursal = () => {
         <Mapa onLocationSelect={handleLocationSelect}  />
         </Box>
        
-          <Button variant="contained" color="primary" onClick={handleCrearSucursal}
-           sx={{ mt: 2, borderRadius: '25px', backgroundColor: 'yellow',  color: 'black', width: '300px', mr: 1, mb:4 }}>
-            Guardar
-          </Button>
+        <Button
+  variant="contained"
+  color="primary"
+  onClick={handleCrearSucursal}
+  sx={{
+    mt: 2,
+    borderRadius: '25px',
+    backgroundColor: 'yellow',
+    color: 'black',
+    width: '300px',
+    mr: 1,
+    mb: 4,
+    '&:hover': {
+      backgroundColor: 'gray', // Color de fondo al hacer hover
+    },
+  }}
+>
+  Guardar
+</Button>
 
         </form>
         {success && <Typography color="primary">{success}</Typography>}

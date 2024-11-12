@@ -109,24 +109,38 @@ const DetalleReservaEmpresa = () => {
           )}
         </CardContent>
         <Button
-        variant="contained"
-        color="primary"
-        onClick={() => navigate('/home')}
-        sx={{ borderRadius: '20px', margin: '10px', backgroundColor: 'yellow',
-          color: 'black', }}
-      >
-        Editar 
-      </Button>
+  variant="contained"
+  color="primary"
+  onClick={() => navigate('/home')}
+  sx={{
+    borderRadius: '20px',
+    margin: '10px',
+    backgroundColor: 'lightgrey',
+    color: 'black',
+    '&:hover': {
+      backgroundColor: 'gray', // Cambia el fondo a gris al hacer hover
+    },
+  }}
+>
+  Editar
+</Button>
 
       <Button
-                variant="contained"
-                color="secondary"
-                onClick={handleAnularClick}
-                sx={{ borderRadius: '20px', margin: '10px', backgroundColor: 'yellow',
-                  color: 'black', }}
-              >
-                Anular
-              </Button>
+  variant="contained"
+  color="secondary"
+  onClick={handleAnularClick}
+  sx={{
+    borderRadius: '20px',
+    margin: '10px',
+    backgroundColor: 'red',
+    color: 'black',
+    '&:hover': {
+      backgroundColor: 'gray', // Cambia el fondo a gris al hacer hover
+    },
+  }}
+>
+  Anular
+</Button>
       </Card>
       <Snackbar
         open={!!successMessage}

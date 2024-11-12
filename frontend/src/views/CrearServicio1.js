@@ -392,53 +392,62 @@ const CrearServicio1 = () => {
                   </Typography>
                   <Button
                     variant="contained"
-                    color={selectedBarberos.includes(barbero.id) ? 'secondary' : 'primary'}
                     onClick={() => handleSelectBarbero(barbero.id)}
-                  >
-                    {selectedBarberos.includes(barbero.id) ? 'Seleccionado' : 'Seleccionar'}
-                  </Button>
+                    sx={{
+                       backgroundColor: selectedBarberos.includes(barbero.id) ? 'gray' : 'white',
+                        color: 'black',
+                        border: '1px solid black',
+                        borderRadius: '20px',
+                          '&:hover': {
+                          backgroundColor: 'lightgray',
+                         },
+                 }}
+              >
+  {selectedBarberos.includes(barbero.id) ? 'Seleccionado' : 'Seleccionar'}
+</Button>
                 </CardContent>
               </Card>
             ))}
           </Box>
           
-          <Button type="submit" variant="contained" color="primary"
-            sx={{ 
-              mb:2,
-              mt: 2, // Margen inferior
-              backgroundColor: 'yellow', // Color de fondo del botón
-              color: 'black', // Color del texto
-              borderRadius: '25px', // Bordes redondeados
-              display: 'block', // Para centrar el botón
-               // M
-               ml: 40, // Margen izquierdo
-              width: '150px', // Ancho del botón ajustado al contenido
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes más redondeados
-              }
-            }}
-          >
-            Añadir
-          </Button>
-
           <Button
+  type="submit"
+  variant="contained"
+  color="primary"
+  sx={{ 
+    mb: 2,
+    mt: 2, // Margen superior
+    backgroundColor: 'yellow', // Color de fondo del botón
+    color: 'black', // Color del texto
+    borderRadius: '25px', // Bordes redondeados
+    display: 'block', // Centrar el botón
+    ml: 40, // Margen izquierdo
+    width: '150px', // Ancho del botón
+    '&:hover': {
+      backgroundColor: 'gray', // Color de fondo al hacer hover
+    },
+  }}
+>
+  Añadir
+</Button>
+
+<Button
   variant="contained"
   color="secondary"
   sx={{
     mb: 2,
-    mt: -7,
-     // Margen superior
+    mt: -7, // Margen superior
     backgroundColor: 'yellow', // Color de fondo del botón
     color: 'black', // Color del texto
     borderRadius: '25px', // Bordes redondeados
     display: 'block', // Para centrar el botón
     ml: 15, // Margen izquierdo para separar los botones
-    width: '150px', // Ancho del botón ajustado al contenido
-    '& .MuiOutlinedInput-root': {
-      borderRadius: '20px', // Bordes más redondeados
+    width: '150px', // Ancho del botón
+    '&:hover': {
+      backgroundColor: 'gray', // Color de fondo al hacer hover
     },
   }}
-  onClick={() => navigate('/servicios')} // Redirige a la página de servicios
+  onClick={() => navigate('/servicios-disponibles')} // Redirige a la página de servicios
 >
   Cancelar
 </Button>

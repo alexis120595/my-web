@@ -536,7 +536,7 @@ const AjustesEmpresa = ({  }) => {
   <Button
     variant="contained"
     color="secondary"
-    sx={{ mt: 2, width: '300px', borderRadius: '20px', color: 'black', backgroundColor: 'red', '&:hover': { backgroundColor: 'darkred' } }}
+    sx={{ mt: 2,mb:2, width: '300px', borderRadius: '20px', color: 'black', backgroundColor: 'red', '&:hover': { backgroundColor: 'darkred' } }}
     onClick={() => alert('Empresa eliminada')}
   >
     Eliminar cuenta
@@ -553,9 +553,10 @@ const AjustesEmpresa = ({  }) => {
                 backgroundColor: 'yellow',
                 color: 'black',
                 borderRadius: '20px',
+                mb:3,
                 width: '45%',
                 '&:hover': {
-                  backgroundColor: 'darkyellow',
+                  backgroundColor: 'darkgrey',
                 },
               }}
             >
@@ -568,9 +569,10 @@ const AjustesEmpresa = ({  }) => {
                 backgroundColor: 'yellow',
                 color: 'black',
                 borderRadius: '20px',
+                mb:3,
                 width: '45%',
                 '&:hover': {
-                  backgroundColor: 'darkyellow',
+                  backgroundColor: 'darkgrey',
                 },
               }}
             >

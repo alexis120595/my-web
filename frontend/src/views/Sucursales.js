@@ -108,7 +108,7 @@ const Sucursales = () => {
                 <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteClick(sucursales.id)}
                   sx={{
                     ml: 2,
-                    backgroundColor: 'yellow',
+                    backgroundColor: 'red',
                     borderRadius: '50%',
                     padding: '10px',
                     '&:hover': {
@@ -122,14 +122,25 @@ const Sucursales = () => {
         </List>
 
         <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          sx={{ mt: 2, borderRadius: '25px', backgroundColor: 'yellow',  color: 'black', width: '300px', mr: 1, mb:4 }}
-         onClick={handleAddSucursalClick}
-        >
-          Añadir sucursal
-        </Button>
+  variant="contained"
+  color="primary"
+  fullWidth
+  sx={{
+    mt: 2,
+    borderRadius: '25px',
+    backgroundColor: 'yellow',
+    color: 'black',
+    width: '300px',
+    mr: 1,
+    mb: 4,
+    '&:hover': {
+      backgroundColor: 'gray', // Cambia el fondo a gris al hacer hover
+    },
+  }}
+  onClick={handleAddSucursalClick}
+>
+  Añadir sucursal
+</Button>
    
       </Box>
     </Container>
