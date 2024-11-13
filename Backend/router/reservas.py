@@ -96,6 +96,20 @@ async def get_reserva_id(reserva_id: int = Path(...), db: Session = Depends(get_
     
     return reserva_detalle
 
+@router.get("/reservas/empresa/{empresa_id}", response_model=List[Reservas])
+def get_reservas_by_empresa(empresa_id: int, db: Session = Depends(get_db)):
+    reservas = db.query(db_models.Reservas).options(
+        joinedload(db_models.Reservas.servicio).joinedload(db_models.Servicio.empresa),
+        joinedload(db_models.Reservas.barbero),
+        joinedload(db_models.Reservas.horario),
+        joinedload(db_models.Reservas.usuario)
+    ).filter(db_models.Reservas.empresa_id == empresa_id).all()
+
+    if not reservas:
+        raise HTTPException(status_code=404, detail="No se encontraron reservas para esta empresa")
+    
+    return reservas
+
 
 
 

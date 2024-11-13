@@ -151,6 +151,7 @@ class ReservaCreate(BaseModel):
     barbero_id: int
     horario_id: int
     user_id: int
+    empresa_id: int
 
 
 class Reservas(BaseModel):
@@ -160,6 +161,7 @@ class Reservas(BaseModel):
     barbero: Barbero
     horario: Horarios
     usuario: Registro
+    empresa: Empresa    
 
 class Config:
      orm_mode = True

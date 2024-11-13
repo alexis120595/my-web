@@ -32,6 +32,7 @@ const Home = () => {
   const [horarioHora, setHorarioHora] = useState('');
   const [barberosRelacionados, setBarberosRelacionados] = useState([]);
   const [userId, setUserId] = useState(null);
+  const [empresaId, setEmpresaId] = useState(null);
   const navigate = useNavigate();
 
   
@@ -39,12 +40,16 @@ const Home = () => {
   initMercadoPago('APP_USR-b9c96612-c5c7-4108-9960-746706eafd35');
 
   useEffect(() => {
-    const empresaId = localStorage.getItem('empresaId');
+    const empresaIdFromStorage = localStorage.getItem('empresaId');
     const storedUserId = localStorage.getItem('userId');
-    if (empresaId) {
-      fetchServicios(empresaId);
-      fetchBarberos(empresaId);
+    if (empresaIdFromStorage) {
+      setEmpresaId(empresaIdFromStorage); 
+      fetchServicios(empresaIdFromStorage);
+      fetchBarberos(empresaIdFromStorage);
+    } else {
+      console.error('No se encontró el ID de la empresa en el almacenamiento local');
     }
+
     if (storedUserId) {
       setUserId(storedUserId);
     }else {
@@ -127,7 +132,7 @@ const Home = () => {
     event.preventDefault();
 
     // Verifica que todos los campos requeridos estén seleccionados
-    if (!selectedServicio || !selectedBarbero || !selectedHorario || !selectedDate || !userId) {
+    if (!selectedServicio || !selectedBarbero || !selectedHorario || !selectedDate || !userId || !empresaId) {
       console.error('Todos los campos son requeridos');
       return;
     }
@@ -138,6 +143,7 @@ const Home = () => {
       horario_id: selectedHorario,
       fecha: selectedDate.toISOString().split('T')[0], // Asegúrate de que la fecha esté en el formato correcto
       user_id: userId,
+      empresa_id: empresaId
     };
 
     console.log('Formulario enviado', formData);

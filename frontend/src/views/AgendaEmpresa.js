@@ -10,20 +10,33 @@ const AgendaEmpresa = () => {
   const [reservas, setReservas] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedReservaId, setSelectedReservaId] = useState(null); // Estado para almacenar el ID de la reserva seleccionada
+  const [empresaId, setEmpresaId] = useState(null); 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedEmpresaId = localStorage.getItem('empresaId');
+    if (storedEmpresaId) {
+      setEmpresaId(storedEmpresaId);
+    } else {
+      console.error('No se encontró el ID de la empresa en el almacenamiento local');
+    }
+  }, []);
 
   useEffect(() => {
     const fetchReservas = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/reservas');
+        const response = await axios.get(`http://localhost:8000/reservas/empresa/${empresaId}`);
         setReservas(response.data);
       } catch (error) {
         console.error('Error fetching agenda:', error);
       }
     };
 
+    if (empresaId){
+
     fetchReservas();
-  }, []);
+}
+  }, [empresaId]);
 
   const handleReservaClick = (id) => {
     setSelectedReservaId(id); // Guardar el ID de la reserva seleccionada en el estado
@@ -76,9 +89,13 @@ sx={{ width: '100%', display: 'block', textAlign: 'left' }}
               ml: 16,
               
             }}>
+               <Box display="flex" flexDirection="column" width="100%">
+                  <ListItemText
+                    primary={`Cliente n° ${reservas.usuario.id}`}
+                  />
                <Box display="flex" justifyContent="space-between" width="100%" >
-              <ListItemText   primary={`Servicio: ${reservas.servicio || 'N/A'}`}
-                    secondary={`Barbero: ${reservas.barbero || 'N/A'}`}  />
+              <ListItemText   primary={` ${reservas.servicio.nombre|| 'N/A'}`}
+                    secondary={` ${reservas.barbero.nombre || 'N/A'}`}  />
               <Box
                   display="flex"
                   alignItems="center"
@@ -95,6 +112,7 @@ sx={{ width: '100%', display: 'block', textAlign: 'left' }}
                   {reservas.fecha}
                 </Typography>
                 </Box>
+              </Box>
               </Box>
 
             </ListItem>

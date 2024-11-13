@@ -33,6 +33,7 @@ class Empresa(Base):
     barberos = relationship('Barbero', back_populates='empresa', cascade='delete, merge')
     categorias = relationship('Categoria', back_populates='empresa', cascade='delete, merge')
     sucursales = relationship('Sucursal', back_populates='empresa', cascade='delete, merge')
+    reservas = relationship('Reservas', back_populates='empresa', cascade='delete, merge')
    
 class Sucursal(Base):
     __tablename__ = 'sucursales'
@@ -109,11 +110,13 @@ class Reservas(Base):
     barbero_id = Column(Integer, ForeignKey("barberos.id", ondelete="CASCADE"))
     horario_id = Column(Integer, ForeignKey("horarios.id", ondelete="CASCADE"))
     user_id = Column(Integer, ForeignKey("registro.id", ondelete="CASCADE"))  # Nueva columna para la relación con usuarios
+    empresa_id = Column(Integer, ForeignKey("empresa.id", ondelete="CASCADE"))
 
     servicio = relationship("Servicio", back_populates="reservas")
     barbero = relationship("Barbero", back_populates="reservas")
     horario = relationship("Horarios", back_populates="reservas")
     usuario = relationship("Registro", back_populates="reservas")  # Definir la relación con el modelo Registro
+    empresa = relationship("Empresa", back_populates="reservas")
 
 class Registro (Base):
     __tablename__ = "registro"
