@@ -132,6 +132,9 @@ class HorariosCreate(BaseModel):
     barbero_id: int
     empresa_id: int
 
+class MultiplesHorarios(BaseModel):
+    horarios: List[HorariosCreate]
+
 class HorarioUpdate(BaseModel):
     estado: bool   
 

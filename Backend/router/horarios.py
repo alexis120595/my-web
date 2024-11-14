@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
-from Backend.schemas import Horarios, HorarioUpdate, HorariosCreate
+from Backend.schemas import Horarios, HorarioUpdate, HorariosCreate, MultiplesHorarios
 from sqlalchemy.orm import Session
 from Backend.db import db_models
 from Backend.db.database import get_db
@@ -21,6 +21,21 @@ def create_horario(horario: HorariosCreate, db: Session = Depends(get_db)):
 def get_horarios(db: Session = Depends(get_db)):
     horarios = db.query(db_models.Horarios).all()
     return horarios
+
+@router.post("/horarios/multiples")
+def crear_multiples_horarios(horarios_data: MultiplesHorarios, db: Session = Depends(get_db)):
+    nuevos_horarios = []
+    for horario_data in horarios_data.horarios:
+        nuevo_horario = db_models.Horarios(
+            hora=horario_data.hora,
+            barbero_id=horario_data.barbero_id,
+            empresa_id=horario_data.empresa_id
+        )
+        db.add(nuevo_horario)
+        nuevos_horarios.append(nuevo_horario)
+    db.commit()
+    return {"message": "Horarios creados exitosamente", "horarios": [horario.id for horario in nuevos_horarios]}
+
 
 @router.get("/horarios/{horario_id}")
 def get_horario(horario_id: int, db: Session = Depends(get_db)):
