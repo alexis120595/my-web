@@ -79,5 +79,11 @@ def update_barbero(barbero_id: int, barbero_update: BarberoUpdate, db: Session =
     db.refresh(barbero)
     return barbero
 
+@router.get("/barberos/{barbero_id}", response_model=Barbero)
+def get_barbero_by_id(barbero_id: int, db: Session = Depends(get_db)):
+    barbero = db.query(db_models.Barbero).filter(db_models.Barbero.id == barbero_id).first()
+    if barbero is None:
+        raise HTTPException(status_code=404, detail="Barbero no encontrado")
+    return barbero
 
 

@@ -1,59 +1,71 @@
+// Personal.js
 import React, { useState, useEffect } from 'react';
-import { Container, Box, Typography, List, ListItem, ListItemText, Button, Avatar, IconButton } from '@mui/material';
+import {
+  Container,
+  Box,
+  Typography,
+  List,
+  ListItemButton,
+  ListItemText,
+  Button,
+  Avatar,
+  IconButton
+} from '@mui/material'; // Asegúrate de importar ListItemButton
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import SearchBarEmpleados from '../components/SearchBarEmpleados'; 
+import SearchBarEmpleados from '../components/SearchBarEmpleados';
 import EditIcon from '@mui/icons-material/Edit';
 import LinkIcon from '@mui/icons-material/Link';
 
-
-const   Personal = () => {
+const Personal = () => {
   const [barberos, setBarberos] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
-    useEffect(() => {
-      const empresaId = localStorage.getItem('empresaId');
-      if (empresaId) {
-        fetchBarberos(empresaId);
-      }
-    }, []);
-  
-    const fetchBarberos = async (empresaId) => {
-      try {
-        const response = await axios.get(`http://localhost:8000/empresa/${empresaId}/barberos`);
-        setBarberos(response.data);
-      } catch (error) {
-        console.error('Error fetching personal:', error);
-      }
-    };
+  useEffect(() => {
+    const empresaId = localStorage.getItem('empresaId');
+    if (empresaId) {
+      fetchBarberos(empresaId);
+    }
+  }, []);
 
-    const handleSearch = async (nombre) => {
-      try {
-        const response = await axios.get(`http://localhost:8000/barberos/buscar?nombre=${nombre}`);
-        console.log('Datos recibidos:', response.data);
-        setBarberos(response.data);
-      } catch (error) {
-        console.error('Error searching barberos:', error);
-      }
-    };
-  
+  const fetchBarberos = async (empresaId) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/empresa/${empresaId}/barberos`);
+      setBarberos(response.data);
+    } catch (error) {
+      console.error('Error fetching personal:', error);
+    }
+  };
 
+  const handleSearch = async (nombre) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/barberos/buscar?nombre=${nombre}`);
+      console.log('Datos recibidos:', response.data);
+      setBarberos(response.data);
+    } catch (error) {
+      console.error('Error searching barberos:', error);
+    }
+  };
 
   const handleAddEmpleadoClick = () => {
     navigate('/crear-empleado');
   };
 
- 
-  const handleEditClick = (id) => {
+  const handleEditClick = (e, id) => {
+    e.stopPropagation(); // Evita que el clic se propague al ListItemButton
     navigate(`/editar-profesional/${id}`);
   };
 
-  const handleLinkClick = (id) => {
+  const handleLinkClick = (e, id) => {
+    e.stopPropagation(); // Evita que el clic se propague al ListItemButton
     navigate(`/link-profesional/${id}`);
   };
 
+  const handleCrearHorariosClick = (barbero) => {
+    navigate('/crear-horarios', { state: { barbero } });
 
+  };
 
   return (
     <Container maxWidth="sm">
@@ -62,7 +74,7 @@ const   Personal = () => {
           Personal
         </Typography>
         <Box display="flex" justifyContent="center" mb={2}>
-          <SearchBarEmpleados  onSearch={handleSearch}  />
+          <SearchBarEmpleados onSearch={handleSearch} />
         </Box>
 
         <Typography variant="h4" gutterBottom sx={{ textAlign: 'left', ml: 2 }}>
@@ -71,8 +83,9 @@ const   Personal = () => {
         <List>
           {barberos.length > 0 ? (
             barberos.map((barbero) => (
-              <ListItem
+              <ListItemButton
                 key={barbero.id}
+                onClick={() => handleCrearHorariosClick(barbero)}
                 sx={{
                   border: '1px solid #ccc',
                   borderRadius: '8px',
@@ -81,40 +94,47 @@ const   Personal = () => {
                   width: '400px'
                 }}
               >
-                  <Avatar
-                alt={`${barbero.nombre} ${barbero.apellido}`}
-                src={barbero.imagen_url}
-                sx={{ width: 56, height: 56, mr: 2 }}
-              />
-                <ListItemText primary={`${barbero.nombre} ${barbero.apellido}`} secondary={barbero.servicios_id} />
-                <IconButton edge="end" 
-                aria-label="edit"
-                 onClick={() => handleEditClick(barbero.id)}
-                   sx={{
+                <Avatar
+                  alt={`${barbero.nombre} ${barbero.apellido}`}
+                  src={barbero.imagen_url}
+                  sx={{ width: 56, height: 56, mr: 2 }}
+                />
+                <ListItemText
+                  primary={`${barbero.nombre} ${barbero.apellido}`}
+                  secondary={barbero.servicios_id}
+                />
+                <IconButton
+                  edge="end"
+                  aria-label="edit"
+                  onClick={(e) => handleEditClick(e, barbero.id)}
+                  sx={{
                     backgroundColor: 'yellow',
                     borderRadius: '50%',
                     padding: '10px',
                     '&:hover': {
-                      backgroundColor: 'darkyellow',
-                    },
-                  }}>
-                <EditIcon  sx={{ color: 'black' }} />
-              </IconButton>
-              <IconButton edge="end"
-               aria-label="edit" 
-               onClick={() => handleLinkClick(barbero.id)}
-                 sx={{
-                  ml: 2,
-                  backgroundColor: 'yellow',
-                  borderRadius: '50%',
-                  padding: '10px',
-                  '&:hover': {
-                    backgroundColor: 'darkyellow',
-                  },
-                }}>
-                <LinkIcon  sx={{ color: 'black' }} />
-              </IconButton>
-              </ListItem>
+                      backgroundColor: 'darkyellow'
+                    }
+                  }}
+                >
+                  <EditIcon sx={{ color: 'black' }} />
+                </IconButton>
+                <IconButton
+                  edge="end"
+                  aria-label="link"
+                  onClick={(e) => handleLinkClick(e, barbero.id)}
+                  sx={{
+                    ml: 2,
+                    backgroundColor: 'yellow',
+                    borderRadius: '50%',
+                    padding: '10px',
+                    '&:hover': {
+                      backgroundColor: 'darkyellow'
+                    }
+                  }}
+                >
+                  <LinkIcon sx={{ color: 'black' }} />
+                </IconButton>
+              </ListItemButton>
             ))
           ) : (
             <Typography>No hay personal disponible para esta empresa.</Typography>
@@ -124,10 +144,17 @@ const   Personal = () => {
           variant="contained"
           color="primary"
           fullWidth
-          sx={{ mt: 2, borderRadius: '25px', backgroundColor: 'yellow',  color: 'black', width: '300px', ml: -31 }}
+          sx={{
+            mt: 2,
+            borderRadius: '25px',
+            backgroundColor: 'yellow',
+            color: 'black',
+            width: '300px',
+            ml: -31
+          }}
           onClick={handleAddEmpleadoClick}
         >
-          Añadir prfesional
+          Añadir profesional
         </Button>
       </Box>
     </Container>

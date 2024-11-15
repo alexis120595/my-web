@@ -1,28 +1,55 @@
-import React, { useState } from 'react';
+// CrearHorarios.js
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, TextField, Button, Typography, Box } from '@mui/material';
+import { Container, Button, Typography, Box, Select, MenuItem, InputLabel, FormControl, Checkbox, ListItemText } from '@mui/material';
+import { useLocation } from 'react-router-dom';
+
 
 const CrearHorarios = () => {
+  const location = useLocation();
+  const barbero = location.state?.barbero;
   const [barberoId, setBarberoId] = useState('');
   const [empresaId, setEmpresaId] = useState('');
-  const [hora, setHora] = useState('');
- 
+  const [horasDisponibles, setHorasDisponibles] = useState([]);
+  const [horariosSeleccionados, setHorariosSeleccionados] = useState([]);
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    // Obtener barberoId y empresaId desde el localStorage
+    if (barbero) {
+      setBarberoId(barbero.id);
+      setEmpresaId(barbero.empresa_id);
+    } else {
+      setError('No se pudo obtener la información del barbero o la empresa.');
+    }
+
+    // Generar lista de horas disponibles (por ejemplo, de 9:00 a 18:00 cada 30 minutos)
+    const horas = [];
+    for (let i = 9; i < 18; i++) {
+      horas.push(`${i}:00`);
+      horas.push(`${i}:30`);
+    }
+    setHorasDisponibles(horas);
+  }, [barbero]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8000/horarios', {
+      // Construir el arreglo de horarios
+      const horarios = horariosSeleccionados.map((hora) => ({
         hora,
-        
         barbero_id: barberoId,
-        empresa_id: empresaId
+        empresa_id: empresaId,
+      }));
+
+      await axios.post('http://localhost:8000/horarios/multiples', {
+        horarios,
       });
-      setSuccess('Horario creado exitosamente');
+      setSuccess('Horarios creados exitosamente');
       setError('');
     } catch (err) {
-      setError('Error al crear el horario');
+      setError('Error al crear los horarios');
       setSuccess('');
     }
   };
@@ -31,121 +58,53 @@ const CrearHorarios = () => {
     <Container maxWidth="sm">
       <Box mt={5} textAlign="center">
         <Typography variant="h4" gutterBottom>
-          Crear Horario
+          Crear Horarios
         </Typography>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          label="Hora"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={hora}
-          onChange={(e) => setHora(e.target.value)}
-          sx={{ 
-            width:"300px",
-            '& .MuiOutlinedInput-root': {
-              borderRadius: '20px', // Bordes más redondeados
-              color: 'black', // Color del texto
-              '& fieldset': {
-                borderColor: 'black', // Color del borde
-              },
-              '&:hover fieldset': {
-                borderColor: 'black', // Color del borde al pasar el mouse
-              },
-              '&.Mui-focused fieldset': {
-                borderColor: 'black', // Color del borde al enfocar
-              },
-            },
-            '& .MuiInputLabel-root': {
-              color: 'black', // Color del label
-            },
-            '& .MuiInputAdornment-root': {
-              color: 'black', // Color del icono
-            },
-          }} 
-        />
-        <TextField
-          label="Barbero ID"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={barberoId}
-          onChange={(e) => setBarberoId(e.target.value)}
-          sx={{ 
-            width:"300px",
-            '& .MuiOutlinedInput-root': {
-              borderRadius: '20px', // Bordes más redondeados
-              color: 'black', // Color del texto
-              '& fieldset': {
-                borderColor: 'black', // Color del borde
-              },
-              '&:hover fieldset': {
-                borderColor: 'black', // Color del borde al pasar el mouse
-              },
-              '&.Mui-focused fieldset': {
-                borderColor: 'black', // Color del borde al enfocar
-              },
-            },
-            '& .MuiInputLabel-root': {
-              color: 'black', // Color del label
-            },
-            '& .MuiInputAdornment-root': {
-              color: 'black', // Color del icono
-            },
-          }} 
-        />
-        <TextField
-          label="Empresa ID"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={empresaId}
-          onChange={(e) => setEmpresaId(e.target.value)}
-          sx={{ 
-            width:"300px",
-            '& .MuiOutlinedInput-root': {
-              borderRadius: '20px', // Bordes más redondeados
-              color: 'black', // Color del texto
-              '& fieldset': {
-                borderColor: 'black', // Color del borde
-              },
-              '&:hover fieldset': {
-                borderColor: 'black', // Color del borde al pasar el mouse
-              },
-              '&.Mui-focused fieldset': {
-                borderColor: 'black', // Color del borde al enfocar
-              },
-            },
-            '& .MuiInputLabel-root': {
-              color: 'black', // Color del label
-            },
-            '& .MuiInputAdornment-root': {
-              color: 'black', // Color del icono
-            },
-          }} 
-        />
-        <Box mt={2} />
-        <Button type="submit" variant="contained" color="primary"
-          sx={{ 
-            mb:2,
-            mt: 2, // Margen inferior
-            backgroundColor: 'yellow', // Color de fondo del botón
-            color: 'black', // Color del texto
-            borderRadius: '25px', // Bordes redondeados
-            display: 'block', // Para centrar el botón
-             // M
-             ml: 22, // Margen izquierdo
-            width: '200px', // Ancho del botón ajustado al contenido
-            '& .MuiOutlinedInput-root': {
-              borderRadius: '20px', // Bordes más redondeados
-            }
-          }}>
-          Añadir Horario
-        </Button>
-      </form>
-      {success && <Typography color="primary">{success}</Typography>}
-      {error && <Typography color="error">{error}</Typography>}
-    </Box>
+        <form onSubmit={handleSubmit}>
+          {/* Eliminamos los campos de entrada para barberoId y empresaId */}
+
+          <FormControl variant="outlined" fullWidth margin="normal" sx={{ width: '300px' }}>
+            <InputLabel id="horarios-label">Seleccionar Horarios</InputLabel>
+            <Select
+              labelId="horarios-label"
+              multiple
+              value={horariosSeleccionados}
+              onChange={(e) => setHorariosSeleccionados(e.target.value)}
+              renderValue={(selected) => selected.join(', ')}
+              label="Seleccionar Horarios"
+              sx={{
+                borderRadius: '25px', // Bordes redondeados
+              }}
+            >
+              {horasDisponibles.map((hora) => (
+                <MenuItem key={hora} value={hora}>
+                  <Checkbox checked={horariosSeleccionados.indexOf(hora) > -1} />
+                  <ListItemText primary={hora} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Box mt={2}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            sx={{
+              mb: 2,
+              mt: 2,
+              backgroundColor: 'yellow',
+              color: 'black',
+              borderRadius: '25px',
+              width: '200px',
+            }}
+          >
+            Añadir Horarios
+          </Button>
+          </Box>
+        </form>
+        {success && <Typography color="primary">{success}</Typography>}
+        {error && <Typography color="error">{error}</Typography>}
+      </Box>
     </Container>
   );
 };
