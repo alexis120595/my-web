@@ -200,6 +200,23 @@ class EmpresaDetalles(Empresa):
 class EmpresaConServicios(Empresa):
     servicios: List[Servicio]
 
+class RedesSocialesBase(BaseModel):
+    whatsapp: Optional[str] = None  # Asegurarse de que sea str
+    instagram: Optional[str] = None
+    facebook: Optional[str] = None
+    youtube: Optional[str] = None
+    tiktok: Optional[str] = None
+
+class RedesSocialesCreate(RedesSocialesBase):
+    pass
+
+class RedesSociales(RedesSocialesBase):
+    id: int
+    empresa_id: int
+
+    class Config:
+        orm_mode = True
+
 
     
 

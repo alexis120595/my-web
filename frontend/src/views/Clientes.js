@@ -4,10 +4,12 @@ import axios from 'axios';
 import SearchBarClientes from '../components/SearchBarClientes';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useNavigate } from 'react-router-dom';
 
 
 const Clientes = () => {
   const [registro, setRegistro] = useState([]);
+  const navigate = useNavigate();
     
 
   useEffect(() => {
@@ -24,7 +26,9 @@ const Clientes = () => {
     fetchRegistro();
   }, []);
 
-
+  const handleCrearReserva = (clienteId) => {
+    navigate('/home', { state: { clienteId } });
+  };
 
   return (
     <Container maxWidth="sm">
@@ -62,7 +66,8 @@ const Clientes = () => {
                 />
               <ListItemText primary={registro.email} />
 
-              <IconButton edge="end" aria-label="edit" onClick={() => (registro.id)}
+              <IconButton edge="end" aria-label="crear reserva"
+               onClick={() =>handleCrearReserva (registro.id)}
                   sx={{
                     backgroundColor: 'yellow',
                     borderRadius: '50%',

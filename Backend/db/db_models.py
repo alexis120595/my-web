@@ -34,6 +34,7 @@ class Empresa(Base):
     categorias = relationship('Categoria', back_populates='empresa', cascade='delete, merge')
     sucursales = relationship('Sucursal', back_populates='empresa', cascade='delete, merge')
     reservas = relationship('Reservas', back_populates='empresa', cascade='delete, merge')
+    redes_sociales = relationship('RedesSociales', back_populates='empresa', uselist=False)
    
 class Sucursal(Base):
     __tablename__ = 'sucursales'
@@ -127,3 +128,16 @@ class Registro (Base):
     
     reservas = relationship("Reservas", back_populates="usuario")
     empresas = relationship("Empresa", back_populates="usuario") 
+
+class RedesSociales(Base):
+    __tablename__ = 'redes_sociales'
+
+    id = Column(Integer, primary_key=True, index=True)
+    empresa_id = Column(Integer, ForeignKey('empresa.id', ondelete='CASCADE'))
+    whatsapp = Column(String, nullable=True)
+    instagram = Column(String, nullable=True)
+    facebook = Column(String, nullable=True)
+    youtube = Column(String, nullable=True)
+    tiktok = Column(String, nullable=True)
+
+    empresa = relationship('Empresa', back_populates='redes_sociales')

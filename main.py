@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-from Backend.router import servicios, barberos, horarios, reservas, mercado_pago, registro, inicio_de_sesion, inicio_de_sesion_google, crear_empresa, categorias, sucursales
+from Backend.router import servicios, barberos, horarios, reservas, mercado_pago, registro, inicio_de_sesion, inicio_de_sesion_google, crear_empresa, categorias, sucursales, redes_sociales
 from Backend.db.database import Base, engine
-from Backend.db.db_models import Servicio, Barbero, Horarios, Reservas, Registro,Categoria, Sucursal
+from Backend.db.db_models import Servicio, Barbero, Horarios, Reservas, Registro,Categoria, Sucursal, RedesSociales
 import mercadopago
 import cloudinary
 import cloudinary.uploader
@@ -44,6 +44,7 @@ app.include_router(inicio_de_sesion_google.router)
 app.include_router(crear_empresa.router)
 app.include_router(categorias.router)
 app.include_router(sucursales.router)
+app.include_router(redes_sociales.router)
 
 
 

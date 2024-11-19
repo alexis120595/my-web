@@ -57,6 +57,8 @@ const AjustesEmpresa = ({  }) => {
 
     fetchEmpresa();
   }, []);
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const empresaId = localStorage.getItem('empresaId');
@@ -67,8 +69,19 @@ const AjustesEmpresa = ({  }) => {
       imagen_url: imagenUrl,
     };
 
+  const redesSociales = {
+      whatsapp,
+      instagram,
+      facebook,
+      youtube,
+      tiktok,
+    };  
+
     try {
       await axios.put(`http://localhost:8000/empresa/${empresaId}`, updatedEmpresa);
+
+      await axios.post(`http://localhost:8000/empresa/${empresaId}/redes-sociales`, redesSociales);
+      
       alert('Información de la empresa actualizada correctamente');
     } catch (error) {
       console.error('Error updating empresa:', error);

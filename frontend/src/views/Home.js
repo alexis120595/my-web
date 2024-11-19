@@ -10,7 +10,7 @@ import BarberoCard from '../components/BarberoCard';
 import InfoIcon from '@mui/icons-material/Info';
 import IconButton from '@mui/material/IconButton';
 import { useNavigate } from 'react-router-dom';
-
+import { useLocation } from 'react-router-dom';
 
 const Home = () => {
   
@@ -31,17 +31,23 @@ const Home = () => {
   const [barberoNombre, setBarberoNombre] = useState('');
   const [horarioHora, setHorarioHora] = useState('');
   const [barberosRelacionados, setBarberosRelacionados] = useState([]);
-  const [userId, setUserId] = useState(null);
-  const [empresaId, setEmpresaId] = useState(null);
-  const navigate = useNavigate();
+ 
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { clienteId } = location.state || {};
+  const storedUserId = localStorage.getItem('userId');
+  const initialUserId = clienteId || storedUserId;
+  const [userId, setUserId] = useState(initialUserId);
+  const [empresaId, setEmpresaId] = useState(null);
+  
   
   
   initMercadoPago('APP_USR-b9c96612-c5c7-4108-9960-746706eafd35');
 
   useEffect(() => {
     const empresaIdFromStorage = localStorage.getItem('empresaId');
-    const storedUserId = localStorage.getItem('userId');
+    
     if (empresaIdFromStorage) {
       setEmpresaId(empresaIdFromStorage); 
       fetchServicios(empresaIdFromStorage);
@@ -50,11 +56,6 @@ const Home = () => {
       console.error('No se encontró el ID de la empresa en el almacenamiento local');
     }
 
-    if (storedUserId) {
-      setUserId(storedUserId);
-    }else {
-      console.error('No se encontró el ID del usuario en el almacenamiento local');
-    }
   }, []);
 
   useEffect(() => {
