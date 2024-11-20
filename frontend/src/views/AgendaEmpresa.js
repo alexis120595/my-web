@@ -55,6 +55,16 @@ const AgendaEmpresa = () => {
     }
   };
 
+  const handleSearchByClienteId = async (userId) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/reservas/cliente/${userId}`);
+      console.log('Reservas por cliente ID:', response.data);
+      setReservas(response.data);
+    } catch (error) {
+      console.error('Error fetching reservas by cliente ID:', error);
+    }
+  };
+
 
   return (
     <Container maxWidth="sm">
@@ -70,7 +80,7 @@ const AgendaEmpresa = () => {
           Proximos turnos
         </Typography>
 
-        <SearchBarReservas />
+        <SearchBarReservas onSearch={handleSearchByClienteId} />
         <List>
           {reservas.map((reservas) => (
 

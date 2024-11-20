@@ -23,7 +23,7 @@ function SearchBarReservas({ onSearch }) {
         variant="outlined"
         value={query}
         onChange={handleInputChange}
-        placeholder="Buscar cliente servicio, etc, "
+        placeholder="Buscar cliente, servicio, etc, "
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">

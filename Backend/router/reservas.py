@@ -111,6 +111,21 @@ def get_reservas_by_empresa(empresa_id: int, db: Session = Depends(get_db)):
     return reservas
 
 
+@router.get("/reservas/cliente/{user_id}")
+def get_reservas_by_user_id(user_id: int, db: Session = Depends(get_db)):
+    reservas = db.query(db_models.Reservas).options(
+        joinedload(db_models.Reservas.servicio),
+        joinedload(db_models.Reservas.barbero),
+        joinedload(db_models.Reservas.horario),
+        joinedload(db_models.Reservas.usuario)
+    ).filter(db_models.Reservas.user_id == user_id).all()
+
+    if not reservas:
+        raise HTTPException(status_code=404, detail="Reservas no encontradas para el cliente")
+    
+    return reservas
+
+
 
 
 
