@@ -31,7 +31,9 @@ const Home = () => {
   const [barberoNombre, setBarberoNombre] = useState('');
   const [horarioHora, setHorarioHora] = useState('');
   const [barberosRelacionados, setBarberosRelacionados] = useState([]);
- 
+  const [reserva, setReserva] = useState(null);
+  const [openPreviewDialog, setOpenPreviewDialog] = useState(false);
+  const [empresa, setEmpresa] = useState(null);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -40,6 +42,8 @@ const Home = () => {
   const initialUserId = clienteId || storedUserId;
   const [userId, setUserId] = useState(initialUserId);
   const [empresaId, setEmpresaId] = useState(null);
+
+  
   
   
   
@@ -52,6 +56,7 @@ const Home = () => {
       setEmpresaId(empresaIdFromStorage); 
       fetchServicios(empresaIdFromStorage);
       fetchBarberos(empresaIdFromStorage);
+      fetchEmpresa(empresaIdFromStorage);
     } else {
       console.error('No se encontró el ID de la empresa en el almacenamiento local');
     }
@@ -124,6 +129,15 @@ const Home = () => {
       setHorarioHora(response.data.hora);
     } catch (error) {
       console.error('Error fetching horario hora:', error);
+    }
+  };
+
+  const fetchEmpresa = async (empresaId) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/empresa/${empresaId}`);
+      setEmpresa(response.data);
+    } catch (error) {
+      console.error('Error fetching empresa:', error);
     }
   };
 
@@ -236,6 +250,39 @@ const Home = () => {
       ...prevExpanded,
       [id]: !prevExpanded[id],
     }));
+  };
+
+  const handleOpenPreviewDialog = () => {
+    const selectedServicioObj = servicios.find(servicio => servicio.id === selectedServicio);
+    const selectedBarberoObj = barberos.find(barbero => barbero.id === selectedBarbero);
+    const selectedHorarioObj = horarios.find(horario => horario.id === selectedHorario);
+
+    setReserva({
+      servicio: selectedServicioObj,
+      barbero: selectedBarberoObj,
+      horario: selectedHorarioObj,
+      fecha: selectedDate,
+      empresa: empresa,
+    });
+
+    setOpenPreviewDialog(true);
+  };
+
+  const handleClosePreviewDialog = () => {
+    setOpenPreviewDialog(false);
+  };
+
+  const handleConfirmarReserva = async () => {
+    try {
+      // Aquí puedes agregar la lógica para crear la reserva y proceder al pago
+      // Por ejemplo, enviar los datos de la reserva al backend y redirigir al pago
+      console.log('Reserva confirmada:', reserva);
+      setOpenPreviewDialog(false);
+      // Redirigir al pago
+      navigate('/pago');
+    } catch (error) {
+      console.error('Error al confirmar la reserva:', error);
+    }
   };
 
   return (
@@ -365,11 +412,14 @@ const Home = () => {
 
         <Dialog open={openHorarioDialog} onClose={handleCloseHorarioDialog}>
           <DialogTitle>Seleccionar Horario</DialogTitle>
-          <DialogContent>
+          <DialogContent
+           sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}
+          >
             {horarios.map(horario => (
               <MenuItem key={horario.id} value={horario.id}
                 onClick={() => handleSelectHorario(horario.id)}
                 sx={{
+                  
                   border: '1px solid black',
                   borderRadius: '10px',
                   margin: '5px 0',
@@ -385,6 +435,37 @@ const Home = () => {
           <DialogActions>
             <Button onClick={handleCloseHorarioDialog} color="primary">
               Cancelar
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        <Button variant="contained" color="primary" onClick={handleOpenPreviewDialog} sx={{ mt: 2 }}>
+          Ver Vista Previa
+        </Button>
+
+        <Dialog open={openPreviewDialog} onClose={handleClosePreviewDialog}>
+          <DialogTitle>Vista Previa de la Reserva</DialogTitle>
+          <DialogContent>
+            {reserva && (
+              <Box>
+                 <Typography variant="body1">Empresa: {reserva.empresa.nombre}</Typography>
+                 <Typography variant="body1">Ubicación: {reserva.empresa.ubicacion}</Typography>
+                <Typography variant="body1">Servicio: {reserva.servicio.nombre}</Typography>
+                <Typography variant="body1">Precio: ${reserva.servicio.precio}</Typography>
+                <Typography variant="body1">Barbero: {reserva.barbero.nombre}</Typography>
+                <Typography variant="body1">Horario: {reserva.horario.hora}</Typography>
+                <Typography variant="body1">Fecha: {reserva.fecha.toLocaleDateString()}</Typography>
+               
+                
+              </Box>
+            )}
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClosePreviewDialog} color="primary">
+              Cancelar
+            </Button>
+            <Button onClick={handleConfirmarReserva} color="primary">
+              Confirmar y Pagar
             </Button>
           </DialogActions>
         </Dialog>

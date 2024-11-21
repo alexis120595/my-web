@@ -49,7 +49,9 @@ class Categoria(BaseModel):
     id: int
     nombre: str
     empresa_id: int
-    servicios: List["Servicio"] = []
+    
+    class Config:
+        orm_mode = True
 
 class CategoriaCreate(BaseModel):
     nombre: str
@@ -95,6 +97,11 @@ class Servicio(BaseModel):
     modalidad: Optional[str] = None
     empresa_id: int
     barberos: List[Barbero] = []
+    categorias: List[Categoria] = []	
+
+    
+    class Config:
+        orm_mode = True
 
 class ServicioCreate(BaseModel):
     nombre: str

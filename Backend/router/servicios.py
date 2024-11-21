@@ -65,9 +65,12 @@ def get_servicio_barberos(servicio_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Servicio not found")
     return servicio
 
-@router.get("/empresa/{empresa_id}/servicios", response_model=list[Servicio])
+@router.get("/empresa/{empresa_id}/servicios", response_model=List[Servicio])
 def get_servicios_by_empresa(empresa_id: int, db: Session = Depends(get_db)):
-    servicios = db.query(db_models.Servicio).filter(db_models.Servicio.empresa_id == empresa_id).all()
+    servicios = db.query(db_models.Servicio).options(
+        joinedload(db_models.Servicio.categorias),
+        joinedload(db_models.Servicio.barberos)  # Si necesitas cargar los barberos también
+    ).filter(db_models.Servicio.empresa_id == empresa_id).all()
     return servicios
 
 @router.put("/servicios/{servicio_id}", response_model=Servicio)
