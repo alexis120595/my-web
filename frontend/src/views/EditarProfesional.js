@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Typography, Box, TextField, Button, FormControl, InputLabel, Select, MenuItem, Checkbox, FormControlLabel, IconButton } from '@mui/material';
-import HorariosEmpresa from '../components/HorariosEmpresa';
+import { Typography, Box, TextField, Button, FormControl, InputLabel, Select, MenuItem, Checkbox, FormControlLabel, IconButton, Switch} from '@mui/material';
+
 import SearchBar from '../components/SearchBar';
 import axios from 'axios';
 import EditIcon from '@mui/icons-material/Edit';
@@ -17,6 +17,7 @@ const EditarProfesional = () => {
   const [servicios, setServicios] = useState([]);
   const [todosServicios, setTodosServicios] = useState([]); // Estado para almacenar todos los servicios disponibles
   const empresaId = localStorage.getItem('empresaId'); // Obtener el ID de la empresa desde el almacenamiento local
+  const [horarios, setHorarios] = useState([]); 
   
   const [permisos, setPermisos] = useState({
     permiso1: false,
@@ -31,11 +32,14 @@ const EditarProfesional = () => {
       try {
         const response = await axios.get(`http://localhost:8000/barberos/${id}`);
         const barbero = response.data;
+        console.log('Barbero obtenido:', barbero);
         setNombre(barbero.nombre);
         setApellido(barbero.apellido);
         setEmail(barbero.email);
         setSucursal(barbero.sucursal_id);
         setServicios(barbero.servicios.map(servicio => servicio.id));
+        setHorarios(barbero.horarios);
+        console.log('Horarios asignados al estado:', barbero.horarios);
       } catch (error) {
         console.error('Error fetching barbero:', error);
       }
@@ -64,6 +68,10 @@ const EditarProfesional = () => {
     fetchServicios();
   }, [id, empresaId]);
 
+  const handleHorariosChange = (nuevosHorarios) => {
+    setHorarios(nuevosHorarios);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -72,6 +80,7 @@ const EditarProfesional = () => {
       email,
       sucursal_id: sucursal,
       servicio_id: servicios,
+      horarios,
     };
 
     try {
@@ -106,10 +115,19 @@ const EditarProfesional = () => {
     });
   };
 
-  const onHorariosChange = (newHorarios) => {
-    console.log('Horarios:', newHorarios);
-  };
+  const diasSemana = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
 
+  const [diasActivos, setDiasActivos] = useState({
+    Lun: true,
+    Mar: true,
+    Mié: true,
+    Jue: true,
+    Vie: true,
+    Sáb: true,
+    Dom: true,
+  });
+
+ 
   const handleEditServicio = (servicioId) => {
     // Lógica para editar el servicio
     console.log(`Editar servicio con ID: ${servicioId}`);
@@ -265,9 +283,62 @@ const EditarProfesional = () => {
             <Typography variant="body1" align="center" sx={{ mr: 2, mb: 3 }}>
               más para agregar otro rango horario
             </Typography>
-            <Box display="flex" justifyContent="center" alignItems="center" sx={{ mt: 1, ml:5 }}>
-            <HorariosEmpresa onHorariosChange={onHorariosChange} />
-          </Box>
+            
+          
+
+{diasSemana.map((dia, index) => (
+  <Box key={index} display="flex" justifyContent="center" alignItems="center" sx={{ mt: 1, ml: 5 }}>
+    <Box display="flex" flexDirection="column" alignItems="center" sx={{ mr: 2 }}>
+      <Typography variant="body1" sx={{ mr:15}}>
+        {dia}
+      </Typography>
+      <Switch
+  checked={diasActivos[dia]}
+  onChange={() => setDiasActivos({ ...diasActivos, [dia]: !diasActivos[dia] })}
+  sx={{
+    mr: 15,
+    '& .MuiSwitch-switchBase.Mui-checked': {
+      color: 'white',
+      '&:hover': {
+        backgroundColor: 'rgba(0, 255, 0, 0.08)',
+      },
+    },
+    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+      backgroundColor: 'green',
+    },
+  }}
+/>
+    </Box>
+    <FormControl variant="outlined" sx={{ minWidth: 120, borderRadius: '20px' }}>
+     
+      <Select
+        labelId={`select-horarios-label-${dia}`}
+        label={dia}
+        sx={{ borderRadius: '20px' }}
+        MenuProps={{
+          PaperProps: {
+            sx: {
+              borderRadius: '20px',
+            },
+          },
+        }}
+        disabled={!diasActivos[dia]} // Deshabilitar el select si el día no está activo
+      >
+        {horarios && horarios.length > 0 ? (
+          horarios.map((horario) => (
+            <MenuItem key={horario.id} value={horario.hora} sx={{ borderRadius: '20px' }}>
+              {horario.hora}
+            </MenuItem>
+          ))
+        ) : (
+          <MenuItem value="" sx={{ borderRadius: '20px' }}>
+            <em>No hay horarios asignados</em>
+          </MenuItem>
+        )}
+      </Select>
+    </FormControl>
+  </Box>
+))}
           </Box>
           <Typography variant="h4" component="h1" align="center" sx={{ mr: 16, mt: 2 }}>
             Servicios
