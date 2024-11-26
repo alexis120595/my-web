@@ -37,6 +37,7 @@ const Home = () => {
   const [horarioSeleccionado, setHorarioSeleccionado] = useState(false);
   // Añade este estado en tu componente
 const [mostrarVistaPrevia, setMostrarVistaPrevia] = useState(true);
+const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -79,6 +80,18 @@ const [mostrarVistaPrevia, setMostrarVistaPrevia] = useState(true);
       fetchHorarioHora(selectedHorario);
     }
   }, [selectedServicio, selectedBarbero, selectedHorario]);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const status = searchParams.get('status');
+
+    if (status === 'success') {
+      setShowSuccessModal(true);
+      searchParams.delete('status');
+      const newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
+      window.history.replaceState(null, '', newRelativePathQuery);
+    }
+  }, []);
 
   const fetchServicios = async (empresaId) => {
     try {
@@ -577,6 +590,25 @@ const [mostrarVistaPrevia, setMostrarVistaPrevia] = useState(true);
       )}
 
     </form>
+    <Dialog open={showSuccessModal} onClose={() => setShowSuccessModal(false)}>
+        <DialogTitle>Reserva creada con éxito</DialogTitle>
+        <DialogContent>
+          <Typography>Ve al apartado de Mis turnos, para ver el detalle de la reserva.</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setShowSuccessModal(false)} color="primary"
+           sx={{
+            color:"black", 
+            backgroundColor: 'yellow',
+            borderRadius: '30px',
+            '&:hover': {
+              backgroundColor: '#FFD700',
+            },
+          }}>
+            Cerrar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
