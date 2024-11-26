@@ -109,22 +109,25 @@ const CrearServicio1 = () => {
               width:"300px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
-                color: 'black', // Color del texto
+                backgroundColor: 'white', // Color de fondo del input
+                '& input': {
+                  color: 'black', // Color del texto que se escribe
+                },
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'white', // Color del borde
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'white', // Color del borde al pasar el mouse
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'white', // Color del borde al enfocar
                 },
               },
               '& .MuiInputLabel-root': {
                 color: 'black', // Color del label
               },
               '& .MuiInputAdornment-root': {
-                color: 'black', // Color del icono
+                color: 'white', // Color del icono
               },
             }} 
           />
@@ -140,22 +143,26 @@ const CrearServicio1 = () => {
               width:"300px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
-                color: 'black', // Color del texto
+                backgroundColor: 'white', // Color de fondo del input
+                '& input': {
+                  color: 'black', // Color del texto que se escribe
+                },
+                
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'white', // Color del borde
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'white', // Color del borde al pasar el mouse
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'white', // Color del borde al enfocar
                 },
               },
               '& .MuiInputLabel-root': {
                 color: 'black', // Color del label
               },
               '& .MuiInputAdornment-root': {
-                color: 'black', // Color del icono
+                color: 'white', // Color del icono
               },
             }} 
           />
@@ -172,22 +179,26 @@ const CrearServicio1 = () => {
               width:"300px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
-                color: 'black', // Color del texto
+                backgroundColor: 'white', // Color de fondo del input
+                '& input': {
+                  color: 'black', // Color del texto que se escribe
+                },
+                
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'white', // Color del borde
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'white', // Color del borde al pasar el mouse
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'white', // Color del borde al enfocar
                 },
               },
               '& .MuiInputLabel-root': {
                 color: 'black', // Color del label
               },
               '& .MuiInputAdornment-root': {
-                color: 'black', // Color del icono
+                color: 'white', // Color del icono
               },
             }} 
           />
@@ -203,7 +214,13 @@ const CrearServicio1 = () => {
                 checked={precioServicioChecked}
                 onChange={handlePrecioServicioCheckedChange}
                 color="primary"
-                sx={{mr:20}}
+                sx={{mr:20,
+                  color:"white",
+                  '&.Mui-checked': {
+      color: "yellow", // Cambiar el color a amarillo cuando está seleccionado
+    },
+  
+                }}
               />
             }
             label={
@@ -220,22 +237,26 @@ const CrearServicio1 = () => {
               width:"200px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
-                color: 'black', // Color del texto
+                backgroundColor: 'white', // Color de fondo del input
+                '& input': {
+                  color: 'black', // Color del texto que se escribe
+                },
+                
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'white', // Color del borde
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'white', // Color del borde al pasar el mouse
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'white', // Color del borde al enfocar
                 },
               },
               '& .MuiInputLabel-root': {
                 color: 'black', // Color del label
               },
               '& .MuiInputAdornment-root': {
-                color: 'black', // Color del icono
+                color: 'white', // Color del icono
               },
             }} 
           />
@@ -256,7 +277,13 @@ const CrearServicio1 = () => {
                 onChange={handleDescripcionCheckedChange}
                 color="primary"
 
-                sx={{mr:20}}
+                sx={{mr:20,
+                  color:"white",
+                  '&.Mui-checked': {
+      color: "yellow", // Cambiar el color a amarillo cuando está seleccionado
+    },
+  
+                }}
               />
             }
             label={
@@ -273,22 +300,26 @@ const CrearServicio1 = () => {
               width:"200px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
-                color: 'black', // Color del texto
+                backgroundColor: 'white', // Color de fondo del input
+                '& input': {
+                  color: 'black', // Color del texto que se escribe
+                },
+                
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'white', // Color del borde
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'white', // Color del borde al pasar el mouse
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'white', // Color del borde al enfocar
                 },
               },
               '& .MuiInputLabel-root': {
                 color: 'black', // Color del label
               },
               '& .MuiInputAdornment-root': {
-                color: 'black', // Color del icono
+                color: 'white', // Color del icono
               },
             }} 
           />
@@ -316,22 +347,27 @@ const CrearServicio1 = () => {
               width:"300px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
-                color: 'black', // Color del texto
+                backgroundColor: 'white', // Color de fondo del input
+                '& input': {
+                  color: 'black', // Color del texto que se escribe
+                },
+                
+                
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'white', // Color del borde
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'white', // Color del borde al pasar el mouse
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'white', // Color del borde al enfocar
                 },
               },
               '& .MuiInputLabel-root': {
                 color: 'black', // Color del label
               },
               '& .MuiInputAdornment-root': {
-                color: 'black', // Color del icono
+                color: 'white', // Color del icono
               },
             }} 
           />
@@ -347,22 +383,25 @@ const CrearServicio1 = () => {
               width:"300px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
-                color: 'black', // Color del texto
+                backgroundColor: 'white', // Color de fondo del input
+                '& input': {
+                  color: 'black', // Color del texto que se escribe
+                },
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'white', // Color del borde
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'white', // Color del borde al pasar el mouse
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'white', // Color del borde al enfocar
                 },
               },
               '& .MuiInputLabel-root': {
                 color: 'black', // Color del label
               },
               '& .MuiInputAdornment-root': {
-                color: 'black', // Color del icono
+                color: 'white', // Color del icono
               },
             }} 
           />

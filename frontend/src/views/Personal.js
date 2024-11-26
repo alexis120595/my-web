@@ -91,17 +91,32 @@ const Personal = () => {
                   borderRadius: '8px',
                   mb: 2,
                   padding: 2,
-                  width: '400px'
+                  width: '400px',
+                  backgroundColor: 'white', // Color de fondo del input
+                  '&:hover': {
+                    backgroundColor: 'lightgray', // Cambiar el color de fondo al pasar el cursor a gris claro
+                  },
                 }}
               >
                 <Avatar
                   alt={`${barbero.nombre} ${barbero.apellido}`}
                   src={barbero.imagen_url}
-                  sx={{ width: 56, height: 56, mr: 2 }}
+                  sx={{ width: 56, height: 56, mr: 2
+
+                  }}
+                  
                 />
                 <ListItemText
                   primary={`${barbero.nombre} ${barbero.apellido}`}
                   secondary={barbero.servicios_id}
+                  sx={{
+                    '& .MuiListItemText-primary': {
+                      color: 'black', // Cambiar el color del nombre del barbero a negro
+                    },
+                    '& .MuiListItemText-secondary': {
+                      color: 'gray', // Cambiar el color del texto secundario si es necesario
+                    },
+                  }}
                 />
                 <IconButton
                   edge="end"

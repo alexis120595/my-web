@@ -34,6 +34,9 @@ const Home = () => {
   const [reserva, setReserva] = useState(null);
   const [openPreviewDialog, setOpenPreviewDialog] = useState(false);
   const [empresa, setEmpresa] = useState(null);
+  const [horarioSeleccionado, setHorarioSeleccionado] = useState(false);
+  // Añade este estado en tu componente
+const [mostrarVistaPrevia, setMostrarVistaPrevia] = useState(true);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -216,6 +219,7 @@ const Home = () => {
 
   const handleSelectHorario = (horarioId) => {
     setSelectedHorario(horarioId);
+    setHorarioSeleccionado(true); 
     handleCloseHorarioDialog();
   };
 
@@ -277,9 +281,10 @@ const Home = () => {
       // Aquí puedes agregar la lógica para crear la reserva y proceder al pago
       // Por ejemplo, enviar los datos de la reserva al backend y redirigir al pago
       console.log('Reserva confirmada:', reserva);
+      setMostrarVistaPrevia(false);
       setOpenPreviewDialog(false);
       // Redirigir al pago
-      navigate('/pago');
+    
     } catch (error) {
       console.error('Error al confirmar la reserva:', error);
     }
@@ -300,10 +305,12 @@ const Home = () => {
     color: 'black', // Color del texto negro
     width: '300px', // Ancho del botón
     height: '55px', // Alto del botón
+    backgroundColor: 'white',
     '&:hover': {
-      borderColor: 'black', // Mantener el color del borde negro al pasar el cursor
-      backgroundColor: 'rgba(0, 0, 0, 0.1)', // Fondo ligeramente oscuro al pasar el cursor
+      backgroundColor: 'white', // Mantener el fondo blanco al pasar el cursor
+      borderColor: 'black', // Mantener el borde negro al pasar el cursor
     },
+   
   }} >
           
           {selectedServicio ? ` ${servicioNombre}` : 'Seleccionar Servicio'}
@@ -337,8 +344,13 @@ const Home = () => {
                   }}
                   sx={{
                     position: 'absolute', // Posición absoluta para mover el icono
-                    top: 0, // Alinearlo en la parte superior
-                    right: 0, // Alinearlo a la derecha
+                    top: 5, // Alinearlo en la parte superior
+                    right: 5, // Alinearlo a la derecha
+                    backgroundColor: 'yellow', // Fondo amarillo
+                    color: 'black', // Color
+                    '&:hover': {
+                      backgroundColor: '#FFD700', // Fondo amarillo oscuro al pasar el cursor
+                    },
                   }}
                 >
                   <InfoIcon />
@@ -352,8 +364,21 @@ const Home = () => {
             ))}
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseServicioDialog} color="primary">
-              Cancelar
+            <Button onClick={handleCloseServicioDialog} color="primary"
+            sx={{color:"black", 
+              mr:4,
+              backgroundColor: 'yellow', // Fondo amarillo
+              borderRadius: '30px', // Bordes redondeados para hacer un círculo
+              width: '150px', // Ancho del botón
+              height: '30px', // Alto del botón
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              '&:hover': {
+                backgroundColor: '#FFD700', // Fondo amarillo oscuro al pasar el cursor
+              },
+            }}>
+              Continuar
             </Button>
           </DialogActions>
         </Dialog>
@@ -364,10 +389,12 @@ const Home = () => {
     color: 'black', // Color del texto negro
     width: '300px', // Ancho del botón
     height: '55px', // Alto del botón
+    backgroundColor: 'white',
     '&:hover': {
-      borderColor: 'black', // Mantener el color del borde negro al pasar el cursor
-      backgroundColor: 'rgba(0, 0, 0, 0.1)', // Fondo ligeramente oscuro al pasar el cursor
+      backgroundColor: 'white', // Mantener el fondo blanco al pasar el cursor
+      borderColor: 'black', // Mantener el borde negro al pasar el cursor
     },
+   
    }}>
         {selectedBarbero ? `${barberoNombre}` : 'Seleccionar Barbero'}
         </Button>
@@ -387,8 +414,21 @@ const Home = () => {
             ))}
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseBarberoDialog} color="primary">
-              Cancelar
+            <Button onClick={handleCloseBarberoDialog} color="primary"
+             sx={{color:"black", 
+              mr:4,
+              backgroundColor: 'yellow', // Fondo amarillo
+              borderRadius: '30px', // Bordes redondeados para hacer un círculo
+              width: '150px', // Ancho del botón
+              height: '30px', // Alto del botón
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              '&:hover': {
+                backgroundColor: '#FFD700', // Fondo amarillo oscuro al pasar el cursor
+              },
+            }}>
+              Continuar
             </Button>
           </DialogActions>
         </Dialog>
@@ -401,9 +441,10 @@ const Home = () => {
     color: 'black', // Color del texto negro
     width: '300px', // Ancho del botón
     height: '55px', // Alto del botón
+    backgroundColor: 'white',
     '&:hover': {
-      borderColor: 'black', // Mantener el color del borde negro al pasar el cursor
-      backgroundColor: 'rgba(0, 0, 0, 0.1)', // Fondo ligeramente oscuro al pasar el cursor
+      backgroundColor: 'white', // Mantener el fondo blanco al pasar el cursor
+      borderColor: 'black', // Mantener el borde negro al pasar el cursor
     },
    }}>
           {selectedHorario ? `${horarioHora}` : 'Seleccionar Horario'}
@@ -433,15 +474,33 @@ const Home = () => {
             ))}
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseHorarioDialog} color="primary">
-              Cancelar
+            <Button onClick={handleCloseHorarioDialog} color="primary"
+             sx={{color:"black", 
+              mr:12,
+              backgroundColor: 'yellow', // Fondo amarillo
+              borderRadius: '30px', // Bordes redondeados para hacer un círculo
+              width: '150px', // Ancho del botón
+              height: '30px', // Alto del botón
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              '&:hover': {
+                backgroundColor: '#FFD700', // Fondo amarillo oscuro al pasar el cursor
+              },
+            }}>
+              Continuar
             </Button>
           </DialogActions>
         </Dialog>
-
-        <Button variant="contained" color="primary" onClick={handleOpenPreviewDialog} sx={{ mt: 2 }}>
+        {horarioSeleccionado &&  mostrarVistaPrevia && (
+        <Button variant="contained" color="primary" onClick={handleOpenPreviewDialog} sx={{ mt: 2,   backgroundColor: 'yellow', // Fondo amarillo
+          color: 'black', // Color del texto negro para mejor contraste
+          '&:hover': {
+            backgroundColor: '#FFD700', // Fondo amarillo oscuro al pasar el cursor
+          }, }}>
           Ver Vista Previa
         </Button>
+      )}
 
         <Dialog open={openPreviewDialog} onClose={handleClosePreviewDialog}>
           <DialogTitle>Vista Previa de la Reserva</DialogTitle>
@@ -459,19 +518,59 @@ const Home = () => {
                 
               </Box>
             )}
+
+
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClosePreviewDialog} color="primary">
-              Cancelar
+          <Typography variant="body2" sx={{ mb: 2, color: 'black' }}>
+      Para poder reservar el tuno debera dejar una seña 
+    </Typography>
+            <Button onClick={handleClosePreviewDialog} color="primary"
+             sx={{color:"black", 
+              mr:5,
+              backgroundColor: 'yellow', // Fondo amarillo
+              borderRadius: '30px', // Bordes redondeados para hacer un círculo
+              width: '150px', // Ancho del botón
+              height: '30px', // Alto del botón
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              '&:hover': {
+                backgroundColor: '#FFD700', // Fondo amarillo oscuro al pasar el cursor
+              },
+            }}>
+              Volver
             </Button>
-            <Button onClick={handleConfirmarReserva} color="primary">
-              Confirmar y Pagar
+           
+            <Button onClick={handleConfirmarReserva} color="primary"
+             sx={{color:"black", 
+              mr:15,
+              backgroundColor: 'yellow', // Fondo amarillo
+              borderRadius: '30px', // Bordes redondeados para hacer un círculo
+              width: '150px', // Ancho del botón
+              height: '30px', // Alto del botón
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              '&:hover': {
+                backgroundColor: '#FFD700', // Fondo amarillo oscuro al pasar el cursor
+              },
+            }}>
+              Reservar
             </Button>
+            
           </DialogActions>
         </Dialog>
 
+        <Typography variant="body1" align="center" sx={{ mt: 4, color: 'white' }}>
+        Para reservar un turno deberás dejar una seña
+      </Typography>
+
       <Button type="submit" variant="contained" color="primary" onClick={handleCreatePreference}  sx={{ width: '300px', mt: 4, backgroundColor: 'yellow',
-    color: 'black', }}>Reservar</Button>
+    color: 'black', 
+    '&:hover': {
+      backgroundColor: 'lightyellow', // Fondo amarillo más claro al pasar el cursor
+    },}}>Reservar</Button>
       
       {preferenceId && (
         <Wallet initialization={{ preferenceId }} />

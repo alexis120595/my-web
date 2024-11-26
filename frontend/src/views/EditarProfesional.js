@@ -155,10 +155,16 @@ const EditarProfesional = () => {
             sx={{
               mt: 2,
               mb: 2,
+              
               width: '300px',
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px',
               },
+              backgroundColor: 'white',
+              '& input': {
+                color: 'black', // Color del texto que se escribe
+              },
+
             }}
           />
           <Typography variant="h4" component="h1" align="center" sx={{ mr: 18 }}>
@@ -181,6 +187,10 @@ const EditarProfesional = () => {
               label="Seleccionar Sucursal"
               sx={{
                 borderRadius: '20px',
+                backgroundColor: 'white',
+              '& input': {
+                color: 'black', // Color del texto que se escribe
+              },
               }}
             >
               {sucursales.map((sucursal) => (
@@ -209,7 +219,7 @@ const EditarProfesional = () => {
               sx={{
                 mt: 1,
                 borderRadius: '20px',
-                backgroundColor: 'lightgrey',
+                backgroundColor: 'grey',
                 padding: 2,
               }}
             >
@@ -219,6 +229,12 @@ const EditarProfesional = () => {
                     checked={permisos.permiso1}
                     onChange={handlePermisoChange}
                     name="permiso1"
+                    sx={{
+                      '&.Mui-checked': {
+                        color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
+                      },
+                    }}
+                    
                   />
                 }
                 label="Opción reservar online"
@@ -230,6 +246,11 @@ const EditarProfesional = () => {
                     checked={permisos.permiso2}
                     onChange={handlePermisoChange}
                     name="permiso2"
+                    sx={{
+                      '&.Mui-checked': {
+                        color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
+                      },
+                    }}
                   />
                 }
                 label="Agendar turnos en su agenda"
@@ -241,6 +262,11 @@ const EditarProfesional = () => {
                     checked={permisos.permiso3}
                     onChange={handlePermisoChange}
                     name="permiso3"
+                    sx={{
+                      '&.Mui-checked': {
+                        color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
+                      },
+                    }}
                   />
                 }
                 label="Editar turnos en su agenda"
@@ -252,10 +278,17 @@ const EditarProfesional = () => {
                     checked={permisos.permiso4}
                     onChange={handlePermisoChange}
                     name="permiso4"
+                    sx={{
+                      '&.Mui-checked': {
+                        color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
+                      },
+                    }}
                   />
                 }
                 label="Ver datos de clientes"
-                sx={{ mr: 9 }}
+                sx={{ mr: 9,
+                 
+                }}
               />
               <FormControlLabel
                 control={
@@ -263,6 +296,11 @@ const EditarProfesional = () => {
                     checked={permisos.permiso5}
                     onChange={handlePermisoChange}
                     name="permiso5"
+                    sx={{
+                      '&.Mui-checked': {
+                        color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
+                      },
+                    }}
                   />
                 }
                 label="Recibir señas en su MP"
@@ -314,13 +352,15 @@ const EditarProfesional = () => {
       <Select
         labelId={`select-horarios-label-${dia}`}
         label={dia}
-        sx={{ borderRadius: '20px' }}
+        sx={{ borderRadius: '20px', backgroundColor: 'white' }}
         MenuProps={{
           PaperProps: {
             sx: {
               borderRadius: '20px',
+              
             },
           },
+          
         }}
         disabled={!diasActivos[dia]} // Deshabilitar el select si el día no está activo
       >
@@ -371,6 +411,9 @@ const EditarProfesional = () => {
                   padding: 1,
                   mb: 1,
                   width: '300px',
+                  backgroundColor: 'white',
+
+      
                 }}
               >
                 <FormControlLabel
@@ -379,9 +422,17 @@ const EditarProfesional = () => {
                     checked={servicios.includes(servicio.id)}
                     onChange={handleServicioChange}
                     value={servicio.id}
+                    sx={{
+                      '&.Mui-checked': {
+                        color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
+                      },
+                    }}
                   />
                 }
                 label={servicio.nombre}
+                sx={{
+                  color: 'black', // Cambiar el color del texto a negro
+                }}
               />
               <IconButton
                   edge="end"

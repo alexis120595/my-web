@@ -71,6 +71,7 @@ const CrearSucursal = () => {
             width: '300px',
             '& .MuiOutlinedInput-root': {
               borderRadius: '20px', // Bordes redondeados
+              backgroundColor: 'white', // Fondo blanco
             },
           }}
         />
@@ -97,6 +98,7 @@ const CrearSucursal = () => {
             width: '300px',
             '& .MuiOutlinedInput-root': {
               borderRadius: '20px', // Bordes redondeados
+              backgroundColor: 'white', // Fondo blanco
             },
           }}
         />

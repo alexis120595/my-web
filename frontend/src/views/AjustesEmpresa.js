@@ -155,9 +155,20 @@ const AjustesEmpresa = ({  }) => {
             sx={{
               mt: 2,
               mb: 2,
+              
               width: '300px',
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes redondeados
+                backgroundColor: 'white', // Color de fondo del input
+                '& fieldset': {
+                  borderColor: 'black', // Color del borde
+                },
+                '&:hover fieldset': {
+                  borderColor: 'black', // Color del borde al pasar el mouse
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'black', // Color del borde al enfocar
+                },
               },
             }}
           />
@@ -171,9 +182,20 @@ const AjustesEmpresa = ({  }) => {
             sx={{
               mt: 2,
               mb: 2,
+              
               width: '300px',
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes redondeados
+                backgroundColor: 'white', // Color de fondo del input
+                '& fieldset': {
+                  borderColor: 'black', // Color del borde
+                },
+                '&:hover fieldset': {
+                  borderColor: 'black', // Color del borde al pasar el mouse
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'black', // Color del borde al enfocar
+                },
               },
             }}
           />
@@ -189,10 +211,20 @@ const AjustesEmpresa = ({  }) => {
             sx={{
               mt: 2,
               mb: 2,
-              width: '300px',
               
+              width: '300px',
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes redondeados
+                backgroundColor: 'white', // Color de fondo del input
+                '& fieldset': {
+                  borderColor: 'black', // Color del borde
+                },
+                '&:hover fieldset': {
+                  borderColor: 'black', // Color del borde al pasar el mouse
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'black', // Color del borde al enfocar
+                },
               },
             }}
           />
@@ -229,6 +261,11 @@ const AjustesEmpresa = ({  }) => {
     checked={mostrarOnline}
     onChange={(e) => setMostrarOnline(e.target.checked)}
     name="mostrarOnline"
+    sx={{
+      '&.Mui-checked': {
+        color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
+      },
+    }}
   />
   <Typography variant="body1" align="center">
     Mostrar mi empresa online
@@ -244,10 +281,20 @@ const AjustesEmpresa = ({  }) => {
   sx={{
     mt: 2,
     mb: 2,
-    mr: 3,
+    
     width: '300px',
     '& .MuiOutlinedInput-root': {
       borderRadius: '20px', // Bordes redondeados
+      backgroundColor: 'white', // Color de fondo del input
+      '& fieldset': {
+        borderColor: 'black', // Color del borde
+      },
+      '&:hover fieldset': {
+        borderColor: 'black', // Color del borde al pasar el mouse
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'black', // Color del borde al enfocar
+      },
     },
   }}
 />
@@ -256,10 +303,11 @@ const AjustesEmpresa = ({  }) => {
     mt: 2,
     mb: 2,
     mr: 1,
+    color: 'yellow',
           
   }}>
     www.soyprofesional.com/miempresa
-    <IconButton onClick={handleCopyLink} sx={{ ml: 1 }}>
+    <IconButton onClick={handleCopyLink} sx={{ ml: 1, color:"yellow"}}>
             <ContentCopyIcon />
           </IconButton>
   </Typography>
@@ -277,9 +325,9 @@ const AjustesEmpresa = ({  }) => {
   </Typography>
 </Box>
 
-<Typography variant="body1" align="center" sx={{ mt: 2, mb: 2, mr: 1 }}>
+<Typography variant="body1" align="center" sx={{ mt: 2, mb: 2, mr: 1, color:'yellow', }}>
           Descargar imagen QR
-          <IconButton onClick={handleDownloadQR} sx={{ ml: 13 }}>
+          <IconButton onClick={handleDownloadQR} sx={{ ml: 13, color:"yellow " }}>
             <DownloadIcon />
           </IconButton>
         </Typography>
@@ -319,7 +367,7 @@ const AjustesEmpresa = ({  }) => {
 </Box>
 
   
-        <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1,  backgroundColor: 'lightgrey',
+        <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1,  backgroundColor: 'grey',
     borderRadius: '10px',
     padding: '20px', }}>
   <FormControlLabel
@@ -328,6 +376,11 @@ const AjustesEmpresa = ({  }) => {
                   checked={opciones.opcion1}
                   onChange={handleOpcionesChange}
                   name="opcion1"
+                  sx={{
+                    '&.Mui-checked': {
+                      color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
+                    },
+                  }}
                  
                 />
               }
@@ -340,6 +393,11 @@ const AjustesEmpresa = ({  }) => {
                 checked={opciones.opcion2}
                 onChange={handleOpcionesChange}
                 name="opcion2"
+                sx={{
+                  '&.Mui-checked': {
+                    color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
+                  },
+                }}
                
               />
             }
@@ -352,6 +410,11 @@ const AjustesEmpresa = ({  }) => {
                 checked={opciones.opcion3}
                 onChange={handleOpcionesChange}
                 name="opcion3"
+                sx={{
+                  '&.Mui-checked': {
+                    color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
+                  },
+                }}
                
               />
             }
@@ -369,9 +432,20 @@ const AjustesEmpresa = ({  }) => {
             sx={{
               mt: 2,
               mb: 2,
+              
               width: '300px',
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes redondeados
+                backgroundColor: 'white', // Color de fondo del input
+                '& fieldset': {
+                  borderColor: 'black', // Color del borde
+                },
+                '&:hover fieldset': {
+                  borderColor: 'black', // Color del borde al pasar el mouse
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'black', // Color del borde al enfocar
+                },
               },
             }}
           />
@@ -385,9 +459,20 @@ const AjustesEmpresa = ({  }) => {
             sx={{
               mt: 2,
               mb: 2,
+              
               width: '300px',
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes redondeados
+                backgroundColor: 'white', // Color de fondo del input
+                '& fieldset': {
+                  borderColor: 'black', // Color del borde
+                },
+                '&:hover fieldset': {
+                  borderColor: 'black', // Color del borde al pasar el mouse
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'black', // Color del borde al enfocar
+                },
               },
             }}
           />
@@ -402,10 +487,20 @@ const AjustesEmpresa = ({  }) => {
             sx={{
               mt: 2,
               mb: 2,
-              width: '300px',
               
+              width: '300px',
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes redondeados
+                backgroundColor: 'white', // Color de fondo del input
+                '& fieldset': {
+                  borderColor: 'black', // Color del borde
+                },
+                '&:hover fieldset': {
+                  borderColor: 'black', // Color del borde al pasar el mouse
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'black', // Color del borde al enfocar
+                },
               },
             }}
           />  
@@ -434,9 +529,20 @@ const AjustesEmpresa = ({  }) => {
             sx={{
               mt: 2,
               mb: 2,
+              
               width: '300px',
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes redondeados
+                backgroundColor: 'white', // Color de fondo del input
+                '& fieldset': {
+                  borderColor: 'black', // Color del borde
+                },
+                '&:hover fieldset': {
+                  borderColor: 'black', // Color del borde al pasar el mouse
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'black', // Color del borde al enfocar
+                },
               },
             }}
           />
@@ -456,9 +562,20 @@ const AjustesEmpresa = ({  }) => {
             sx={{
               mt: 2,
               mb: 2,
+              
               width: '300px',
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes redondeados
+                backgroundColor: 'white', // Color de fondo del input
+                '& fieldset': {
+                  borderColor: 'black', // Color del borde
+                },
+                '&:hover fieldset': {
+                  borderColor: 'black', // Color del borde al pasar el mouse
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'black', // Color del borde al enfocar
+                },
               },
             }}
           />
@@ -478,9 +595,20 @@ const AjustesEmpresa = ({  }) => {
             sx={{
               mt: 2,
               mb: 2,
+              
               width: '300px',
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes redondeados
+                backgroundColor: 'white', // Color de fondo del input
+                '& fieldset': {
+                  borderColor: 'black', // Color del borde
+                },
+                '&:hover fieldset': {
+                  borderColor: 'black', // Color del borde al pasar el mouse
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'black', // Color del borde al enfocar
+                },
               },
             }}
           />
@@ -500,9 +628,20 @@ const AjustesEmpresa = ({  }) => {
             sx={{
               mt: 2,
               mb: 2,
+              
               width: '300px',
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes redondeados
+                backgroundColor: 'white', // Color de fondo del input
+                '& fieldset': {
+                  borderColor: 'black', // Color del borde
+                },
+                '&:hover fieldset': {
+                  borderColor: 'black', // Color del borde al pasar el mouse
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'black', // Color del borde al enfocar
+                },
               },
             }}
           />
@@ -523,9 +662,20 @@ const AjustesEmpresa = ({  }) => {
             sx={{
               mt: 2,
               mb: 2,
+              
               width: '300px',
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes redondeados
+                backgroundColor: 'white', // Color de fondo del input
+                '& fieldset': {
+                  borderColor: 'black', // Color del borde
+                },
+                '&:hover fieldset': {
+                  borderColor: 'black', // Color del borde al pasar el mouse
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'black', // Color del borde al enfocar
+                },
               },
             }}
           />

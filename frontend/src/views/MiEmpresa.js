@@ -74,7 +74,7 @@ const MiEmpresa = () => {
               marginRight: '20px' // Espacio entre la imagen y el nombre
             }}
           />
-          <Typography variant="h4" component="h2" sx={{ color: 'black' }}>
+          <Typography variant="h4" component="h2" sx={{ color: 'white' }}>
             {empresaNombre}
           </Typography>
         </Box>

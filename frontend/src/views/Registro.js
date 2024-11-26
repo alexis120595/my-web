@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, Box } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import GoogleLogin1 from '../components/GoogleLogin1';
 
 const Registro = () => {
   const [form, setForm] = useState({
@@ -57,15 +58,16 @@ const Registro = () => {
               width:"300px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
+                backgroundColor: 'white', // Color de fondo del input
                 color: 'black', // Color del texto
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'white', // Color del borde
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'white', // Color del borde al pasar el mouse
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'white', // Color del borde al enfocar
                 },
               },
               '& .MuiInputLabel-root': {
@@ -89,15 +91,16 @@ const Registro = () => {
               width:"300px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
+                backgroundColor: 'white', // Color de fondo del input
                 color: 'black', // Color del texto
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'white', // Color del borde
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'white', // Color del borde al pasar el mouse
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'white', // Color del borde al enfocar
                 },
               },
               '& .MuiInputLabel-root': {
@@ -121,15 +124,16 @@ const Registro = () => {
               width:"300px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
+                backgroundColor: 'white', // Color de fondo del input
                 color: 'black', // Color del texto
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'white', // Color del borde
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'white', // Color del borde al pasar el mouse
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'white', // Color del borde al enfocar
                 },
               },
               '& .MuiInputLabel-root': {
@@ -140,7 +144,7 @@ const Registro = () => {
               },
             }} 
           />
-       
+      
           {error && <Typography color="error">{error}</Typography>}
           {success && <Typography color="primary">{success}</Typography>}
           <Button type="submit" variant="contained" color="primary" onClick={handleSubmit} fullWidth   sx={{ 
@@ -160,6 +164,30 @@ const Registro = () => {
             Registrarme
           </Button>
         </form>
+        <Box sx={{ textAlign: 'center', mt: 2, mb: 4  }}>
+          <p>O ingresar con</p>
+        </Box>
+        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2, mt: 2 }}>
+          <GoogleLogin1 
+           sx={{ 
+            mb:2,
+            mt: 2, // Margen inferior
+            display: 'block', // Para centrar el botón
+             // M
+             mr: 16,
+             backgroundColor: 'yellow', // Color de fondo del botón
+             color: 'black',
+             borderRadius: '20px',
+            width: '300px', // Ancho del botón ajustado al contenido
+            '& .MuiOutlinedInput-root': {
+              borderRadius: '20px', // Bordes más redondeados
+            }
+          }}  />
+           </Box>
+
+<Typography variant="h6" component="h1" gutterBottom  sx={{ color: 'white', mt:2}}>
+          ¿Ya tenés una cuenta?
+        </Typography>
       </Box>
     </Container>
   );

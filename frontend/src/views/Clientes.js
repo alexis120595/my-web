@@ -57,14 +57,21 @@ const Clientes = () => {
               mb: 2,
               ml:15,
               padding: 2,
-              width: '400px'
+              width: '400px',
+              backgroundColor: 'white'
             }}>
                 <Avatar
                   alt={`${registro.email}`}
                   src={registro.imagen_url}
                   sx={{ width: 56, height: 56, mr: 2 }}
                 />
-              <ListItemText primary={registro.email} />
+              <ListItemText primary={registro.email}
+               sx={{
+                '& .MuiListItemText-primary': {
+                  color: 'black', // Cambiar el color del texto a negro
+                },
+              }}
+              />
 
               <IconButton edge="end" aria-label="crear reserva"
                onClick={() =>handleCrearReserva (registro.id)}

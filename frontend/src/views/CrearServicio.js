@@ -83,7 +83,7 @@ const CrearServicio = () => {
         <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
           <TextField
           
-            label="Nombre de la Empresa"
+            label="Ingresar nombre"
             variant="outlined"
             margin="normal"
             value={nombre}
@@ -94,22 +94,25 @@ const CrearServicio = () => {
               width:"300px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
-                color: 'black', // Color del texto
+                backgroundColor: 'white', // Color de fondo
+                '& input': {
+                  color: 'black'
+                },
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'white', // Color del borde
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'white', // Color del borde al pasar el mouse
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'white', // Color del borde al enfocar
                 },
               },
               '& .MuiInputLabel-root': {
                 color: 'black', // Color del label
               },
               '& .MuiInputAdornment-root': {
-                color: 'black', // Color del icono
+                color: 'white', // Color del icono
               },
             }} 
           />
@@ -126,28 +129,32 @@ const CrearServicio = () => {
               width:"300px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
-                color: 'black', // Color del texto
+                backgroundColor: 'white', // Color de fondo
+                '& input': {
+                  color: 'black', // Color del texto que se escribe
+                },
+      
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'white', // Color del borde
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'white', // Color del borde al pasar el mouse
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'white', // Color del borde al enfocar
                 },
               },
               '& .MuiInputLabel-root': {
                 color: 'black', // Color del label
               },
               '& .MuiInputAdornment-root': {
-                color: 'black', // Color del icono
+                color: 'white', // Color del icono
               },
             }} 
           />
           <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" mb={2}>
   <FormControl fullWidth variant="outlined" margin="normal" sx={{ width: "300px" }}>
-    <InputLabel>Selecciona un rubro</InputLabel>
+    <InputLabel  sx={{ color: 'white' }}>Selecciona un rubro</InputLabel>
     <Select
       value={rubro}
       onChange={handleRubroChange}
@@ -156,22 +163,35 @@ const CrearServicio = () => {
         borderRadius: '20px', // Aseguramos que el Select tenga borderRadius
         '& .MuiOutlinedInput-root': {
           borderRadius: '20px', // Bordes más redondeados
-          color: 'black', // Color del texto
+          backgroundColor: 'white', // Color de fondo
+          '& input': {
+            color: 'black', // Color del texto que se escribe
+          },
+          
           '& fieldset': {
-            borderColor: 'black', // Color del borde
+            borderColor: 'white', // Color del borde
+            borderWidth: '1px', // Ancho del borde
           },
           '&:hover fieldset': {
-            borderColor: 'black', // Color del borde al pasar el mouse
+            borderColor: 'white', // Color del borde al pasar el mouse
+            borderWidth: '1px', // Ancho del borde al pasar el mouse
           },
           '&.Mui-focused fieldset': {
-            borderColor: 'black', // Color del borde al enfocar
+            borderColor: 'white', // Color del borde al enfocar
+            borderWidth: '1px', // Ancho del borde al enfocar
           },
         },
         '& .MuiInputLabel-root': {
           color: 'black', // Color del label
         },
         '& .MuiInputAdornment-root': {
-          color: 'black', // Color del icono
+          color: 'white', // Color del icono
+        },
+        '& .MuiSelect-icon': {
+          color: 'white', // Color del icono del select
+        },
+        '& .MuiSelect-select': {
+          color: 'white', // Color del texto del select
         },
       }}
     >
@@ -197,22 +217,26 @@ const CrearServicio = () => {
               width: "300px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px',
-                color: 'black',
+                backgroundColor: 'white',
+                '& input': {
+                  color: 'black',
+                },
+                
                 '& fieldset': {
-                  borderColor: 'black',
+                  borderColor: 'white',
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black',
+                  borderColor: 'white',
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black',
+                  borderColor: 'white',
                 },
               },
               '& .MuiInputLabel-root': {
                 color: 'black',
               },
               '& .MuiInputAdornment-root': {
-                color: 'black',
+                color: 'white',
               },
             }}
           />

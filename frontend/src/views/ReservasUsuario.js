@@ -61,6 +61,11 @@ const ReservasUsuario = () => {
                   <ListItemText
                     primary={` ${reserva.servicio.nombre || 'N/A'}  ${reserva.servicio.duracion || 'N/A'}`}
                     secondary={`$ ${reserva.servicio.precio || 'N/A'}`} 
+                    sx={{
+                      '& .MuiListItemText-secondary': {
+                        color: 'white', // Cambiar el color del precio a negro
+                      },
+                    }}
                     
                   />
                   <Box

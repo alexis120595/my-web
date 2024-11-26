@@ -71,39 +71,37 @@ const DetalleReservaEmpresa = () => {
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '400px', mt:10}}>
-      <Card sx={{ minWidth: 300, borderRadius: '20px', boxShadow: 3, backgroundColor: '#f0f0f0' }}>
+      <Card sx={{ minWidth: 300, borderRadius: '20px', boxShadow: 3, backgroundColor: 'grey' }}>
         <CardContent>
-          <Typography variant="h5" component="div">
-            Mi reserva
+          <Typography variant="h5" component="div" sx={{ color: 'white' }}>
+            Turno Reservado
           </Typography>
           {reservas ? (
             <>
-             <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              <Typography sx={{ mb: 1.5, color: 'white' }}>
                 <strong>Empresa:</strong> {reservas.empresa}
               </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              <Typography sx={{ mb: 1.5, color: 'white' }}>
                 <strong>Dirección:</strong> {reservas.ubicacion}
               </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              <Typography sx={{ mb: 1.5, color: 'white' }}>
                 <strong>Servicio:</strong> {reservas.servicio}
               </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              <Typography sx={{ mb: 1.5, color: 'white' }}>
                 <strong>Precio:</strong> ${reservas.precio}
               </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              <Typography sx={{ mb: 1.5, color: 'white' }}>
                 <strong>Barbero:</strong> {reservas.barbero}
               </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              <Typography sx={{ mb: 1.5, color: 'white' }}>
                 <strong>Fecha:</strong> {reservas.fecha}
               </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              <Typography sx={{ mb: 1.5, color: 'white' }}>
                 <strong>Hora:</strong> {reservas.horario}
               </Typography>
-
-             
             </>
           ) : (
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+            <Typography sx={{ mb: 1.5, color: 'white' }}>
               No se encontró la reserva.
             </Typography>
           )}
@@ -118,7 +116,7 @@ const DetalleReservaEmpresa = () => {
     backgroundColor: 'lightgrey',
     color: 'black',
     '&:hover': {
-      backgroundColor: 'gray', // Cambia el fondo a gris al hacer hover
+      backgroundColor: 'grey', // Cambia el fondo a gris al hacer hover
     },
   }}
 >
@@ -164,10 +162,22 @@ const DetalleReservaEmpresa = () => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">
+          <Button onClick={handleCloseDialog} 
+           sx={{
+           
+            color: 'black', // Texto blanco
+           
+          }}
+          >
             Cancelar
           </Button>
-          <Button onClick={handleConfirmAnular} color="secondary" autoFocus>
+          <Button onClick={handleConfirmAnular} 
+           sx={{
+           
+            color: 'red', // Texto blanco
+           
+          }}
+          >
             Anular
           </Button>
         </DialogActions>

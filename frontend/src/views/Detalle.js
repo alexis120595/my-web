@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, CardContent, Typography, CircularProgress, Box, Button, Snackbar,Alert } from '@mui/material';
+import { Card, CardContent, Typography, CircularProgress, Box, Button, Snackbar,Alert, Dialog, DialogActions,DialogContent, DialogContentText, DialogTitle} from '@mui/material';
 import { useNavigate, useParams} from 'react-router-dom';
 
 const Detalle = () => {
@@ -9,6 +9,7 @@ const Detalle = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
+  const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
   
 
@@ -27,6 +28,14 @@ const Detalle = () => {
     fetchReserva();
   }, [id]);
 
+  const handleAnularClick = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
   const handleCancelClick = async () => {
     try {
       // Llamada a la API para eliminar la reserva
@@ -34,6 +43,7 @@ const Detalle = () => {
       // Navegar a la página de inicio después de cancelar la reserva
       setSuccessMessage('Reserva eliminada de forma exitosa');
       // Redirigir a la página de inicio después de 2 segundos
+      setOpenDialog(false);
       setTimeout(() => {
         navigate('/home');
       }, 2000);
@@ -59,9 +69,11 @@ const Detalle = () => {
     );
   }
 
+  
+
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '400px', mt:10}}>
-      <Card sx={{ minWidth: 300, borderRadius: '20px', boxShadow: 3, backgroundColor: '#f0f0f0' }}>
+      <Card sx={{ minWidth: 300, borderRadius: '20px', boxShadow: 3, backgroundColor: 'grey' }}>
         <CardContent>
           <Typography variant="h5" component="div">
             Mi reserva
@@ -102,22 +114,33 @@ const Detalle = () => {
         variant="contained"
         color="primary"
         onClick={() => navigate('/home')}
-        sx={{ borderRadius: '20px', margin: '10px', backgroundColor: 'yellow',
-          color: 'black', }}
+        sx={{ borderRadius: '20px', margin: '10px', backgroundColor: 'grey',
+          color: 'white', borderColor: 'white',
+          border: '2px solid white', // Añadir borde blanco
+          '&:hover': {
+            backgroundColor: 'darkgrey', // Cambiar el color de fondo al pasar el cursor
+            borderColor: 'white', // Mantener el borde blanco al pasar el cursor
+          },}}
       >
-        Volver
+        Editar
       </Button>
 
       <Button
                 variant="contained"
                 color="secondary"
-                onClick={handleCancelClick}
-                sx={{ borderRadius: '20px', margin: '10px', backgroundColor: 'yellow',
-                  color: 'black', }}
+                onClick={handleAnularClick}
+                sx={{ borderRadius: '20px', margin: '10px', backgroundColor: 'grey',
+                  color: 'white', borderColor: 'white',
+                  border: '2px solid white', // Añadir borde blanco
+                  '&:hover': {
+                    backgroundColor: 'red', // Cambiar el color de fondo al pasar el cursor
+                    borderColor: 'white', // Mantener el borde blanco al pasar el cursor
+                  },}}
               >
-                Cancelar
+                Anular
               </Button>
       </Card>
+     
       <Snackbar
         open={!!successMessage}
         autoHideDuration={2000}
@@ -127,6 +150,27 @@ const Detalle = () => {
           {successMessage}
         </Alert>
       </Snackbar>
+
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        
+      >
+        <DialogTitle>Anular turno</DialogTitle>
+        <DialogContent sx={{width:'250px'}}>
+          <DialogContentText>
+        Estás a punto de anular el turno, una vez anulado no podras recuperarlo. ¿Estás seguro que deseas anular el turno?.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={handleCancelClick} color="secondary" autoFocus>
+            Anular
+          </Button>
+        </DialogActions>
+      </Dialog>
      
     </Box>
   );

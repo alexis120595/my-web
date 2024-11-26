@@ -97,15 +97,27 @@ sx={{ width: '100%', display: 'block', textAlign: 'left' }}
               padding: 2,
               width: '400px',
               ml: 16,
+              backgroundColor: 'white'
               
             }}>
                <Box display="flex" flexDirection="column" width="100%">
                   <ListItemText
                     primary={`Cliente n° ${reservas.usuario.id}`}
+                    sx={{ color: 'black' }}
                   />
                <Box display="flex" justifyContent="space-between" width="100%" >
               <ListItemText   primary={` ${reservas.servicio.nombre|| 'N/A'}`}
-                    secondary={` ${reservas.barbero.nombre || 'N/A'}`}  />
+                    secondary={` ${reservas.barbero.nombre || 'N/A'}`} 
+                    
+                    sx={{
+                      '& .MuiListItemText-primary': {
+                        color: 'black', // Color del texto a negro
+                      },
+                      '& .MuiListItemText-secondary': {
+                        color: 'black', // Color del texto secundario a negro
+                      },
+                    }}
+                    />
               <Box
                   display="flex"
                   alignItems="center"

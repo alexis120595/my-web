@@ -38,7 +38,7 @@ const InicioDeSesion = () => {
   return (
     <Container maxWidth="sm">
       <Box mt={5} textAlign="center">
-        <Typography variant="h4" component="h1" gutterBottom  sx={{ color: 'black' }}>
+        <Typography variant="h4" component="h1" gutterBottom  sx={{ color: 'white' }}>
           Ingresar a mi cuenta
         </Typography>
         <form onSubmit={handleSubmit} >
@@ -65,15 +65,16 @@ const InicioDeSesion = () => {
               width:"300px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
-                color: 'black', // Color del texto
+                backgroundColor: 'white', // Color de fondo del input
+                color: 'white', // Color del texto
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'white', // Color del borde
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'white', // Color del borde al pasar el mouse
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'white', // Color del borde al enfocar
                 },
               },
               '& .MuiInputLabel-root': {
@@ -105,15 +106,16 @@ const InicioDeSesion = () => {
               width:"300px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
+                backgroundColor: 'white', // Color de fondo del input
                 color: 'black', // Color del texto
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'white', // Color del borde
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'white', // Color del borde al pasar el mouse
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'white', // Color del borde al enfocar
                 },
               },
               '& .MuiInputLabel-root': {
@@ -165,7 +167,7 @@ const InicioDeSesion = () => {
           }}  />
            </Box>
 
-<Typography variant="h6" component="h1" gutterBottom  sx={{ color: 'black', mt:2}}>
+<Typography variant="h6" component="h1" gutterBottom  sx={{ color: 'white', mt:2}}>
           Todavia no tenes una  cuenta
         </Typography>
           <Button component={Link} to="/registro" variant="text"  size="small" // Tamaño pequeño

@@ -69,7 +69,7 @@ const CrearEmpleado = () => {
     <Container maxWidth="sm">
       <Box mt={5} textAlign="center">
         <Typography variant="h4" gutterBottom>
-          Crear Empleado
+          Añadir Empleado
         </Typography>
         <form onSubmit={handleCrearEmpleado}>
           <SubidaImagenes onImageUpload={setImagenUrl} />
@@ -84,7 +84,10 @@ const CrearEmpleado = () => {
               width:"300px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
-                color: 'black', // Color del texto
+                backgroundColor: 'white', // Color de fondo
+                '& input': {
+                  color: 'black', // Color del texto que se escribe
+                },
                 '& fieldset': {
                   borderColor: 'black', // Color del borde
                 },
@@ -114,7 +117,10 @@ const CrearEmpleado = () => {
               width:"300px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
-                color: 'black', // Color del texto
+                backgroundColor: 'white', // Color de fondo
+                '& input': {
+                  color: 'black', // Color del texto que se escribe
+                },
                 '& fieldset': {
                   borderColor: 'black', // Color del borde
                 },
@@ -145,7 +151,10 @@ const CrearEmpleado = () => {
               width: "300px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
-                color: 'black', // Color del texto
+                backgroundColor: 'white', // Color de fondo
+                '& input': {
+                  color: 'black', // Color del texto que se escribe
+                },
                 '& fieldset': {
                   borderColor: 'black', // Color del borde
                 },
@@ -174,8 +183,11 @@ const CrearEmpleado = () => {
               label="Sucursal"
               sx={{ 
                 '& .MuiOutlinedInput-root': {
-                  borderRadius: '20px', // Bordes más redondeados
-                  color: 'black', // Color del texto
+                  borderRadius: '30px', // Bordes más redondeados
+                  backgroundColor: 'white', // Color de fondo
+                  '& input': {
+                    color: 'black', // Color del texto que se escribe
+                  },
                   '& fieldset': {
                     borderColor: 'black', // Color del borde
                   },
@@ -192,6 +204,10 @@ const CrearEmpleado = () => {
                 '& .MuiInputAdornment-root': {
                   color: 'black', // Color del icono
                 },
+                '& .MuiSelect-select': {
+      backgroundColor: 'white', // Color de fondo del select
+      color: 'black', // Color del texto del select
+    },
               }}
             >
                {sucursales.map((sucursal) => (

@@ -90,11 +90,30 @@ const CrearCategoria = () => {
               width: '300px',
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes redondeados
+                backgroundColor: 'white', // Color de fondo del input
+                '& input': {
+                  color: 'black', // Color del texto que se escribe
+                },
+                '& fieldset': {
+                  borderColor: 'white', // Color del borde
+                },
+                '&:hover fieldset': {
+                  borderColor: 'white', // Color del borde al pasar el mouse
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'white', // Color del borde al enfocar
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: 'black', // Color del label
+              },
+              '& .MuiInputAdornment-root': {
+                color: 'white', // Color del icono
               },
             }}
           />
  <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1,   borderRadius: '20px', // Bordes redondeados
-        backgroundColor: 'lightgrey', // Color de fondo gris
+        backgroundColor: 'grey', // Color de fondo gris
         padding: 2, width: '300px' }}>
 
               <List>
@@ -108,7 +127,11 @@ const CrearCategoria = () => {
                         checked={selectedServicios.includes(servicio.id)}
                         onChange={handleServicioChange}
                         value={servicio.id}
-                        sx={{ml:19}}
+                        sx={{ml:19,
+                          '&.Mui-checked': {
+      color: "yellow", // Cambiar el color a amarillo cuando está seleccionado
+    },
+                        }}
                       />
                     }
                     label={servicio.nombre}

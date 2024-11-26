@@ -89,10 +89,17 @@ const Sucursales = () => {
               mb: 2,
               ml:15,
               padding: 2,
-              width: '400px'
+              width: '400px',
+              backgroundColor: 'white'
             }}>
                 
-              <ListItemText primary={sucursales.nombre} />
+              <ListItemText primary={sucursales.nombre} 
+              
+              sx={{
+                '& .MuiListItemText-primary': {
+                  color: 'black', // Cambiar el color del texto a negro
+                },
+              }}/>
 
               <IconButton edge="end" aria-label="edit" onClick={() => handleEditClick (sucursales.id)}
                   sx={{

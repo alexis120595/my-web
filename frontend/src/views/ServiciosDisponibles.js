@@ -90,16 +90,18 @@ const ServiciosDisponibles = () => {
                       mb: 2,
                       padding: 2,
                       width: '400px',
+                      backgroundColor: 'white',
                     }}
                   >
                     <ListItemText
+                     sx={{ color: 'black  ' }}
                       primary={servicio.nombre}
                       secondary={
                         <Box component="span" display="flex" flexDirection="column">
-                          <Typography variant="body2" color="textSecondary">
+                          <Typography variant="body2" sx={{ color: 'black' }}>
                             {servicio.duracion}
                           </Typography>
-                          <Typography variant="body2" color="textSecondary">
+                          <Typography variant="body2" sx={{ color: 'black  ' }}>
                             $ {servicio.precio}
                           </Typography>
                          

@@ -34,6 +34,9 @@ const BuscarEmpresa = () => {
         <Typography variant="h4" gutterBottom style={{ color: 'white' }}>
           Buscar Empresa
         </Typography>
+        <Typography variant="h4" gutterBottom style={{ color: 'white', fontSize: '1rem' }}>
+          si conoces una empresa o negocio realiza la busqueda
+        </Typography>
         <TextField
          
           variant="outlined"
@@ -52,30 +55,34 @@ const BuscarEmpresa = () => {
             ),
           }}
           InputLabelProps={{
-            style: { color: 'black' },
+            style: { color: 'white' },
           }}
           sx={{
             '& .MuiOutlinedInput-root': {
               borderRadius: '20px', // Bordes redondeados
+              backgroundColor: 'white', // Color de fondo
               color: 'black', // Color del texto
+              '& input': {
+                color: 'black', // Color del texto que se escribe
+              },
               '& fieldset': {
-                borderColor: 'black', // Color del borde
+                borderColor: 'white', // Color del borde
               },
               '&:hover fieldset': {
-                borderColor: 'black', // Color del borde al pasar el mouse
+                borderColor: 'white', // Color del borde al pasar el mouse
               },
               '&.Mui-focused fieldset': {
-                borderColor: 'black', // Mantener el color del borde al enfocar
+                borderColor: 'white', // Mantener el color del borde al enfocar
               },
               '&.Mui-focused': {
-                color: 'black', // Mantener el color del texto al enfocar
+                color: 'white', // Mantener el color del texto al enfocar
               },
             },
             '& .MuiInputLabel-root': {
               color: 'black', // Color del label
             },
             '& .MuiInputAdornment-root': {
-              color: 'black', // Color del icono
+              color: 'white', // Color del icono
             },
           }}
 
@@ -84,7 +91,11 @@ const BuscarEmpresa = () => {
         <List>
           {resultados.map((empresa) => (
             <ListItem key={empresa.id}   >
-              <ListItemText primary={empresa.nombre} secondary={empresa.eslogan} style={{ color: 'black' }} />
+              <ListItemText primary={empresa.nombre} secondary={empresa.eslogan}  sx={{ 
+    '& .MuiListItemText-secondary': {
+      color: 'white',
+    },
+  }} />
               <Button variant="contained" color="primary" onClick={() => handleSeleccionarEmpresa(empresa)}>
                 Seleccionar
               </Button>
