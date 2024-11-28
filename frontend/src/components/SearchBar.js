@@ -23,7 +23,7 @@ function SearchBar({ onSearch }) {
         variant="outlined"
         value={query}
         onChange={handleInputChange}
-        placeholder="Buscar productos..."
+        placeholder="Buscar servicios..."
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">

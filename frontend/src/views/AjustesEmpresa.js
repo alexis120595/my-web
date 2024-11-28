@@ -1,4 +1,5 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useRef} from 'react';
+import { QRCode } from 'react-qrcode-logo';
 import { Typography, Box, TextField, Button, Checkbox, FormControlLabel, IconButton, InputAdornment} from '@mui/material';
 import SubidaImagenesAjustes from '../components/SubidaImagenesAjustes';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -9,6 +10,8 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import LinkIcon from '@mui/icons-material/Link';
 import axios from 'axios';
+
+
 
 
 
@@ -128,9 +131,19 @@ const AjustesEmpresa = ({  }) => {
     alert('Enlace copiado al portapapeles');
   };
 
+  
+
+  const qrRef = useRef();
+
   const handleDownloadQR = () => {
-    // Aquí puedes manejar la lógica para descargar el código QR
-    alert('Código QR descargado');
+    const canvas = qrRef.current.querySelector('canvas');
+    const pngUrl = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+    const downloadLink = document.createElement('a');
+    downloadLink.href = pngUrl;
+    downloadLink.download = 'qr-code.png';
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
   };
 
 
@@ -324,6 +337,17 @@ const AjustesEmpresa = ({  }) => {
     de tu empresa cpara utilizarla donde quieras 
   </Typography>
 </Box>
+
+<div style={{ display: 'none' }} ref={qrRef}>
+        <QRCode
+          value="www.soyprofesional.com/miempresa"
+          size={256}
+          bgColor={'#ffffff'}
+          fgColor={'#000000'}
+          level={'L'}
+          includeMargin={true}
+        />
+      </div>
 
 <Typography variant="body1" align="center" sx={{ mt: 2, mb: 2, mr: 1, color:'yellow', }}>
           Descargar imagen QR
