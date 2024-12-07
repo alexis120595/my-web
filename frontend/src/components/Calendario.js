@@ -5,6 +5,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TextField } from '@mui/material';
 
 
+
 const Calendario = ({ selectedDate, setSelectedDate }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -13,13 +14,17 @@ const Calendario = ({ selectedDate, setSelectedDate }) => {
         value={selectedDate}
         onChange={(newValue) => {
           setSelectedDate(newValue);
+          
         }}
         renderInput={(params) => <TextField {...params} 
+       
         sx={{
           mt: 2,
-          width: '300px',
+          height:"50px",
+          width: '362px',
+          marginBottom:"24px",
           '& .MuiOutlinedInput-root': {
-            borderRadius: '20px',
+            borderRadius: '25px',
             backgroundColor: 'white',
             color: 'black',
             '& fieldset': { borderColor: 'black' },
@@ -29,7 +34,9 @@ const Calendario = ({ selectedDate, setSelectedDate }) => {
           },
           '& .MuiInputLabel-root': { color: 'black' },
           '& .MuiInputAdornment-root': { color: 'black' },
+          
         }}
+        
 
         />}
       />

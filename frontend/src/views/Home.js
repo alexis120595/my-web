@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {  MenuItem, Button, Typography, Box, Dialog, DialogTitle, DialogContent, DialogActions, Collapse} from '@mui/material';
+import {  MenuItem, Button, Typography, Box, Dialog, DialogTitle, DialogContent, DialogActions, Collapse, Container} from '@mui/material';
 import Calendario from '../components/Calendario';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -304,25 +304,42 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
   };
 
   return (
-    <>
-    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 2 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
+    <Container
+    sx={{
+      width:"360px",
+      height:"433px",
+       
+      }}>
+    <Box sx={{ display: 'flex', justifyContent: 'left', alignItems: 'left', marginBottom:"24px" }}>
+        <Typography variant="h4" component="h1" gutterBottom
+         sx={{
+          fontFamily: 'Poppins', // Fuente Poppins
+          fontSize: '24px', // Tamaño de la fuente
+          width: '360px', // Ancho del texto
+          height: '32px', // Alto del texto
+        }}
+        >
           Reservar turno
         </Typography>
       </Box>
 
     <form onSubmit={handleSubmit}  style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
     
-    <Button variant="outlined" onClick={handleOpenServicioDialog}  startIcon={<NotificationsIcon />} sx={{ mt: 2,  borderRadius: '20px', // Bordes redondeados
+    <Button variant="outlined" onClick={handleOpenServicioDialog}  startIcon={<NotificationsIcon />} sx={{ mt: 2,  borderRadius: '25px', // Bordes redondeados
     borderColor: 'black', // Color del borde negro
     color: 'black', // Color del texto negro
-    width: '300px', // Ancho del botón
-    height: '55px', // Alto del botón
+    height: '50px',
+    width:"362px",
+    marginBottom:"24px",
     backgroundColor: 'white',
     '&:hover': {
       backgroundColor: 'white', // Mantener el fondo blanco al pasar el cursor
       borderColor: 'black', // Mantener el borde negro al pasar el cursor
     },
+    display: 'flex', // Asegura que el contenido del botón esté alineado correctamente
+    alignItems: 'center', // Centra verticalmente el contenido del botón
+    justifyContent: 'flex-start', // Alinea el contenido del botón a la izquierda
+    textAlign: 'left',
    
   }} >
           
@@ -330,63 +347,135 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
         </Button>
        
 
-        <Dialog open={openServicioDialog} onClose={handleCloseServicioDialog}>
-          <DialogTitle>Seleccionar Servicio</DialogTitle>
+        <Dialog open={openServicioDialog} onClose={handleCloseServicioDialog}
+         fullWidth
+         maxWidth="md" // Puedes usar "xs", "sm", "md", "lg", "xl"
+         PaperProps={{
+           sx: {
+             width: '549px', // Ancho personalizado
+             height: '565px', // Alto personalizado
+             borderRadius: '20px',
+             backgroundColor: '#504D4D',
+           },
+         }}
+        >
+
+          <Box
+    sx={{
+      width: '360px',
+      height: '404px',
+      margin: '0 auto', // Centrar el contenedor horizontalmente
+      marginTop:'80px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between', // Distribuye el espacio entre los elementos
+      alignItems: 'center', // Centra los elementos horizontalmente
+    }}
+  >
+    <DialogTitle
+
+                sx={{
+                  color: 'white',
+                  textAlign: 'center',
+                  marginBottom: '24px',
+                  fontSize: '24px',
+                  fontFamily: 'Poppins',
+}}
+          >Seleccionar servicio</DialogTitle>
           <DialogContent>
+
+        
             {Array.isArray(servicios) && servicios.map(servicio => (
               <MenuItem key={servicio.id} value={servicio.id}
                 onClick={() => handleSelectServicio(servicio.id)}
                 sx={{
+                  width: '360px',
+                  height: '83px',
+                  backgroundColor: 'white', 
                   border: '1px solid black',
-                  borderRadius: '20px',
+                  borderRadius: '15px',
                   margin: '5px 0',
                   position: 'relative',
+                  marginBottom: '16px',
+                  
                   '&:hover': {
                     backgroundColor: 'rgba(0, 0, 0, 0.1)',
                   },
                 }}
               >
-              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-        <Typography variant="h6">{servicio.nombre}</Typography>
-        <Typography variant="body2"> {servicio.duracion}</Typography>
-        <Typography variant="body2"> ${servicio.precio}</Typography>
+              <Box 
+
+              sx={{ display: 'flex',
+               flexDirection: 'column',
+                alignItems: 'flex-start',
+                 width: '100%',
+                  }}>
+        <Typography variant="h6" 
+        sx={{ color: '#666666', fontSize: '16px',   fontFamily: 'Poppins', }} 
+        >{servicio.nombre}</Typography>
+        <Typography variant="body2"
+        sx={{ color: '#3A3A3A',  fontSize: '12px',   fontFamily: 'Poppins', }}
+        > {servicio.duracion}</Typography>
+        <Typography variant="body2"
+        sx={{ color: '#3A3A3A',  fontSize: '16px',   fontFamily: 'Poppins', }}
+        > ${servicio.precio}</Typography>
         <IconButton
                   onClick={(e) => {
                     e.stopPropagation();
                     handleToggleExpand(servicio.id);
                   }}
                   sx={{
+                    width: "40px",
+                    height: "40px",
                     position: 'absolute', // Posición absoluta para mover el icono
-                    top: 5, // Alinearlo en la parte superior
-                    right: 5, // Alinearlo a la derecha
-                    backgroundColor: 'yellow', // Fondo amarillo
+                    top: 20, // Alinearlo en la parte superior
+                    right:20, // Alinearlo a la derecha
+                    backgroundColor: '#FFD000', // Fondo amarillo
                     color: 'black', // Color
                     '&:hover': {
                       backgroundColor: '#FFD700', // Fondo amarillo oscuro al pasar el cursor
                     },
                   }}
                 >
-                  <InfoIcon />
-                </IconButton>
+                  <InfoIcon
+                  sx={{ width: 23, height: 23 }}
+                  />
+                </IconButton >
                 <Collapse in={expanded[servicio.id]} timeout="auto" unmountOnExit>
-                  <Typography variant="body2">{servicio.descripcion}</Typography>
+                  <Typography variant="body2"
+                  sx={{ color: '#3A3A3A',
+                      fontSize: '12px',
+                      fontFamily: 'Poppins', }}
+                  >{servicio.descripcion}</Typography>
                 </Collapse>
         
       </Box>
               </MenuItem>
             ))}
+            
+
           </DialogContent>
-          <DialogActions>
+          <DialogActions
+           sx={{
+            padding: 0, // Elimina el padding para ajustar al tamaño del contenedor
+            width: '100%', // Asegura que las acciones ocupen el ancho completo
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+          >
             <Button onClick={handleCloseServicioDialog} color="primary"
             sx={{color:"black", 
               mr:4,
-              backgroundColor: 'yellow', // Fondo amarillo
+              backgroundColor: '#FFD000', // Fondo amarillo
               borderRadius: '30px', // Bordes redondeados para hacer un círculo
-              width: '150px', // Ancho del botón
-              height: '30px', // Alto del botón
+              width: '360px', // Ancho del botón
+              height: '43px', // Alto del botón
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              fontSize: '16px',
+              fontFamily: 'Poppins',
+              marginBottom: 2,
               '&:hover': {
                 backgroundColor: '#FFD700', // Fondo amarillo oscuro al pasar el cursor
               },
@@ -394,27 +483,67 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
               Continuar
             </Button>
           </DialogActions>
+          </Box>
         </Dialog>
 
+        
+
        
-        <Button variant="outlined" onClick={handleOpenBarberoDialog}  startIcon={<FaceIcon />} sx={{ mt: 2,  borderRadius: '20px', // Bordes redondeados
+        <Button variant="outlined" onClick={handleOpenBarberoDialog}  startIcon={<FaceIcon />} sx={{ mt: 2,  borderRadius: '25px', // Bordes redondeados
     borderColor: 'black', // Color del borde negro
     color: 'black', // Color del texto negro
-    width: '300px', // Ancho del botón
-    height: '55px', // Alto del botón
+    width: '362px', // Ancho del botón
+    height: '50px', // Alto del botón
+    marginBottom:"24px",
     backgroundColor: 'white',
     '&:hover': {
       backgroundColor: 'white', // Mantener el fondo blanco al pasar el cursor
       borderColor: 'black', // Mantener el borde negro al pasar el cursor
     },
+    display: 'flex', // Asegura que el contenido del botón esté alineado correctamente
+    alignItems: 'center', // Centra verticalmente el contenido del botón
+    justifyContent: 'flex-start', // Alinea el contenido del botón a la izquierda
+    textAlign: 'left',
    
    }}>
         {selectedBarbero ? `${barberoNombre}` : 'Seleccionar Barbero'}
         </Button>
        
       
-        <Dialog open={openBarberoDialog} onClose={handleCloseBarberoDialog}>
-          <DialogTitle>Seleccionar Barbero</DialogTitle>
+        <Dialog open={openBarberoDialog} onClose={handleCloseBarberoDialog}
+         fullWidth
+         maxWidth="md" // Puedes usar "xs", "sm", "md", "lg", "xl"
+         PaperProps={{
+           sx: {
+             width: '549px', // Ancho personalizado
+             height: '671px', // Alto personalizado
+             borderRadius: '20px',
+             backgroundColor: '#504D4D',
+           },
+         }}
+        >
+      <Box
+    sx={{
+      width: '357px',
+      height: '519px',
+      margin: '0 auto', // Centrar el contenedor horizontalmente
+      marginTop:'80px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between', // Distribuye el espacio entre los elementos
+      alignItems: 'center', // Centra los elementos horizontalmente
+    }}
+  >
+
+          <DialogTitle
+           sx={{
+            color: 'white',
+            textAlign: 'center',
+            marginBottom: '24px',
+            fontSize: '24px',
+            fontFamily: 'Poppins',
+}}
+          >Seleccionar profesional</DialogTitle>
           <DialogContent>
             {barberosRelacionados.map(barbero => (
               <MenuItem key={barbero.id} value={barbero.id}
@@ -430,10 +559,10 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
             <Button onClick={handleCloseBarberoDialog} color="primary"
              sx={{color:"black", 
               mr:4,
-              backgroundColor: 'yellow', // Fondo amarillo
+              backgroundColor: '#FFD000', // Fondo amarillo
               borderRadius: '30px', // Bordes redondeados para hacer un círculo
-              width: '150px', // Ancho del botón
-              height: '30px', // Alto del botón
+              width: '357px', // Ancho del botón
+              height: '43px', // Alto del botón
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -441,62 +570,123 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
                 backgroundColor: '#FFD700', // Fondo amarillo oscuro al pasar el cursor
               },
             }}>
-              Continuar
+               <Typography
+      sx={{
+        width: '80px', // Ancho del texto
+        height: '24px', // Alto del texto
+        fontSize: '16px', // Tamaño de la fuente
+        textAlign: 'center', // Centrar el texto
+        fontFamily: 'Poppins', // Tipo de fuente
+      }}
+    >
+      Continuar
+    </Typography>
             </Button>
           </DialogActions>
+          </Box>
         </Dialog>
 
-        <Calendario selectedDate={selectedDate} setSelectedDate={setSelectedDate}   />
+        <Calendario selectedDate={selectedDate} setSelectedDate={setSelectedDate} 
+       
+        />
 
       
-      <Button variant="outlined" onClick={handleOpenHorarioDialog }  startIcon={<AccessTimeIcon />} sx={{ mt: 2,  borderRadius: '20px', // Bordes redondeados
+      <Button variant="outlined" onClick={handleOpenHorarioDialog }  startIcon={<AccessTimeIcon />} sx={{ mt: 2,  borderRadius: '25px', // Bordes redondeados
     borderColor: 'black', // Color del borde negro
     color: 'black', // Color del texto negro
-    width: '300px', // Ancho del botón
-    height: '55px', // Alto del botón
+    width: '362px', // Ancho del botón
+    height: '50px', // Alto del botón
+    marginBottom:"32px",
     backgroundColor: 'white',
     '&:hover': {
       backgroundColor: 'white', // Mantener el fondo blanco al pasar el cursor
       borderColor: 'black', // Mantener el borde negro al pasar el cursor
     },
+    display: 'flex', // Asegura que el contenido del botón esté alineado correctamente
+    alignItems: 'center', // Centra verticalmente el contenido del botón
+    justifyContent: 'flex-start', // Alinea el contenido del botón a la izquierda
+    textAlign: 'left',
    }}>
           {selectedHorario ? `${horarioHora}` : 'Seleccionar Horario'}
         </Button>
         
 
-        <Dialog open={openHorarioDialog} onClose={handleCloseHorarioDialog}>
-          <DialogTitle>Seleccionar Horario</DialogTitle>
+        <Dialog open={openHorarioDialog} onClose={handleCloseHorarioDialog}
+         fullWidth
+         maxWidth="md" // Puedes usar "xs", "sm", "md", "lg", "xl"
+         PaperProps={{
+           sx: {
+             width: '549px', // Ancho personalizado
+             height: '673px', // Alto personalizado
+             borderRadius: '20px',
+             backgroundColor: '#504D4D',
+           },
+         }}
+        >
+
+<Box
+    sx={{
+      width: '360px',
+      height: '404px',
+      margin: '0 auto', // Centrar el contenedor horizontalmente
+      marginTop:'80px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between', // Distribuye el espacio entre los elementos
+      alignItems: 'center', // Centra los elementos horizontalmente
+    }}
+  >
+          <DialogTitle
+          sx={{
+            color: 'white',
+            textAlign: 'left',
+            marginBottom: '24px',
+            fontSize: '24px',
+            fontFamily: 'Poppins',
+}}
+          >Seleccionar Horario</DialogTitle>
           <DialogContent
-           sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}
+           sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px',  }}
           >
+            
             {horarios.map(horario => (
               <MenuItem key={horario.id} value={horario.id}
                 onClick={() => handleSelectHorario(horario.id)}
                 sx={{
-                  
+                  width: '104px', // Ancho del botón
+                  height: '47px',
                   border: '1px solid black',
-                  borderRadius: '10px',
-                  margin: '5px 0',
+                  fontFamily: 'Poppins',
+                  fontSize: '14px',
+                  borderRadius: '15px',
+
+                  color: '#3A3A3A',
+                  backgroundColor: 'white',
                   '&:hover': {
                     backgroundColor: 'rgba(0, 0, 0, 0.1)',
                   },
                 }}
               >
-                {horario.hora} {horario.estado ? 'Disponible' : 'No disponible'}
+                {horario.hora} {horario.estado  }
               </MenuItem>
             ))}
           </DialogContent>
-          <DialogActions>
+          <DialogActions
+         
+          >
             <Button onClick={handleCloseHorarioDialog} color="primary"
              sx={{color:"black", 
-              mr:12,
-              backgroundColor: 'yellow', // Fondo amarillo
+             
+              backgroundColor: '#FFD000', // Fondo amarillo
               borderRadius: '30px', // Bordes redondeados para hacer un círculo
-              width: '150px', // Ancho del botón
-              height: '30px', // Alto del botón
-              display: 'flex',
+              width: '358px', // Ancho del botón
+              height: '43px', // Alto del botón
+              display:'flex',
+              fontFamily: 'Poppins',
+              fontSize: '16px',
               alignItems: 'center',
               justifyContent: 'center',
+             
               '&:hover': {
                 backgroundColor: '#FFD700', // Fondo amarillo oscuro al pasar el cursor
               },
@@ -504,29 +694,52 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
               Continuar
             </Button>
           </DialogActions>
+          </Box>
         </Dialog>
         {horarioSeleccionado &&  mostrarVistaPrevia && (
-        <Button variant="contained" color="primary" onClick={handleOpenPreviewDialog} sx={{ mt: 2,   backgroundColor: 'yellow', // Fondo amarillo
+        <Button variant="contained" color="primary" onClick={handleOpenPreviewDialog} sx={{ mt: 2, 
+            backgroundColor: '#FFD000', // Fondo amarillo
           color: 'black', // Color del texto negro para mejor contraste
-          '&:hover': {
-            backgroundColor: '#FFD700', // Fondo amarillo oscuro al pasar el cursor
-          }, }}>
+          width:'361px',
+          height:'43px',
+          borderRadius:'30px',
+          fontFamily:'Poppins',
+          fontSize:'16px',
+          }}>
           Ver Vista Previa
         </Button>
       )}
 
-        <Dialog open={openPreviewDialog} onClose={handleClosePreviewDialog}>
-          <DialogTitle>Vista Previa de la Reserva</DialogTitle>
+        <Dialog open={openPreviewDialog} onClose={handleClosePreviewDialog}
+         PaperProps={{
+          sx: {
+            width: '403px', // Ancho personalizado
+            height: '437px', // Alto personalizado
+            borderRadius: '20px', // Bordes redondeados
+            backgroundColor: '#414141', 
+          },
+        }}
+        >
+          <DialogTitle sx={{ color: 'white',   fontFamily: 'Poppins', // Fuente Poppins
+      fontSize: '24px', }}>Mi reserva</DialogTitle>
           <DialogContent>
             {reserva && (
-              <Box>
-                 <Typography variant="body1">Empresa: {reserva.empresa.nombre}</Typography>
-                 <Typography variant="body1">Ubicación: {reserva.empresa.ubicacion}</Typography>
-                <Typography variant="body1">Servicio: {reserva.servicio.nombre}</Typography>
-                <Typography variant="body1">Precio: ${reserva.servicio.precio}</Typography>
-                <Typography variant="body1">Barbero: {reserva.barbero.nombre}</Typography>
-                <Typography variant="body1">Horario: {reserva.horario.hora}</Typography>
-                <Typography variant="body1">Fecha: {reserva.fecha.toLocaleDateString()}</Typography>
+              <Box
+             
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '16px', // Añadir separación entre los elementos
+               
+              }}
+              >
+                 <Typography variant="body1" sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>Empresa: {reserva.empresa.nombre}</Typography>
+                 <Typography variant="body1" sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>Ubicación: {reserva.empresa.ubicacion}</Typography>
+                <Typography variant="body1" sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>Servicio: {reserva.servicio.nombre}</Typography>
+                <Typography variant="body1" sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>Precio: ${reserva.servicio.precio}</Typography>
+                <Typography variant="body1" sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>Barbero: {reserva.barbero.nombre}</Typography>
+                <Typography variant="body1" sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>Horario: {reserva.horario.hora}</Typography>
+                <Typography variant="body1" sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>Fecha: {reserva.fecha.toLocaleDateString()}</Typography>
                
                 
               </Box>
@@ -535,38 +748,36 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
 
           </DialogContent>
           <DialogActions>
-          <Typography variant="body2" sx={{ mb: 2, color: 'black' }}>
-      Para poder reservar el tuno debera dejar una seña 
-    </Typography>
+          
             <Button onClick={handleClosePreviewDialog} color="primary"
-             sx={{color:"black", 
+             sx={{color:"white", 
               mr:5,
-              backgroundColor: 'yellow', // Fondo amarillo
+              backgroundColor: '#414141', // Fondo amarillo
+              border: '1px solid white',
               borderRadius: '30px', // Bordes redondeados para hacer un círculo
-              width: '150px', // Ancho del botón
-              height: '30px', // Alto del botón
+              width: '168px', // Ancho del botón
+              height: '43px', // Alto del botón
               display: 'flex',
-              alignItems: 'center',
+              alignItems: 'left',
               justifyContent: 'center',
-              '&:hover': {
-                backgroundColor: '#FFD700', // Fondo amarillo oscuro al pasar el cursor
-              },
+              
+              
             }}>
               Volver
             </Button>
            
             <Button onClick={handleConfirmarReserva} color="primary"
              sx={{color:"black", 
-              mr:15,
-              backgroundColor: 'yellow', // Fondo amarillo
+              
+              backgroundColor: '#FFD000', // Fondo amarillo
               borderRadius: '30px', // Bordes redondeados para hacer un círculo
-              width: '150px', // Ancho del botón
-              height: '30px', // Alto del botón
+              width: '168px', // Ancho del botón
+              height: '43px', // Alto del botón
               display: 'flex',
-              alignItems: 'center',
+              alignItems: 'right',
               justifyContent: 'center',
               '&:hover': {
-                backgroundColor: '#FFD700', // Fondo amarillo oscuro al pasar el cursor
+                backgroundColor: '#FFD000', // Fondo amarillo oscuro al pasar el cursor
               },
             }}>
               Reservar
@@ -575,12 +786,15 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
           </DialogActions>
         </Dialog>
 
-        <Typography variant="body1" align="center" sx={{ mt: 4, color: 'white' }}>
-        Para reservar un turno deberás dejar una seña
+        <Typography variant="body1" align="center" sx={{  color: 'white', fontFamily:'Poppins', fontSize:'12px' }}>
+        Para poder  reservar un turno deberás dejar una seña
       </Typography>
 
-      <Button type="submit" variant="contained" color="primary" onClick={handleCreatePreference}  sx={{ width: '300px', mt: 4, backgroundColor: 'yellow',
+      <Button type="submit" variant="contained" color="primary" onClick={handleCreatePreference}  sx={{ width: '360px', height:"43px", mt: 2, backgroundColor: '#FFD000',
+    borderRadius: '30px', // Bordes redondeados
     color: 'black', 
+    fontFamily: 'Poppins', // Fuente Poppins
+    fontSize: '16px', // Tamaño de la fuente
     '&:hover': {
       backgroundColor: 'lightyellow', // Fondo amarillo más claro al pasar el cursor
     },}}>Reservar</Button>
@@ -609,7 +823,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
           </Button>
         </DialogActions>
       </Dialog>
-    </>
+    </Container>
   );
 };
 

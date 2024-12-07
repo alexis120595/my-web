@@ -26,18 +26,26 @@ function SearchBar({ onSearch }) {
         placeholder="Buscar servicios..."
         InputProps={{
           endAdornment: (
-            <InputAdornment position="end">
-              <IconButton onClick={handleSearch}>
+            <InputAdornment position="start">
+              <IconButton onClick={handleSearch}
+              sx={{width:'18px',
+                height:'18px',
+                color:'#313131',
+              }}>
                 <SearchIcon />
               </IconButton>
             </InputAdornment>
           ),
         }}
-        fullWidth
+       
         sx={{
+          width: '286px',
+          height: '50px',
           '& .MuiOutlinedInput-root': {
-            borderRadius: '30px', // Bordes redondeados
+            borderRadius: '25px', // Bordes redondeados
             backgroundColor: 'white', // Color de fondo
+            fontFamily: 'Poppins', // Tipo de fuente
+            fontSize: '14px', // Tamaño de fuente
             '& fieldset': {
               borderColor: 'black', // Color del borde
             },

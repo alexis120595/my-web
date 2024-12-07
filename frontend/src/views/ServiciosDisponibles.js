@@ -66,9 +66,17 @@ const ServiciosDisponibles = () => {
   });
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm"
+    sx={{width:'359px',
+      height:'710px',
+    }}>
       <Box mt={5} textAlign="left">
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" gutterBottom
+        sx={{fontFamily:'Poppins',
+          fontSize:'24px',
+          marginBottom:'24px',
+        }}
+        >
           Servicios 
         </Typography>
         
@@ -79,29 +87,45 @@ const ServiciosDisponibles = () => {
         {Object.keys(serviciosPorCategoria).length > 0 ? (
           Object.keys(serviciosPorCategoria).map((categoriaNombre) => (
             <Box key={categoriaNombre} mb={4}>
-              <Typography variant="h6">{categoriaNombre}</Typography>
+              
+              <Typography variant="h6"
+              sx={{fontFamily:'Poppins',
+                fontSize:'20px',
+                marginBottom:'24px',
+              }}
+              >{categoriaNombre}</Typography>
               <List>
                 {serviciosPorCategoria[categoriaNombre].map((servicio) => (
                   <ListItem
                     key={servicio.id}
                     sx={{
                       border: '1px solid #ccc',
-                      borderRadius: '8px',
+                      borderRadius: '15px',
                       mb: 2,
-                      padding: 2,
-                      width: '400px',
+                     
+                      width: '361px',
+                      height: '83px',
                       backgroundColor: 'white',
                     }}
                   >
                     <ListItemText
-                     sx={{ color: 'black  ' }}
+                     sx={{ color: '#666666  ',
+                      fontfamily: 'Poppins',
+                      fontSize: '16px',
+                      }}
                       primary={servicio.nombre}
                       secondary={
                         <Box component="span" display="flex" flexDirection="column">
-                          <Typography variant="body2" sx={{ color: 'black' }}>
+                          <Typography variant="body2" sx={{ color: '#3A3A3A  ',
+                      fontfamily: 'Poppins',
+                      fontSize: '12px',
+                      }}>
                             {servicio.duracion}
                           </Typography>
-                          <Typography variant="body2" sx={{ color: 'black  ' }}>
+                          <Typography variant="body2" sx={{ color: '#3A3A3A  ',
+                      fontfamily: 'Poppins',
+                      fontSize: '16px',
+                      }}>
                             $ {servicio.precio}
                           </Typography>
                          
@@ -113,7 +137,10 @@ const ServiciosDisponibles = () => {
                       aria-label="edit"
                       onClick={() => handleEditServiceClick(servicio.id)}
                       sx={{
-                        backgroundColor: 'yellow',
+                        marginRight: '10px',
+                        width: '40px',
+                        height: '40px',
+                        backgroundColor: '#FFD000',
                         borderRadius: '50%',
                         padding: '10px',
                         '&:hover': {
@@ -121,7 +148,10 @@ const ServiciosDisponibles = () => {
                         },
                       }}
                     >
-                      <EditIcon sx={{ color: 'black' }} />
+                      <EditIcon sx={{ color: '#000000',
+                        width: '24px',
+                        height: '24px',
+                       }} />
                     </IconButton>
                   </ListItem>
                 ))}
@@ -135,20 +165,34 @@ const ServiciosDisponibles = () => {
         <Button
           variant="contained"
           color="primary"
-          sx={{ mt: 2, borderRadius: '25px', mr: 10, backgroundColor: 'yellow', color: 'black' }}
+          sx={{ mt: 2, borderRadius: '30px', backgroundColor: '#FFD000', color: 'black',
+            width: '166px', height: '43px',
+            '&:hover': {
+              backgroundColor: '#FFD000', // Mantiene el mismo color al pasar el cursor
+            },
+           }}
           onClick={handleAddServiceClick}
         >
-          Añadir Servicio
+          <Typography sx={{ fontFamily: 'Poppins', fontSize: '16px', whiteSpace: 'nowrap' }}>
+    Añadir Servicio
+  </Typography>
         </Button>
         
-        <Box>
+        <Box >
           <Button
             variant="contained"
             color="primary"
-            sx={{ mt: -8, borderRadius: '25px', ml: 22, backgroundColor: 'yellow', color: 'black' }}
+            sx={{ mt: -9, borderRadius: '25px', ml: 22, backgroundColor: 'transparent', color: '#FFD000',
+              width: '166px', height: '43px',border: '3px solid #FFD000',
+              '&:hover': {
+                backgroundColor: 'transparent', // Mantiene el mismo color al pasar el cursor
+              },
+             }}
             onClick={handleCrearCategoriaClick}
           >
-            Crear Categoria
+           <Typography sx={{ fontFamily: 'Poppins', fontSize: '16px', whiteSpace: 'nowrap' }}>
+      Crear Categoría
+    </Typography>
           </Button>
         </Box>
       </Box>

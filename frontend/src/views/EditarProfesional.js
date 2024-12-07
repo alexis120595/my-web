@@ -159,8 +159,9 @@ const EditarProfesional = () => {
               width: '300px',
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px',
+                backgroundColor: 'white'
               },
-              backgroundColor: 'white',
+             
               '& input': {
                 color: 'black', // Color del texto que se escribe
               },

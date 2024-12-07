@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CloudinaryContext, Image } from 'cloudinary-react';
 import axios from 'axios';
-import { Button, CircularProgress, Box } from '@mui/material';
+import { Button, CircularProgress, Box, Typography } from '@mui/material';
 
 const SubidaImagenes = ({ onImageUpload }) => {
   const [url, setUrl] = useState('');
@@ -47,25 +47,44 @@ const SubidaImagenes = ({ onImageUpload }) => {
             component="span"
             sx={{
               borderRadius: '50%',
-              width: 70,
-              height: 70,
+              width: '58px',
+              height: '55px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundColor: '#808080',
+              backgroundColor: '#D9D9D9',
               color: 'white',
-              mr: 65,
+              mr: 73,
               mt:-10,
               
               
             }}
           >
-            {loading ? <CircularProgress size={24} color="inherit" /> : 'Logo'}
+           {loading ? (
+  <CircularProgress  />
+) : (
+  <Typography
+    sx={{
+      fontSize: '12px',      // Tamaño de fuente para altura de 13px
+      color: 'black',        // Color del texto
+      width: '29px',         // Ancho del contenedor
+      fontFamily: 'Popins',   // Fuente Popins
+      textAlign: 'center',
+      
+    }}
+  >
+    Logo
+  </Typography>
+)}
           </Button>
         </label>
         {loading && <p>Cargando...</p>}
         {error && <p style={{ color: 'red' }}>{error}</p>}
-        {url && <Image src={url} alt="Uploaded Image" style={{ borderRadius: '50%', marginTop: 16 }} />}
+        {url && <Image src={url} alt="Uploaded Image" style={{ borderRadius: '50%', marginTop: 16,
+            width: '58px',
+            height: '55px',
+            objectFit: 'cover',
+         }} />}
       </Box>
     </CloudinaryContext>
   );

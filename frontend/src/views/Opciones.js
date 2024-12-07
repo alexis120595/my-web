@@ -7,11 +7,20 @@ const Opciones = () => {
    
 
   return (
-    <Container maxWidth="sm">
+    <Container
+    sx={{
+      width:"360px",
+      height:"214px",
+      
+      
+      }}>
       <Box mt={5} textAlign="center" sx={{ color: 'black' }}>
         
         
-        <Typography variant="h4" gutterBottom sx={{ color: 'white' }}>
+        <Typography variant="h4" gutterBottom 
+        sx={{ color: 'white', // Cambiar el color del texto a blanco
+          marginBottom: '44px', // Añadir margen inferior
+         }}>
           ¿Qué deseas hacer?
         </Typography>
         <Button
@@ -21,10 +30,12 @@ const Opciones = () => {
          
           size="small" // Tamaño pequeño
           sx={{ 
-            width: "300px",
-            borderRadius: '20px', // Bordes redondeados
-            mb: 4,
-            backgroundColor: 'yellow', // Cambiar el color de fondo a amarillo
+            height: '43px', // Altura del botón
+            width: "360px",
+            borderRadius: '30px', // Bordes redondeados
+            marginBottom: '24px', // Margen inferior
+            
+            backgroundColor: '#FFD000', // Cambiar el color de fondo a amarillo
             color: 'black', // Cambiar el color del texto a negro para mejor contraste
             '&:hover': {
               backgroundColor: '#FFD700', // Cambiar el color de fondo al pasar el cursor
@@ -40,9 +51,10 @@ const Opciones = () => {
           
           size="small"
           sx={{ 
-            width: "300px",
-            borderRadius: '20px', // Bordes redondeados
-            backgroundColor: 'yellow', // Cambiar el color de fondo a amarillo
+            height: '43px', // Altura del botón
+            width: "360px",
+            borderRadius: '30px', // Bordes redondeados
+            backgroundColor: '#FFD000', // Cambiar el color de fondo a amarillo
             color: 'black', // Cambiar el color del texto a negro para mejor contraste
             borderColor: 'black',
             '&:hover': {

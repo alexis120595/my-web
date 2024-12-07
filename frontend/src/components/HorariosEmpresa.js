@@ -69,11 +69,14 @@ const HorariosEmpresa = ({ onHorariosChange }) => {
                 checked={checkboxes[horarioDia.dia]} 
                 onChange={() => handleCheckboxChange(horarioDia.dia)} 
               />
-              <span className="slider round"></span>
+              <span className="slider round" style={{ backgroundColor: '#60D669' }}></span>
             </label>
-            <label htmlFor={horarioDia.dia} className="mr-4">{horarioDia.dia.charAt(0).toUpperCase() + horarioDia.dia.slice(1)}</label>
+            <label htmlFor={horarioDia.dia} className="mr-4"
+             style={{ fontFamily: 'Poppins', fontSize: '14px' }}
+            >{horarioDia.dia.charAt(0).toUpperCase() + horarioDia.dia.slice(1)}</label>
             {horarioDia.horarios.map((horario, indexHorario) => (
-              <div key={indexHorario} className="flex items-center mb-2">
+              <div key={indexHorario} className="flex items-center mb-2"
+              >
                 <select 
                   id={`horaApertura${horarioDia.dia}${indexHorario}`} 
                   name={`horaApertura${horarioDia.dia}${indexHorario}`} 
@@ -84,6 +87,7 @@ const HorariosEmpresa = ({ onHorariosChange }) => {
                     setHorarios(newHorarios);
                   }} 
                   className="mr-2 p-1 border rounded-full text-black" // Añadir clase text-black para el color del texto
+                  style={{ width: '92px', height: '36px', backgroundColor: '#f0f0f0', borderRadius: '25px' }}
                 >
                   {opcionesHora.map((opcion) => (
                     <option key={opcion.value} value={opcion.value} className="text-black">
@@ -101,6 +105,7 @@ const HorariosEmpresa = ({ onHorariosChange }) => {
                     setHorarios(newHorarios);
                   }} 
                   className="p-1 border rounded-full text-black" // Añadir clase text-black para el color del texto
+                  style={{ width: '92px', height: '36px', backgroundColor: '#f0f0f0', borderRadius: '25px' }}
                 >
                   {opcionesHora.map((opcion) => (
                     <option key={opcion.value} value={opcion.value} className="text-black">
@@ -114,7 +119,7 @@ const HorariosEmpresa = ({ onHorariosChange }) => {
               type="button"
               onClick={() => agregarHorario(horarioDia.dia)} 
               className="flex items-center justify-center w-7 h-7 rounded-full ml-4"
-              style={{ backgroundColor: 'yellow', color: 'black' }}
+              style={{ backgroundColor: '#FFD000', color: '#212121', width: '26px', height: '24px' }}
             >
               +
             </button>

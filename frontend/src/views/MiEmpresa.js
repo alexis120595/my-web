@@ -60,7 +60,10 @@ const MiEmpresa = () => {
         navigate('/ajustes-empresa');
       };
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm"
+    sx={{width:'358px',
+    height:'400px',
+    }}>
       
       {empresaNombre && imagenUrl && (
         <Box display="flex" alignItems="center" mb={4} ml={6} mt={4}>
@@ -68,13 +71,16 @@ const MiEmpresa = () => {
             src={imagenUrl}
             alt="Logo de la empresa"
             style={{
-              width: '100px',
-              height: '100px',
+              width: '61px',
+              height: '58px',
               borderRadius: '50%',
               marginRight: '20px' // Espacio entre la imagen y el nombre
             }}
           />
-          <Typography variant="h4" component="h2" sx={{ color: 'white' }}>
+          <Typography variant="h4" component="h2" sx={{ color: 'white', 
+            fontFamily:'Poppins',
+            fontSize:'24px',
+             }}>
             {empresaNombre}
           </Typography>
         </Box>
@@ -84,104 +90,120 @@ const MiEmpresa = () => {
           {/* Aquí puedes agregar más contenido relacionado con la empresa */}
         </div>
       )}
-      <Box mt={5} textAlign="center">
+      <Box mt={5} textAlign="center"
+       sx={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, 1fr)', // 2 columnas
+        gap: '24px', // Espacio entre los elementos
+      }}>
         <Button variant="contained" sx={{ 
-          mr: 2, 
-          ml: 2,
-          mt:2,
-          mb:2, // Added margin bottom to separate buttons
-          backgroundColor: 'yellow', 
+         
+          backgroundColor: '#FFD000', 
           color: 'black', 
-          width: '200px', 
-          height: '100px',
-          borderRadius: '25px'
+          width: '167px', 
+          height: '90px',
+          borderRadius: '15px'
           
             // Added borderRadius for rounded corners
             }} onClick={handleAgendaClick}
             >
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <CalendarTodayIcon sx={{ fontSize: 40, mb: 1 }} />
-            <Typography variant="h6">Agenda</Typography>
+            <CalendarTodayIcon sx={{  mb: 1,  width: '40px',
+    height: '40px', }} />
+            <Typography variant="h6" sx={{fontFamily:'Poppins', 
+              fontSize:'12px',
+            }}>Agenda</Typography>
           </Box>
                
             </Button>
             <Button variant="contained" sx={{ 
-              mr: 2, 
-              ml: 2, // Added margin bottom to separate buttons
-              backgroundColor: 'yellow', 
-              color: 'black', 
-              width: '200px', 
-              height: '100px',
-              borderRadius: '25px' // Added borderRadius for rounded corners
+            
+              backgroundColor: '#FFD000', 
+          color: 'black', 
+          width: '167px', 
+          height: '90px',
+          borderRadius: '15px' // Added borderRadius for rounded corners
             }} onClick={handleServiciosClick}
             >
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <NotificationsIcon sx={{ fontSize: 40, mb: 1 }} />
-            <Typography variant="h6">Servicios</Typography>
+            <NotificationsIcon sx={{  mb: 1,  width: '40px',
+    height: '40px', }} />
+            <Typography variant="h6"
+            sx={{fontFamily:'Poppins', 
+              fontSize:'12px',
+            }}>Servicios</Typography>
           </Box>
             </Button>
             <Button variant="contained" sx={{ 
-              mr: 2, 
-              ml: 2,
-              mt:2,
-              mb:2, // Added margin bottom to separate buttons
-          backgroundColor: 'yellow', 
-          color: 'black', 
-          width: '200px', 
-          height: '100px',
-          borderRadius: '25px' // Added borderRadius for rounded corners
+            
+              backgroundColor: '#FFD000', 
+              color: 'black', 
+              width: '167px', 
+              height: '90px',
+              borderRadius: '15px' // Added borderRadius for rounded corners
         }} onClick={handlePersonalClick}
         >
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <GroupIcon sx={{ fontSize: 40, mb: 1 }} />
-        <Typography variant="h6">Personal</Typography>
+        <GroupIcon sx={{  mb: 1,  width: '40px',
+    height: '40px', }} />
+        <Typography variant="h6"
+        sx={{fontFamily:'Poppins', 
+          fontSize:'12px',
+        }}>Personal</Typography>
       </Box>
         </Button>
         <Button variant="contained" sx={{ 
-          mr: 2, 
-          ml: 2, // Added margin bottom to separate buttons
-          backgroundColor: 'yellow', 
+        
+          backgroundColor: '#FFD000', 
           color: 'black', 
-          width: '200px', 
-          height: '100px',
-          borderRadius: '25px' // Added borderRadius for rounded corners
+          width: '167px', 
+          height: '90px',
+          borderRadius: '15px'// Added borderRadius for rounded corners
         }} onClick={handleClientesClick}
         >
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <PersonIcon sx={{ fontSize: 40, mb: 1 }} />
-        <Typography variant="h6">Clientes</Typography>
+        <PersonIcon sx={{  mb: 1,  width: '40px',
+    height: '40px', }} />
+        <Typography variant="h6"
+        sx={{fontFamily:'Poppins', 
+          fontSize:'12px',
+        }}>Clientes</Typography>
       </Box>
         </Button>
         <Button variant="contained" sx={{ 
-          mr: 2, 
-          ml: 2, // Added margin bottom to separate buttons
-          mt:2,
-          mb:2,
-          backgroundColor: 'yellow', 
+        
+          backgroundColor: '#FFD000', 
           color: 'black', 
-          width: '200px', 
-          height: '100px',
-          borderRadius: '25px' // Added borderRadius for rounded corners
+          width: '167px', 
+          height: '90px',
+          borderRadius: '15px'// Added borderRadius for rounded corners
         }} onClick={handleSucursalesClick}
         >
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <LocationOnIcon sx={{ fontSize: 40, mb: 1 }} />
-        <Typography variant="h6">Sucursales</Typography>
+        <LocationOnIcon sx={{  mb: 1,  width: '40px',
+    height: '40px', }} />
+        <Typography variant="h6"
+        sx={{fontFamily:'Poppins', 
+          fontSize:'12px',
+        }}>Sucursales</Typography>
       </Box>
         </Button>
         <Button variant="contained" sx={{ 
-          mr: 2, 
-          ml: 2, // Added margin bottom to separate buttons
-          backgroundColor: 'yellow', 
+        
+          backgroundColor: '#FFD000', 
           color: 'black', 
-          width: '200px', 
-          height: '100px',
-          borderRadius: '25px' // Added borderRadius for rounded corners
+          width: '167px', 
+          height: '90px',
+          borderRadius: '15px' // Added borderRadius for rounded corners
         }} onClick={handleAjustesEmpresaClick}
         >
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <SettingsIcon sx={{ fontSize: 40, mb: 1 }} />
-        <Typography variant="h6">Ajustes</Typography>
+        <SettingsIcon sx={{  mb: 1,  width: '40px',
+    height: '40px', }} />
+        <Typography variant="h6"
+        sx={{fontFamily:'Poppins', 
+          fontSize:'12px',
+        }}>Ajustes</Typography>
       </Box>
         </Button>
       </Box>

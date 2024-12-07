@@ -69,7 +69,10 @@ const Header = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: 'white', color: 'black', boxShadow: 'none' }}>
+    <AppBar position="static" sx={{ backgroundColor: '#121212', color: 'white',
+     boxShadow: 'none',
+     
+     }}>
       <Toolbar>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           Mi Aplicación
@@ -91,27 +94,44 @@ const Header = () => {
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={handleMenuClose}
+          PaperProps={{
+          sx: {
+            width: '264px',    // Ancho deseado
+            maxHeight: '507px', // Alto máximo deseado
+            borderRadius: '15px', // Bordes redondeados en la parte inferior
+          },
+        }}
         >
-          <Typography variant="h6" sx={{ padding: '8px 16px' }}>
+          <Typography variant="h6" sx={{ padding: '8px 16px',
+            fontFamily: 'Popins',
+             fontSize: '20px',
+              color: '#3A3A3A'
+          }}>
             Mi Perfil
           </Typography>
-          <Divider />
+          
           <MenuItem onClick={() => handleMenuItemClick('/mi-perfil')}>
             <ListItemIcon>
-              <SettingsIcon fontSize="small" />
+              <SettingsIcon fontSize="small"
+              sx={{width: '20px', height: '20px', color: '#3A3A3A'}}
+              />
             </ListItemIcon>
-            Configuración
+            <Typography sx={{ fontFamily: 'Poppins', fontSize:'14px',  color: '#3A3A3A' }}>
+    Configuración
+  </Typography>
           </MenuItem>
-          <Divider />
-          <Typography variant="h6" sx={{ padding: '8px 16px' }}>
+        
+          <Typography variant="h6" sx={{ padding: '8px 16px', fontFamily: 'Poppins', fontSize:'12px',  color: '#3A3A3A' }}>
             Sección Empresa
           </Typography>
-          <Divider />
+        
           <MenuItem disabled>
             <ListItemIcon>
-              <HomeIcon fontSize="small" />
+              <HomeIcon fontSize="small"
+              sx={{width: '20px', height: '20px', color: '#3A3A3A'}}
+              />
             </ListItemIcon>
-            <Typography variant="h6" sx={{ padding: '8px 16px', color: 'black' }}>
+            <Typography variant="h6" sx={{ padding: '8px 16px',  color: '#3A3A3A', fontFamily: 'Poppins', fontSize:'14px' }}>
               Mis Empresas
             </Typography>
           </MenuItem>
@@ -121,45 +141,61 @@ const Header = () => {
                 <img
                   src={empresa.imagen_url}
                   alt={empresa.nombre}
-                  style={{ width: '30px', height: '30px', borderRadius: '50%', marginLeft: '20px' }}
+                  style={{ width: '18px', height: '18px', borderRadius: '50%', marginLeft: '20px' }}
                 />
               )}
-              <Typography variant="body1" sx={{ marginLeft: '10px' }}>
+              <Typography variant="body1" sx={{ marginLeft: '10px', fontFamily: 'Poppins', fontSize:'14px',  color: '#3A3A3A' }}>
                 {empresa.nombre}
               </Typography>
             </MenuItem>
           ))}
           <MenuItem onClick={() => handleMenuItemClick('/crear-servicio')} sx={{ fontSize: '1.2rem' }}>
             <ListItemIcon>
-              <StoreIcon fontSize="small" />
+              <StoreIcon fontSize="small"
+              sx={{width: '20px', height: '20px', color: '#3A3A3A'}}
+              />
             </ListItemIcon>
-            Añadir Empresa
+            <Typography sx={{ fontFamily: 'Poppins', fontSize:'14px',  color: '#3A3A3A' }}>
+    Añadir empresa
+  </Typography>
           </MenuItem>
-          <Divider />
-          <Typography variant="h6" sx={{ padding: '8px 16px' }}>
+         
+          <Typography variant="h6" sx={{ padding: '8px 16px', fontFamily: 'Poppins', fontSize:'12px',  color: '#3A3A3A' }}>
             Sección Cliente
           </Typography>
-          <Divider />
+          
           <MenuItem onClick={() => handleMenuItemClick('/buscar-empresa')}>
             <ListItemIcon>
-              <CalendarTodayIcon fontSize="small" />
+              <CalendarTodayIcon fontSize="small" 
+               sx={{width: '20px', height: '20px', color: '#3A3A3A'}}
+              />
             </ListItemIcon>
-            Reservar turno
+            <Typography sx={{ fontFamily: 'Poppins', fontSize:'14px',  color: '#3A3A3A' }}>
+    Reservar Turno
+  </Typography>
           </MenuItem>
           <MenuItem onClick={handleMisTurnosClick}>
             <ListItemIcon>
-              <EventIcon fontSize="small" />
+              <EventIcon fontSize="small" 
+               sx={{width: '20px', height: '20px', color: '#3A3A3A'}}
+              />
             </ListItemIcon>
-            Mis Turnos
+            <Typography sx={{ fontFamily: 'Poppins', fontSize:'14px',  color: '#3A3A3A' }}>
+    Mis Turnos
+  </Typography>
           </MenuItem>
-          <Divider />
-          <MenuItem onClick={() => handleMenuItemClick('/logout')} style={{ color: 'red' }}>
+          
+          <MenuItem onClick={() => handleMenuItemClick('/')} style={{ color: 'red' }}>
             <ListItemIcon>
-              <LogoutIcon fontSize="small" />
+              <LogoutIcon fontSize="small"
+              sx={{width: '20px', height: '20px', color: '#EC1818'}}
+              />
             </ListItemIcon>
-            Cerrar Sesión
+            <Typography sx={{ fontFamily: 'Poppins', fontSize:'14px',  color: '#EC1818' }}>
+    Cerrar Sesión
+  </Typography>
           </MenuItem>
-          <Divider />
+          
         </Menu>
       </Toolbar>
     </AppBar>

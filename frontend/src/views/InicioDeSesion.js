@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import GoogleLogin1 from '../components/GoogleLogin1';
 import { Link } from 'react-router-dom';
-import EmailIcon from '@mui/icons-material/Email';
+import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 import { UserContext } from '../context/UserContext'; 
 
@@ -15,13 +15,13 @@ const InicioDeSesion = () => {
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
   const { setUserEmail } = useContext(UserContext);
-
+  const [isFocused, setIsFocused] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://127.0.0.1:8000/login', { email, password });
-      const {id: userId, email: userEmail } = response.data;
+      const { id: userId, email: userEmail } = response.data;
       localStorage.setItem('userId', userId);
       localStorage.setItem('userEmail', userEmail);
       setUserEmail(userEmail);
@@ -36,18 +36,36 @@ const InicioDeSesion = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box mt={5} textAlign="center">
-        <Typography variant="h4" component="h1" gutterBottom  sx={{ color: 'white' }}>
+    <Container
+    sx={{
+      width:"361px",
+      height:"555px",
+      
+      }}
+    >
+      <Box mt={5}    display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        textAlign="center">
+        <Typography variant="h4" component="h1" gutterBottom 
+         sx={{ 
+          color: 'white',
+          width: '361px',
+          height: '32px',
+          marginBottom: '24px',
+         }}>
           Ingresar a mi cuenta
         </Typography>
-        <form onSubmit={handleSubmit} >
+        <form onSubmit={handleSubmit}>
           <TextField
-            label="ingresar email"
+            label={isFocused ? '' : 'Ingresar email'}
             name="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onFocus={() => setIsFocused(true)} // Actualiza el estado al enfocar
+            onBlur={() => setIsFocused(false)}
             fullWidth
             margin="normal"
             required
@@ -55,57 +73,19 @@ const InicioDeSesion = () => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <EmailIcon />
+                  <PersonIcon sx={{ width: 20, height: 20, color: 'black' }} />
                 </InputAdornment>
               ),
             }}
-            sx={{ 
-
-              
-              width:"300px",
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes más redondeados
-                backgroundColor: 'white', // Color de fondo del input
-                color: 'white', // Color del texto
-                '& fieldset': {
-                  borderColor: 'white', // Color del borde
-                },
-                '&:hover fieldset': {
-                  borderColor: 'white', // Color del borde al pasar el mouse
-                },
-                '&.Mui-focused fieldset': {
-                  borderColor: 'white', // Color del borde al enfocar
-                },
-              },
-              '& .MuiInputLabel-root': {
-                color: 'black', // Color del label
-              },
-              '& .MuiInputAdornment-root': {
-                color: 'black', // Color del icono
-              },
-            }} 
-          />
-          <TextField
-            label="ingresar contraseña"
-            name="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            fullWidth
-            margin="normal"
-            required
-            size="small" // Tamaño pequeño
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LockIcon />
-                </InputAdornment>
-              )
+            InputLabelProps={{
+              shrink: true, // Permite que el label se encoja al escribir
             }}
             sx={{ 
-              width:"300px",
+              height: '50px', // Alto del input
+              width: '361px',
+              marginBottom: '24px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes más redondeados
+                borderRadius: '25px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo del input
                 color: 'black', // Color del texto
                 '& fieldset': {
@@ -119,7 +99,70 @@ const InicioDeSesion = () => {
                 },
               },
               '& .MuiInputLabel-root': {
-                color: 'black', // Color del label
+                color: '#666666', // Color del label
+                marginTop: '20px',
+                marginLeft: '30px',
+                width: '114px',
+                height: '18px',
+              },
+              '& .MuiInputAdornment-root': {
+                color: 'black', // Color del icono
+              },
+            }} 
+          />
+          <TextField
+            label="Ingresar contraseña"
+            name="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            fullWidth
+            margin="normal"
+            required
+            size="small" // Tamaño pequeño
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Box
+                    sx={{
+                      width: 26,
+                      height: 26,
+                      borderRadius: '50%',
+                      backgroundColor: '#FFD000',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <LockIcon sx={{ width: 16, height: 21, color: 'black' }} />
+                  </Box>
+                </InputAdornment>
+              ),
+            }}
+            sx={{ 
+              height: '50px', // Alto del input
+              width: '361px',
+              marginBottom: '48px',
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '25px', // Bordes más redondeados
+                backgroundColor: 'white', // Color de fondo del input
+                color: 'black', // Color del texto
+                '& fieldset': {
+                  borderColor: 'white', // Color del borde
+                },
+                '&:hover fieldset': {
+                  borderColor: 'white', // Color del borde al pasar el mouse
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'white', // Color del borde al enfocar
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: '#666666', // Color del label
+                marginTop: '20px',
+                marginLeft: '30px',
+                width: '114px',
+                height: '18px',
               },
               '& .MuiInputAdornment-root': {
                 color: 'black', // Color del icono
@@ -128,64 +171,53 @@ const InicioDeSesion = () => {
           />
           {error && <Typography color="error">{error}</Typography>}
           {success && <Typography color="primary">{success}</Typography>}
-          <Button type="submit" variant="contained" color="primary"   size="small" // Tamaño pequeño
+          <Box display="flex" justifyContent="center" mb={2}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            size="small" // Tamaño pequeño
             sx={{ 
-              mb:2,
-              mt: 2, // Margen inferior
+              marginBottom: '48px',
+              mt: 2, // Margen superior
               display: 'block', // Para centrar el botón
-               // M
-               ml: 16,
-               backgroundColor: 'yellow', // Color de fondo del botón
-               color: 'black',
-               borderRadius: '20px',
-              width: '300px', // Ancho del botón ajustado al contenido
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes más redondeados
-              }
-            }} >
+              backgroundColor: '#FFD000', // Color de fondo del botón
+              color: 'black',
+              borderRadius: '20px',
+              height: '43px', // Alto del botón
+              width: '361px', // Ancho del botón ajustado al contenido
+            }}
+          >
             Iniciar Sesión
           </Button>
+          </Box>
         </form>
-        <Box sx={{ textAlign: 'center', mt: 2, mb: 4  }}>
+        <Box sx={{ textAlign: 'center', marginBottom:"24px" }}>
           <p>O ingresar con</p>
         </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2, mt: 2 }}>
-          <GoogleLogin1 
-           sx={{ 
-            mb:2,
-            mt: 2, // Margen inferior
-            display: 'block', // Para centrar el botón
-             // M
-             mr: 16,
-             backgroundColor: 'yellow', // Color de fondo del botón
-             color: 'black',
-             borderRadius: '20px',
-            width: '300px', // Ancho del botón ajustado al contenido
-            '& .MuiOutlinedInput-root': {
-              borderRadius: '20px', // Bordes más redondeados
-            }
-          }}  />
-           </Box>
-
-<Typography variant="h6" component="h1" gutterBottom  sx={{ color: 'white', mt:2}}>
-          Todavia no tenes una  cuenta
-        </Typography>
-          <Button component={Link} to="/registro" variant="text"  size="small" // Tamaño pequeño
-             sx={{ 
-              mb:2,
-              mt: 2, // Margen inferior
-              display: 'block', // Para centrar el botón
-               // M
-               ml: 16,
-                 // Color de fondo del botón
-               color: 'yellow',
-               
-              width: '300px', // Ancho del botón ajustado al contenido
-              
-            }} 
-           >
-            Registrarse
+        <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom:"24px", mt: 2 }}>
+          <GoogleLogin1 />
+        </Box>
+        <Box display="flex" alignItems="center" justifyContent="center">
+          <Typography component="h1" sx={{ color: 'white', mr: 2 }}>
+            Todavía no tenés una cuenta
+          </Typography>
+          <Button
+            component={Link}
+            to="/registro"
+            variant="text"
+            size="small"
+            sx={{
+              color: '#FFD000',
+              width: 'auto', // Ajusta el ancho del botón al contenido
+              height: 'auto', // Ajusta el alto del botón al contenido
+              padding: 0, // Elimina el padding adicional
+              minWidth: 'unset', // Elimina el ancho mínimo predeterminado
+            }}
+          >
+            Registrarme
           </Button>
+        </Box>
       </Box>
     </Container>
   );

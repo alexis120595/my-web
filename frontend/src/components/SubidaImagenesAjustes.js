@@ -64,7 +64,9 @@ const SubidaImagenesAjustes = ({ onImageUpload }) => {
         </label>
         {loading && <p>Cargando...</p>}
         {error && <p style={{ color: 'red' }}>{error}</p>}
-        {url && <Image src={url} alt="Uploaded Image" style={{ borderRadius: '50%', marginTop: 16 }} />}
+        {url && <Image src={url} alt="Uploaded Image" style={{ borderRadius: '50%', marginTop: 16,  width: '100px',
+            height: '100px',
+            objectFit: 'cover', }} />}
       </Box>
     </CloudinaryContext>
   );

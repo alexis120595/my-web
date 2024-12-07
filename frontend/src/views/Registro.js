@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { TextField, Button, Container, Typography, Box } from '@mui/material';
+import { TextField, Button, Container, Typography, Box, InputAdornment } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import GoogleLogin1 from '../components/GoogleLogin1';
+import LockIcon from '@mui/icons-material/Lock';
+import PersonIcon from '@mui/icons-material/Person';
 
 const Registro = () => {
   const [form, setForm] = useState({
@@ -38,9 +40,20 @@ const Registro = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box mt={5} textAlign="center">
-        <Typography variant="h4" component="h1" gutterBottom>
+    <Container 
+    
+    sx={{
+      width:"362px",
+      height:"529px",
+      
+      }}>
+      <Box mt={5} textAlign="left">
+        <Typography variant="h4" component="h1" gutterBottom
+         sx={{
+          textAlign: 'left',
+          marginBottom: '24px', // Espacio entre el texto y el primer input
+        }}
+        >
           Registrarme
         </Typography>
         <form onSubmit={handleSubmit}>
@@ -54,8 +67,17 @@ const Registro = () => {
             fullWidth
             margin="normal"
             required
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <PersonIcon sx={{ width: 20, height: 20, color: 'black' }} />
+                </InputAdornment>
+              ),
+            }}
             sx={{ 
-              width:"300px",
+              marginBottom: '24px',
+              height: '50px',
+              width:"362px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo del input
@@ -87,8 +109,29 @@ const Registro = () => {
             fullWidth
             margin="normal"
             required
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Box
+                    sx={{
+                      width: 26,
+                      height: 26,
+                      borderRadius: '50%',
+                      backgroundColor: '#FFD000',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <LockIcon sx={{ width: 16, height: 21, color: 'black' }} />
+                  </Box>
+                </InputAdornment>
+              ),
+            }}
             sx={{ 
-              width:"300px",
+              marginBottom: '24px',
+              height: '50px',
+              width:"362px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo del input
@@ -120,8 +163,29 @@ const Registro = () => {
             fullWidth
             margin="normal"
             required
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Box
+                    sx={{
+                      width: 26,
+                      height: 26,
+                      borderRadius: '50%',
+                      backgroundColor: '#FFD000',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <LockIcon sx={{ width: 16, height: 21, color: 'black' }} />
+                  </Box>
+                </InputAdornment>
+              ),
+            }}
             sx={{ 
-              width:"300px",
+              marginBottom: '48px',
+              height: '50px',
+              width:"362px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo del input
@@ -147,31 +211,51 @@ const Registro = () => {
       
           {error && <Typography color="error">{error}</Typography>}
           {success && <Typography color="primary">{success}</Typography>}
-          <Button type="submit" variant="contained" color="primary" onClick={handleSubmit} fullWidth   sx={{ 
-              mb:2,
-              mt: 2, // Margen inferior
-              backgroundColor: 'yellow', // Color de fondo del botón
+
+          <Box display="flex" justifyContent="left"
+          sx={{
+            height: '43px',
+            width:"362px",
+            marginBottom: '44px',
+          }}
+          >
+          <Button type="submit" variant="contained" color="primary" onClick={handleSubmit}   
+          
+          sx={{ 
+            marginBottom: '44px',
+            height: '43px',
+            width:"362px",
+              // Margen inferior
+              backgroundColor: '#FFD000', // Color de fondo del botón
               color: 'black', // Color del texto
               borderRadius: '25px', // Bordes redondeados
               display: 'block', // Para centrar el botón
                // M
-               ml: 25, // Margen izquierdo
-              width: '150px', // Ancho del botón ajustado al contenido
+               // Margen izquierdo
+              // Ancho del botón ajustado al contenido
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
               }
             }}>
             Registrarme
           </Button>
+          </Box>
         </form>
-        <Box sx={{ textAlign: 'center', mt: 2, mb: 4  }}>
+        <Box 
+        sx={{ 
+          textAlign: 'center',  
+          marginBottom: '24px' 
+           }}>
           <p>O ingresar con</p>
         </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2, mt: 2 }}>
+        <Box 
+        sx={{ display: 'flex',
+         justifyContent: 'center'
+         , marginBottom: '24px'
+         }}>
           <GoogleLogin1 
            sx={{ 
-            mb:2,
-            mt: 2, // Margen inferior
+             // Margen inferior
             display: 'block', // Para centrar el botón
              // M
              mr: 16,
@@ -185,7 +269,15 @@ const Registro = () => {
           }}  />
            </Box>
 
-<Typography variant="h6" component="h1" gutterBottom  sx={{ color: 'white', mt:2}}>
+<Typography component="h1" gutterBottom  
+
+sx={{ 
+  textAlign: 'center',
+  color: 'white',
+  mt:2,
+  height: '26 px',
+  width:"163px",
+  }}>
           ¿Ya tenés una cuenta?
         </Typography>
       </Box>

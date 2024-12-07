@@ -48,7 +48,9 @@ const EditarServicio = () => {
   return (
     <Container maxWidth="sm">
       <Box mt={5} textAlign="center">
-        <Typography variant="h4" gutterBottom sx={{ mr: 22,  }}>
+        <Typography variant="h4" gutterBottom sx={{ mr: 22, fontFamily:'Poppins', fontSize:'24px',
+          marginBottom: '24px',
+         }}>
           Editar Servicio
         </Typography>
         <form onSubmit={handleSubmit}>
@@ -59,8 +61,18 @@ const EditarServicio = () => {
             value={precio}
             onChange={(e) => setPrecio(e.target.value)}
             fullWidth
-            sx={{ mb: 2,  border: '1px solid #ccc',
-                borderRadius: '10px', width:'400px' }}
+            sx={{ 
+                borderRadius: '25px', width:'362px', height:'50px',
+              backgroundColor:'white',
+              marginBottom: '24px',
+              '& .MuiOutlinedInput-root': {
+                '& input': {
+                  fontFamily: 'Poppins', // Aplica la fuente Poppins
+                  fontSize: '14px', // Tamaño de la fuente
+                  color: '#666666', // Color del texto
+                },
+              },
+              }}
           
           />
           <TextField
@@ -70,8 +82,18 @@ const EditarServicio = () => {
             value={duracion}
             onChange={(e) => setDuracion(e.target.value)}
             fullWidth
-            sx={{ mb: 2,  border: '1px solid #ccc',
-                borderRadius: '10px', width:'400px'}}
+            sx={{ 
+              marginBottom: '24px',
+              borderRadius: '25px', width:'362px', height:'50px',
+              backgroundColor:'white',
+              '& .MuiOutlinedInput-root': {
+                '& input': {
+                  fontFamily: 'Poppins', // Aplica la fuente Poppins
+                  fontSize: '14px', // Tamaño de la fuente
+                  color: '#666666', // Color del texto
+                },
+              },  
+            }}
           />
           <TextField
             label="Modalidad"
@@ -80,11 +102,32 @@ const EditarServicio = () => {
             value={modalidad}
             onChange={(e) => setModalidad(e.target.value)}
             fullWidth
-            sx={{ mb: 2,  border: '1px solid #ccc',
-                borderRadius: '10px', width:'400px' }}
+            sx={{ 
+              marginBottom: '32px', 
+                 borderRadius: '25px', width:'362px', height:'50px',
+              backgroundColor:'white',
+              '& .MuiOutlinedInput-root': {
+                '& input': {
+                  fontFamily: 'Poppins', // Aplica la fuente Poppins
+                  fontSize: '14px', // Tamaño de la fuente
+                  color: '#666666', // Color del texto
+                },
+              },
+              }}
           />
-          <Button type="submit" variant="contained" color="primary" sx={{ mt: 2,  border: '1px solid #ccc',
-                borderRadius: '10px', width:'400px', color:'black', backgroundColor:'yellow'}}>
+          <Button type="submit" variant="contained" color="primary" sx={{  
+                borderRadius: '25px', width:'361px', height:'50px', color:'black', backgroundColor:'#FFD000',
+                '&:hover': {
+                  backgroundColor: '#FFD000', // Mantiene el mismo color al pasar el cursor
+                },
+                '& .MuiOutlinedInput-root': {
+                  '& input': {
+                    fontFamily: 'Poppins', // Aplica la fuente Poppins
+                    fontSize: '16px', // Tamaño de la fuente
+                    color: '#666666', // Color del texto
+                  },
+                },
+                }}>
             Guardar Cambios
           </Button>
         </form>

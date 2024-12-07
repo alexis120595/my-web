@@ -29,16 +29,25 @@ const BuscarEmpresa = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box mt={5} textAlign="center">
+    <Container
+    sx={{
+      width:"360px",
+      height:"158px",
+     textAlign: 'left',
+      
+      
+      }}>
+      <Box mt={5} >
         <Typography variant="h4" gutterBottom style={{ color: 'white' }}>
           Buscar Empresa
         </Typography>
-        <Typography variant="h4" gutterBottom style={{ color: 'white', fontSize: '1rem' }}>
+        <Typography variant="h4" gutterBottom style={{ color: 'white', fontSize: '1rem',  width:"360px",
+      height:"32px",
+      marginBottom:"24px" }}>
           si conoces una empresa o negocio realiza la busqueda
         </Typography>
         <TextField
-         
+        
           variant="outlined"
           fullWidth
           margin="normal"
@@ -47,7 +56,7 @@ const BuscarEmpresa = () => {
           InputProps={{
             
             endAdornment: (
-              <InputAdornment position="end">
+              <InputAdornment position="start">
                 <IconButton onClick={handleBuscar}>
                   <SearchIcon style= {{ color: 'black' }}/>
                 </IconButton>
@@ -58,6 +67,8 @@ const BuscarEmpresa = () => {
             style: { color: 'white' },
           }}
           sx={{
+            width:"360px",
+            height:"50px",
             '& .MuiOutlinedInput-root': {
               borderRadius: '20px', // Bordes redondeados
               backgroundColor: 'white', // Color de fondo

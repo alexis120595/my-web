@@ -73,7 +73,11 @@ const CrearHorarios = () => {
               renderValue={(selected) => selected.join(', ')}
               label="Seleccionar Horarios"
               sx={{
-                borderRadius: '25px', // Bordes redondeados
+                borderRadius: '20px',
+                backgroundColor: 'white',
+              '& input': {
+                color: 'black', // Color del texto que se escribe
+              },
               }}
             >
               {horasDisponibles.map((hora) => (

@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
+import { Box } from '@mui/material'; 
 
 const GoogleLogin1 = () => {
   const { setUserEmail } = useContext(UserContext);
@@ -42,14 +43,24 @@ const GoogleLogin1 = () => {
 
   return (
     <div>
-     
+  <Box
+        sx={{
+          display: 'inline-block',
+          borderRadius: '30px', // Bordes redondeados
+          overflow: 'hidden', // Asegura que el contenido no se desborde
+          width: '361px', // Ancho completo
+          height: '43px', // Altura completa
+        }}
+      >
         <GoogleLogin
           onSuccess={handleSuccess}
           onError={handleError}
+          sx={{ width: '100%', height: '100%' }}
         />
-     
+      </Box>
     </div>
   );
 }
+
 
 export default GoogleLogin1;

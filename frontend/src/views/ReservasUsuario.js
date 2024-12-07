@@ -33,9 +33,20 @@ const ReservasUsuario = () => {
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm"
+    sx={{
+      width: '361px',
+      height: '547px',
+      mx: 'auto', // Centrar el contenedor horizontalmente
+    }}
+    >
       <Box mt={5} textAlign="center">
-        <Typography variant="h4" component="h1" gutterBottom>
+        <Typography variant="h4" component="h1" gutterBottom
+        sx={{fontFamily:'Popins',fontSize:'24px',
+           marginBottom: '24px',
+          textAlign: 'left',
+          }}
+        >
           Mis Turnos
         </Typography>
         {error && <Typography color="error">{error}</Typography>}
@@ -50,23 +61,33 @@ const ReservasUsuario = () => {
                 key={reserva.id}
                 sx={{
                   border: '1px solid #ccc',
-                  borderRadius: '8px',
-                  mb: 2,
+                  borderRadius: '15px',
+                  marginBottom: '16px',
                   padding: 2,
-                  width: '400px',
-                  ml: 16,
+                  width: '361px',
+                  height: '83px',
+                 
+                  backgroundColor: 'white',
                 }}
               >
                 <Box display="flex" justifyContent="space-between" width="100%">
                   <ListItemText
                     primary={` ${reserva.servicio.nombre || 'N/A'}  ${reserva.servicio.duracion || 'N/A'}`}
                     secondary={`$ ${reserva.servicio.precio || 'N/A'}`} 
-                    sx={{
-                      '& .MuiListItemText-secondary': {
-                        color: 'white', // Cambiar el color del precio a negro
+                    primaryTypographyProps={{
+                      sx: {
+                        color: '#3A3A3A', // Color del servicio y duración
+                        fontFamily:'Popins',
+                        fontSize:'12px',
                       },
                     }}
-                    
+                    secondaryTypographyProps={{
+                      sx: {
+                        color: '#3A3A3A', // Color del precio
+                        fontFamily:'Popins',
+                        fontSize:'16px',
+                      },
+                    }}
                   />
                   <Box
                     display="flex"
@@ -74,17 +95,28 @@ const ReservasUsuario = () => {
                     alignItems="center"
                     justifyContent="center"
                     sx={{
-                      width: 100,
-                      height: 50,
-                      borderRadius: '20px',
-                      backgroundColor: 'lightgreen',
+                      width: 104,
+                      height: 47,
+                      borderRadius: '15px',
+                      backgroundColor: '#CDFFAE',
                       color: 'white',
+                     
                     }}
                   >
-                    <Typography variant="body2" color="textSecondary">
+                    <Typography variant="body2" color="textSecondary"
+                    sx={{ fontFamily:'Popins',
+                      fontSize:'14px',
+                    color: '#3A3A3A'
+                    }}
+                    >
                       {reserva.fecha} 
                     </Typography>
-                    <Typography variant="body2" color="textSecondary">
+                    <Typography variant="body2" 
+                     sx={{ fontFamily:'Popins',
+                      fontSize:'14px',
+                    color: '#3A3A3A'
+                    }}
+                    >
                        {reserva.horario.hora}
                     </Typography>
                   </Box>
