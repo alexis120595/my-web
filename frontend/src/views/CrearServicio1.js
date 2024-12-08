@@ -92,9 +92,17 @@ const CrearServicio1 = () => {
 
 
   return (
-    <Container maxWidth="sm">
-      <Box mt={5} textAlign="center">
-        <Typography variant="h4" gutterBottom  sx={{mr:7}}>
+    <Container maxWidth="sm"
+    sx={{width: '364px',
+      height: '1270px',
+    }}
+    >
+      <Box mt={5} textAlign="left">
+        <Typography variant="h4" gutterBottom  sx={{
+          fontFamily: 'Poppins',
+          fontSize: '24px',
+          marginBottom: '24px',
+        }}>
           Añadir Servicio
         </Typography>
         <form onSubmit={handleCrearServicio}>
@@ -105,10 +113,11 @@ const CrearServicio1 = () => {
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
             sx={{ 
-              mb: 2,
-              width:"300px",
+              marginBottom: '16px',
+              height:"50px",
+              width:"364px",
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes más redondeados
+                borderRadius: '25px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo del input
                 '& input': {
                   color: 'black', // Color del texto que se escribe
@@ -124,7 +133,9 @@ const CrearServicio1 = () => {
                 },
               },
               '& .MuiInputLabel-root': {
-                color: 'black', // Color del label
+                color: '#666666', // Color del label
+                fontFamily: 'Poppins',
+                fontSize: '14px',
               },
               '& .MuiInputAdornment-root': {
                 color: 'white', // Color del icono
@@ -139,8 +150,9 @@ const CrearServicio1 = () => {
             value={tipoDeServicio}
             onChange={(e) => setTipoDeServicio(e.target.value)}
             sx={{ 
-              mb: 2,
-              width:"300px",
+              marginBottom: '16px',
+              height:"50px",
+              width:"364px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo del input
@@ -159,7 +171,9 @@ const CrearServicio1 = () => {
                 },
               },
               '& .MuiInputLabel-root': {
-                color: 'black', // Color del label
+                color: '#666666', // Color del label
+                fontFamily: 'Poppins',
+                fontSize: '14px',
               },
               '& .MuiInputAdornment-root': {
                 color: 'white', // Color del icono
@@ -175,8 +189,9 @@ const CrearServicio1 = () => {
             onChange={(e) => setDescripcion(e.target.value)}
             
             sx={{ 
-              mb: 2,
-              width:"300px",
+              marginBottom: '24px',
+              height:"50px",
+              width:"364px",
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo del input
@@ -195,7 +210,9 @@ const CrearServicio1 = () => {
                 },
               },
               '& .MuiInputLabel-root': {
-                color: 'black', // Color del label
+                color: '#666666', // Color del label
+                fontFamily: 'Poppins',
+                fontSize: '14px',
               },
               '& .MuiInputAdornment-root': {
                 color: 'white', // Color del icono
@@ -203,7 +220,13 @@ const CrearServicio1 = () => {
             }} 
           />
 
-<Typography variant="h4" gutterBottom>
+<Typography variant="h4" gutterBottom
+sx={{ 
+  fontFamily: 'Poppins',
+  fontSize: '24px',
+  marginBottom: '24px',
+}}
+>
           Precio del Servicio
         </Typography>
 
@@ -215,6 +238,9 @@ const CrearServicio1 = () => {
                 onChange={handlePrecioServicioCheckedChange}
                 color="primary"
                 sx={{mr:20,
+                  width:"18px",
+                  height:"18px",
+                  marginLeft:'17px',
                   color:"white",
                   '&.Mui-checked': {
       color: "yellow", // Cambiar el color a amarillo cuando está seleccionado
@@ -232,11 +258,12 @@ const CrearServicio1 = () => {
             value={precio}
             onChange={(e) => setPrecio(e.target.value)}
             sx={{ 
-              mb: 2,
-              ml:10,
-              width:"200px",
+              marginBottom:'16px',
+              
+              height:"50px",
+              width:"244px",
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes más redondeados
+                borderRadius: '25px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo del input
                 '& input': {
                   color: 'black', // Color del texto que se escribe
@@ -253,7 +280,9 @@ const CrearServicio1 = () => {
                 },
               },
               '& .MuiInputLabel-root': {
-                color: 'black', // Color del label
+                color: '#666666', // Color del label
+                fontFamily: 'Poppins',
+                fontSize: '14px',
               },
               '& .MuiInputAdornment-root': {
                 color: 'white', // Color del icono
@@ -265,7 +294,10 @@ const CrearServicio1 = () => {
             }
               labelPlacement="start"
           />
-          <Typography variant="body1" sx={{ ml: 30, mt:-6}}>
+          <Typography variant="body1" sx={{ ml: 40, mt:-6,
+            fontSize: '14px',
+            fontFamily: 'Poppins',
+          }}>
           A definir
         </Typography>
         </Box>
@@ -277,7 +309,10 @@ const CrearServicio1 = () => {
                 onChange={handleDescripcionCheckedChange}
                 color="primary"
 
-                sx={{mr:20,
+                sx={{
+                  width:"18px",
+                  height:"18px",
+                  marginLeft:'17px',
                   color:"white",
                   '&.Mui-checked': {
       color: "yellow", // Cambiar el color a amarillo cuando está seleccionado
@@ -294,12 +329,12 @@ const CrearServicio1 = () => {
             value={seña}
             onChange={(e) => setSeña(e.target.value)}
             sx={{ 
-              mb: 2,
-              ml:10,
-              mt:2,
-              width:"200px",
+              marginBottom:'24px',
+              
+              height:"50px",
+              width:"244px",
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes más redondeados
+                borderRadius: '25px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo del input
                 '& input': {
                   color: 'black', // Color del texto que se escribe
@@ -316,7 +351,9 @@ const CrearServicio1 = () => {
                 },
               },
               '& .MuiInputLabel-root': {
-                color: 'black', // Color del label
+                color: '#666666', // Color del label
+                fontFamily: 'Poppins',
+                fontSize: '14px',
               },
               '& .MuiInputAdornment-root': {
                 color: 'white', // Color del icono
@@ -327,12 +364,19 @@ const CrearServicio1 = () => {
             }
               labelPlacement="start"
           />
-           <Typography variant="body1" sx={{ ml: 30, mt:-7}}>
+           <Typography variant="body1" sx={{ ml: 40, mt:-7,
+            fontSize: '14px',
+            fontFamily: 'Poppins',
+           }}>
           Sin seña
         </Typography>
         </Box>
 
-<Typography variant="h4" gutterBottom sx={{ mt:4, ml:5}}>
+<Typography variant="h4" gutterBottom sx={{ mt:4, 
+  fontFamily: 'Poppins',
+  fontSize: '20px',
+  marginBottom: '19px',
+}}>
           Modalidad y Duracion 
         </Typography>
 
@@ -343,10 +387,11 @@ const CrearServicio1 = () => {
             value={duracion}
             onChange={(e) => setDuracion(e.target.value)}
             sx={{ 
-              mb: 2,
-              width:"300px",
+              marginBottom: '19px',
+              height:"50px",
+              width:"364px",
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes más redondeados
+                borderRadius: '25px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo del input
                 '& input': {
                   color: 'black', // Color del texto que se escribe
@@ -364,7 +409,9 @@ const CrearServicio1 = () => {
                 },
               },
               '& .MuiInputLabel-root': {
-                color: 'black', // Color del label
+                color: '#666666', // Color del label
+                fontFamily: 'Poppins',
+                fontSize: '14px',
               },
               '& .MuiInputAdornment-root': {
                 color: 'white', // Color del icono
@@ -379,10 +426,11 @@ const CrearServicio1 = () => {
             value={modalidad}
             onChange={(e) => setModalidad(e.target.value)}
             sx={{ 
-              mb: 2,
-              width:"300px",
+              marginBottom: '24px',
+              height:"50px",
+              width:"364px",
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes más redondeados
+                borderRadius: '25px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo del input
                 '& input': {
                   color: 'black', // Color del texto que se escribe
@@ -398,7 +446,9 @@ const CrearServicio1 = () => {
                 },
               },
               '& .MuiInputLabel-root': {
-                color: 'black', // Color del label
+                color: '#666666', // Color del label
+                fontFamily: 'Poppins',
+                fontSize: '14px',
               },
               '& .MuiInputAdornment-root': {
                 color: 'white', // Color del icono
@@ -406,27 +456,56 @@ const CrearServicio1 = () => {
             }} 
           />
 
-<Typography variant="h4" gutterBottom sx={{ml:7}}>
-          Profecional del  Servicio
+<Typography variant="h4" gutterBottom sx={{
+  fontFamily: 'Poppins',
+  fontSize: '20px',
+  marginBottom: '24px',
+}}>
+          Seleccionar Profecional
         </Typography>
 
-        <Box display="flex" flexWrap="wrap" justifyContent="center">
+       
+
+        <Box display="grid"
+  gridTemplateColumns="repeat(2, 1fr)"
+  gap='27px'
+  justifyContent="center">
             {barberos.map((barbero) => (
-              <Card key={barbero.id} sx={{ maxWidth: 345, ml: 4,  borderRadius: '10%',}}>
+              <Card key={barbero.id} 
+              sx={{
+                width: '165px',
+                height: '188px',
+                borderRadius: '15px', // Bordes redondeados
+                backgroundColor: 'white', // Color de fondo
+                display: 'flex', // Para que los elementos estén en fila
+                alignItems: 'center', // Para centrar los elementos verticalmente
+                flexDirection:'column',
+                justifyContent: 'center', // Para centrar los elementos horizontalmente
+                marginBottom: '44px', // Espacio entre las tarjetas
+              }}
+              >
                 <CardMedia
                   component="img"
                   sx={{
-                    height: 60,
-                    width: 60,
+                    height: 68,
+                    width: 68,
                     borderRadius: '50%', // Hacer la imagen redonda
-                    mt: 1, // Margen inferior
-                    ml:4
+                    marginBottom: '10px', // Espacio entre la imagen y el nombre
+                    marginTop: '20px', // Espacio entre la imagen y el borde superior
+                   
                   }}
                   image={barbero.imagen_url} // Asegúrate de que la URL de la foto esté disponible en el objeto barbero
                   alt={`${barbero.nombre} ${barbero.apellido}`}
                 />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
+                <CardContent  sx={{ padding: 0, textAlign: 'center' }}>
+                  <Typography gutterBottom variant="h5" component="div"
+                  sx={{
+                    fontFamily: 'Poppins',
+                    fontSize: '12px',
+                    marginBottom: '10px',
+                 
+                  }}
+                  >
                     {barbero.nombre} {barbero.apellido}
                   </Typography>
                   <Button
@@ -434,62 +513,106 @@ const CrearServicio1 = () => {
                     onClick={() => handleSelectBarbero(barbero.id)}
                     sx={{
                        backgroundColor: selectedBarberos.includes(barbero.id) ? 'gray' : 'white',
-                        color: 'black',
-                        border: '1px solid black',
-                        borderRadius: '20px',
+                        color: '#3A3A3A',
+                        border: '2px solid #3A3A3A',
+                        borderRadius: '30px',
                           '&:hover': {
                           backgroundColor: 'lightgray',
                          },
+                         width: '109px',
+                         height: '33px',
+                         textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+                         
                  }}
               >
-  {selectedBarberos.includes(barbero.id) ? 'Seleccionado' : 'Seleccionar'}
+ <Typography
+    sx={{
+      fontFamily: 'Poppins', // Aplica la fuente Poppins
+      fontSize: '14px',       // Tamaño de fuente 14px
+      color: '#3A3A3A',      // Asegura que el color del texto sea consistente
+    }}
+  >
+    {selectedBarberos.includes(barbero.id) ? 'Seleccionado' : 'Seleccionar'}
+  </Typography>
 </Button>
                 </CardContent>
               </Card>
             ))}
           </Box>
           
-          <Button
-  type="submit"
-  variant="contained"
-  color="primary"
-  sx={{ 
-    mb: 2,
-    mt: 2, // Margen superior
-    backgroundColor: 'yellow', // Color de fondo del botón
-    color: 'black', // Color del texto
-    borderRadius: '25px', // Bordes redondeados
-    display: 'block', // Centrar el botón
-    ml: 40, // Margen izquierdo
-    width: '150px', // Ancho del botón
-    '&:hover': {
-      backgroundColor: 'gray', // Color de fondo al hacer hover
-    },
-  }}
->
-  Añadir
-</Button>
+          <Box>
+  <Box
+    sx={{
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      mt: 2,
+    }}
+  >
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'flex-start',
+    
+        
+      }}
+    >
+      <Button
+        variant="contained"
+        color="secondary"
+        sx={{
+          backgroundColor: 'transparent',
+          color: '#FFD000',
+          borderRadius: '25px',
+          border: '3px solid #FFD000',
+          width: '166px',
+          height: '43px',
+          textTransform: 'none',
+          
+          '&:hover': {
+            backgroundColor: 'gray',
+          },
+        }}
+        onClick={() => navigate('/servicios-disponibles')}
+      >
+        <Typography sx={{ fontFamily: 'Poppins', fontSize: '16px' }}>
+          Cancelar
+        </Typography>
+      </Button>
+    </Box>
 
-<Button
-  variant="contained"
-  color="secondary"
-  sx={{
-    mb: 2,
-    mt: -7, // Margen superior
-    backgroundColor: 'yellow', // Color de fondo del botón
-    color: 'black', // Color del texto
-    borderRadius: '25px', // Bordes redondeados
-    display: 'block', // Para centrar el botón
-    ml: 15, // Margen izquierdo para separar los botones
-    width: '150px', // Ancho del botón
-    '&:hover': {
-      backgroundColor: 'gray', // Color de fondo al hacer hover
-    },
-  }}
-  onClick={() => navigate('/servicios-disponibles')} // Redirige a la página de servicios
->
-  Cancelar
-</Button>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'flex-end',
+       
+        marginLeft: '10px',
+      }}
+    >
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        sx={{
+          backgroundColor: '#FFD000',
+          color: 'black',
+          borderRadius: '25px',
+          width: '166px',
+          height: '43px',
+          textTransform: 'none',
+          '&:hover': {
+            backgroundColor: 'gray',
+          },
+        }}
+      >
+        <Typography sx={{ fontFamily: 'Poppins', fontSize: '16px' }}>
+          Añadir
+        </Typography>
+      </Button>
+    </Box>
+  </Box>
+</Box>
+
         </form>
         {success && <Typography color="primary">{success}</Typography>}
         {error && <Typography color="error">{error}</Typography>}

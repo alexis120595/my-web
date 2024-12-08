@@ -33,11 +33,16 @@ function SearchBarEmpleados({ onSearch }) {
             </InputAdornment>
           ),
         }}
-        fullWidth
+    
         sx={{
+         
+          width: '286px',  
+          height: '50px',
           '& .MuiOutlinedInput-root': {
-            borderRadius: '30px', // Bordes redondeados
+            borderRadius: '25px', // Bordes redondeados
             backgroundColor: 'white', // Color de fondo
+            fontFamily: 'Poppins', // Tipo de fuente
+            fontSize:'14px',
             '& fieldset': {
               borderColor: 'black', // Color del borde
             },

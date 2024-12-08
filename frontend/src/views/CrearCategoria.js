@@ -64,16 +64,46 @@ const CrearCategoria = () => {
     };
   
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" height="100vh">
+    <Box
+    sx={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+     
+    }}
+  >
+    <Box
+    sx={{backgroundColor:'#504D4D', height: '670px',
+      width:'549px',
+      borderRadius: '20px', // Bordes redondeados
+
+    }}
+    >
+
     <Box display="flex" flexDirection="column" justifyContent="center" height="50%">
-      <Typography variant="h4" component="h1" align="center" sx={{mt:40, mr:6}}>
+      <Typography variant="h4" component="h1" align="center" sx={{mt:40, mr:25,
+      fontFamily:'Poppins',
+      fontStyle: 'regular',
+      fontSize: '24px',
+
+      }}>
         Crear Categoría
       </Typography>
-      <Typography variant="body1" component="p" sx={{ mt: 2 }} align="center">
+      <Typography variant="body1" component="p" sx={{ mt: 2,
+         fontFamily:'Poppins',
+         fontStyle: 'regular',
+         fontSize: '16px',
+         mr:11,
+       }} align="center">
         Elegi el nombre de tu nueva categoria y
         
       </Typography>
-      <Typography variant="body1" component="p" sx={{ mt: 2, mr:3 }} align="center">
+      <Typography variant="body1" component="p" sx={{ mt: 1, mr:14,
+         fontFamily:'Poppins',
+         fontStyle: 'regular',
+         fontSize: '16px',
+         marginBottom: '16px',
+       }} align="center">
         
         
          seleciona los servicios de la misma.
@@ -87,9 +117,10 @@ const CrearCategoria = () => {
             onChange={(e) => setNombreCategoria(e.target.value)}
             sx={{
               mt: 2,
-              width: '300px',
+              width: '360px',
+              height: '50px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes redondeados
+                borderRadius: '25px', // Bordes redondeados
                 backgroundColor: 'white', // Color de fondo del input
                 '& input': {
                   color: 'black', // Color del texto que se escribe
@@ -105,21 +136,34 @@ const CrearCategoria = () => {
                 },
               },
               '& .MuiInputLabel-root': {
-                color: 'black', // Color del label
+                color: '#666666', // Color del label
+                fontFamily:'Poppins',
+                fontStyle: 'regular',
+                fontSize: '14px',
               },
               '& .MuiInputAdornment-root': {
                 color: 'white', // Color del icono
               },
+              marginBottom: '24px',
             }}
           />
- <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1,   borderRadius: '20px', // Bordes redondeados
-        backgroundColor: 'grey', // Color de fondo gris
-        padding: 2, width: '300px' }}>
+ <Box display="flex" flexDirection="column"  justifyContent="flex-start"
+  alignItems="flex-start" sx={{ mt: 1,   borderRadius: '8px', // Bordes redondeados
+        backgroundColor: '#2E2F33', // Color de fondo gris
+       width: '360px', height: '180px', // Ancho y alto de 300px
+       overflow: 'auto', 
+      
+        
+        }}>
 
-              <List>
+              <List  >
               {servicios.map((servicio) => (
                 <ListItem key={servicio.id}
-                sx={{mr:40}}
+                sx={{
+              
+                 
+                  marginLeft: '-140px',
+                }}
                 >
                   <FormControlLabel
                     control={
@@ -128,13 +172,21 @@ const CrearCategoria = () => {
                         onChange={handleServicioChange}
                         value={servicio.id}
                         sx={{ml:19,
+                          color: 'white', // Color del checkbox blanco
                           '&.Mui-checked': {
-      color: "yellow", // Cambiar el color a amarillo cuando está seleccionado
+      color: "#FFD000", // Cambiar el color a amarillo cuando está seleccionado
     },
                         }}
                       />
                     }
                     label={servicio.nombre}
+                    sx={{
+                      
+                      '& .MuiTypography-root': {
+                        fontFamily: 'Inter', // Aplica la fuente Inter
+                        fontSize: '14px', // Tamaño de fuente 14px
+                      },
+                    }}
                   />
                 </ListItem>
               ))}
@@ -144,22 +196,38 @@ const CrearCategoria = () => {
  
         
           <Button type="submit" variant="contained" color="primary"  sx={{
-              mt: 2,
-              width: '300px', // Más ancho
-              backgroundColor: 'yellow', // Color de fondo amarillo
+              mt: '44px',
+              width: '356px', // Más ancho
+              height: '43px', //
+              backgroundColor: '#FFD000', // Color de fondo amarillo
               color: 'black', // Color de texto negro
+          
               borderRadius: '30px', 
               '&:hover': {
                 backgroundColor: 'darkyellow', // Color de fondo al pasar el mouse
               },
             }}>
-            Crear
+            <Typography
+    sx={{
+       textTransform:'none',
+      fontFamily: 'Poppins', // Aplica la fuente Poppins
+      fontSize: '16px', // Tamaño de fuente 16px
+      color: '#000000', // Asegura que el color del texto sea consistente
+    }}
+  >
+    Crear
+  </Typography>
           </Button>
         </form>
         {success && <Typography color="primary">{success}</Typography>}
         {error && <Typography color="error">{error}</Typography>}
     </Box>
+
   </Box>
+
+  </Box>
+
+
     );
 };
 

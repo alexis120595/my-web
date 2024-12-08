@@ -66,9 +66,19 @@ const CrearEmpleado = () => {
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm"
+    sx={{width: "359px", 
+    height: "700px",
+    }}
+    >
       <Box mt={5} textAlign="center">
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" gutterBottom
+        sx={{fontFamily:'Poppins',
+fontSize: '24px', // Tamaño de fuente
+marginBottom: '40px', // Espacio en la parte inferior del texto
+ml: 4
+        }}
+        >
           Añadir Empleado
         </Typography>
         <form onSubmit={handleCrearEmpleado}>
@@ -81,9 +91,10 @@ const CrearEmpleado = () => {
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
             sx={{ 
-              width:"300px",
+              height:"50px",
+              width:"359px",
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes más redondeados
+                borderRadius: '25px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo
                 '& input': {
                   color: 'black', // Color del texto que se escribe
@@ -99,7 +110,9 @@ const CrearEmpleado = () => {
                 },
               },
               '& .MuiInputLabel-root': {
-                color: 'black', // Color del label
+                color: '#989898', // Color del label
+                fontFamily:'Poppins',
+                fontSize: '14px', // Tamaño de fuente
               },
               '& .MuiInputAdornment-root': {
                 color: 'black', // Color del icono
@@ -114,9 +127,10 @@ const CrearEmpleado = () => {
             value={apellido}
             onChange={(e) => setApellido(e.target.value)}
             sx={{ 
-              width:"300px",
+              height:"50px",
+              width:"359px",
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes más redondeados
+                borderRadius: '25px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo
                 '& input': {
                   color: 'black', // Color del texto que se escribe
@@ -132,7 +146,9 @@ const CrearEmpleado = () => {
                 },
               },
               '& .MuiInputLabel-root': {
-                color: 'black', // Color del label
+                color: '#989898', // Color del label
+                fontFamily:'Poppins',
+                fontSize: '14px', // Tamaño de fuente
               },
               '& .MuiInputAdornment-root': {
                 color: 'black', // Color del icono
@@ -148,9 +164,11 @@ const CrearEmpleado = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             sx={{ 
-              width: "300px",
+              marginBottom:'24px',
+              height:"50px",
+              width: "359px",
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes más redondeados
+                borderRadius: '25px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo
                 '& input': {
                   color: 'black', // Color del texto que se escribe
@@ -166,7 +184,9 @@ const CrearEmpleado = () => {
                 },
               },
               '& .MuiInputLabel-root': {
-                color: 'black', // Color del label
+                color: '#989898', // Color del label
+                fontFamily:'Poppins',
+                fontSize: '14px', // Tamaño de fuente
               },
               '& .MuiInputAdornment-root': {
                 color: 'black', // Color del icono
@@ -174,40 +194,46 @@ const CrearEmpleado = () => {
             }} 
           />
 
-<FormControl fullWidth margin="normal" sx={{ width: "300px" }}>
-            <InputLabel id="sucursal-label">Sucursal</InputLabel>
+<FormControl >
+            <InputLabel id="sucursal-label"
+            sx={{
+              color: '#989898', // Color del label
+              fontFamily:'Poppins',
+              fontSize: '14px', // Tamaño de fuente
+            }}
+            >Sucursal</InputLabel>
             <Select
               labelId="sucursal-label"
               value={sucursalId}
               onChange={(e) => setSucursalId(e.target.value)}
               label="Sucursal"
               sx={{ 
+                marginBottom:'24px',
+                height:"50px",
+                width: "359px",
+                borderRadius: '25px', // Bordes más redondeados
+                backgroundColor: 'white', // Color de fondo
                 '& .MuiOutlinedInput-root': {
-                  borderRadius: '30px', // Bordes más redondeados
-                  backgroundColor: 'white', // Color de fondo
+                   borderRadius: '25px', // Bordes más redondeados
+                backgroundColor: 'white', // Color de fondo
                   '& input': {
                     color: 'black', // Color del texto que se escribe
                   },
                   '& fieldset': {
-                    borderColor: 'black', // Color del borde
+                    borderColor: 'transparent', // Elimina el borde por defecto
                   },
                   '&:hover fieldset': {
-                    borderColor: 'black', // Color del borde al pasar el mouse
+                    borderColor: 'transparent', // Elimina el borde al pasar el mouse
                   },
                   '&.Mui-focused fieldset': {
-                    borderColor: 'black', // Color del borde al enfocar
+                    borderColor: 'transparent', // Elimina el borde al enfocar
                   },
                 },
                 '& .MuiInputLabel-root': {
-                  color: 'black', // Color del label
+                  color: '#989898', // Color del label
+                fontFamily:'Poppins',
+                fontSize: '14px', // Tamaño de fuente
                 },
-                '& .MuiInputAdornment-root': {
-                  color: 'black', // Color del icono
-                },
-                '& .MuiSelect-select': {
-      backgroundColor: 'white', // Color de fondo del select
-      color: 'black', // Color del texto del select
-    },
               }}
             >
                {sucursales.map((sucursal) => (
@@ -227,14 +253,23 @@ const CrearEmpleado = () => {
             color: 'black', // Color del texto
             borderRadius: '25px', // Bordes redondeados
             display: 'block', // Para centrar el botón
-             // M
-             ml: 22, // Margen izquierdo
-            width: '200px', // Ancho del botón ajustado al contenido
+           
+             height:"50px",
+             width: "359px",
             '& .MuiOutlinedInput-root': {
-              borderRadius: '20px', // Bordes más redondeados
+            
             }
           }}>
-            Crear Empleado
+          <Typography
+    sx={{
+      fontFamily: 'Poppins', // Aplica la fuente Poppins
+      fontSize: '16px', // Tamaño de fuente 16px
+      color: 'black', // Asegura que el color del texto sea consistente
+      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+    }}
+  >
+    Crear empleado
+  </Typography>
           </Button>
         </form>
         {success && <Typography color="primary">{success}</Typography>}

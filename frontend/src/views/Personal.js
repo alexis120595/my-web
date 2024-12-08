@@ -68,16 +68,28 @@ const Personal = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box mt={5} textAlign="center">
-        <Typography variant="h4" gutterBottom sx={{ textAlign: 'left', ml: 2 }}>
+    <Container 
+    sx={{width:'359px',
+    height:'679px',
+    }}
+    >
+      <Box mt={5} textAlign="left">
+        <Typography variant="h4" gutterBottom sx={{ textAlign: 'left',
+          fontFamily: 'Poppins',  
+          fontSize: '24px',
+          ml: -4
+         }}>
           Personal
         </Typography>
-        <Box display="flex" justifyContent="center" mb={2}>
+        <Box display="flex" justifyContent="left" >
           <SearchBarEmpleados onSearch={handleSearch} />
         </Box>
 
-        <Typography variant="h4" gutterBottom sx={{ textAlign: 'left', ml: 2 }}>
+        <Typography variant="h4" gutterBottom sx={{ textAlign: 'left', 
+          fontFamily: 'Poppins',
+          fontSize: '16px',
+          ml: -4
+         }}>
           Profesionales disponibles
         </Typography>
         <List>
@@ -88,10 +100,12 @@ const Personal = () => {
                 onClick={() => handleCrearHorariosClick(barbero)}
                 sx={{
                   border: '1px solid #ccc',
-                  borderRadius: '8px',
-                  mb: 2,
+                  borderRadius: '15px',
+                  marginBottom: '16px',
                   padding: 2,
-                  width: '400px',
+                  width: '361px',
+                  height: '89px',
+                  ml: -5,
                   backgroundColor: 'white', // Color de fondo del input
                   '&:hover': {
                     backgroundColor: 'lightgray', // Cambiar el color de fondo al pasar el cursor a gris claro
@@ -101,7 +115,7 @@ const Personal = () => {
                 <Avatar
                   alt={`${barbero.nombre} ${barbero.apellido}`}
                   src={barbero.imagen_url}
-                  sx={{ width: 56, height: 56, mr: 2
+                  sx={{ width: 44, height: 45, mr: 2
 
                   }}
                   
@@ -109,12 +123,21 @@ const Personal = () => {
                 <ListItemText
                   primary={`${barbero.nombre} ${barbero.apellido}`}
                   secondary={barbero.servicios_id}
+                  primaryTypographyProps={{
+                    sx: {
+                      fontFamily: 'Poppins', // Aplica la fuente Poppins
+                      fontSize: '16px', // Tamaño de fuente 16px
+                      color: '#666666', // Cambiar el color del nombre del barbero a negro
+                    },
+                  }}
+                  secondaryTypographyProps={{
+                    sx: {
+                      color: 'gray', // Cambiar el color del texto secundario a gris
+                    },
+                  }}
                   sx={{
                     '& .MuiListItemText-primary': {
-                      color: 'black', // Cambiar el color del nombre del barbero a negro
-                    },
-                    '& .MuiListItemText-secondary': {
-                      color: 'gray', // Cambiar el color del texto secundario si es necesario
+                      color: '#666666', // Cambiar el color del nombre del barbero a negro
                     },
                   }}
                 />
@@ -123,7 +146,7 @@ const Personal = () => {
                   aria-label="edit"
                   onClick={(e) => handleEditClick(e, barbero.id)}
                   sx={{
-                    backgroundColor: 'yellow',
+                    backgroundColor: '#FFD000',
                     borderRadius: '50%',
                     padding: '10px',
                     '&:hover': {
@@ -139,7 +162,7 @@ const Personal = () => {
                   onClick={(e) => handleLinkClick(e, barbero.id)}
                   sx={{
                     ml: 2,
-                    backgroundColor: 'yellow',
+                    backgroundColor: '#FFD000',
                     borderRadius: '50%',
                     padding: '10px',
                     '&:hover': {
@@ -160,16 +183,27 @@ const Personal = () => {
           color="primary"
           fullWidth
           sx={{
-            mt: 2,
-            borderRadius: '25px',
-            backgroundColor: 'yellow',
+            mt: '44px',
+            borderRadius: '30px',
+            backgroundColor: '#FFD000',
             color: 'black',
-            width: '300px',
-            ml: -31
+            width: '359px',
+            height: '43px',
+           
+            ml: -4.5, 
           }}
           onClick={handleAddEmpleadoClick}
         >
-          Añadir profesional
+          <Typography
+    sx={{
+      fontFamily: 'Poppins', // Aplica la fuente Poppins
+      fontSize: '16px', // Tamaño de fuente 16px
+      color: '#000000', // Asegura que el color del texto sea consistente
+      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+    }}
+  >
+    Añadir profesional
+  </Typography>
         </Button>
       </Box>
     </Container>
