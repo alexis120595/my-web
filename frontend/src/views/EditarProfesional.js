@@ -134,13 +134,33 @@ const EditarProfesional = () => {
   };
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" height="100vh" sx={{ mt: 100 }}>
+    <Box
+  sx={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+   
+  }}
+>
+    <Box display="flex" flexDirection="column" alignItems="center"  sx={{ mt: 80,
+width: '360px',
+height: '2080px',
+
+     }}>
       <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="50%">
-        <Typography variant="h4" component="h1" align="center">
+        <Typography variant="h4" component="h1" align="center"
+        sx={{
+          fontFamily: 'Poppins',
+          fontSize: '24px',
+          mr: 20,
+        }}>
           Editar Profesional
         </Typography>
         <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
-          <Typography variant="body1" align="center" sx={{ mr: 5 }}>
+          <Typography variant="body1" align="center" sx={{ mr: 15,
+             fontFamily: 'Poppins',
+             fontSize: '16px',
+           }}>
             Email del profesional disponible
           </Typography>
         </Box>
@@ -154,43 +174,67 @@ const EditarProfesional = () => {
             onChange={(e) => setEmail(e.target.value)}
             sx={{
               mt: 2,
-              mb: 2,
-              
-              width: '300px',
+             marginBottom: '24px',
+              height: '50px',
+              width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px',
+                borderRadius: '25px',
                 backgroundColor: 'white'
               },
              
               '& input': {
                 color: 'black', // Color del texto que se escribe
               },
-
+              '& .MuiInputLabel-root': {
+      fontFamily: 'Poppins', // Aplica la fuente Poppins
+      fontSize: '14px',      // Tamaño de fuente 14px
+      color: '#3A3A3A',      // Color gris
+    },
             }}
           />
-          <Typography variant="h4" component="h1" align="center" sx={{ mr: 18 }}>
+          <Typography variant="h4" component="h1" align="center" sx={{ mr: 34,
+              fontFamily: 'Poppins',
+              fontSize: '20px',
+            }}>
+             
             Sucursal
           </Typography>
           <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
-            <Typography variant="body1" align="center" sx={{ ml: 3 }}>
+            <Typography variant="body1" align="center" sx={{ mr: 8,
+              fontFamily: 'Poppins',
+              fontSize: '16px',
+             }}>
               Sucursal donde el profesional se encuentra
             </Typography>
-            <Typography variant="body1" align="center" sx={{ mr: 14 }}>
+            <Typography variant="body1" align="center" sx={{ mr: 23,
+              fontFamily: 'Poppins',
+              fontSize: '16px',
+             }}>
               prestando sus servicios.
             </Typography>
           </Box>
-          <FormControl variant="outlined" sx={{ mt: 2, width: '300px' }}>
-            <InputLabel id="sucursal-label">Seleccionar Sucursal</InputLabel>
+          <FormControl variant="outlined" sx={{ mt: 2, width: '360px', height:'50px', marginBottom: '24px',}}>
+            <InputLabel id="sucursal-label"
+            sx={{
+              fontFamily: 'Poppins', // Aplica la fuente Poppins
+              fontSize: '14px',      // Tamaño de fuente 14px
+              color: '#3A3A3A',
+            }}
+            >Seleccionar Sucursal</InputLabel>
             <Select
               labelId="sucursal-label"
               value={sucursal}
               onChange={handleSucursalChange}
               label="Seleccionar Sucursal"
               sx={{
-                borderRadius: '20px',
+              
+                borderRadius: '25px',
                 backgroundColor: 'white',
               '& input': {
                 color: 'black', // Color del texto que se escribe
+                fontFamily: 'Poppins', // Aplica la fuente Poppins
+                fontSize: '14px',      // Tamaño de fuente 14px
+              
               },
               }}
             >
@@ -201,27 +245,35 @@ const EditarProfesional = () => {
               ))}
             </Select>
           </FormControl>
-          <Typography variant="body1" sx={{ mt: 1 }}>
+          <Typography variant="body1" >
             {sucursal ? `Sucursal seleccionada: ${sucursal}` : 'No se ha seleccionado ninguna sucursal'}
           </Typography>
 
-          <Typography variant="h4" component="h1" align="center" sx={{ mr: 18, mt: 5 }}>
+          <Typography variant="h4" component="h1" align="center" sx={{ mr: 33, mt: 5,
+            fontFamily: 'Poppins',
+            fontSize: '20px',
+           }}>
             Permisos
           </Typography>
           <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
-            <Typography variant="body1" align="center" sx={{ mr: 7, mb: 3 }}>
+            <Typography variant="body1" align="center" sx={{ mr: 17, mb: 3,
+              fontFamily: 'Poppins',
+              fontSize: '16px',
+             }}>
               Otorgar permisos al profesional
             </Typography>
             <Box
               display="flex"
               flexDirection="column"
               justifyContent="center"
-              alignItems="center"
+              alignItems="left"
               sx={{
-                mt: 1,
-                borderRadius: '20px',
-                backgroundColor: 'grey',
-                padding: 2,
+                marginBottom: '24px',
+                borderRadius: '8px',
+                backgroundColor: '#2E2F33',
+                padding: 1,
+                width: '360px',
+                height: '200px',
               }}
             >
               <FormControlLabel
@@ -231,6 +283,7 @@ const EditarProfesional = () => {
                     onChange={handlePermisoChange}
                     name="permiso1"
                     sx={{
+                      color: 'white', // Cambiar el color a amarillo cuando está seleccionado
                       '&.Mui-checked': {
                         color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
                       },
@@ -239,7 +292,12 @@ const EditarProfesional = () => {
                   />
                 }
                 label="Opción reservar online"
-                sx={{ mr: 7 }}
+                sx={{ 
+                  '& .MuiTypography-root': {
+                    fontFamily: 'Inter', // Aplica la fuente Inter
+                    fontSize: '14px',    // Tamaño de fuente 14px
+                  },
+                 }}
               />
               <FormControlLabel
                 control={
@@ -248,6 +306,7 @@ const EditarProfesional = () => {
                     onChange={handlePermisoChange}
                     name="permiso2"
                     sx={{
+                      color:'white', // Cambiar el color a amarillo cuando está seleccionado
                       '&.Mui-checked': {
                         color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
                       },
@@ -255,7 +314,12 @@ const EditarProfesional = () => {
                   />
                 }
                 label="Agendar turnos en su agenda"
-                sx={{ mr: 1 }}
+                sx={{ mr: 1,
+                  '& .MuiTypography-root': {
+                    fontFamily: 'Inter', // Aplica la fuente Inter
+                    fontSize: '14px',    // Tamaño de fuente 14px
+                  },
+                 }}
               />
               <FormControlLabel
                 control={
@@ -264,6 +328,7 @@ const EditarProfesional = () => {
                     onChange={handlePermisoChange}
                     name="permiso3"
                     sx={{
+                      color: 'white', // Cambiar el color a amarillo cuando está seleccionado
                       '&.Mui-checked': {
                         color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
                       },
@@ -271,7 +336,12 @@ const EditarProfesional = () => {
                   />
                 }
                 label="Editar turnos en su agenda"
-                sx={{ mr: 3 }}
+                sx={{ mr: 3,
+                  '& .MuiTypography-root': {
+                    fontFamily: 'Inter', // Aplica la fuente Inter
+                    fontSize: '14px',    // Tamaño de fuente 14px
+                  },
+                 }}
               />
               <FormControlLabel
                 control={
@@ -280,6 +350,7 @@ const EditarProfesional = () => {
                     onChange={handlePermisoChange}
                     name="permiso4"
                     sx={{
+                      color: 'white', // Cambiar el color a amarillo cuando está seleccionado
                       '&.Mui-checked': {
                         color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
                       },
@@ -288,7 +359,10 @@ const EditarProfesional = () => {
                 }
                 label="Ver datos de clientes"
                 sx={{ mr: 9,
-                 
+                  '& .MuiTypography-root': {
+                    fontFamily: 'Inter', // Aplica la fuente Inter
+                    fontSize: '14px',    // Tamaño de fuente 14px
+                  },
                 }}
               />
               <FormControlLabel
@@ -298,6 +372,8 @@ const EditarProfesional = () => {
                     onChange={handlePermisoChange}
                     name="permiso5"
                     sx={{
+                      
+                      color: 'white', // Cambiar el color a amarillo cuando está seleccionado
                       '&.Mui-checked': {
                         color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
                       },
@@ -305,21 +381,41 @@ const EditarProfesional = () => {
                   />
                 }
                 label="Recibir señas en su MP"
-                sx={{ mr: 6 }}
+                sx={{ mr: 6,
+                  '& .MuiTypography-root': {
+                    fontFamily: 'Inter', // Aplica la fuente Inter
+                    fontSize: '14px',    // Tamaño de fuente 14px
+                  },
+                 }}
               />
             </Box>
           </Box>
-          <Typography variant="h4" component="h1" align="center" sx={{ ml: 5, mt: 5 }}>
+          <Typography variant="h4" component="h1" align="center" sx={{ mr: 22, 
+            fontFamily: 'Poppins',
+            fontSize: '20px',
+          }}>
             Horarios de atención
           </Typography>
           <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
-            <Typography variant="body1" align="center" sx={{ mr: 1 }}>
+            <Typography variant="body1" align="center" sx={{ mr: 20,
+              fontFamily: 'Poppins',
+              fontSize: '12px',
+              
+             }}>
               Utiliza el botón "todos" para aplicar el
             </Typography>
-            <Typography variant="body1" align="center" sx={{ ml: 5 }}>
+            <Typography variant="body1" align="center" sx={{ mr: 17,
+              fontFamily: 'Poppins',
+              fontSize: '12px',
+             }}>
+            
               mismo horario a todos los items. Y el botón
             </Typography>
-            <Typography variant="body1" align="center" sx={{ mr: 2, mb: 3 }}>
+            <Typography variant="body1" align="center" sx={{ mr: 22, mb: 3,
+              fontFamily: 'Poppins',
+              fontSize: '12px',
+             }}>
+           
               más para agregar otro rango horario
             </Typography>
             
@@ -327,8 +423,11 @@ const EditarProfesional = () => {
 
 {diasSemana.map((dia, index) => (
   <Box key={index} display="flex" justifyContent="center" alignItems="center" sx={{ mt: 1, ml: 5 }}>
-    <Box display="flex" flexDirection="column" alignItems="center" sx={{ mr: 2 }}>
-      <Typography variant="body1" sx={{ mr:15}}>
+    <Box display="flex" flexDirection="column" alignItems="center" sx={{ mr: 13 }}>
+      <Typography variant="body1" sx={{ mr:15,
+         fontFamily: 'Poppins', // Aplica la fuente Poppins
+         fontSize: '14px',
+      }}>
         {dia}
       </Typography>
       <Switch
@@ -337,13 +436,16 @@ const EditarProfesional = () => {
   sx={{
     mr: 15,
     '& .MuiSwitch-switchBase.Mui-checked': {
-      color: 'white',
+      color: 'white', // Color del ícono del switch cuando está activo
       '&:hover': {
-        backgroundColor: 'rgba(0, 255, 0, 0.08)',
+        backgroundColor: 'rgba(96, 214, 105, 0.08)', // Color de fondo al pasar el mouse cuando está activo
       },
     },
+    '& .MuiSwitch-track': {
+      backgroundColor: '#BDBDBD', // Color de la pista cuando está inactivo
+    },
     '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-      backgroundColor: 'green',
+      backgroundColor: '#60D669', // Color de la pista cuando está activo
     },
   }}
 />
@@ -353,11 +455,13 @@ const EditarProfesional = () => {
       <Select
         labelId={`select-horarios-label-${dia}`}
         label={dia}
-        sx={{ borderRadius: '20px', backgroundColor: 'white' }}
+        sx={{ borderRadius: '25px', backgroundColor: 'white', maxHeight: 36, // Ajusta la altura máxima del menú
+          width: '92px', }}
         MenuProps={{
           PaperProps: {
             sx: {
               borderRadius: '20px',
+              
               
             },
           },
@@ -367,7 +471,7 @@ const EditarProfesional = () => {
       >
         {horarios && horarios.length > 0 ? (
           horarios.map((horario) => (
-            <MenuItem key={horario.id} value={horario.hora} sx={{ borderRadius: '20px' }}>
+            <MenuItem key={horario.id} value={horario.hora} sx={{ borderRadius: '25px' }}>
               {horario.hora}
             </MenuItem>
           ))
@@ -381,24 +485,39 @@ const EditarProfesional = () => {
   </Box>
 ))}
           </Box>
-          <Typography variant="h4" component="h1" align="center" sx={{ mr: 16, mt: 2 }}>
+          <Typography variant="h4" component="h1" align="center" sx={{ mr: 33, mt: 2,
+            fontFamily: 'Poppins',
+            fontSize: '20px',
+           }}>
             Servicios
           </Typography>
           <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
-            <Typography variant="body1" align="center" sx={{ ml: 2 }}>
+            <Typography variant="body1" align="center" sx={{ mr : 11,
+              fontFamily: 'Poppins',
+              fontSize: '16px',
+             }}>
               Selecciona los servicios que presta este
             </Typography>
-            <Typography variant="body1" align="center" sx={{ ml: 5 }}>
+            <Typography variant="body1" align="center" sx={{ mr: 7,
+              fontFamily: 'Poppins',
+              fontSize: '16px',
+             }}>
+            
               profesional. Utiliza el buscador y los filtros
             </Typography>
-            <Typography variant="body1" align="center" sx={{ mr: 5, mb: 3 }}>
+            <Typography variant="body1" align="center" sx={{ mr: 18, mb: 3,
+              fontFamily: 'Poppins',
+              fontSize: '16px',
+    
+            }}>
               para encontrarlos rápidamente
             </Typography>
           </Box>
           <Box display="flex" justifyContent="center" 
-          sx={{  ml:15, width: '400px' }}
+          sx={{  ml:5, width: '400px' }}
           >
             <SearchBar onSearch={() => {}} 
+          
             />
           </Box>
           <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
@@ -408,10 +527,11 @@ const EditarProfesional = () => {
                 key={servicio.id}
                 sx={{
                   border: '1px solid #ccc',
-                  borderRadius: '20px',
+                  borderRadius: '15px',
                   padding: 1,
-                  mb: 1,
-                  width: '300px',
+                  mb: 2,
+                  width: '359px',
+                  height: '63px',
                   backgroundColor: 'white',
 
       
@@ -432,7 +552,11 @@ const EditarProfesional = () => {
                 }
                 label={servicio.nombre}
                 sx={{
-                  color: 'black', // Cambiar el color del texto a negro
+                  '& .MuiTypography-root': {
+                    fontFamily: 'Poppins', // Aplica la fuente Poppins
+                    fontSize: '16px', // Tamaño de fuente 14px
+                    color: '#666666', // Cambiar el color del texto a negro
+                  },
                 }}
               />
               <IconButton
@@ -441,9 +565,9 @@ const EditarProfesional = () => {
                   onClick={() => handleEditServicio(servicio.id)}
                   sx={{
                     color: 'black',
-                    backgroundColor: 'yellow',
+                    backgroundColor: '#FFD000',
                     borderRadius: '50%',
-                    ml: 18,
+                    ml: 26,
                   }}
                 >
                   <EditIcon />
@@ -457,39 +581,62 @@ const EditarProfesional = () => {
               type="submit"
               variant="contained"
               sx={{
-                backgroundColor: 'yellow',
-                color: 'black',
-                borderRadius: '20px',
+                backgroundColor: 'transparent',
+                border: '3px solid #FFD000',
+                color: '#FFD000',
+                borderRadius: '30px',
                 mb:3,
-                width: '45%',
+                width: '166px',
+                height:'43px',
+                mr: 3,
                 '&:hover': {
                   backgroundColor: 'darkgrey',
                 },
               }}
             >
-              Guardar
+              <Typography
+    sx={{
+      fontFamily: 'Poppins', // Aplica la fuente Poppins
+      fontSize: '16px', // Tamaño de fuente 16px
+      color: '#FFD000', // Asegura que el color del texto sea consistente
+      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+    }}
+  >
+    Guardar
+  </Typography>
             </Button>
             <Button
               type="button"
               variant="contained"
               sx={{
-                backgroundColor: 'yellow',
+                backgroundColor: '#FF8272',
                 color: 'black',
-                borderRadius: '20px',
+                borderRadius: '30px',
                 mb:3,
-                width: '45%',
+                width: '166px',
+                height:'43px',
                 '&:hover': {
                   backgroundColor: 'red',
                 },
               }}
               onClick={handleCancel}
             >
-              Cancelar
+              <Typography
+    sx={{
+      fontFamily: 'Poppins', // Aplica la fuente Poppins
+      fontSize: '16px', // Tamaño de fuente 16px
+      color: 'black', // Asegura que el color del texto sea consistente
+      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+    }}
+  >
+    Cancelar
+  </Typography>
             </Button>
           </Box>
         </form>
       </Box>
     </Box>
+  </Box>
   );
 };
 
