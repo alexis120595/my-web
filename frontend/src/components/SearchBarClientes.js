@@ -17,8 +17,8 @@ function SearchBarClientes({ onSearch }) {
   };
 
   return (
-    <Box display="flex" justifyContent="center" width="100%" mb={4}>
-    <Box position="relative" width="60%">
+    <Box display="flex" justifyContent="left" width="100%" mb={4}>
+    <Box position="relative" width="286px">
       <TextField
         variant="outlined"
         value={query}
@@ -35,8 +35,10 @@ function SearchBarClientes({ onSearch }) {
         }}
         fullWidth
         sx={{
+          width: '286px',
+          height: '50px',
           '& .MuiOutlinedInput-root': {
-            borderRadius: '30px', // Bordes redondeados
+            borderRadius: '25px', // Bordes redondeados
             backgroundColor: 'white', // Color de fondo
             '& fieldset': {
               borderColor: 'black', // Color del borde
@@ -47,6 +49,11 @@ function SearchBarClientes({ onSearch }) {
             '&.Mui-focused fieldset': {
               borderColor: 'black', // Color del borde al enfocar
             },
+          },
+          '& .MuiInputLabel-root': {
+            fontFamily: 'Poppins', // Aplica la fuente Poppins
+            fontSize: '14px', 
+            color:'#666666'     // Tamaño de fuente 14px
           },
         }}
       />

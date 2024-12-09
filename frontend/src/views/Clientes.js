@@ -31,11 +31,16 @@ const Clientes = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box mt={5} textAlign="center">
+    <Container maxWidth="sm"
+    sx={{width:'360px',
+    height:'866px',
+    }}>
+      <Box mt={5} textAlign="left">
         <Typography variant="h4" gutterBottom  sx={{
+             fontFamily: 'Poppins',
+             fontSize: '24px',
              
-              mr:23
+              mb:2
             }}>
           Clientes
         </Typography>
@@ -43,7 +48,8 @@ const Clientes = () => {
         <SearchBarClientes onSearch={console.log} />
 
         <Typography  gutterBottom sx={{
-             
+              fontFamily: 'Poppins',
+              fontSize: '16px',
              mr:27
            }}>
           Mis clientes
@@ -53,22 +59,30 @@ const Clientes = () => {
             <ListItem key={registro.id}
             sx={{
               border: '1px solid #ccc',
-              borderRadius: '8px',
+              borderRadius: '15px',
               mb: 2,
-              ml:15,
+              
               padding: 2,
-              width: '400px',
+              width: '360px',
+              height: '89px',
               backgroundColor: 'white'
             }}>
                 <Avatar
                   alt={`${registro.email}`}
                   src={registro.imagen_url}
-                  sx={{ width: 56, height: 56, mr: 2 }}
+                  sx={{ width: 45, height: 45, mr: 2 }}
                 />
               <ListItemText primary={registro.email}
+                primaryTypographyProps={{
+                sx: {
+                  fontFamily: 'Poppins', // Aplica la fuente Poppins
+                  fontSize: '16px', // Tamaño de fuente 16px
+                  color: '#666666', // Cambiar el color del texto a negro
+                },
+              }}
                sx={{
                 '& .MuiListItemText-primary': {
-                  color: 'black', // Cambiar el color del texto a negro
+                  color: '#666666', // Cambiar el color del texto a negro
                 },
               }}
               />
@@ -76,26 +90,30 @@ const Clientes = () => {
               <IconButton edge="end" aria-label="crear reserva"
                onClick={() =>handleCrearReserva (registro.id)}
                   sx={{
-                    backgroundColor: 'yellow',
+                    backgroundColor: '#FFD000',
                     borderRadius: '50%',
                     padding: '10px',
+                    width: '40px', // Ancho del botón
+                    height: '40px', // Alto del botón
                     '&:hover': {
                       backgroundColor: 'darkyellow',
                     },
                   }}>
-                  <CalendarTodayIcon sx={{ color: 'black' }} />
+                  <CalendarTodayIcon sx={{ color: 'black', fontSize: '20px' }} />
                 </IconButton>
                 <IconButton edge="end" aria-label="link" onClick={() => (registro.id)}
                   sx={{
                     ml: 2,
-                    backgroundColor: 'red',
+                    backgroundColor: '#FF8272',
                     borderRadius: '50%',
                     padding: '10px',
+                    width: '40px', // Ancho del botón
+                    height: '40px', // Alto del botón
                     '&:hover': {
                       backgroundColor: 'darkyellow',
                     },
                   }}>
-                  <DeleteIcon sx={{ color: 'black' }} />
+                  <DeleteIcon sx={{ color: 'black', fontSize: '20px' }} />
                 </IconButton>
             </ListItem>
           ))}
@@ -106,11 +124,12 @@ const Clientes = () => {
   color="primary"
   fullWidth
   sx={{ 
-    mt: 2, 
-    borderRadius: '25px', 
-    backgroundColor: 'yellow',  
+    mt: 5, 
+    borderRadius: '30px', 
+    backgroundColor: '#FFD000',  
     color: 'black', 
-    width: '300px', 
+    width: '360px', 
+    height: '43px',
     mr: 1, 
     mb: 4,
     '&:hover': {
@@ -118,7 +137,16 @@ const Clientes = () => {
     },
   }}
 >
-  Invitar cliente
+<Typography
+    sx={{
+      fontFamily: 'Poppins', // Aplica la fuente Poppins
+      fontSize: '16px', // Tamaño de fuente 16px
+      color: 'black', // Asegura que el color del texto sea consistente
+      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+    }}
+  >
+    Invitar cliente
+  </Typography>
 </Button>
       </Box>
     </Container>

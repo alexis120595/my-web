@@ -63,11 +63,17 @@ const Sucursales = () => {
 
 
   return (
-    <Container maxWidth="sm">
-      <Box mt={5} textAlign="center">
+    <Container maxWidth="sm"
+    sx={{
+      width:'360px',
+      height:'618px',
+    }}>
+      <Box mt={5} textAlign="left">
         <Typography variant="h4" gutterBottom  sx={{
              
-              mr:18
+             fontFamily: 'Poppins', // Aplica la fuente Poppins
+             fontSize: '24px',
+             mb: 3,
             }}>
           Sucursales
         </Typography>
@@ -75,8 +81,9 @@ const Sucursales = () => {
         <SearchBarClientes onSearch={handleSearch} />
 
         <Typography  gutterBottom sx={{
-             
-             mr:25
+            fontFamily: 'Poppins', // Aplica la fuente Poppins
+            fontSize: '16px', 
+            
            }}>
           Mis sucursales
         </Typography>
@@ -85,44 +92,63 @@ const Sucursales = () => {
             <ListItem key={sucursales.id}
             sx={{
               border: '1px solid #ccc',
-              borderRadius: '8px',
+              borderRadius: '15px',
               mb: 2,
-              ml:15,
+              
               padding: 2,
-              width: '400px',
+              height: '83px',
+              width: '360px',
               backgroundColor: 'white'
             }}>
                 
               <ListItemText primary={sucursales.nombre} 
-              
+              secondary={sucursales.ubicacion} 
+               primaryTypographyProps={{
+                sx: {
+                  fontFamily: 'Poppins', // Aplica la fuente Poppins
+                  fontSize: '16px', // Tamaño de fuente 16px
+                  color: '#666666', // Cambiar el color del texto a #666666
+                },
+              }}
+              secondaryTypographyProps={{
+                sx: {
+                  fontFamily: 'Poppins', // Aplica la fuente Poppins
+                  fontSize: '12px', // Tamaño de fuente 14px
+                  color: '#3A3A3A', // Cambiar el color del texto a #999999
+                },
+              }}
               sx={{
                 '& .MuiListItemText-primary': {
-                  color: 'black', // Cambiar el color del texto a negro
+                  color: '#666666', // Cambiar el color del texto a negro
                 },
               }}/>
 
               <IconButton edge="end" aria-label="edit" onClick={() => handleEditClick (sucursales.id)}
                   sx={{
-                    backgroundColor: 'yellow',
+                    backgroundColor: '#FFD000',
                     borderRadius: '50%',
                     padding: '10px',
+                    width: '40px', // Ancho del botón
+                    height: '40px',
                     '&:hover': {
                       backgroundColor: 'darkyellow',
                     },
                   }}>
-                  <EditIcon sx={{ color: 'black' }} />
+                  <EditIcon sx={{ color: 'black',fontSize: '24px' }} />
                 </IconButton>
                 <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteClick(sucursales.id)}
                   sx={{
                     ml: 2,
-                    backgroundColor: 'red',
+                    backgroundColor: '#FF8272',
                     borderRadius: '50%',
                     padding: '10px',
+                    width: '40px', // Ancho del botón
+                    height: '40px',
                     '&:hover': {
                       backgroundColor: 'darkyellow',
                     },
                   }}>
-                  <DeleteIcon sx={{ color: 'black' }} />
+                  <DeleteIcon sx={{ color: 'black',fontSize: '24px' }} />
                 </IconButton>
             </ListItem>
           ))}
@@ -134,10 +160,11 @@ const Sucursales = () => {
   fullWidth
   sx={{
     mt: 2,
-    borderRadius: '25px',
-    backgroundColor: 'yellow',
+    borderRadius: '30px',
+    backgroundColor: '#FFD000',
     color: 'black',
-    width: '300px',
+    width: '360px',
+    height: '43px',
     mr: 1,
     mb: 4,
     '&:hover': {
@@ -146,7 +173,16 @@ const Sucursales = () => {
   }}
   onClick={handleAddSucursalClick}
 >
-  Añadir sucursal
+<Typography
+    sx={{
+      fontFamily: 'Poppins', // Aplica la fuente Poppins
+      fontSize: '16px', // Tamaño de fuente 16px
+      color: 'black', // Asegura que el color del texto sea consistente
+      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+    }}
+  >
+    Añadir sucursal
+  </Typography>
 </Button>
    
       </Box>
