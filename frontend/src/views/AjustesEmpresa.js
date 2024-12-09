@@ -149,9 +149,23 @@ const AjustesEmpresa = ({  }) => {
 
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" height="100vh" sx={{ mt: 170 }}>
+    <Box
+    sx={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+     
+    }}
+  >
+    <Box display="flex" flexDirection="column" alignItems="center" height="100vh" sx={{ mt: 120,
+      width: '360px',
+      height: '2505px',
+    }}>
       <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="50%">
-        <Typography variant="h4" component="h1" align="center" sx={{ mr: 23, mt:2}}>
+        <Typography variant="h4" component="h1" align="center" sx={{ mr: 36, mt:2,
+          fontSize: '20px',
+          fontFamily:'Poppins', 
+        }}>
           Ajustes
         </Typography>
         <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
@@ -160,7 +174,7 @@ const AjustesEmpresa = ({  }) => {
 </Box>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <TextField
-            label="Nombre de la empresa"
+            
             type="text"
             variant="outlined"
             value={nombreEmpresa}
@@ -168,10 +182,10 @@ const AjustesEmpresa = ({  }) => {
             sx={{
               mt: 2,
               mb: 2,
-              
-              width: '300px',
+              height: '50px',
+              width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes redondeados
+                borderRadius: '25px', // Bordes redondeados
                 backgroundColor: 'white', // Color de fondo del input
                 '& fieldset': {
                   borderColor: 'black', // Color del borde
@@ -183,11 +197,21 @@ const AjustesEmpresa = ({  }) => {
                   borderColor: 'black', // Color del borde al enfocar
                 },
               },
+              '& .MuiInputLabel-root': {
+                fontFamily: 'Poppins', // Aplica la fuente Poppins
+                fontSize: '14px',      // Tamaño de fuente 14px
+                color: '#666666',      // Color del label
+              },
+              '& input': {
+                fontFamily: 'Poppins', // Aplica la fuente Poppins
+                fontSize: '14px',      // Tamaño de fuente 14px
+                color: '#666666',        // Color del texto dentro del input
+              },
             }}
           />
 
 <TextField
-            label="Slogan de la empresa"
+            
             type="text"
             variant="outlined"
             value={sloganEmpresa}
@@ -195,10 +219,10 @@ const AjustesEmpresa = ({  }) => {
             sx={{
               mt: 2,
               mb: 2,
-              
-              width: '300px',
+              height: '50px',
+              width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes redondeados
+                borderRadius: '25px', // Bordes redondeados
                 backgroundColor: 'white', // Color de fondo del input
                 '& fieldset': {
                   borderColor: 'black', // Color del borde
@@ -209,6 +233,11 @@ const AjustesEmpresa = ({  }) => {
                 '&.Mui-focused fieldset': {
                   borderColor: 'black', // Color del borde al enfocar
                 },
+              },
+              '& input': {
+                fontFamily: 'Poppins', // Aplica la fuente Poppins
+                fontSize: '14px',      // Tamaño de fuente 14px
+                color: '#666666',        // Color del texto dentro del input
               },
             }}
           />
@@ -224,10 +253,10 @@ const AjustesEmpresa = ({  }) => {
             sx={{
               mt: 2,
               mb: 2,
-              
-              width: '300px',
+              height: '123px',
+              width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes redondeados
+                borderRadius: '25px', // Bordes redondeados
                 backgroundColor: 'white', // Color de fondo del input
                 '& fieldset': {
                   borderColor: 'black', // Color del borde
@@ -239,48 +268,81 @@ const AjustesEmpresa = ({  }) => {
                   borderColor: 'black', // Color del borde al enfocar
                 },
               },
+              '& .MuiInputLabel-root': {
+                fontFamily: 'Poppins', // Aplica la fuente Poppins
+                fontSize: '14px',      // Tamaño de fuente 14px
+                color: '#666666',      // Color del label
+              },
             }}
           />
 
 <SubidaImagenesAjustes onImageUpload={setImagenUrl} />
 
 
-        <Typography variant="h4" component="h1" align="center"  sx={{ ml:1, mt:2}}>
+        <Typography variant="h4" component="h1" align="center"  sx={{ mr:24, mt:5,
+          fontSize: '20px',
+          fontFamily:'Poppins',
+        }}>
           Perfil de mi empresa
         </Typography>
         <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
-  <Typography variant="body1" align="center" sx={{ ml: 1, mt:2}}>
-    Podras personalizar tu ID y compartir el link
+  <Typography variant="body1" align="center" sx={{ mr: 8, mt:1,
+  fontSize: '16px',
+  fontFamily:'Poppins',
+  whiteSpace: 'nowrap', 
+
+  }}>
+   Podras personalizar tu ID y compartir el link
   </Typography>
 
-  <Typography variant="body1" align="center" sx={{ ml:1}}>
+  <Typography variant="body1" align="center" sx={{ mr:10,
+     fontSize: '16px',
+     fontFamily:'Poppins',
+  }}>
     de tu empresa con tus clientes. Para que tu
   </Typography>
 
-  <Typography variant="body1" align="center" sx={{ mr: 5}}>
+  <Typography variant="body1" align="center" sx={{ mr: 15,
+     fontSize: '16px',
+     fontFamily:'Poppins',
+  }}>
    empresa sea visible en la plataforma
   </Typography>
 
-  <Typography variant="body1" align="center" sx={{ mr: 1, mb:2}}>
+  <Typography variant="body1" align="center" sx={{ mr: 11, mb:2,
+     fontSize: '16px',
+     fontFamily:'Poppins',
+     whiteSpace: 'nowrap', 
+  }}>
     debaras tener marcada la opcion "online"
   </Typography>
 
 </Box>
 
-<Box display="flex" alignItems="center" sx={{ mb: 2, mr:3, backgroundColor: 'lightgrey',
-    borderRadius: '30px',
-    padding: '10px', width:'300px'}}>
+<Box display="flex" alignItems="center" sx={{ mb: 5,  backgroundColor: '#2E2F33',
+    borderRadius: '12px',
+    padding: '10px', width:'360px',
+    height:'36px',
+    }}>
   <Checkbox
     checked={mostrarOnline}
     onChange={(e) => setMostrarOnline(e.target.checked)}
     name="mostrarOnline"
     sx={{
+      color: 'white', // Color del checkbox
       '&.Mui-checked': {
         color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
       },
+      '& .MuiSvgIcon-root': {
+        fontSize: '16px', // Ajusta el tamaño del ícono del checkbox a 16x16px
+      },
     }}
   />
-  <Typography variant="body1" align="center">
+  <Typography variant="body1" align="center"
+  sx={{
+    fontSize: '14px',
+    fontFamily:'Inter',
+  }}>
     Mostrar mi empresa online
   </Typography>
 </Box>
@@ -292,12 +354,12 @@ const AjustesEmpresa = ({  }) => {
   value={id}
   onChange={(e) => setId(e.target.value)}
   sx={{
-    mt: 2,
-    mb: 2,
     
-    width: '300px',
+    mb: 2,
+    height: '50px',
+    width: '360px',
     '& .MuiOutlinedInput-root': {
-      borderRadius: '20px', // Bordes redondeados
+      borderRadius: '25px', // Bordes redondeados
       backgroundColor: 'white', // Color de fondo del input
       '& fieldset': {
         borderColor: 'black', // Color del borde
@@ -309,31 +371,48 @@ const AjustesEmpresa = ({  }) => {
         borderColor: 'black', // Color del borde al enfocar
       },
     },
+    '& .MuiInputLabel-root': {
+      fontFamily: 'Poppins', // Aplica la fuente Poppins
+      fontSize: '14px',      // Tamaño de fuente 14px
+      color: '#666666',      // Color del label
+    },
   }}
 />
 
 <Typography variant="body1" align="center"  sx={{
     mt: 2,
-    mb: 2,
-    mr: 1,
-    color: 'yellow',
+    mb: 5,
+    mr: 7,
+    color: '#FFD000',
+    fontSize: '16px',
+    fontFamily:'Poppins',
+    whiteSpace: 'nowrap', 
           
   }}>
     www.soyprofesional.com/miempresa
-    <IconButton onClick={handleCopyLink} sx={{ ml: 1, color:"yellow"}}>
-            <ContentCopyIcon />
+    <IconButton onClick={handleCopyLink} sx={{ ml: 1, color:"#FFD000"}}>
+            <ContentCopyIcon sx={{ fontSize: 22 }}/>
           </IconButton>
   </Typography>
 
-  <Typography variant="h4" component="h1" align="center"  sx={{ mr:18 , mt:2}}>
+  <Typography variant="h4" component="h1" align="center"  sx={{ mr:31, 
+    fontSize: '20px',
+    fontFamily:'Poppins',
+  }}>
           Codigo QR
         </Typography>
         <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
-  <Typography variant="body1" align="center" sx={{ ml: 2, mt:2}}>
+  <Typography variant="body1" align="center" sx={{ mr: 6, 
+    fontSize: '16px',
+    fontFamily:'Poppins',
+  }}>
     Podras descargae una imagen QR del link de
   </Typography>
 
-  <Typography variant="body1" align="center" sx={{ ml:1, mb:2}}>
+  <Typography variant="body1" align="center" sx={{ mr:7, mb:2,
+    fontSize: '16px',
+    fontFamily:'Poppins',
+  }}>
     de tu empresa cpara utilizarla donde quieras 
   </Typography>
 </Box>
@@ -349,25 +428,40 @@ const AjustesEmpresa = ({  }) => {
         />
       </div>
 
-<Typography variant="body1" align="center" sx={{ mt: 2, mb: 2, mr: 1, color:'yellow', }}>
+<Typography variant="body1" align="center" sx={{  mb: 2, mr: 7, color:'#FFD000', 
+  fontSize: '16px',
+  fontFamily:'Poppins',
+}}>
           Descargar imagen QR
-          <IconButton onClick={handleDownloadQR} sx={{ ml: 13, color:"yellow " }}>
-            <DownloadIcon />
+          <IconButton onClick={handleDownloadQR} sx={{ ml: 13, color:"#FFD000 " }}>
+            <DownloadIcon sx={{ fontSize: 22 }}/>
           </IconButton>
         </Typography>
 
-        <Typography variant="h4" component="h1" align="center"  sx={{ ml:10 , mt:2}}>
+        <Typography variant="h4" component="h1" align="center"  sx={{ mr:19,
+          fontSize: '20px',
+          fontFamily:'Poppins',
+         }}>
           Señas con mercadopago
         </Typography>
         <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
-  <Typography variant="body1" align="center" sx={{ ml: 2, mt:2}}>
+  <Typography variant="body1" align="center" sx={{ mr: 9,
+    fontSize: '16px',
+    fontFamily:'Poppins',
+  }}>
     Podes vincular tu cuenta de mercadopago
   </Typography>
 
-  <Typography variant="body1" align="center" sx={{ ml:3}}>
+  <Typography variant="body1" align="center" sx={{ mr:8,
+    fontSize: '16px',
+    fontFamily:'Poppins',
+  }}>
     podes exigirle a tus clientes dejar una seña
   </Typography>
-  <Typography variant="body1" align="center" sx={{ mr:10, mb:2}}>
+  <Typography variant="body1" align="center" sx={{ mr:20, mb:2,
+    fontSize: '16px',
+    fontFamily:'Poppins',
+  }}>
     antes de realizar una reserva 
   </Typography>
 </Box>
@@ -375,25 +469,43 @@ const AjustesEmpresa = ({  }) => {
 <Button
     variant="contained"
     color="primary"
-    sx={{ mt: 2, mb:2, width: '300px', borderRadius: '20px', color: 'black', backgroundColor: 'yellow', '&:hover': { backgroundColor: 'darkyellow' } }}
+    sx={{  mb:5, width: '360px', height:'43px', borderRadius: '30px', color: 'black',
+       backgroundColor: '#FFD000', '&:hover': { backgroundColor: 'darkyellow' } }}
+  >
+    <Typography
+    sx={{
+      fontFamily: 'Poppins', // Aplica la fuente Poppins
+      fontSize: '16px', // Tamaño de fuente 16px
+      color: 'black', // Asegura que el color del texto sea consistente
+      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+    }}
   >
     Vincular cuenta
+  </Typography>
   </Button>
 
-  <Typography variant="h4" component="h1" align="center"  sx={{ ml:1 , mt:2}}>
+  <Typography variant="h4" component="h1" align="center"  sx={{ mr:23 , 
+     fontFamily: 'Poppins', // Aplica la fuente Poppins
+      fontSize: '20px'
+  }}>
           Configurar reservas 
         </Typography>
         <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
-  <Typography variant="body1" align="center" sx={{ ml: 5, mt:1}}>
+  <Typography variant="body1" align="center" sx={{ mr: 7, mt:1,
+     fontFamily: 'Poppins', // Aplica la fuente Poppins
+      fontSize: '16px'
+  }}>
     Elegi requisitos y configuracion de reservas 
   </Typography>
   
 </Box>
 
   
-        <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1,  backgroundColor: 'grey',
-    borderRadius: '10px',
-    padding: '20px', }}>
+        <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 2,  backgroundColor: '#2E2F33',
+    borderRadius: '8px',
+    width: '360px',
+    height: '108px',
+    }}>
   <FormControlLabel
               control={
                 <Checkbox
@@ -401,15 +513,26 @@ const AjustesEmpresa = ({  }) => {
                   onChange={handleOpcionesChange}
                   name="opcion1"
                   sx={{
+                    color:'white',
                     '&.Mui-checked': {
-                      color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
+                      color: '#FFD000', // Cambiar el color a amarillo cuando está seleccionado
                     },
+                    '& .MuiSvgIcon-root': {
+          fontSize: '16px', // Ajusta el tamaño del ícono del checkbox a 16x16px
+        },
                   }}
                  
                 />
               }
               label="Requiere autenticacion del cliente  "
-              sx={{ mr: 1 }}
+              sx={{ mr: 13,
+                '& .MuiTypography-root': {
+                  fontFamily: 'Inter', // Aplica la fuente Inter
+                  fontSize: '14px',    // Tamaño de fuente 14px
+                  
+                },
+              
+              }}
             />
             <FormControlLabel
               control={
@@ -418,15 +541,24 @@ const AjustesEmpresa = ({  }) => {
                 onChange={handleOpcionesChange}
                 name="opcion2"
                 sx={{
+                  color:'white',
                   '&.Mui-checked': {
-                    color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
+                    color: '#FFD000', // Cambiar el color a amarillo cuando está seleccionado
                   },
+                  '& .MuiSvgIcon-root': {
+          fontSize: '16px', // Ajusta el tamaño del ícono del checkbox a 16x16px
+        },
                 }}
                
               />
             }
             label="Requerir DNI del cliente "
-            sx={{ mr: 10 }}
+            sx={{ mr: 20,
+              '& .MuiTypography-root': {
+                fontFamily: 'Inter', // Aplica la fuente Inter
+                fontSize: '14px',    // Tamaño de fuente 14px
+              },
+             }}
             />
             <FormControlLabel
               control={
@@ -435,15 +567,24 @@ const AjustesEmpresa = ({  }) => {
                 onChange={handleOpcionesChange}
                 name="opcion3"
                 sx={{
+                  color:'white',
                   '&.Mui-checked': {
-                    color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
+                    color: '#FFD000', // Cambiar el color a amarillo cuando está seleccionado
                   },
+                  '& .MuiSvgIcon-root': {
+          fontSize: '16px', // Ajusta el tamaño del ícono del checkbox a 16x16px
+        },
                 }}
                
               />
             }
             label="Requerir Whatsapp del cliente"
-            sx={{ mr: 4}}
+            sx={{ mr: 16,
+              '& .MuiTypography-root': {
+                fontFamily: 'Inter', // Aplica la fuente Inter
+                fontSize: '14px',    // Tamaño de fuente 14px
+              },
+            }}
             />
 </Box>
 
@@ -456,10 +597,10 @@ const AjustesEmpresa = ({  }) => {
             sx={{
               mt: 2,
               mb: 2,
-              
-              width: '300px',
+              height: '50px',
+              width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes redondeados
+                borderRadius: '25px', // Bordes redondeados
                 backgroundColor: 'white', // Color de fondo del input
                 '& fieldset': {
                   borderColor: 'black', // Color del borde
@@ -471,6 +612,11 @@ const AjustesEmpresa = ({  }) => {
                   borderColor: 'black', // Color del borde al enfocar
                 },
               },
+              '& .MuiInputLabel-root': {
+                fontFamily: 'Poppins', // Aplica la fuente Poppins
+                fontSize: '14px',      // Tamaño de fuente 14px
+                color: '#666666',      // Color del label
+              },
             }}
           />
 
@@ -481,12 +627,12 @@ const AjustesEmpresa = ({  }) => {
             value={anticipacionReserva}
             onChange={(e) => setAnticipacionReserva(e.target.value)}
             sx={{
-              mt: 2,
-              mb: 2,
               
-              width: '300px',
+              mb: 2,
+              height: '50px',
+              width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes redondeados
+                borderRadius: '25px', // Bordes redondeados
                 backgroundColor: 'white', // Color de fondo del input
                 '& fieldset': {
                   borderColor: 'black', // Color del borde
@@ -497,6 +643,11 @@ const AjustesEmpresa = ({  }) => {
                 '&.Mui-focused fieldset': {
                   borderColor: 'black', // Color del borde al enfocar
                 },
+              },
+              '& .MuiInputLabel-root': {
+                fontFamily: 'Poppins', // Aplica la fuente Poppins
+                fontSize: '14px',      // Tamaño de fuente 14px
+                color: '#666666',      // Color del label
               },
             }}
           />
@@ -509,12 +660,12 @@ const AjustesEmpresa = ({  }) => {
             onChange={(e) => setAnticipacionReprogramar(e.target.value)}
            
             sx={{
-              mt: 2,
-              mb: 2,
               
-              width: '300px',
+              mb: 5,
+              height: '50px',
+              width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes redondeados
+                borderRadius: '25px', // Bordes redondeados
                 backgroundColor: 'white', // Color de fondo del input
                 '& fieldset': {
                   borderColor: 'black', // Color del borde
@@ -526,14 +677,25 @@ const AjustesEmpresa = ({  }) => {
                   borderColor: 'black', // Color del borde al enfocar
                 },
               },
+              '& .MuiInputLabel-root': {
+                fontFamily: 'Poppins', // Aplica la fuente Poppins
+                fontSize: '14px',      // Tamaño de fuente 14px
+                color: '#666666',      // Color del label
+              },
             }}
           />  
 
-<Typography variant="h4" component="h1" align="center"  sx={{ mr:8 , mt:2}}>
+<Typography variant="h4" component="h1" align="center"  sx={{ mr:28,
+          fontSize: '20px',
+          fontFamily:'Poppins',
+}}>
           Redes sociales
         </Typography>
         <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
-  <Typography variant="body1" align="center" sx={{ mr: 3, mt:1}}>
+  <Typography variant="body1" align="center" sx={{ mr: 13, mt:1,
+     fontSize: '16px',
+     fontFamily:'Poppins',
+  }}>
     Ingresa el enlace a tus redes sociales 
   </Typography>
 
@@ -553,10 +715,10 @@ const AjustesEmpresa = ({  }) => {
             sx={{
               mt: 2,
               mb: 2,
-              
-              width: '300px',
+              height: '43px',
+              width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes redondeados
+                borderRadius: '25px', // Bordes redondeados
                 backgroundColor: 'white', // Color de fondo del input
                 '& fieldset': {
                   borderColor: 'black', // Color del borde
@@ -586,10 +748,10 @@ const AjustesEmpresa = ({  }) => {
             sx={{
               mt: 2,
               mb: 2,
-              
-              width: '300px',
+              height: '43px',
+              width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes redondeados
+                borderRadius: '25px', // Bordes redondeados
                 backgroundColor: 'white', // Color de fondo del input
                 '& fieldset': {
                   borderColor: 'black', // Color del borde
@@ -619,10 +781,10 @@ const AjustesEmpresa = ({  }) => {
             sx={{
               mt: 2,
               mb: 2,
-              
-              width: '300px',
+              height: '43px',
+              width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes redondeados
+                borderRadius: '25px', // Bordes redondeados
                 backgroundColor: 'white', // Color de fondo del input
                 '& fieldset': {
                   borderColor: 'black', // Color del borde
@@ -652,10 +814,10 @@ const AjustesEmpresa = ({  }) => {
             sx={{
               mt: 2,
               mb: 2,
-              
-              width: '300px',
+              height: '43px',
+              width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes redondeados
+                borderRadius: '25px', // Bordes redondeados
                 backgroundColor: 'white', // Color de fondo del input
                 '& fieldset': {
                   borderColor: 'black', // Color del borde
@@ -685,11 +847,11 @@ const AjustesEmpresa = ({  }) => {
             
             sx={{
               mt: 2,
-              mb: 2,
-              
-              width: '300px',
+              mb: 5,
+              height: '43px',
+              width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes redondeados
+                borderRadius: '25px', // Bordes redondeados
                 backgroundColor: 'white', // Color de fondo del input
                 '& fieldset': {
                   borderColor: 'black', // Color del borde
@@ -705,71 +867,120 @@ const AjustesEmpresa = ({  }) => {
           />
 </Box>
 
-<Typography variant="h4" component="h1" align="center"  sx={{ mr:3 , mt:2}}>
+<Typography variant="h4" component="h1" align="center"  sx={{ mr:25 , 
+  fontSize: '20px',
+  fontFamily:'Poppins',
+}}>
           Eliminar empresa
         </Typography>
         <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
-  <Typography variant="body1" align="center" sx={{ ml: 1, mt:1}}>
+  <Typography variant="body1" align="center" sx={{ mr: 10, mt:1,
+    fontSize: '16px',
+    fontFamily:'Poppins',
+    whiteSpace: 'nowrap',
+  }}>
     Si eliminas tu empresa todos tus datos e 
   </Typography>
-  <Typography variant="body1" align="center" sx={{ ml: 1}}>
+  <Typography variant="body1" align="center" sx={{ mr: 11,
+    fontSize: '16px',
+    fontFamily:'Poppins',
+    whiteSpace: 'nowrap',
+  }}>
     informacion se perderar y ya no podras 
   </Typography>
   
-  <Typography variant="body1" align="center" sx={{ mr: 23}}>
+  <Typography variant="body1" align="center" sx={{ mr: 33,
+    fontSize: '16px',
+    fontFamily:'Poppins',
+  }}>
     recuperarlos
   </Typography>
 
   <Button
     variant="contained"
     color="secondary"
-    sx={{ mt: 2,mb:2, width: '300px', borderRadius: '20px', color: 'black', backgroundColor: 'red', '&:hover': { backgroundColor: 'darkred' } }}
+    sx={{ mt: 2,mb:5, width: '360px',height:'43px', borderRadius: '30px',
+       color: 'black', backgroundColor: '#FF8272', '&:hover': { backgroundColor: 'darkred' } }}
     onClick={() => alert('Empresa eliminada')}
   >
+    <Typography
+    sx={{
+      fontFamily: 'Poppins', // Aplica la fuente Poppins
+      fontSize: '16px', // Tamaño de fuente 16px
+      color: 'black', // Asegura que el color del texto sea consistente
+      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+    }}
+  >
     Eliminar cuenta
+  </Typography>
   </Button>
 </Box>
 
 
 
-          <Box display="flex" justifyContent="space-between" width="300px" mt={2}>
+          <Box display="flex" justifyContent="space-between" width="360px" >
             <Button
               type="submit"
               variant="contained"
               sx={{
-                backgroundColor: 'yellow',
-                color: 'black',
-                borderRadius: '20px',
+                backgroundColor: 'transparent',
+                color: '#FFD000',
+                borderRadius: '30px',
+                border: '3px solid#FFD000',
                 mb:3,
-                width: '45%',
+                height: '43px',
+                
+                width: '166px',
                 '&:hover': {
                   backgroundColor: 'darkgrey',
                 },
               }}
             >
-              Cancelar
+               <Typography
+    sx={{
+      fontFamily: 'Poppins', // Aplica la fuente Poppins
+      fontSize: '16px', // Tamaño de fuente 16px
+      color: '#FFD000', // Asegura que el color del texto sea consistente
+      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+    }}
+  >
+    Cancelar
+  </Typography>
             </Button>
             <Button
               type="submit"
               variant="contained"
               sx={{
-                backgroundColor: 'yellow',
+                backgroundColor: '#FFD000',
                 color: 'black',
-                borderRadius: '20px',
+                borderRadius: '30px',
+                ml: 1,
                 mb:3,
-                width: '45%',
+                height: '43px',
+                width: '166px',
                 '&:hover': {
                   backgroundColor: 'darkgrey',
                 },
               }}
             >
-              Guardar
+               <Typography
+    sx={{
+      fontFamily: 'Poppins', // Aplica la fuente Poppins
+      fontSize: '16px', // Tamaño de fuente 16px
+      color: 'black', // Asegura que el color del texto sea consistente
+      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+    }}
+  >
+    Guardar
+  </Typography>
             </Button>
           </Box>
         </form>
       </Box>
      
     </Box>
+
+  </Box>
   );
 };
 

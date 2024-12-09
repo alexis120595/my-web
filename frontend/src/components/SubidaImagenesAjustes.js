@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CloudinaryContext, Image } from 'cloudinary-react';
 import axios from 'axios';
-import { Button, CircularProgress, Box } from '@mui/material';
+import { Button, CircularProgress, Box,Typography } from '@mui/material';
 
 const SubidaImagenesAjustes = ({ onImageUpload }) => {
   const [url, setUrl] = useState('');
@@ -46,20 +46,33 @@ const SubidaImagenesAjustes = ({ onImageUpload }) => {
             variant="contained"
             component="span"
             sx={{
-              borderRadius: '20px',
-              width: '300px',
-              height: '150px',
+              borderRadius: '8px',
+              width: '360px',
+              height: '144px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundColor: '#808080',
-              color: 'white',
+              backgroundColor: 'white',
+              color: 'black',
               mr:1,
               mt:2,
                
             }}
           >
-            {loading ? <CircularProgress size={24} color="inherit" /> : 'Carga el logo de tu empresa'}
+             {loading ? (
+      <CircularProgress size={24} color="inherit" />
+    ) : (
+      <Typography
+        sx={{
+          fontFamily: 'Poppins', // Aplica la fuente Poppins
+          fontSize: '14px', // Tamaño de fuente 14px
+          color: 'black', // Asegura que el color del texto sea consistente
+          textTransform: 'none', // Asegura que el texto no esté en mayúsculas
+        }}
+      >
+        Cargá el logo de tu empresa
+      </Typography>
+    )}
           </Button>
         </label>
         {loading && <p>Cargando...</p>}
