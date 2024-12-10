@@ -17,8 +17,8 @@ function SearchBarReservas({ onSearch }) {
   };
 
   return (
-    <Box display="flex" justifyContent="center" width="100%" mb={4}>
-    <Box position="relative" width="60%">
+    <Box display="flex" justifyContent="flex-start" mb={4}>
+    <Box position="relative" >
       <TextField
         variant="outlined"
         value={query}
@@ -28,16 +28,19 @@ function SearchBarReservas({ onSearch }) {
           endAdornment: (
             <InputAdornment position="end">
               <IconButton onClick={handleSearch}>
-                <SearchIcon />
+                <SearchIcon sx={{ fontSize: 18,
+                  color: '#313131',
+                 }} />
               </IconButton>
             </InputAdornment>
           ),
         }}
         fullWidth
         sx={{
-          width: '300px',  
+          height: '50px', // Altura del campo de texto
+          width: '286px',  
           '& .MuiOutlinedInput-root': {
-            borderRadius: '30px', // Bordes redondeados
+            borderRadius: '25px', // Bordes redondeados
             backgroundColor: 'white', // Color de fondo
             '& fieldset': {
               borderColor: 'black', // Color del borde
@@ -48,6 +51,11 @@ function SearchBarReservas({ onSearch }) {
             '&.Mui-focused fieldset': {
               borderColor: 'black', // Color del borde al enfocar
             },
+          },
+          '& .MuiInputBase-input::placeholder': {
+            fontFamily: 'Poppins', // Aplica la fuente Poppins
+            fontSize: '14px',      // Tamaño de fuente 14px
+            color: '#666666',      // Color del label
           },
         }}
       />

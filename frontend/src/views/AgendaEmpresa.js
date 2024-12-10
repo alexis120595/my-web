@@ -67,16 +67,30 @@ const AgendaEmpresa = () => {
 
 
   return (
-    <Container maxWidth="sm">
-      <Box mt={5} textAlign="center">
-        <Typography variant="h4" gutterBottom sx={{mr:20}}> 
+    <Container maxWidth="sm"
+    sx={{
+        width:"360px",
+    height:"764px",
+    }}
+   
+    >
+      <Box mt={5} textAlign="left">
+        <Typography variant="h4" gutterBottom  
+        sx={{
+          fontFamily: 'Poppins',
+          fontSize: '24px',
+          textAlign: 'left', // Alinea el texto a la izquierda
+        }}> 
           Agenda 
         </Typography>
-        <Box>
+        <Box
+         sx={{ textAlign: 'left' }}>
         <CalendarioAgenda selectedDate={selectedDate} setSelectedDate={handleDayClick} sx={{mb:2}} />
         </Box>
 
-        <Typography variant="h4" gutterBottom  sx={{mt:2, mr:5}}>
+        <Typography variant="h4" gutterBottom  sx={{mt:2, mr:5, 
+        fontFamily: 'Poppins', fontSize: '20px', textAlign: 'left'
+        }}>
           Proximos turnos
         </Typography>
 
@@ -92,29 +106,43 @@ sx={{ width: '100%', display: 'block', textAlign: 'left' }}
             <ListItem key={reservas.id}
             sx={{
               border: '1px solid #ccc',
-              borderRadius: '8px',
+              borderRadius: '15px',
               mb: 2,
               padding: 2,
-              width: '400px',
-              ml: 16,
+              width: '360px',
+              height: '83px',
+            
               backgroundColor: 'white'
               
             }}>
                <Box display="flex" flexDirection="column" width="100%">
                   <ListItemText
                     primary={`Cliente n° ${reservas.usuario.id}`}
-                    sx={{ color: 'black' }}
+                    primaryTypographyProps={{
+                      sx: {
+                        fontFamily: 'Poppins', // Aplica la fuente Poppins
+                        fontSize: '16px', // Tamaño de fuente 14px
+                        color: '#666666', // Cambiar el color del texto a #666666
+                      },
+                    }}
+                    sx={{ color: '#666666' }}
                   />
                <Box display="flex" justifyContent="space-between" width="100%" >
               <ListItemText   primary={` ${reservas.servicio.nombre|| 'N/A'}`}
                     secondary={` ${reservas.barbero.nombre || 'N/A'}`} 
                     
-                    sx={{
-                      '& .MuiListItemText-primary': {
-                        color: 'black', // Color del texto a negro
+                    primaryTypographyProps={{
+                      sx: {
+                        fontFamily: 'Poppins', // Aplica la fuente Poppins
+                        fontSize: '12px', // Tamaño de fuente 12px
+                        color: '#3A3A3A', // Cambiar el color del texto a #3A3A3A
                       },
-                      '& .MuiListItemText-secondary': {
-                        color: 'black', // Color del texto secundario a negro
+                    }}
+                    secondaryTypographyProps={{
+                      sx: {
+                        fontFamily: 'Poppins', // Aplica la fuente Poppins
+                        fontSize: '12px', // Tamaño de fuente 12px
+                        color: '#3A3A3A', // Cambiar el color del texto a #3A3A3A
                       },
                     }}
                     />
@@ -123,16 +151,34 @@ sx={{ width: '100%', display: 'block', textAlign: 'left' }}
                   alignItems="center"
                   justifyContent="center"
                   sx={{
-                    width: 100,
-                    height: 50,
-                    borderRadius: '20px',
-                    backgroundColor: 'lightgreen',
+                    width: '104px',
+                    height: '47px',
+                    borderRadius: '15px',
+                    backgroundColor: '#CDFFAE',
                     color: 'white',
+                  
                   }}
                 >
-              <Typography variant="body2" color="textSecondary">
-                  {reservas.fecha}
-                </Typography>
+              <Typography
+          variant="body2"
+          sx={{
+            fontFamily: 'Poppins', // Aplica la fuente Poppins
+            fontSize: '14px', // Tamaño de fuente 14px
+            color: '#3A3A3A', // Cambiar el color del texto a #3A3A3A
+          }}
+        >
+          {reservas.fecha}
+        </Typography>
+        <Typography
+          variant="body2"
+          sx={{
+            fontFamily: 'Poppins', // Aplica la fuente Poppins
+            fontSize: '14px', // Tamaño de fuente 14px
+            color: '#3A3A3A', // Cambiar el color del texto a #3A3A3A
+          }}
+        >
+          {reservas.hora}
+        </Typography>
                 </Box>
               </Box>
               </Box>

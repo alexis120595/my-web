@@ -20,9 +20,10 @@ const CalendarioAgenda = ({ selectedDate, setSelectedDate }) => {
             {...params}
             sx={{
               mt: 2,
-              width: '300px',
+              height: '50px',
+              width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px',
+                borderRadius: '25px',
                 backgroundColor: 'white',
                 color: 'black',
                 '& fieldset': { borderColor: 'black' },
@@ -30,7 +31,10 @@ const CalendarioAgenda = ({ selectedDate, setSelectedDate }) => {
                 '&.Mui-focused fieldset': { borderColor: 'black' },
                 '&.Mui-focused': { color: 'black' },
               },
-              '& .MuiInputLabel-root': { color: 'black' },
+              '& .MuiInputLabel-root': {  fontFamily: 'Poppins', // Aplica la fuente Poppins
+                fontSize: '14px',      // Tamaño de fuente 14px
+                color: '#666666',
+               },
               '& .MuiInputAdornment-root': { color: 'black' },
             }}
           />

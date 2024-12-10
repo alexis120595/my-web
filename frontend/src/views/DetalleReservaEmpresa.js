@@ -70,35 +70,116 @@ const DetalleReservaEmpresa = () => {
   }
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '400px', mt:10}}>
-      <Card sx={{ minWidth: 300, borderRadius: '20px', boxShadow: 3, backgroundColor: 'grey' }}>
+    <Box
+    sx={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100vw', // Ancho del contenedor principal
+      height: '100vh', // Alto del contenedor principal
+     
+    }}
+  >
+    <Box sx={{  
+       display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '550px', // Ancho del contenedor
+      height: '673px', // Alto del contenedor
+      mt: 10,
+      backgroundColor: '#504D4D', // Color de fondo opcional
+      borderRadius: '20px', // Bordes redondeados opcionales
+      boxShadow: 3, // Sombra opcional}}>
+    }}>
+      <Card sx={{
+        width: '403px', // Ancho de la tarjeta
+        height: '540px', // Alto de la tarjeta
+        borderRadius: '15px',
+        boxShadow: 3,
+        backgroundColor: '#414141',
+    
+      }}>
         <CardContent>
-          <Typography variant="h5" component="div" sx={{ color: 'white' }}>
+          <Typography variant="h5" component="div" sx={{ color: 'white',
+          fontFamily: 'Poppins', // Aplica la fuente Poppins
+          fontSize: '24px', // Tamaño de fuente 24px
+          mt: 2, // Margen superior de 2
+          mb: 2, // Margen inferior de 2
+           }}>
             Turno Reservado
           </Typography>
           {reservas ? (
             <>
-              <Typography sx={{ mb: 1.5, color: 'white' }}>
-                <strong>Empresa:</strong> {reservas.empresa}
-              </Typography>
-              <Typography sx={{ mb: 1.5, color: 'white' }}>
-                <strong>Dirección:</strong> {reservas.ubicacion}
-              </Typography>
-              <Typography sx={{ mb: 1.5, color: 'white' }}>
-                <strong>Servicio:</strong> {reservas.servicio}
-              </Typography>
-              <Typography sx={{ mb: 1.5, color: 'white' }}>
-                <strong>Precio:</strong> ${reservas.precio}
-              </Typography>
-              <Typography sx={{ mb: 1.5, color: 'white' }}>
-                <strong>Barbero:</strong> {reservas.barbero}
-              </Typography>
-              <Typography sx={{ mb: 1.5, color: 'white' }}>
-                <strong>Fecha:</strong> {reservas.fecha}
-              </Typography>
-              <Typography sx={{ mb: 1.5, color: 'white' }}>
-                <strong>Hora:</strong> {reservas.horario}
-              </Typography>
+              <Typography
+  sx={{
+    mb: 1.5,
+    color: 'white',
+    fontFamily: 'Poppins', // Aplica la fuente Poppins
+    fontSize: '16px', // Tamaño de fuente 16px
+  }}
+>
+  <strong>Empresa:</strong> <span style={{ fontFamily: 'Poppins', fontSize: '16px' }}>{reservas.empresa}</span>
+</Typography>
+<Typography
+  sx={{
+    mb: 1.5,
+    color: 'white',
+    fontFamily: 'Poppins', // Aplica la fuente Poppins
+    fontSize: '16px', // Tamaño de fuente 16px
+  }}
+>
+  <strong>Dirección:</strong> <span style={{ fontFamily: 'Poppins', fontSize: '16px' }}>{reservas.ubicacion}</span>
+</Typography>
+<Typography
+  sx={{
+    mb: 1.5,
+    color: 'white',
+    fontFamily: 'Poppins', // Aplica la fuente Poppins
+    fontSize: '16px', // Tamaño de fuente 16px
+  }}
+>
+  <strong>Servicio:</strong> <span style={{ fontFamily: 'Poppins', fontSize: '16px' }}>{reservas.servicio}</span>
+</Typography>
+<Typography
+  sx={{
+    mb: 1.5,
+    color: 'white',
+    fontFamily: 'Poppins', // Aplica la fuente Poppins
+    fontSize: '16px', // Tamaño de fuente 16px
+  }}
+>
+  <strong>Precio:</strong> <span style={{ fontFamily: 'Poppins', fontSize: '16px' }}>${reservas.precio}</span>
+</Typography>
+<Typography
+  sx={{
+    mb: 1.5,
+    color: 'white',
+    fontFamily: 'Poppins', // Aplica la fuente Poppins
+    fontSize: '16px', // Tamaño de fuente 16px
+  }}
+>
+  <strong>Barbero:</strong> <span style={{ fontFamily: 'Poppins', fontSize: '16px' }}>{reservas.barbero}</span>
+</Typography>
+<Typography
+  sx={{
+    mb: 1.5,
+    color: 'white',
+    fontFamily: 'Poppins', // Aplica la fuente Poppins
+    fontSize: '16px', // Tamaño de fuente 16px
+  }}
+>
+  <strong>Fecha:</strong> <span style={{ fontFamily: 'Poppins', fontSize: '16px' }}>{reservas.fecha}</span>
+</Typography>
+<Typography
+  sx={{
+    mb: 1.5,
+    color: 'white',
+    fontFamily: 'Poppins', // Aplica la fuente Poppins
+    fontSize: '16px', // Tamaño de fuente 16px
+  }}
+>
+  <strong>Hora:</strong> <span style={{ fontFamily: 'Poppins', fontSize: '16px' }}>{reservas.horario}</span>
+</Typography>
             </>
           ) : (
             <Typography sx={{ mb: 1.5, color: 'white' }}>
@@ -111,16 +192,28 @@ const DetalleReservaEmpresa = () => {
   color="primary"
   onClick={() => navigate('/home')}
   sx={{
-    borderRadius: '20px',
+    width: '166px',  
+    height: '43px',
+    borderRadius: '30px',
+    border: '2px solid #FFD000',
     margin: '10px',
-    backgroundColor: 'lightgrey',
-    color: 'black',
+    backgroundColor: 'transparent',
+    color: '#FFD000',
     '&:hover': {
       backgroundColor: 'grey', // Cambia el fondo a gris al hacer hover
     },
   }}
 >
-  Editar
+<Typography
+    sx={{
+      fontFamily: 'Poppins', // Aplica la fuente Poppins
+      fontSize: '14px', // Tamaño de fuente 14px
+     
+      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+    }}
+  >
+    Editar
+  </Typography>
 </Button>
 
       <Button
@@ -128,16 +221,27 @@ const DetalleReservaEmpresa = () => {
   color="secondary"
   onClick={handleAnularClick}
   sx={{
-    borderRadius: '20px',
+    width: '166px',  
+    height: '43px',
+    borderRadius: '30px',
     margin: '10px',
-    backgroundColor: 'red',
-    color: 'black',
+    backgroundColor: '#FF8272',
+    color: 'white',
     '&:hover': {
       backgroundColor: 'gray', // Cambia el fondo a gris al hacer hover
     },
   }}
 >
-  Anular
+<Typography
+sx={{
+      fontFamily: 'Poppins', // Aplica la fuente Poppins
+      fontSize: '14px', // Tamaño de fuente 14px
+     
+      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+    }}
+  >
+    Anular
+  </Typography>
 </Button>
       </Card>
       <Snackbar
@@ -153,11 +257,29 @@ const DetalleReservaEmpresa = () => {
       <Dialog
         open={openDialog}
         onClose={handleCloseDialog}
-        
+        sx={{
+          '& .MuiDialog-paper': {
+            width: '321px', // Ancho del diálogo
+            height: '241px', // Alto del diálogo
+            borderRadius: '28px', // Bordes redondeados
+          },
+        }}
       >
-        <DialogTitle>Anular turno</DialogTitle>
+        <DialogTitle
+        sx={{
+          fontFamily: 'Poppins', // Aplica la fuente Poppins
+          fontSize: '24px', // Tamaño de fuente 24px
+          color: '#1D1B20', // Color del texto
+        }}
+        >Anular turno</DialogTitle>
         <DialogContent sx={{width:'250px'}}>
-          <DialogContentText>
+          <DialogContentText
+          sx={{
+            fontFamily: 'Poppins', // Aplica la fuente Poppins
+            fontSize: '14px', // Tamaño de fuente 14px
+            color: '#49454F', // Color del texto
+          }}
+          >
         Estás a punto de anular el turno, una vez anulado no podras recuperarlo. ¿Estás seguro que deseas anular el turno?.
           </DialogContentText>
         </DialogContent>
@@ -165,11 +287,21 @@ const DetalleReservaEmpresa = () => {
           <Button onClick={handleCloseDialog} 
            sx={{
            
-            color: 'black', // Texto blanco
+            color: '#666666', // Texto blanco
            
           }}
           >
-            Cancelar
+             <Typography
+    sx={{
+      fontFamily: 'Poppins', // Aplica la fuente Poppins
+      fontSize: '14px', // Tamaño de fuente 14px
+      color: '#666666', // Asegura que el color del texto sea consistente
+      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+      mb: 2, // Margen inferior de 2
+    }}
+  >
+    Cancelar
+  </Typography>
           </Button>
           <Button onClick={handleConfirmAnular} 
            sx={{
@@ -178,12 +310,24 @@ const DetalleReservaEmpresa = () => {
            
           }}
           >
-            Anular
+             <Typography
+    sx={{
+      fontFamily: 'Poppins', // Aplica la fuente Poppins
+      fontSize: '14px', // Tamaño de fuente 14px
+      color: '#EB2424', // Asegura que el color del texto sea consistente
+      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+      mb: 2, // Margen inferior de 2
+      mr: 4, // Margen derecho de 2
+    }}
+  >
+    Anular
+  </Typography>
           </Button>
         </DialogActions>
       </Dialog>
      
     </Box>
+  </Box>
   );
 };
 

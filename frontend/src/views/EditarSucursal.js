@@ -57,15 +57,34 @@ const EditarSucursal = () => {
   };
 
   return (
-    <Container>
+    <Container
+    sx={{width:'549px',
+      height:'1040px',
+      backgroundColor: '#504D4D', 
+      borderRadius: '20px',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      mb: 5,
+    }}>
       <Box mt={5} textAlign="center">
-        <Typography variant="h4" gutterBottom sx={{ mr: 7 }}>
+        <Typography variant="h4" gutterBottom sx={{mr:27,
+        fontFamily:'Poppins',
+        fontSize:'24px',
+        marginBottom:'24px',
+      }}>
           Editar sucursal
         </Typography>
-        <Typography gutterBottom sx={{ ml: 4 }}>
+        <Typography gutterBottom sx={{mr:7,
+         fontFamily:'Poppins',
+         fontSize:'16px',
+      }}>
           Modifica el nombre con el cual identificaras a 
         </Typography>
-        <Typography gutterBottom sx={{ mr: 26 }}>
+        <Typography gutterBottom sx={{mr:35,
+        fontFamily:'Poppins',
+        fontSize:'16px',
+      }}>
           la sucursal
         </Typography>
         <form onSubmit={handleActualizarSucursal}>
@@ -78,21 +97,46 @@ const EditarSucursal = () => {
             onChange={(e) => setNombre(e.target.value)}
             sx={{
               mt: 2,
-              mb: 2,
-              width: '300px',
+              mb: 5,
+              height: '50px',
+              width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes redondeados
+                borderRadius: '25px', // Bordes redondeados
+                backgroundColor: 'white', // Fondo blanco
+              },
+              '& .MuiInputLabel-root': {
+                fontFamily: 'Poppins', // Aplica la fuente Poppins
+                fontSize: '14px',      // Tamaño de fuente 14px
+                color: '#666666',      // Color del label
               },
             }}
           />
 
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" gutterBottom
+          sx={{
+            fontFamily:'Poppins',
+            fontSize:'20px',
+            marginBottom:'24px',
+            mr:24,
+          }}>
             Modificar ubicacion
           </Typography>
-          <Typography gutterBottom>
+          <Typography gutterBottom
+           sx={{
+            fontFamily:'Poppins',
+            fontSize:'16px',
+            
+            mr:11,
+          }}>
             Modifica la direccion de tu sucursal para 
           </Typography>
-          <Typography gutterBottom sx={{ mr: 15 }}>
+          <Typography gutterBottom 
+           sx={{
+            fontFamily:'Poppins',
+            fontSize:'16px',
+            
+            mr:25,
+          }}>
             visualizarla en el mapa
           </Typography>
           <TextField
@@ -103,15 +147,22 @@ const EditarSucursal = () => {
             value={ubicacion}
             onChange={(e) => setUbicacion(e.target.value)}
             sx={{
-              mt: 2,
-              mb: 2,
-              width: '300px',
+           
+              mb: 5,
+              width: '360px',
+              height: '50px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes redondeados
+                borderRadius: '25px', // Bordes redondeados
+                backgroundColor: 'white', // Fondo blanco
+              },
+              '& .MuiInputLabel-root': {
+                fontFamily: 'Poppins', // Aplica la fuente Poppins
+                fontSize: '14px',      // Tamaño de fuente 14px
+                color: '#666666',      // Color del label
               },
             }}
           />
-          <Box display="flex" justifyContent="center" sx={{ width: "300px", ml: 53 }}>
+          <Box display="flex" justifyContent="center">
             <Mapa onLocationSelect={handleLocationSelect} />
           </Box>
 
@@ -119,9 +170,30 @@ const EditarSucursal = () => {
             variant="contained"
             color="primary"
             type="submit"
-            sx={{ mt: 2, borderRadius: '25px', backgroundColor: 'yellow', color: 'black', width: '300px', mr: 1, mb: 4 }}
+            sx={{
+              mt: 3,
+              borderRadius: '30px',
+              backgroundColor: '#FFD000',
+              color: 'black',
+              width: '360px',
+              height: '43px',
+              mr: 1,
+              mb: 4,
+              '&:hover': {
+                backgroundColor: 'gray', // Color de fondo al hacer hover
+              },
+            }}
           >
-            Guardar Cambios
+          <Typography
+              sx={{
+                fontFamily: 'Poppins', // Aplica la fuente Poppins
+                fontSize: '14px', // Tamaño de fuente 14px
+                color: 'black', // Asegura que el color del texto sea consistente
+                textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+              }}
+            >
+              Guardar cambios
+            </Typography>
           </Button>
         </form>
         {success && <Typography color="primary">{success}</Typography>}
