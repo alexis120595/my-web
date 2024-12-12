@@ -18,6 +18,7 @@ const EditarProfesional = () => {
   const [todosServicios, setTodosServicios] = useState([]); // Estado para almacenar todos los servicios disponibles
   const empresaId = localStorage.getItem('empresaId'); // Obtener el ID de la empresa desde el almacenamiento local
   const [horarios, setHorarios] = useState([]); 
+  const [searchTerm, setSearchTerm] = useState('');
   
   const [permisos, setPermisos] = useState({
     permiso1: false,
@@ -67,6 +68,15 @@ const EditarProfesional = () => {
     fetchSucursales();
     fetchServicios();
   }, [id, empresaId]);
+
+  const handleSearch = async (query) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/servicios/buscar?nombre=${query}`);
+      setServicios(response.data);
+    } catch (error) {
+      console.error('Error searching servicios:', error);
+    }
+  };
 
   const handleHorariosChange = (nuevosHorarios) => {
     setHorarios(nuevosHorarios);
@@ -516,7 +526,7 @@ height: '2080px',
           <Box display="flex" justifyContent="center" 
           sx={{  ml:5, width: '400px' }}
           >
-            <SearchBar onSearch={() => {}} 
+            <SearchBar onSearch={handleSearch} 
           
             />
           </Box>

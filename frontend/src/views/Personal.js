@@ -21,6 +21,7 @@ const Personal = () => {
   const [barberos, setBarberos] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
+  const [mensaje, setMensaje] = useState('');
 
   useEffect(() => {
     const empresaId = localStorage.getItem('empresaId');
@@ -57,15 +58,38 @@ const Personal = () => {
     navigate(`/editar-profesional/${id}`);
   };
 
-  const handleLinkClick = (e, id) => {
-    e.stopPropagation(); // Evita que el clic se propague al ListItemButton
-    navigate(`/link-profesional/${id}`);
-  };
+ // Dentro de tu componente Personal.js
+
+ const handleLinkClick = (e) => {
+  e.stopPropagation();
+
+  // Genera el enlace a la página principal
+  const link = `${window.location.origin}/home`;
+
+  // Copia el enlace al portapapeles
+  navigator.clipboard.writeText(link)
+    .then(() => {
+      // Muestra un mensaje en la interfaz
+      setMensaje('Enlace copiado al portapapeles');
+    })
+    .catch((err) => {
+      console.error('Error al copiar el enlace:', err);
+    });
+};
 
   const handleCrearHorariosClick = (barbero) => {
     navigate('/crear-horarios', { state: { barbero } });
 
   };
+
+  useEffect(() => {
+    if (mensaje) {
+      const timer = setTimeout(() => {
+        setMensaje('');
+      }, 3000); // El mensaje desaparece después de 3 segundos
+      return () => clearTimeout(timer);
+    }
+  }, [mensaje]);
 
   return (
     <Container 
@@ -81,6 +105,7 @@ const Personal = () => {
          }}>
           Personal
         </Typography>
+        
         <Box display="flex" justifyContent="left" >
           <SearchBarEmpleados onSearch={handleSearch} />
         </Box>
@@ -92,6 +117,7 @@ const Personal = () => {
          }}>
           Profesionales disponibles
         </Typography>
+     
         <List>
           {barberos.length > 0 ? (
             barberos.map((barbero) => (
@@ -159,7 +185,7 @@ const Personal = () => {
                 <IconButton
                   edge="end"
                   aria-label="link"
-                  onClick={(e) => handleLinkClick(e, barbero.id)}
+                  onClick={handleLinkClick}
                   sx={{
                     ml: 2,
                     backgroundColor: '#FFD000',
@@ -178,6 +204,19 @@ const Personal = () => {
             <Typography>No hay personal disponible para esta empresa.</Typography>
           )}
         </List>
+        {mensaje && (
+  <Typography
+    sx={{
+      fontFamily: 'Poppins',
+      fontSize: '14px',
+      color: 'white',
+      mt: 1,    // Margen superior para separar del título
+      ml: -4    // Alineación con el título
+    }}
+  >
+    {mensaje}
+  </Typography>
+)}
         <Button
           variant="contained"
           color="primary"
@@ -205,6 +244,7 @@ const Personal = () => {
     Añadir profesional
   </Typography>
         </Button>
+        
       </Box>
     </Container>
   );

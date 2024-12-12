@@ -26,6 +26,16 @@ const Clientes = () => {
     fetchRegistro();
   }, []);
 
+  const handleSearch = async (email) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/registro/buscar?email=${email}`);
+      console.log('Datos recibidos:', response.data);
+      setRegistro(response.data);
+    } catch (error) {
+      console.error('Error al buscar clientes:', error);
+    }
+  };
+
   const handleCrearReserva = (clienteId) => {
     navigate('/home', { state: { clienteId } });
   };
@@ -45,7 +55,7 @@ const Clientes = () => {
           Clientes
         </Typography>
 
-        <SearchBarClientes onSearch={console.log} />
+        <SearchBarClientes onSearch={handleSearch} />
 
         <Typography  gutterBottom sx={{
               fontFamily: 'Poppins',

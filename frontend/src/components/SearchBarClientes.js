@@ -9,7 +9,9 @@ function SearchBarClientes({ onSearch }) {
   const [query, setQuery] = useState('');
 
   const handleInputChange = (event) => {
-    setQuery(event.target.value);
+    const newQuery = event.target.value;
+    setQuery(newQuery);
+    onSearch(newQuery);
   };
 
   const handleSearch = () => {

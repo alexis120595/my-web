@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import Box from '@mui/material/Box';
 
-function SearchBar({ onSearch }) {
+function SearchBarSucursales({ onSearch }) {
   const [query, setQuery] = useState('');
 
   const handleInputChange = (event) => {
@@ -19,35 +19,29 @@ function SearchBar({ onSearch }) {
   };
 
   return (
-    <Box display="flex" justifyContent="flex-start" width="100%" mb={4}>
-    <Box position="relative" width="60%">
+    <Box display="flex" justifyContent="left" width="100%" mb={4}>
+    <Box position="relative" width="286px">
       <TextField
         variant="outlined"
         value={query}
         onChange={handleInputChange}
-        placeholder="Buscar servicios..."
+        placeholder="Buscar sucursal"
         InputProps={{
           endAdornment: (
-            <InputAdornment position="start">
-              <IconButton onClick={handleSearch}
-              sx={{width:'18px',
-                height:'18px',
-                color:'#313131',
-              }}>
+            <InputAdornment position="end">
+              <IconButton onClick={handleSearch}>
                 <SearchIcon />
               </IconButton>
             </InputAdornment>
           ),
         }}
-       
+        fullWidth
         sx={{
           width: '286px',
           height: '50px',
           '& .MuiOutlinedInput-root': {
             borderRadius: '25px', // Bordes redondeados
             backgroundColor: 'white', // Color de fondo
-            fontFamily: 'Poppins', // Tipo de fuente
-            fontSize: '14px', // Tamaño de fuente
             '& fieldset': {
               borderColor: 'black', // Color del borde
             },
@@ -57,6 +51,11 @@ function SearchBar({ onSearch }) {
             '&.Mui-focused fieldset': {
               borderColor: 'black', // Color del borde al enfocar
             },
+          },
+          '& .MuiInputLabel-root': {
+            fontFamily: 'Poppins', // Aplica la fuente Poppins
+            fontSize: '14px', 
+            color:'#666666'     // Tamaño de fuente 14px
           },
         }}
       />
@@ -68,4 +67,4 @@ function SearchBar({ onSearch }) {
   );
 }
 
-export default SearchBar;
+export default SearchBarSucursales;

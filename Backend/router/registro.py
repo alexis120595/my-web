@@ -3,6 +3,7 @@ from Backend.schemas import Registro, RegistroCreate
 from sqlalchemy.orm import Session
 from Backend.db import db_models
 from Backend.db.database import get_db
+from typing import List, Optional
 
 router = APIRouter()
 
@@ -24,9 +25,15 @@ def get_registros(db: Session = Depends(get_db)):
     registros = db.query(db_models.Registro).all()
     return registros
 
+@router.get("/registro/buscar", response_model=List[Registro])
+def buscar_registros(email: str = '', db: Session = Depends(get_db)):
+    registros = db.query(db_models.Registro).filter(db_models.Registro.email.ilike(f"%{email}%")).all()
+    return registros
+
 @router.get("/registro/{registro_id}")
 def get_registro(registro_id: int, db: Session = Depends(get_db)):
     registro = db.query(db_models.Registro).filter(db_models.Registro.id == registro_id).first()
     if registro is None:
         raise HTTPException(status_code=404, detail="Registro not found")
     return registro
+

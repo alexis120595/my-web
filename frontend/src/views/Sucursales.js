@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Box, Typography, List, ListItem, ListItemText, IconButton, Button} from '@mui/material';
 import axios from 'axios';
-import SearchBarClientes from '../components/SearchBarClientes';
+import SearchBarSucursales from '../components/SearchBarSucursales';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {useNavigate} from 'react-router-dom';
@@ -78,7 +78,7 @@ const Sucursales = () => {
           Sucursales
         </Typography>
 
-        <SearchBarClientes onSearch={handleSearch} />
+        <SearchBarSucursales onSearch={handleSearch} />
 
         <Typography  gutterBottom sx={{
             fontFamily: 'Poppins', // Aplica la fuente Poppins
