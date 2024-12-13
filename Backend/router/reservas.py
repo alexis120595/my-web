@@ -1,19 +1,43 @@
-from fastapi import APIRouter, Depends, HTTPException, Query, Path
+from fastapi import APIRouter, Depends, HTTPException, Query, Path, BackgroundTasks
 from sqlalchemy.orm import Session, joinedload
 from Backend.schemas import ReservaCreate, Reservas
 from Backend.db import db_models
 from Backend.db.database import get_db
 from datetime import date
 from typing import List
+from Backend.email_utils import enviar_email
+
 
 router = APIRouter()
 
 @router.post("/reservas", response_model=Reservas)
-def create_reserva(reserva: ReservaCreate, db: Session = Depends(get_db)):
+def create_reserva(reserva: ReservaCreate, background_tasks: BackgroundTasks, db: Session = Depends(get_db) ):
     db_reserva = db_models.Reservas(**reserva.dict())
     db.add(db_reserva)
     db.commit()
     db.refresh(db_reserva)
+
+    usuario = db.query(db_models.Registro).filter(db_models.Registro.id == reserva.user_id).first()
+    if not usuario:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+    
+    horario = db.query(db_models.Horarios).filter(db_models.Horarios.id == reserva.horario_id).first()
+    if not horario:
+        raise HTTPException(status_code=404, detail="Horario no encontrado")
+
+
+
+
+    asunto = 'Confirmación de Reserva'
+    html_contenido = f"""
+    <h1>Hola </h1>
+    <p>Tu reserva para el día {reserva.fecha} a las {horario.hora} ha sido confirmada.</p>
+    <p>¡Te esperamos!</p>
+    """
+
+    # Enviar el correo en segundo plano
+    background_tasks.add_task(enviar_email, usuario.email, asunto, html_contenido)
+
     return db_reserva
 
 @router.get("/reservas/usuario/{user_id}", response_model=List[Reservas])
