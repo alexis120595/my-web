@@ -8,6 +8,7 @@ const BuscarEmpresa = () => {
   const [busqueda, setBusqueda] = useState('');
   const [resultados, setResultados] = useState([]);
   const navigate = useNavigate();
+  const [isFocused, setIsFocused] = useState(false);
 
   const handleBuscar = async () => {
     try {
@@ -31,46 +32,56 @@ const BuscarEmpresa = () => {
   return (
     <Container
     sx={{
-      width:"360px",
-      height:"158px",
-     textAlign: 'left',
-      
-      
-      }}>
+      width: { xs: '100%', sm: '360px' }, // Ancho 100% en pantallas pequeñas, 360px en pantallas medianas y grandes
+      height: 'auto',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: { xs: 2, sm: 0 }, // Padding 2 en pantallas pequeñas, 0 en pantallas medianas y grandes
+      marginTop: { xs: 2, sm: 5 }, // Margen superior 2 en pantallas pequeñas, 5 en pantallas medianas y grandes
+    }}>
       <Box mt={5} >
-        <Typography variant="h4" gutterBottom style={{ color: 'white' }}>
+        <Typography variant="h4" gutterBottom style={{ color: 'white',
+          fontFamily: 'Poppins',
+          fontSize: '24px',
+         }}>
           Buscar Empresa
         </Typography>
-        <Typography variant="h4" gutterBottom style={{ color: 'white', fontSize: '1rem',  width:"360px",
+        <Typography variant="h4" gutterBottom style={{ color: 'white', fontSize: '12px',  width:"360px",
       height:"32px",
-      marginBottom:"24px" }}>
+     
+      fontFamily: 'Poppins',
+      }}>
           si conoces una empresa o negocio realiza la busqueda
         </Typography>
         <TextField
-        
+        label={isFocused ? '' : 'Ingresa nombre o dirección'}
           variant="outlined"
           fullWidth
+          onFocus={() => setIsFocused(true)} // Actualiza el estado al enfocar
+          onBlur={() => setIsFocused(false)}
           margin="normal"
           value={busqueda}
           onChange={(e) => setBusqueda(e.target.value)}
           InputProps={{
             
-            endAdornment: (
+            startAdornment: (
               <InputAdornment position="start">
                 <IconButton onClick={handleBuscar}>
-                  <SearchIcon style= {{ color: 'black' }}/>
+                  <SearchIcon style= {{ color: '#313131',  width: 18, height: 18  }}/>
                 </IconButton>
               </InputAdornment>
             ),
           }}
           InputLabelProps={{
-            style: { color: 'white' },
+            shrink: true,
           }}
           sx={{
             width:"360px",
             height:"50px",
             '& .MuiOutlinedInput-root': {
-              borderRadius: '20px', // Bordes redondeados
+              borderRadius: '25px', // Bordes redondeados
               backgroundColor: 'white', // Color de fondo
               color: 'black', // Color del texto
               '& input': {
@@ -90,7 +101,15 @@ const BuscarEmpresa = () => {
               },
             },
             '& .MuiInputLabel-root': {
-              color: 'black', // Color del label
+              color: '#666666', // Color del label
+                marginTop: '20px',
+                marginLeft: '30px',
+              
+                fontFamily: 'Poppins',
+                fontSize: '14px',
+                left: '50%', // Centrar el label horizontalmente
+                transform: 'translateX(-100%)', // Ajustar la posición del label
+                textAlign: 'center', 
             },
             '& .MuiInputAdornment-root': {
               color: 'white', // Color del icono
@@ -99,15 +118,40 @@ const BuscarEmpresa = () => {
 
 
         />
-        <List>
+       <List>
           {resultados.map((empresa) => (
-            <ListItem key={empresa.id}   >
-              <ListItemText primary={empresa.nombre} secondary={empresa.eslogan}  sx={{ 
-    '& .MuiListItemText-secondary': {
-      color: 'white',
-    },
-  }} />
-              <Button variant="contained" color="primary" onClick={() => handleSeleccionarEmpresa(empresa)}>
+            <ListItem key={empresa.id}>
+              <ListItemText
+                primary={empresa.nombre}
+                secondary={empresa.eslogan}
+                sx={{
+                  '& .MuiListItemText-primary': {
+                    fontFamily: 'Poppins',
+                    fontSize: '14px',
+                    color: '#666666',
+                  },
+                  '& .MuiListItemText-secondary': {
+                    fontFamily: 'Poppins',
+                    fontSize: '14px',
+                    color: '#666666',
+                  },
+                }}
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => handleSeleccionarEmpresa(empresa)}
+                sx={{
+                  fontFamily: 'Poppins',
+                  fontSize: '14px',
+                  textTransform: 'none',
+                  backgroundColor: '#FFD000', // Color de fondo amarillo
+                  color: 'black', // Color del texto
+                  '&:hover': {
+                    backgroundColor: '#FFC107', // Color de fondo al pasar el mouse
+                  },
+                }}
+              >
                 Seleccionar
               </Button>
             </ListItem>

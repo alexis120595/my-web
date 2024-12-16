@@ -306,10 +306,15 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
   return (
     <Container
     sx={{
-      width:"360px",
-      height:"433px",
-       
-      }}>
+      width: { xs: '100%', sm: '360px' }, // Ancho 100% en pantallas pequeñas, 360px en pantallas medianas y grandes
+      height: 'auto',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: { xs: 2, sm: 0 }, // Padding 2 en pantallas pequeñas, 0 en pantallas medianas y grandes
+      marginTop: { xs: 2, sm: 5 }, // Margen superior 2 en pantallas pequeñas, 5 en pantallas medianas y grandes
+    }}>
     <Box sx={{ display: 'flex', justifyContent: 'left', alignItems: 'left', marginBottom:"24px" }}>
         <Typography variant="h4" component="h1" gutterBottom
          sx={{
@@ -340,6 +345,10 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
     alignItems: 'center', // Centra verticalmente el contenido del botón
     justifyContent: 'flex-start', // Alinea el contenido del botón a la izquierda
     textAlign: 'left',
+    fontFamily: 'Poppins', // Aplica la fuente Poppins
+    fontSize: '14px', // Tamaño de fuente 14px
+    color: '#666666', // Color del texto
+    textTransform:'none',
    
   }} >
           
@@ -349,7 +358,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
 
         <Dialog open={openServicioDialog} onClose={handleCloseServicioDialog}
          fullWidth
-         maxWidth="md" // Puedes usar "xs", "sm", "md", "lg", "xl"
+         maxWidth="sm" // Puedes usar "xs", "sm", "md", "lg", "xl"
          PaperProps={{
            sx: {
              width: '549px', // Ancho personalizado
@@ -376,7 +385,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
 
                 sx={{
                   color: 'white',
-                  textAlign: 'center',
+                  textAlign: 'left',
                   marginBottom: '24px',
                   fontSize: '24px',
                   fontFamily: 'Poppins',
@@ -504,6 +513,10 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
     alignItems: 'center', // Centra verticalmente el contenido del botón
     justifyContent: 'flex-start', // Alinea el contenido del botón a la izquierda
     textAlign: 'left',
+    fontFamily: 'Poppins', // Aplica la fuente Poppins
+    fontSize: '14px', // Tamaño de fuente 14px
+    color: '#666666', // Color del texto
+    textTransform:'none',
    
    }}>
         {selectedBarbero ? `${barberoNombre}` : 'Seleccionar Barbero'}
@@ -606,6 +619,10 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
     alignItems: 'center', // Centra verticalmente el contenido del botón
     justifyContent: 'flex-start', // Alinea el contenido del botón a la izquierda
     textAlign: 'left',
+    fontFamily: 'Poppins', // Aplica la fuente Poppins
+    fontSize: '14px', // Tamaño de fuente 14px
+    color: '#666666', // Color del texto
+    textTransform:'none',
    }}>
           {selectedHorario ? `${horarioHora}` : 'Seleccionar Horario'}
         </Button>
@@ -721,7 +738,8 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
         }}
         >
           <DialogTitle sx={{ color: 'white',   fontFamily: 'Poppins', // Fuente Poppins
-      fontSize: '24px', }}>Mi reserva</DialogTitle>
+      fontSize: '24px',
+       }}>Mi reserva</DialogTitle>
           <DialogContent>
             {reserva && (
               <Box
@@ -795,6 +813,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
     color: 'black', 
     fontFamily: 'Poppins', // Fuente Poppins
     fontSize: '16px', // Tamaño de la fuente
+    textTransform: 'none',
     '&:hover': {
       backgroundColor: 'lightyellow', // Fondo amarillo más claro al pasar el cursor
     },}}>Reservar</Button>

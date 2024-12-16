@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { TextField, Button, Container, Typography, Box, InputAdornment } from '@mui/material';
+import { TextField, Button, Container, Typography, Box, InputAdornment, Link } from '@mui/material';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link as RouterLink} from 'react-router-dom';
 import GoogleLogin1 from '../components/GoogleLogin1';
 import LockIcon from '@mui/icons-material/Lock';
 import PersonIcon from '@mui/icons-material/Person';
@@ -17,6 +17,9 @@ const Registro = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
+  const [isEmailFocused, setIsEmailFocused] = useState(false);
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+  const [isConfirmPasswordFocused, setIsConfirmPasswordFocused] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,30 +46,40 @@ const Registro = () => {
     <Container 
     
     sx={{
-      width:"362px",
-      height:"529px",
-      
-      }}>
-      <Box mt={5} textAlign="left">
+      width: { xs: '100%', sm: '360px' }, // Ancho 100% en pantallas pequeñas, 360px en pantallas medianas y grandes
+      height: 'auto',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: { xs: 2, sm: 0 }, // Padding 2 en pantallas pequeñas, 0 en pantallas medianas y grandes
+      marginTop: { xs: 2, sm: 5 }, // Margen superior 2 en pantallas pequeñas, 5 en pantallas medianas y grandes
+    }}>
+      <Box mt={5} textAlign="left" sx={{ width: '100%'}}>
         <Typography variant="h4" component="h1" gutterBottom
          sx={{
           textAlign: 'left',
-          marginBottom: '24px', // Espacio entre el texto y el primer input
+          marginBottom: '24px',
+          fontFamily:'Poppins',
+          fontSize:'24px',
         }}
         >
           Registrarme
         </Typography>
         <form onSubmit={handleSubmit}>
       
-          <TextField
-            label="ingresar email"
+        <TextField
+            label={isEmailFocused ? '' : 'Ingresar email'}
             name="email"
             type="email"
             value={form.email}
             onChange={handleChange}
+            onFocus={() => setIsEmailFocused(true)} // Actualiza el estado al enfocar
+            onBlur={() => setIsEmailFocused(false)}
             fullWidth
             margin="normal"
             required
+            size="small" // Tamaño pequeño
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -74,12 +87,15 @@ const Registro = () => {
                 </InputAdornment>
               ),
             }}
-            sx={{ 
+            InputLabelProps={{
+              shrink: true, // Permite que el label se encoja al escribir
+            }}
+            sx={{
+              height: '50px', // Alto del input
+              width: '361px',
               marginBottom: '24px',
-              height: '50px',
-              width:"362px",
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes más redondeados
+                borderRadius: '25px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo del input
                 color: 'black', // Color del texto
                 '& fieldset': {
@@ -93,29 +109,36 @@ const Registro = () => {
                 },
               },
               '& .MuiInputLabel-root': {
-                color: 'black', // Color del label
+                color: '#666666', // Color del label
+                marginTop: '20px',
+                marginLeft: '30px',
+                fontFamily: 'Poppins',
+                fontSize: '14px',
               },
               '& .MuiInputAdornment-root': {
                 color: 'black', // Color del icono
               },
-            }} 
+            }}
           />
-          <TextField
-            label="ingresar contraseña"
+         <TextField
+            label={isPasswordFocused ? '' : 'Ingresar contraseña'}
             name="password"
             type="password"
             value={form.password}
             onChange={handleChange}
+            onFocus={() => setIsPasswordFocused(true)} // Actualiza el estado al enfocar
+            onBlur={() => setIsPasswordFocused(false)}
             fullWidth
             margin="normal"
             required
+            size="small" // Tamaño pequeño
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
                   <Box
                     sx={{
-                      width: 26,
-                      height: 26,
+                      width: '26px',
+                      height: '26px',
                       borderRadius: '50%',
                       backgroundColor: '#FFD000',
                       display: 'flex',
@@ -128,12 +151,15 @@ const Registro = () => {
                 </InputAdornment>
               ),
             }}
-            sx={{ 
+            InputLabelProps={{
+              shrink: true, // Permite que el label se encoja al escribir
+            }}
+            sx={{
+              height: '50px', // Alto del input
+              width: '361px',
               marginBottom: '24px',
-              height: '50px',
-              width:"362px",
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes más redondeados
+                borderRadius: '25px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo del input
                 color: 'black', // Color del texto
                 '& fieldset': {
@@ -147,29 +173,36 @@ const Registro = () => {
                 },
               },
               '& .MuiInputLabel-root': {
-                color: 'black', // Color del label
+                color: '#666666', // Color del label
+                marginTop: '20px',
+                marginLeft: '30px',
+                fontFamily: 'Poppins',
+                fontSize: '14px',
               },
               '& .MuiInputAdornment-root': {
                 color: 'black', // Color del icono
               },
-            }} 
+            }}
           />
-           <TextField
-            label="repetir contraseña"
-            name="password"
+          <TextField
+            label={isConfirmPasswordFocused ? '' : 'Repetir contraseña'}
+            name="confirmPassword"
             type="password"
-            
+            value={form.confirmPassword}
             onChange={handleChange}
+            onFocus={() => setIsConfirmPasswordFocused(true)} // Actualiza el estado al enfocar
+            onBlur={() => setIsConfirmPasswordFocused(false)}
             fullWidth
             margin="normal"
             required
+            size="small" // Tamaño pequeño
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
                   <Box
                     sx={{
-                      width: 26,
-                      height: 26,
+                      width: '26px',
+                      height: '26px',
                       borderRadius: '50%',
                       backgroundColor: '#FFD000',
                       display: 'flex',
@@ -182,12 +215,15 @@ const Registro = () => {
                 </InputAdornment>
               ),
             }}
-            sx={{ 
+            InputLabelProps={{
+              shrink: true, // Permite que el label se encoja al escribir
+            }}
+            sx={{
+              height: '50px', // Alto del input
+              width: '361px',
               marginBottom: '48px',
-              height: '50px',
-              width:"362px",
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes más redondeados
+                borderRadius: '25px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo del input
                 color: 'black', // Color del texto
                 '& fieldset': {
@@ -201,12 +237,16 @@ const Registro = () => {
                 },
               },
               '& .MuiInputLabel-root': {
-                color: 'black', // Color del label
+                color: '#666666', // Color del label
+                marginTop: '20px',
+                marginLeft: '30px',
+                fontFamily: 'Poppins',
+                fontSize: '14px',
               },
               '& .MuiInputAdornment-root': {
                 color: 'black', // Color del icono
               },
-            }} 
+            }}
           />
       
           {error && <Typography color="error">{error}</Typography>}
@@ -228,14 +268,12 @@ const Registro = () => {
               // Margen inferior
               backgroundColor: '#FFD000', // Color de fondo del botón
               color: 'black', // Color del texto
-              borderRadius: '25px', // Bordes redondeados
+              borderRadius: '30px', // Bordes redondeados
               display: 'block', // Para centrar el botón
-               // M
-               // Margen izquierdo
-              // Ancho del botón ajustado al contenido
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes más redondeados
-              }
+              fontFamily: 'Poppins', // Aplica la fuente Poppins
+              fontSize: '16px', // Tamaño de fuente 16px
+              textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+             
             }}>
             Registrarme
           </Button>
@@ -244,42 +282,63 @@ const Registro = () => {
         <Box 
         sx={{ 
           textAlign: 'center',  
-          marginBottom: '24px' 
+          marginBottom: '24px', 
+          fontFamily: 'Poppins',
+          fontSize: '14px',
            }}>
           <p>O ingresar con</p>
         </Box>
         <Box 
         sx={{ display: 'flex',
          justifyContent: 'center'
-         , marginBottom: '24px'
+         , marginBottom: '24px',
+         
          }}>
           <GoogleLogin1 
            sx={{ 
-             // Margen inferior
             display: 'block', // Para centrar el botón
-             // M
-             mr: 16,
-             backgroundColor: 'yellow', // Color de fondo del botón
-             color: 'black',
-             borderRadius: '20px',
-            width: '300px', // Ancho del botón ajustado al contenido
-            '& .MuiOutlinedInput-root': {
-              borderRadius: '20px', // Bordes más redondeados
-            }
+            backgroundColor: 'yellow', // Color de fondo del botón
+            color: 'black',
+            borderRadius: '20px',
+            width: '300px', // Ancho
           }}  />
            </Box>
 
-<Typography component="h1" gutterBottom  
-
-sx={{ 
-  textAlign: 'center',
-  color: 'white',
-  mt:2,
-  height: '26 px',
-  width:"163px",
-  }}>
-          ¿Ya tenés una cuenta?
-        </Typography>
+           <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            mt: 2,
+            width: '100%',
+          }}
+        >
+          <Typography
+            component="h1"
+            gutterBottom
+            sx={{
+              textAlign: 'center',
+              color: 'white',
+              fontFamily: 'Poppins',
+              fontSize: '14px',
+            }}
+          >
+            ¿Ya tenés una cuenta?
+          </Typography>
+          <Button
+              component={RouterLink}
+              to="/"
+              sx={{
+                color: '#FFD000',
+                textDecoration: 'none',
+                fontFamily: 'Poppins',
+                fontSize: '14px',
+                textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+              }}
+            >
+              Ingresar
+            </Button>
+        </Box>
       </Box>
     </Container>
   );

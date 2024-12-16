@@ -27,13 +27,30 @@ const Calendario = ({ selectedDate, setSelectedDate }) => {
             borderRadius: '25px',
             backgroundColor: 'white',
             color: 'black',
+            
             '& fieldset': { borderColor: 'black' },
             '&:hover fieldset': { borderColor: 'black' },
             '&.Mui-focused fieldset': { borderColor: 'black' },
             '&.Mui-focused': { color: 'black' },
+            fontFamily: 'Poppins', // Aplica la fuente Poppins
+            fontSize: '14px', // Tamaño de fuente 14px
+            color: '#666666', // Color del texto
+            textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
           },
-          '& .MuiInputLabel-root': { color: 'black' },
-          '& .MuiInputAdornment-root': { color: 'black' },
+          '& .MuiInputLabel-root': { 
+            color: 'black',
+            fontFamily: 'Poppins', // Aplica la fuente Poppins
+            fontSize: '14px', // Tamaño de fuente 14px
+            color: '#666666', // Color del texto
+            textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+          },
+          '& .MuiInputAdornment-root': { 
+            color: 'black',
+            fontFamily: 'Poppins', // Aplica la fuente Poppins
+            fontSize: '14px', // Tamaño de fuente 14px
+            color: '#666666', // Color del texto
+            textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+          },
           
         }}
         

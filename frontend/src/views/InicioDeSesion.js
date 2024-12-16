@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { TextField, Button, Container, Typography, Box, InputAdornment } from '@mui/material';
+import { TextField, Button, Container, Typography, Box, InputAdornment, Checkbox,FormControlLabel } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import GoogleLogin1 from '../components/GoogleLogin1';
@@ -16,6 +16,8 @@ const InicioDeSesion = () => {
   const navigate = useNavigate();
   const { setUserEmail } = useContext(UserContext);
   const [isFocused, setIsFocused] = useState(false);
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,22 +40,29 @@ const InicioDeSesion = () => {
   return (
     <Container
     sx={{
-      width:"361px",
-      height:"555px",
-      
-      }}
+      width: { xs: '100%', sm: '360px' }, // Ancho 100% en pantallas pequeñas, 360px en pantallas medianas y grandes
+      height: 'auto',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: { xs: 2, sm: 0 }, // Padding 2 en pantallas pequeñas, 0 en pantallas medianas y grandes
+      marginTop: { xs: 2, sm: 5 }, // Margen superior 2 en pantallas pequeñas, 5 en pantallas medianas y grandes
+    }}
     >
       <Box mt={5}    display="flex"
         flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        textAlign="center">
+        alignItems="flex-start" // Cambiado de 'center' a 'flex-start'
+      justifyContent="flex-start"
+        textAlign="left">
         <Typography variant="h4" component="h1" gutterBottom 
          sx={{ 
           color: 'white',
           width: '361px',
           height: '32px',
           marginBottom: '24px',
+          fontFamily: 'Poppins',
+          fontSize: '24px',
          }}>
           Ingresar a mi cuenta
         </Typography>
@@ -83,7 +92,7 @@ const InicioDeSesion = () => {
             sx={{ 
               height: '50px', // Alto del input
               width: '361px',
-              marginBottom: '24px',
+              
               '& .MuiOutlinedInput-root': {
                 borderRadius: '25px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo del input
@@ -102,8 +111,9 @@ const InicioDeSesion = () => {
                 color: '#666666', // Color del label
                 marginTop: '20px',
                 marginLeft: '30px',
-                width: '114px',
-                height: '18px',
+              
+                fontFamily: 'Poppins',
+                fontSize: '14px',
               },
               '& .MuiInputAdornment-root': {
                 color: 'black', // Color del icono
@@ -111,11 +121,13 @@ const InicioDeSesion = () => {
             }} 
           />
           <TextField
-            label="Ingresar contraseña"
+            label={isPasswordFocused ? '' : 'Ingresar contraseña'}
             name="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onFocus={() => setIsPasswordFocused(true)} // Actualiza el estado al enfocar
+            onBlur={() => setIsPasswordFocused(false)}
             fullWidth
             margin="normal"
             required
@@ -125,8 +137,8 @@ const InicioDeSesion = () => {
                 <InputAdornment position="start">
                   <Box
                     sx={{
-                      width: 26,
-                      height: 26,
+                      width: '25px',
+                      height: '25px',
                       borderRadius: '50%',
                       backgroundColor: '#FFD000',
                       display: 'flex',
@@ -142,7 +154,7 @@ const InicioDeSesion = () => {
             sx={{ 
               height: '50px', // Alto del input
               width: '361px',
-              marginBottom: '48px',
+             
               '& .MuiOutlinedInput-root': {
                 borderRadius: '25px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo del input
@@ -161,46 +173,90 @@ const InicioDeSesion = () => {
                 color: '#666666', // Color del label
                 marginTop: '20px',
                 marginLeft: '30px',
-                width: '114px',
-                height: '18px',
+               
+                fontFamily: 'Poppins',
+                fontSize: '14px',
               },
               '& .MuiInputAdornment-root': {
                 color: 'black', // Color del icono
               },
             }} 
           />
+
+<Box display="flex" justifyContent="space-between" alignItems="center"
+ sx={{ marginBottom: '48px' }}
+>
+  <FormControlLabel
+    control={<Checkbox name="recordarme" color="primary"
+      sx={{ color: 'white',
+        '& .MuiSvgIcon-root': {
+          fontSize: '13px', // Ajusta el tamaño del icono
+        },
+       }}
+      />}
+    label={
+      <span style={{ fontFamily: 'Poppins', fontSize: '12px', color: 'white' }}>
+        Recordarme
+      </span>
+    }
+  />
+  <Link href="#" variant="body2" sx={{ color: 'white',
+   
+   }}>
+   <span style={{ fontFamily: 'Poppins', fontSize: '12px' }}>
+    ¿Olvidaste tu contraseña?
+  </span>
+  </Link>
+</Box>
           {error && <Typography color="error">{error}</Typography>}
           {success && <Typography color="primary">{success}</Typography>}
-          <Box display="flex" justifyContent="center" mb={2}>
+          <Box display="flex" justifyContent="center" >
           <Button
             type="submit"
             variant="contained"
             color="primary"
             size="small" // Tamaño pequeño
             sx={{ 
-              marginBottom: '48px',
-              mt: 2, // Margen superior
+              marginBottom: '44px',
+             
               display: 'block', // Para centrar el botón
               backgroundColor: '#FFD000', // Color de fondo del botón
               color: 'black',
               borderRadius: '20px',
               height: '43px', // Alto del botón
               width: '361px', // Ancho del botón ajustado al contenido
+              fontFamily: 'Poppins', // Aplica la fuente Poppins
+              fontSize: '16px', // Tamaño de fuente 14px  
+              textTransform: 'none',
             }}
           >
             Iniciar Sesión
           </Button>
           </Box>
         </form>
-        <Box sx={{ textAlign: 'center', marginBottom:"24px" }}>
+        <Box sx={{ 
+            textAlign: 'center', // Centra el texto horizontalmente
+            marginBottom: '24px',
+            fontFamily: 'Poppins', // Aplica la fuente Poppins
+            fontSize: '14px', // Tamaño de fuente 14px
+            color: 'white', // Color del texto
+            display: 'flex', // Utiliza flexbox
+            justifyContent: 'center', // Centra el contenido horizontalmente
+            alignItems: 'center', // C
+            width: '100%', // Asegura que el contenedor ocupe todo el ancho disponible
+    height: 'auto', // Ajusta la altura automáticamente
+         }}>
           <p>O ingresar con</p>
         </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom:"24px", mt: 2 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom:"24px" }}>
           <GoogleLogin1 />
         </Box>
         <Box display="flex" alignItems="center" justifyContent="center">
-          <Typography component="h1" sx={{ color: 'white', mr: 2 }}>
-            Todavía no tenés una cuenta
+          <Typography component="h1" sx={{ color: 'white', mr: 2,
+            fontFamily: 'Manrope', // Aplica la fuente Poppins
+            fontSize: '16px', // Tamaño de fuente 14px
+           }}>
+           ¿ Todavía no tenés una cuenta?
           </Typography>
           <Button
             component={Link}
@@ -212,7 +268,11 @@ const InicioDeSesion = () => {
               width: 'auto', // Ajusta el ancho del botón al contenido
               height: 'auto', // Ajusta el alto del botón al contenido
               padding: 0, // Elimina el padding adicional
-              minWidth: 'unset', // Elimina el ancho mínimo predeterminado
+              borderRadius: '25px', // Elimina los bordes redondeados
+             
+              textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+              fontFamily: 'Poppins',
+              fontSize: '16px',
             }}
           >
             Registrarme
