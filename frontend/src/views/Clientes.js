@@ -42,7 +42,8 @@ const Clientes = () => {
 
   return (
     <Container maxWidth="sm"
-    sx={{width:'360px',
+    sx={{
+      width:'360px',
     height:'866px',
     }}>
       <Box mt={5} textAlign="left">
@@ -73,7 +74,7 @@ const Clientes = () => {
               mb: 2,
               
               padding: 2,
-              width: '360px',
+              width: { xs: '330px', sm: '360px' },
               height: '89px',
               backgroundColor: 'white'
             }}>
@@ -88,6 +89,7 @@ const Clientes = () => {
                   fontFamily: 'Poppins', // Aplica la fuente Poppins
                   fontSize: '16px', // Tamaño de fuente 16px
                   color: '#666666', // Cambiar el color del texto a negro
+                  
                 },
               }}
                sx={{
@@ -138,7 +140,7 @@ const Clientes = () => {
     borderRadius: '30px', 
     backgroundColor: '#FFD000',  
     color: 'black', 
-    width: '360px', 
+    width: { xs: '330px', sm: '360px' },
     height: '43px',
     mr: 1, 
     mb: 4,

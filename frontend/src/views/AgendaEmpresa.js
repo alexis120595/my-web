@@ -109,7 +109,7 @@ sx={{ width: '100%', display: 'block', textAlign: 'left' }}
               borderRadius: '15px',
               mb: 2,
               padding: 2,
-              width: '360px',
+              width: { xs: '330px', sm: '360px' },
               height: '83px',
             
               backgroundColor: 'white'

@@ -157,7 +157,7 @@ const AjustesEmpresa = ({  }) => {
      
     }}
   >
-    <Box display="flex" flexDirection="column" alignItems="center" height="100vh" sx={{ mt: 120,
+    <Box display="flex" flexDirection="column" alignItems="center" height="100vh" sx={{ mt: 90,
       width: '360px',
       height: '2505px',
     }}>

@@ -61,12 +61,15 @@ const MiEmpresa = () => {
       };
   return (
     <Container maxWidth="sm"
-    sx={{width:'358px',
+    sx={{
+      width: { xs: '320px', sm: '358px' },
     height:'400px',
+    padding: { xs: '16px', sm: '24px' },
+   
     }}>
       
       {empresaNombre && imagenUrl && (
-        <Box display="flex" alignItems="center" mb={4} ml={6} mt={4}>
+        <Box display="flex" alignItems="center" mb={4}  mt={4}>
           <img
             src={imagenUrl}
             alt="Logo de la empresa"
@@ -95,6 +98,7 @@ const MiEmpresa = () => {
         display: 'grid',
         gridTemplateColumns: 'repeat(2, 1fr)', // 2 columnas
         gap: '24px', // Espacio entre los elementos
+        justifyContent: 'center',
       }}>
         <Button variant="contained" sx={{ 
          

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {  MenuItem, Button, Typography, Box, Dialog, DialogTitle, DialogContent, DialogActions, Collapse, Container} from '@mui/material';
+import {  MenuItem, Button, Typography, Box, Dialog, DialogTitle, DialogContent, DialogActions, Collapse, Container, Grid} from '@mui/material';
 import Calendario from '../components/Calendario';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -361,20 +361,21 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
          maxWidth="sm" // Puedes usar "xs", "sm", "md", "lg", "xl"
          PaperProps={{
            sx: {
-             width: '549px', // Ancho personalizado
-             height: '565px', // Alto personalizado
+            width: { xs: '100%',  }, // Ancho responsivo: 100% en pantallas pequeñas, 549px en pantallas medianas y grandes
+            height: 'auto', // Altura automática
              borderRadius: '20px',
              backgroundColor: '#504D4D',
+             padding: { xs: 2, sm: 3 },
            },
          }}
         >
 
           <Box
     sx={{
-      width: '360px',
-      height: '404px',
+      width: '100%', // Ancho ajustado al 100%
+      height: 'auto',
       margin: '0 auto', // Centrar el contenedor horizontalmente
-      marginTop:'80px',
+      marginTop: { xs: 2, sm: '80px' },
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between', // Distribuye el espacio entre los elementos
@@ -398,18 +399,18 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
               <MenuItem key={servicio.id} value={servicio.id}
                 onClick={() => handleSelectServicio(servicio.id)}
                 sx={{
-                  width: '360px',
-                  height: '83px',
+                  width: { xs: '310px', sm: '360px' },
+                
                   backgroundColor: 'white', 
                   border: '1px solid black',
                   borderRadius: '15px',
                   margin: '5px 0',
                   position: 'relative',
                   marginBottom: '16px',
-                  
                   '&:hover': {
-                    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                    backgroundColor: 'white', // Mantiene el fondo blanco al pasar el cursor
                   },
+               
                 }}
               >
               <Box 
@@ -485,6 +486,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
               fontSize: '16px',
               fontFamily: 'Poppins',
               marginBottom: 2,
+              textTransform: 'none',
               '&:hover': {
                 backgroundColor: '#FFD700', // Fondo amarillo oscuro al pasar el cursor
               },
@@ -558,7 +560,9 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
 }}
           >Seleccionar profesional</DialogTitle>
           <DialogContent>
+          <Grid container spacing={2}>
             {barberosRelacionados.map(barbero => (
+                <Grid item xs={12} sm={6} key={barbero.id}>
               <MenuItem key={barbero.id} value={barbero.id}
                 onClick={() => handleSelectBarbero(barbero.id)}
               
@@ -566,7 +570,9 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
                  
                 <BarberoCard barbero={barbero} />
               </MenuItem>
+              </Grid>
             ))}
+             </Grid>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleCloseBarberoDialog} color="primary"
@@ -574,7 +580,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
               mr:4,
               backgroundColor: '#FFD000', // Fondo amarillo
               borderRadius: '30px', // Bordes redondeados para hacer un círculo
-              width: '357px', // Ancho del botón
+              width: { xs: '320px', sm: '357px' },
               height: '43px', // Alto del botón
               display: 'flex',
               alignItems: 'center',
@@ -663,7 +669,14 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
 }}
           >Seleccionar Horario</DialogTitle>
           <DialogContent
-           sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px',  }}
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: '1fr 1fr', // 2 columnas en pantallas pequeñas
+                sm: '1fr 1fr 1fr' // 3 columnas en pantallas medianas y grandes
+              },
+              gap: '10px',
+            }}
           >
             
             {horarios.map(horario => (
@@ -696,7 +709,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
              
               backgroundColor: '#FFD000', // Fondo amarillo
               borderRadius: '30px', // Bordes redondeados para hacer un círculo
-              width: '358px', // Ancho del botón
+              width: { xs: '310px', sm: '358px' }, // Ancho del botón
               height: '43px', // Alto del botón
               display:'flex',
               fontFamily: 'Poppins',

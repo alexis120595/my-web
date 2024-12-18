@@ -93,8 +93,10 @@ const Personal = () => {
 
   return (
     <Container 
-    sx={{width:'359px',
-    height:'679px',
+    sx={{
+      width: { xs: '320px', sm: '359px' }, // Ancho 320px en pantallas pequeñas, 359px en pantallas medianas y grandes
+      height: 'auto',
+      padding: { xs: '16px', sm: '24px' }
     }}
     >
       <Box mt={5} textAlign="left">

@@ -47,7 +47,8 @@ const CrearSucursal = () => {
 
   return (
     <Container
-    sx={{width:'549px',
+    sx={{
+      width: { xs: '360px', sm: '549px' },
       height:'1040px',
       backgroundColor: '#504D4D', 
       borderRadius: '20px',
@@ -55,6 +56,7 @@ const CrearSucursal = () => {
       justifyContent: 'center',
       alignItems: 'center',
       mb: 5,
+      
     }}
     >
     <Box mt={5} textAlign="center">
@@ -89,7 +91,7 @@ const CrearSucursal = () => {
             mt: 2,
             mb: 5,
             height: '50px',
-            width: '360px',
+            width: { xs: '330px', sm: '360px' },
             '& .MuiOutlinedInput-root': {
               borderRadius: '25px', // Bordes redondeados
               backgroundColor: 'white', // Fondo blanco
@@ -139,7 +141,7 @@ sx={{
           sx={{
            
             mb: 5,
-            width: '360px',
+            width: { xs: '330px', sm: '360px' },
             height: '50px',
             '& .MuiOutlinedInput-root': {
               borderRadius: '25px', // Bordes redondeados
@@ -165,7 +167,7 @@ sx={{
     borderRadius: '30px',
     backgroundColor: '#FFD000',
     color: 'black',
-    width: '360px',
+    width: { xs: '330px', sm: '360px' },
     height: '43px',
     mr: 1,
     mb: 4,

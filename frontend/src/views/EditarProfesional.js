@@ -152,7 +152,7 @@ const EditarProfesional = () => {
    
   }}
 >
-    <Box display="flex" flexDirection="column" alignItems="center"  sx={{ mt: 80,
+    <Box display="flex" flexDirection="column" alignItems="center"  sx={{ mt: 70,
 width: '360px',
 height: '2080px',
 
@@ -162,9 +162,9 @@ height: '2080px',
         sx={{
           fontFamily: 'Poppins',
           fontSize: '24px',
-          mr: 20,
+          mr: 28,
         }}>
-          Editar Profesional
+           Profesional
         </Typography>
         <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
           <Typography variant="body1" align="center" sx={{ mr: 15,

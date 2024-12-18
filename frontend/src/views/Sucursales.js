@@ -94,10 +94,10 @@ const Sucursales = () => {
               border: '1px solid #ccc',
               borderRadius: '15px',
               mb: 2,
-              
+              width: { xs: '330px', sm: '360px' },
               padding: 2,
               height: '83px',
-              width: '360px',
+             
               backgroundColor: 'white'
             }}>
                 
@@ -163,7 +163,7 @@ const Sucursales = () => {
     borderRadius: '30px',
     backgroundColor: '#FFD000',
     color: 'black',
-    width: '360px',
+    width: { xs: '330px', sm: '360px' },
     height: '43px',
     mr: 1,
     mb: 4,

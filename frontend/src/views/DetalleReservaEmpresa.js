@@ -84,16 +84,16 @@ const DetalleReservaEmpresa = () => {
        display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      width: '550px', // Ancho del contenedor
-      height: '673px', // Alto del contenedor
+      width: {xs: '350px', sm:'550px'}, // Ancho del contenedor
+      height: {xs:'400px', sm:'673px'}, // Alto del contenedor
       mt: 10,
       backgroundColor: '#504D4D', // Color de fondo opcional
       borderRadius: '20px', // Bordes redondeados opcionales
       boxShadow: 3, // Sombra opcional}}>
     }}>
       <Card sx={{
-        width: '403px', // Ancho de la tarjeta
-        height: '540px', // Alto de la tarjeta
+        width: { xs: '350px', sm: '403px' }, // Ancho completo en pantallas pequeñas, 403px en pantallas medianas y grandes
+        height: { xs: 'auto', sm: '542px' },
         borderRadius: '15px',
         boxShadow: 3,
         backgroundColor: '#414141',
@@ -192,7 +192,7 @@ const DetalleReservaEmpresa = () => {
   color="primary"
   onClick={() => navigate('/home')}
   sx={{
-    width: '166px',  
+    width: { xs: '140px', sm: '168px' },  
     height: '43px',
     borderRadius: '30px',
     border: '2px solid #FFD000',
@@ -221,7 +221,7 @@ const DetalleReservaEmpresa = () => {
   color="secondary"
   onClick={handleAnularClick}
   sx={{
-    width: '166px',  
+    width: { xs: '140px', sm: '168px' }, 
     height: '43px',
     borderRadius: '30px',
     margin: '10px',

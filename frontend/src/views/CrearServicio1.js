@@ -115,7 +115,7 @@ const CrearServicio1 = () => {
             sx={{ 
               marginBottom: '16px',
               height:"50px",
-              width:"364px",
+              width: { xs: '330px', sm: '361px' },
               '& .MuiOutlinedInput-root': {
                 borderRadius: '25px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo del input
@@ -152,7 +152,7 @@ const CrearServicio1 = () => {
             sx={{ 
               marginBottom: '16px',
               height:"50px",
-              width:"364px",
+              width: { xs: '330px', sm: '361px' },
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo del input
@@ -191,7 +191,7 @@ const CrearServicio1 = () => {
             sx={{ 
               marginBottom: '24px',
               height:"50px",
-              width:"364px",
+              width: { xs: '330px', sm: '361px' },
               '& .MuiOutlinedInput-root': {
                 borderRadius: '20px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo del input
@@ -389,7 +389,7 @@ sx={{
             sx={{ 
               marginBottom: '19px',
               height:"50px",
-              width:"364px",
+              width: { xs: '330px', sm: '361px' },
               '& .MuiOutlinedInput-root': {
                 borderRadius: '25px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo del input
@@ -428,7 +428,7 @@ sx={{
             sx={{ 
               marginBottom: '24px',
               height:"50px",
-              width:"364px",
+              width: { xs: '330px', sm: '361px' },
               '& .MuiOutlinedInput-root': {
                 borderRadius: '25px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo del input

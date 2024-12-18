@@ -64,7 +64,7 @@ const ReservasUsuario = () => {
                   borderRadius: '15px',
                   marginBottom: '16px',
                   padding: 2,
-                  width: '361px',
+                  width: { xs: '100%', sm: '361px' },
                   height: '83px',
                  
                   backgroundColor: 'white',

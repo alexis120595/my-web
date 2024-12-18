@@ -92,7 +92,7 @@ ml: 4
             onChange={(e) => setNombre(e.target.value)}
             sx={{ 
               height:"50px",
-              width:"359px",
+              width: { xs: '330px', sm: '361px' },
               '& .MuiOutlinedInput-root': {
                 borderRadius: '25px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo
@@ -128,7 +128,7 @@ ml: 4
             onChange={(e) => setApellido(e.target.value)}
             sx={{ 
               height:"50px",
-              width:"359px",
+              width: { xs: '330px', sm: '361px' },
               '& .MuiOutlinedInput-root': {
                 borderRadius: '25px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo
@@ -166,7 +166,7 @@ ml: 4
             sx={{ 
               marginBottom:'24px',
               height:"50px",
-              width: "359px",
+              width: { xs: '330px', sm: '361px' },
               '& .MuiOutlinedInput-root': {
                 borderRadius: '25px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo
@@ -210,7 +210,7 @@ ml: 4
               sx={{ 
                 marginBottom:'24px',
                 height:"50px",
-                width: "359px",
+                width: { xs: '330px', sm: '361px' },
                 borderRadius: '25px', // Bordes más redondeados
                 backgroundColor: 'white', // Color de fondo
                 '& .MuiOutlinedInput-root': {
@@ -255,7 +255,7 @@ ml: 4
             display: 'block', // Para centrar el botón
            
              height:"50px",
-             width: "359px",
+             width: { xs: '330px', sm: '361px' },
             '& .MuiOutlinedInput-root': {
             
             }

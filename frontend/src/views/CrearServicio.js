@@ -72,11 +72,12 @@ const CrearServicio = () => {
   return (
     <Box
     sx={{
-     
+      width: '100%',
+      padding: { xs: '16px', sm: '24px' },
     }}
   >
      <Box display="flex" justifyContent="center"  >
-        <Typography sx={{ marginTop: '40px', fontSize: '2rem', marginRight:'190px',
+        <Typography sx={{ marginTop: '40px',  marginRight:'190px',
 fontFamily:'Popins', fontSize:'24px',
 marginBottom:'24px',
         }}>
@@ -314,7 +315,7 @@ marginBottom:'24px',
       fontFamily: 'Poppins',
       marginBottom: '8px',
       // Otros estilos para el título
-      marginRight:'190px',
+      marginRight: { xs: '185px', sm: '190px' },
     }}
   >
     Horarios de atención
@@ -324,15 +325,38 @@ marginBottom:'24px',
       fontSize: '14px',
       fontFamily: 'Poppins',
       color: 'white',
-      textAlign: 'center',
-      whiteSpace: 'pre-line',
-      marginBottom: '24px',
-      // Otros estilos para el texto
-      marginRight:'130px',
-      
+      textAlign: 'left', // Alinea el texto a la izquierda
+      marginBottom: '8px',
+      marginRight: { xs: '130px', sm: '140px' }, // Sin margen en pantallas pequeñas, margen en pantallas grandes
     }}
   >
-    {'Utilizá el botón “todos” para aplicar el\nmismo horario a todos los items. Y el botón \nmás para agregar otro rango horario.'}
+    Utilizá el botón “todos” para aplicar el 
+
+  </Typography>
+
+  <Typography
+    sx={{
+      fontSize: '14px',
+      fontFamily: 'Poppins',
+      color: 'white',
+      textAlign: 'left', // Alinea el texto a la izquierda
+      marginBottom: '8px',
+      marginRight: { xs: '140px', sm: '145px' }, // Sin margen en pantallas pequeñas, margen en pantallas grandes
+    }}
+  >
+   mismo horario a todos los items.  Y el
+  </Typography>
+  <Typography
+    sx={{
+      fontSize: '14px',
+      fontFamily: 'Poppins',
+      color: 'white',
+      textAlign: 'left', // Alinea el texto a la izquierda
+      marginBottom: '24px',
+      marginRight: { xs: '135px', sm: '110px' }, // Sin margen en pantallas pequeñas, margen en pantallas grandes
+    }}
+  >
+    botón más para agregar otro rango horario.
   </Typography>
 </Box>
         <Box display="flex" justifyContent="center" mb={2}>

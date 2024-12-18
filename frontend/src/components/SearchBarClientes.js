@@ -27,10 +27,10 @@ function SearchBarClientes({ onSearch }) {
         onChange={handleInputChange}
         placeholder="Buscar cliente"
         InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
+          startAdornment: (
+            <InputAdornment position="start">
               <IconButton onClick={handleSearch}>
-                <SearchIcon />
+                <SearchIcon sx={{ width: '18px', height: '18px' }} />
               </IconButton>
             </InputAdornment>
           ),

@@ -92,8 +92,10 @@ const Detalle = () => {
           borderRadius: '20px',
         }}
       >
-        <Card sx={{ width: '403px',
-          height: '542px', borderRadius: '15px', boxShadow: 3, backgroundColor: '#414141' }}>
+        <Card sx={{ 
+            width: { xs: '350px', sm: '403px' }, // Ancho completo en pantallas pequeñas, 403px en pantallas medianas y grandes
+            height: { xs: 'auto', sm: '542px' },
+          borderRadius: '15px', boxShadow: 3, backgroundColor: '#414141' }}>
           <CardContent>
             <Typography variant="h5" component="div"
             sx={{ color: 'white', fontFamily:'Poppins', fontSize:'24px', marginTop: '24px', marginBottom: '24px' }}
@@ -137,7 +139,8 @@ const Detalle = () => {
             sx={{
               fontFamily:'Poppins',
               fontSize:'14px',
-              width: '168px',
+              textTransform: 'none',
+              width: { xs: '140px', sm: '168px' },
               height: '43px',
               borderRadius: '30px',
               margin: '10px',
@@ -159,7 +162,7 @@ const Detalle = () => {
             color="secondary"
             onClick={handleAnularClick}
             sx={{
-              width: '168px',
+              width: { xs: '140px', sm: '168px' },
               height: '43px',
               borderRadius: '30px',
               margin: '10px',
@@ -167,6 +170,7 @@ const Detalle = () => {
               color: 'white',
               fontFamily:'Poppins',
               fontSize:'16px',
+              textTransform: 'none',
              
               '&:hover': {
                 backgroundColor: 'red', // Cambiar el color de fondo al pasar el cursor
@@ -209,11 +213,11 @@ const Detalle = () => {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleCloseDialog} color="primary"
-             sx={{ color: '#666666', fontFamily: 'Poppins', fontSize: '14px', marginBottom:'13px' }}>
+             sx={{ color: '#666666', fontFamily: 'Poppins', fontSize: '14px',  textTransform: 'none', marginBottom:'13px' }}>
               Cancelar
             </Button>
             <Button onClick={handleCancelClick} 
-             sx={{ color: '#EB2424', fontFamily: 'Poppins', fontSize: '14px', marginBottom: '13px', marginRight: '30px' }}
+             sx={{ color: '#EB2424', fontFamily: 'Poppins', fontSize: '14px',  textTransform: 'none', marginBottom: '13px', marginRight: '30px' }}
             >
               Anular
             </Button>

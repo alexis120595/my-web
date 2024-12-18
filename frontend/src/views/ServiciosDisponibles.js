@@ -103,7 +103,7 @@ const ServiciosDisponibles = () => {
                       borderRadius: '15px',
                       mb: 2,
                      
-                      width: '361px',
+                      width: { xs: '330px', sm: '361px' },
                       height: '83px',
                       backgroundColor: 'white',
                     }}

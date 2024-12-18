@@ -27,10 +27,10 @@ function SearchBarSucursales({ onSearch }) {
         onChange={handleInputChange}
         placeholder="Buscar sucursal"
         InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
+          startAdornment: (
+            <InputAdornment position="start">
               <IconButton onClick={handleSearch}>
-                <SearchIcon />
+                <SearchIcon sx={{ width: '18px', height: '18px' }} />
               </IconButton>
             </InputAdornment>
           ),
