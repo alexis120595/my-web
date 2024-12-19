@@ -21,15 +21,44 @@ const ReservasUsuario = () => {
   const fetchReservasUsuario = async (userId) => {
     try {
       const response = await axios.get(`http://localhost:8000/reservas/usuario/${userId}`);
-      setReservas(response.data);
+      const reservasActualizadas = await Promise.all(response.data.map(async (reserva) => {
+        const reservaFechaHora = new Date(`${reserva.fecha}T${reserva.horario.hora}`);
+        if (reserva.estado !== 'Cancelada' && reservaFechaHora < new Date()) {
+          await actualizarEstadoReserva(reserva.id, 'Realizada');
+          return { ...reserva, estado: 'Realizada' };
+        }
+        return reserva;
+      }));
+      setReservas(reservasActualizadas);
     } catch (error) {
       setError('Error al obtener las reservas del usuario');
       console.error('Error fetching user reservations:', error);
     }
   };
 
+  const actualizarEstadoReserva = async (reservaId, estado) => {
+    try {
+      await axios.put(`http://localhost:8000/reservas/${reservaId}/realizar`, { estado });
+    } catch (error) {
+      console.error('Error updating reservation status:', error);
+    }
+  };
+
   const handleReservaClick = (reservaId) => {
     navigate(`/detalle/${reservaId}`);
+  };
+
+  const getColorByEstado = (estado) => {
+    switch (estado) {
+      case 'Pendiente':
+        return '#CDFFAE'; // Verde claro
+      case 'Cancelada':
+        return '#FF8272'; // Rojo claro
+      case 'Realizada':
+        return '#666666'; // Gris oscuro
+      default:
+        return '#CDFFAE'; // Color por defecto
+    }
   };
 
   return (
@@ -71,6 +100,7 @@ const ReservasUsuario = () => {
                 }}
               >
                 <Box display="flex" justifyContent="space-between" width="100%">
+
                   <ListItemText
                     primary={` ${reserva.servicio.nombre || 'N/A'}  ${reserva.servicio.duracion || 'N/A'}`}
                     secondary={`$ ${reserva.servicio.precio || 'N/A'}`} 
@@ -98,7 +128,7 @@ const ReservasUsuario = () => {
                       width: 104,
                       height: 47,
                       borderRadius: '15px',
-                      backgroundColor: '#CDFFAE',
+                      backgroundColor: getColorByEstado(reserva.estado), // Color dinámico
                       color: 'white',
                      
                     }}

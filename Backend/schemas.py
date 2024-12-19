@@ -5,6 +5,7 @@ from typing import Optional
 from typing import Dict
 
 
+
 class Empresa(BaseModel):
     id: int
     nombre: str
@@ -154,6 +155,9 @@ class Config:
         orm_mode = True
 
 
+
+
+
 class ReservaCreate(BaseModel):
     
     fecha: date
@@ -162,6 +166,7 @@ class ReservaCreate(BaseModel):
     horario_id: int
     user_id: int
     empresa_id: int
+    estado: Optional[str] = 'Pendiente'
 
 
 class Reservas(BaseModel):
@@ -171,7 +176,8 @@ class Reservas(BaseModel):
     barbero: Barbero
     horario: Horarios
     usuario: Registro
-    empresa: Empresa    
+    empresa: Empresa  
+    estado: str
 
 class Config:
      orm_mode = True

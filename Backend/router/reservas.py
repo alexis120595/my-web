@@ -8,6 +8,7 @@ from typing import List
 from Backend.email_utils import enviar_email
 
 
+
 router = APIRouter()
 
 @router.post("/reservas", response_model=Reservas)
@@ -65,15 +66,42 @@ def get_reservas_by_fecha(fecha: date = Query(...), db: Session = Depends(get_db
 
 
 @router.delete("/reservas/{reserva_id}")
-def delete_reserva(reserva_id: int, db: Session = Depends(get_db)):
+def delete_reserva(
+    reserva_id: int, 
+    background_tasks: BackgroundTasks, 
+    db: Session = Depends(get_db)
+):
     db_reserva = db.query(db_models.Reservas).filter(db_models.Reservas.id == reserva_id).first()
     
     if db_reserva is None:
-        raise HTTPException(status_code=404, detail="Reserva not found")
+        raise HTTPException(status_code=404, detail="Reserva no encontrada")
     
+    # Obtener información del usuario
+    usuario = db.query(db_models.Registro).filter(db_models.Registro.id == db_reserva.user_id).first()
+    if not usuario:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+    
+    # Obtener información del horario
+    horario = db.query(db_models.Horarios).filter(db_models.Horarios.id == db_reserva.horario_id).first()
+    if not horario:
+        raise HTTPException(status_code=404, detail="Horario no encontrado")
+    
+    # Eliminar la reserva
     db.delete(db_reserva)
     db.commit()
-    return {"message": "Reserva deleted successfully"}
+    
+    # Preparar el contenido del correo electrónico
+    asunto = 'Cancelación de Reserva'
+    html_contenido = f"""
+    <h1>Hola {usuario.email}</h1>
+    <p>Lamentamos informarte que tu reserva para el día {db_reserva.fecha} a las {horario.hora} ha sido cancelada.</p>
+    <p>Por favor, contáctanos si deseas reprogramar tu cita.</p>
+    """
+    
+    # Enviar el correo electrónico en segundo plano
+    background_tasks.add_task(enviar_email, usuario.email, asunto, html_contenido)
+    
+    return {"message": "Reserva eliminada correctamente y se ha notificado al cliente"}
 
 
 @router.get("/reservas")
@@ -149,6 +177,48 @@ def get_reservas_by_user_id(user_id: int, db: Session = Depends(get_db)):
     
     return reservas
 
+
+@router.put("/reservas/{reserva_id}/cancelar")
+def cancelar_reserva(
+    reserva_id: int,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db)
+):
+    db_reserva = db.query(db_models.Reservas).filter(db_models.Reservas.id == reserva_id).first()
+    if not db_reserva:
+        raise HTTPException(status_code=404, detail="Reserva no encontrada")
+
+    db_reserva.estado = "Cancelada"
+    db.commit()
+    db.refresh(db_reserva)
+
+    # Opcional: Enviar correo electrónico notificando la cancelación
+    usuario = db.query(db_models.Registro).filter(db_models.Registro.id == db_reserva.user_id).first()
+    if usuario:
+        asunto = 'Reserva Cancelada'
+        html_contenido = f"""
+        <h1>Hola {usuario.email}</h1>
+        <p>Tu reserva para el día {db_reserva.fecha} ha sido cancelada.</p>
+        """
+        background_tasks.add_task(enviar_email, usuario.email, asunto, html_contenido)
+
+    return {"mensaje": "Reserva cancelada exitosamente"}
+
+
+@router.put("/reservas/{reserva_id}/realizar")
+def realizar_reserva(
+    reserva_id: int,
+    db: Session = Depends(get_db)
+):
+    db_reserva = db.query(db_models.Reservas).filter(db_models.Reservas.id == reserva_id).first()
+    if not db_reserva:
+        raise HTTPException(status_code=404, detail="Reserva no encontrada")
+
+    db_reserva.estado = "Realizada"
+    db.commit()
+    db.refresh(db_reserva)
+
+    return {"mensaje": "Reserva marcada como realizada"}
 
 
 

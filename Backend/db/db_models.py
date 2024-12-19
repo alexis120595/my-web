@@ -1,7 +1,8 @@
 from Backend.db.database import Base
-from sqlalchemy import Column, Integer, String, Boolean, Date, JSON, Table
+from sqlalchemy import Column, Integer, String, Boolean, Date, JSON, Table, Enum
 from sqlalchemy.schema import ForeignKey
 from sqlalchemy.orm import relationship
+import enum
 
 
 servicio_barbero = Table(
@@ -100,6 +101,11 @@ class Horarios(Base):
     barbero_id = Column(Integer, ForeignKey("barberos.id", ondelete="CASCADE"))
     empresa_id = Column(Integer, ForeignKey('empresa.id', ondelete='CASCADE'))
     reservas = relationship("Reservas", back_populates="horario")
+
+class EstadoReserva(enum.Enum):
+    pendiente = "Pendiente"
+    cancelada = "Cancelada"
+    realizada = "Realizada"
     
 class Reservas(Base):
 
@@ -112,7 +118,7 @@ class Reservas(Base):
     horario_id = Column(Integer, ForeignKey("horarios.id", ondelete="CASCADE"))
     user_id = Column(Integer, ForeignKey("registro.id", ondelete="CASCADE"))  # Nueva columna para la relación con usuarios
     empresa_id = Column(Integer, ForeignKey("empresa.id", ondelete="CASCADE"))
-
+    estado = Column(String, default='Pendiente')
     servicio = relationship("Servicio", back_populates="reservas")
     barbero = relationship("Barbero", back_populates="reservas")
     horario = relationship("Horarios", back_populates="reservas")

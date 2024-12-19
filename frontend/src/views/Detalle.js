@@ -38,18 +38,18 @@ const Detalle = () => {
 
   const handleCancelClick = async () => {
     try {
-      // Llamada a la API para eliminar la reserva
-      await axios.delete(`http://127.0.0.1:8000/reservas/${reservas.id}`);
-      // Navegar a la página de inicio después de cancelar la reserva
-      setSuccessMessage('Reserva eliminada de forma exitosa');
-      // Redirigir a la página de inicio después de 2 segundos
+      // Llamada a la API para cancelar la reserva (actualizar estado a "Cancelada")
+      await axios.put(`http://127.0.0.1:8000/reservas/${id}/cancelar`);
+      // Mostrar mensaje de éxito
+      setSuccessMessage('Reserva cancelada de forma exitosa');
+      // Cerrar el diálogo
       setOpenDialog(false);
+      // Redirigir a la página de inicio después de 2 segundos
       setTimeout(() => {
         navigate('/home');
       }, 2000);
     } catch (error) {
-      console.error('Error al cancelar la reserva:', error);
-      setError('Error al cancelar la reserva');
+      console.error('Error canceling reservation:', error);
     }
   };
 
