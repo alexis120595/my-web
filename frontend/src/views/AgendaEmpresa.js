@@ -74,7 +74,7 @@ const AgendaEmpresa = () => {
     }}
    
     >
-      <Box mt={5} textAlign="left">
+      <Box  textAlign="left">
         <Typography variant="h4" gutterBottom  
         sx={{
           fontFamily: 'Poppins',
@@ -150,34 +150,41 @@ sx={{ width: '100%', display: 'block', textAlign: 'left' }}
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
+                    flexDirection="column"
                   sx={{
                     width: '104px',
                     height: '47px',
                     borderRadius: '15px',
                     backgroundColor: '#CDFFAE',
                     color: 'white',
+                    mb: -20,
+                    mt: -2,
+                   
+                    
+
                   
                   }}
                 >
               <Typography
-          variant="body2"
+         
           sx={{
             fontFamily: 'Poppins', // Aplica la fuente Poppins
             fontSize: '14px', // Tamaño de fuente 14px
             color: '#3A3A3A', // Cambiar el color del texto a #3A3A3A
+            
           }}
         >
           {reservas.fecha}
         </Typography>
         <Typography
-          variant="body2"
+          
           sx={{
             fontFamily: 'Poppins', // Aplica la fuente Poppins
             fontSize: '14px', // Tamaño de fuente 14px
             color: '#3A3A3A', // Cambiar el color del texto a #3A3A3A
           }}
         >
-          {reservas.hora}
+          {reservas.horario.hora}
         </Typography>
                 </Box>
               </Box>

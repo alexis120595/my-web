@@ -76,148 +76,236 @@ const Detalle = () => {
       sx={{
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center',
-        
+        alignItems: 'flex-start', // Alinear al inicio verticalmente
+        width: '100vw',
+        minHeight: '100vh', // Usar minHeight en lugar de height
+        padding: { xs: 2, sm: 4 }, // Padding responsivo
+       
       }}
     >
       <Box
         sx={{
-          width: '549px',
-          height: '673px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
+          width: { xs: '100%', sm: '550px' }, // Ancho responsivo
+          height: { xs: 'auto', sm: '673px' },
           backgroundColor: '#504D4D',
           borderRadius: '20px',
+          boxShadow: 3,
+          padding: { xs: 2, sm: 4 }, // Padding interno responsivo
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
       >
-        <Card sx={{ 
-            width: { xs: '350px', sm: '403px' }, // Ancho completo en pantallas pequeñas, 403px en pantallas medianas y grandes
-            height: { xs: 'auto', sm: '542px' },
-          borderRadius: '15px', boxShadow: 3, backgroundColor: '#414141' }}>
+        <Card sx={{
+          width: { xs: '100%', sm: '403px' }, // Ancho responsivo: 100% en pantallas pequeñas, 403px en pantallas medianas y grandes
+          height: { xs: 'auto', sm: '542px' },
+          borderRadius: '15px',
+          boxShadow: 3,
+          backgroundColor: '#414141',
+          padding: 2,
+        }}>
           <CardContent>
             <Typography variant="h5" component="div"
-            sx={{ color: 'white', fontFamily:'Poppins', fontSize:'24px', marginTop: '24px', marginBottom: '24px' }}
+              sx={{
+                color: 'white',
+                fontFamily: 'Poppins',
+                fontSize: '24px',
+                marginTop: '24px',
+                marginBottom: '24px',
+                textAlign: 'center', // Centrar el título
+              }}
             >
               Mi turno reservado
             </Typography>
             {reservas ? (
-  <>
-    <Typography sx={{ mb: 1.5, color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
-      <strong>Empresa:</strong> {reservas.empresa}
-    </Typography>
-    <Typography sx={{ mb: 1.5, color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
-      <strong>Dirección:</strong> {reservas.ubicacion}
-    </Typography>
-    <Typography sx={{ mb: 1.5, color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
-      <strong>Servicio:</strong> {reservas.servicio}
-    </Typography>
-    <Typography sx={{ mb: 1.5, color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
-      <strong>Precio:</strong> ${reservas.precio}
-    </Typography>
-    <Typography sx={{ mb: 1.5, color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
-      <strong>Barbero:</strong> {reservas.barbero}
-    </Typography>
-    <Typography sx={{ mb: 1.5, color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
-      <strong>Fecha:</strong> {reservas.fecha}
-    </Typography>
-    <Typography sx={{ marginBottom: '32px', color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
-      <strong>Hora:</strong> {reservas.horario}
-    </Typography>
-  </>
-) : (
-  <Typography sx={{ mb: 1.5, color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
-    No se encontró la reserva.
-  </Typography>
-)}
+              <>
+                {/* Empresa */}
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5, width: '100%' }}>
+                  <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
+                    <strong>Empresa:</strong>
+                  </Typography>
+                  <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px', textAlign: 'right' }}>
+                    {reservas.empresa}
+                  </Typography>
+                </Box>
+
+                {/* Dirección */}
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5, width: '100%' }}>
+                  <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
+                    <strong>Dirección:</strong>
+                  </Typography>
+                  <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px', textAlign: 'right' }}>
+                    {reservas.ubicacion}
+                  </Typography>
+                </Box>
+
+                {/* Servicio */}
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5, width: '100%' }}>
+                  <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
+                    <strong>Servicio:</strong>
+                  </Typography>
+                  <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px', textAlign: 'right' }}>
+                    {reservas.servicio}
+                  </Typography>
+                </Box>
+
+                {/* Precio */}
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5, width: '100%' }}>
+                  <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
+                    <strong>Precio:</strong>
+                  </Typography>
+                  <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px', textAlign: 'right' }}>
+                    ${reservas.precio}
+                  </Typography>
+                </Box>
+
+                {/* Barbero */}
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5, width: '100%' }}>
+                  <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
+                    <strong>Barbero:</strong>
+                  </Typography>
+                  <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px', textAlign: 'right' }}>
+                    {reservas.barbero}
+                  </Typography>
+                </Box>
+
+                {/* Fecha */}
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5, width: '100%' }}>
+                  <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
+                    <strong>Fecha:</strong>
+                  </Typography>
+                  <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px', textAlign: 'right' }}>
+                    {reservas.fecha}
+                  </Typography>
+                </Box>
+
+                {/* Hora */}
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3, width: '100%' }}>
+                  <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
+                    <strong>Hora:</strong>
+                  </Typography>
+                  <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px', textAlign: 'right' }}>
+                    {reservas.horario}
+                  </Typography>
+                </Box>
+              </>
+            ) : (
+              <Typography sx={{ mb: 1.5, color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
+                No se encontró la reserva.
+              </Typography>
+            )}
           </CardContent>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => navigate('/home')}
-            sx={{
-              fontFamily:'Poppins',
-              fontSize:'14px',
-              textTransform: 'none',
-              width: { xs: '140px', sm: '168px' },
-              height: '43px',
-              borderRadius: '30px',
-              margin: '10px',
-              backgroundColor: '#414141',
-              color: 'white',
-              borderColor: 'white',
-              border: '2px solid white', // Añadir borde blanco
-              '&:hover': {
-                backgroundColor: '#414141', // Cambiar el color de fondo al pasar el cursor
-                borderColor: 'white', // Mantener el borde blanco al pasar el cursor
-              },
-            }}
-          >
-            Editar
-          </Button>
-  
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={handleAnularClick}
-            sx={{
-              width: { xs: '140px', sm: '168px' },
-              height: '43px',
-              borderRadius: '30px',
-              margin: '10px',
-              backgroundColor: '#FF8272',
-              color: 'white',
-              fontFamily:'Poppins',
-              fontSize:'16px',
-              textTransform: 'none',
-             
-              '&:hover': {
-                backgroundColor: 'red', // Cambiar el color de fondo al pasar el cursor
-                borderColor: 'white', // Mantener el borde blanco al pasar el cursor
-              },
-            }}
-          >
-            Anular
-          </Button>
+
+          {/* Botones */}
+          <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', marginTop: 2 }}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => navigate('/home')}
+              sx={{
+                fontFamily: 'Poppins',
+                fontSize: '14px',
+                textTransform: 'none',
+                width: { xs: '140px', sm: '168px' },
+                height: '43px',
+                borderRadius: '30px',
+                margin: '10px',
+                backgroundColor: '#414141',
+                color: 'white',
+                border: '2px solid white', // Añadir borde blanco
+                '&:hover': {
+                  backgroundColor: '#414141', // Mantener el fondo al hacer hover
+                  borderColor: 'white',
+                },
+              }}
+            >
+              Editar
+            </Button>
+
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={handleAnularClick}
+              sx={{
+                fontFamily: 'Poppins',
+                fontSize: '16px',
+                textTransform: 'none',
+                width: { xs: '140px', sm: '168px' },
+                height: '43px',
+                borderRadius: '30px',
+                margin: '10px',
+                backgroundColor: '#FF8272',
+                color: 'white',
+                '&:hover': {
+                  backgroundColor: 'red', // Cambiar al hover
+                  borderColor: 'white',
+                },
+              }}
+            >
+              Anular
+            </Button>
+          </Box>
         </Card>
-  
+
+        {/* Snackbar */}
         <Snackbar
           open={!!successMessage}
           autoHideDuration={2000}
           onClose={() => setSuccessMessage('')}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         >
           <Alert onClose={() => setSuccessMessage('')} severity="success" sx={{ width: '100%' }}>
             {successMessage}
           </Alert>
         </Snackbar>
-  
-        <Dialog open={openDialog} onClose={handleCloseDialog}
-        
-        PaperProps={{
-          sx: {
-            width: '321px', // Ancho personalizado
-            height: '240px', // Alto personalizado
-            borderRadius: '28px', // Bordes redondeados
-          },
-        }}>
+
+        {/* Dialog para Confirmar Anulación */}
+        <Dialog
+          open={openDialog}
+          onClose={handleCloseDialog}
+          PaperProps={{
+            sx: {
+              width: '321px', // Ancho personalizado
+              height: '240px', // Alto personalizado
+              borderRadius: '28px', // Bordes redondeados
+            },
+          }}
+        >
           <DialogTitle
-          sx={{ color: '#1D1B20', fontFamily: 'Poppins', fontSize: '24px' }}
-          >Anular turno</DialogTitle>
+            sx={{ color: '#1D1B20', fontFamily: 'Poppins', fontSize: '24px' }}
+          >
+            Anular turno
+          </DialogTitle>
           <DialogContent sx={{ width: '250px' }}>
             <DialogContentText
-            sx={{ color: '#49454F', fontFamily: 'Poppins', fontSize: '14px' }}
+              sx={{ color: '#49454F', fontFamily: 'Poppins', fontSize: '14px' }}
             >
               Estás a punto de anular el turno, una vez anulado no podrás recuperarlo. ¿Estás seguro que deseas anular el turno?
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseDialog} color="primary"
-             sx={{ color: '#666666', fontFamily: 'Poppins', fontSize: '14px',  textTransform: 'none', marginBottom:'13px' }}>
+            <Button
+              onClick={handleCloseDialog}
+              sx={{
+                color: '#666666',
+                fontFamily: 'Poppins',
+                fontSize: '14px',
+                textTransform: 'none',
+                marginBottom: '13px',
+              }}
+            >
               Cancelar
             </Button>
-            <Button onClick={handleCancelClick} 
-             sx={{ color: '#EB2424', fontFamily: 'Poppins', fontSize: '14px',  textTransform: 'none', marginBottom: '13px', marginRight: '30px' }}
+            <Button
+              onClick={handleCancelClick}
+              sx={{
+                color: '#EB2424',
+                fontFamily: 'Poppins',
+                fontSize: '14px',
+                textTransform: 'none',
+                marginBottom: '13px',
+                marginRight: '30px',
+              }}
             >
               Anular
             </Button>
@@ -227,7 +315,6 @@ const Detalle = () => {
     </Box>
   );
 }
-
 export default Detalle;
 
 

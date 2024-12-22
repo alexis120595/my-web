@@ -560,9 +560,9 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
 }}
           >Seleccionar profesional</DialogTitle>
           <DialogContent>
-          <Grid container spacing={2}>
+         
             {barberosRelacionados.map(barbero => (
-                <Grid item xs={12} sm={6} key={barbero.id}>
+               
               <MenuItem key={barbero.id} value={barbero.id}
                 onClick={() => handleSelectBarbero(barbero.id)}
               
@@ -570,9 +570,8 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
                  
                 <BarberoCard barbero={barbero} />
               </MenuItem>
-              </Grid>
             ))}
-             </Grid>
+             
           </DialogContent>
           <DialogActions>
             <Button onClick={handleCloseBarberoDialog} color="primary"
