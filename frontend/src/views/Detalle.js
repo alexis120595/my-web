@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, CardContent, Typography, CircularProgress, Box, Button, Snackbar,Alert, Dialog, DialogActions,DialogContent, DialogContentText, DialogTitle} from '@mui/material';
 import { useNavigate, useParams} from 'react-router-dom';
+import BusinessIcon from '@mui/icons-material/Business';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import PersonIcon from '@mui/icons-material/Person';
+import EventIcon from '@mui/icons-material/Event';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 const Detalle = () => {
   const { id } = useParams();
@@ -77,8 +84,8 @@ const Detalle = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'flex-start', // Alinear al inicio verticalmente
-        width: '100vw',
-        minHeight: '100vh', // Usar minHeight en lugar de height
+        width: '100%',
+        minHeight: '100%', // Usar minHeight en lugar de height
         padding: { xs: 2, sm: 4 }, // Padding responsivo
        
       }}
@@ -121,9 +128,12 @@ const Detalle = () => {
               <>
                 {/* Empresa */}
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5, width: '100%' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <BusinessIcon sx={{ color: 'white', mr: 1 }} />
                   <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
                     <strong>Empresa:</strong>
                   </Typography>
+                  </Box>
                   <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px', textAlign: 'right' }}>
                     {reservas.empresa}
                   </Typography>
@@ -131,9 +141,12 @@ const Detalle = () => {
 
                 {/* Dirección */}
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5, width: '100%' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <LocationOnIcon sx={{ color: 'white', mr: 1 }} />
                   <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
                     <strong>Dirección:</strong>
                   </Typography>
+                  </Box>
                   <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px', textAlign: 'right' }}>
                     {reservas.ubicacion}
                   </Typography>
@@ -141,9 +154,12 @@ const Detalle = () => {
 
                 {/* Servicio */}
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5, width: '100%' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <NotificationsIcon sx={{ color: 'white', mr: 1 }} />
                   <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
                     <strong>Servicio:</strong>
                   </Typography>
+                  </Box>
                   <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px', textAlign: 'right' }}>
                     {reservas.servicio}
                   </Typography>
@@ -151,9 +167,12 @@ const Detalle = () => {
 
                 {/* Precio */}
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5, width: '100%' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <MonetizationOnIcon sx={{ color: 'white', mr: 1 }} />
                   <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
                     <strong>Precio:</strong>
                   </Typography>
+                  </Box>
                   <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px', textAlign: 'right' }}>
                     ${reservas.precio}
                   </Typography>
@@ -161,9 +180,12 @@ const Detalle = () => {
 
                 {/* Barbero */}
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5, width: '100%' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <PersonIcon sx={{ color: 'white', mr: 1 }} />
                   <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
                     <strong>Barbero:</strong>
                   </Typography>
+                  </Box>
                   <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px', textAlign: 'right' }}>
                     {reservas.barbero}
                   </Typography>
@@ -171,9 +193,12 @@ const Detalle = () => {
 
                 {/* Fecha */}
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5, width: '100%' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <EventIcon sx={{ color: 'white', mr: 1 }} />
                   <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
                     <strong>Fecha:</strong>
                   </Typography>
+                  </Box>
                   <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px', textAlign: 'right' }}>
                     {reservas.fecha}
                   </Typography>
@@ -181,9 +206,12 @@ const Detalle = () => {
 
                 {/* Hora */}
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3, width: '100%' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <AccessTimeIcon sx={{ color: 'white', mr: 1 }} />
                   <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
                     <strong>Hora:</strong>
                   </Typography>
+                  </Box>
                   <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px', textAlign: 'right' }}>
                     {reservas.horario}
                   </Typography>

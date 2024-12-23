@@ -29,11 +29,13 @@ import EditarServicio from './views/EditarServicio';
 import EditarSucursal from './views/EditarSucursal';
 import ReservaExitosa from './views/ReservaExitosa';
 import ReservasUsuario from './views/ReservasUsuario';
+import Layout from './components/Layout';
 function App () {
   return (
     
     <div>
       <Header />
+      <Layout>
       <Routes>
       
         <Route path="/home" element={<Home />} />
@@ -72,6 +74,7 @@ function App () {
         {/* Agrega más rutas según sea necesario */}
         
       </Routes>
+      </Layout>
     </div>
   
 );
