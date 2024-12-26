@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Typography, Box, TextField, Button, FormControl, InputLabel, Select, MenuItem, Checkbox, FormControlLabel, IconButton, Switch} from '@mui/material';
-
+import HorariosEmpleado from '../components/HorariosEmpleado';
 import SearchBar from '../components/SearchBar';
 import axios from 'axios';
 import EditIcon from '@mui/icons-material/Edit';
@@ -430,70 +430,9 @@ height: '2080px',
             </Typography>
             
           
+             <HorariosEmpleado  onHorariosChange={handleHorariosChange} />
 
-{diasSemana.map((dia, index) => (
-  <Box key={index} display="flex" justifyContent="center" alignItems="center" sx={{ mt: 1, ml: 5 }}>
-    <Box display="flex" flexDirection="column" alignItems="center" sx={{ mr: 13 }}>
-      <Typography variant="body1" sx={{ mr:15,
-         fontFamily: 'Poppins', // Aplica la fuente Poppins
-         fontSize: '14px',
-      }}>
-        {dia}
-      </Typography>
-      <Switch
-  checked={diasActivos[dia]}
-  onChange={() => setDiasActivos({ ...diasActivos, [dia]: !diasActivos[dia] })}
-  sx={{
-    mr: 15,
-    '& .MuiSwitch-switchBase.Mui-checked': {
-      color: 'white', // Color del ícono del switch cuando está activo
-      '&:hover': {
-        backgroundColor: 'rgba(96, 214, 105, 0.08)', // Color de fondo al pasar el mouse cuando está activo
-      },
-    },
-    '& .MuiSwitch-track': {
-      backgroundColor: '#BDBDBD', // Color de la pista cuando está inactivo
-    },
-    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-      backgroundColor: '#60D669', // Color de la pista cuando está activo
-    },
-  }}
-/>
-    </Box>
-    <FormControl variant="outlined" sx={{ minWidth: 120, borderRadius: '20px' }}>
-     
-      <Select
-        labelId={`select-horarios-label-${dia}`}
-        label={dia}
-        sx={{ borderRadius: '25px', backgroundColor: 'white', maxHeight: 36, // Ajusta la altura máxima del menú
-          width: '92px', }}
-        MenuProps={{
-          PaperProps: {
-            sx: {
-              borderRadius: '20px',
-              
-              
-            },
-          },
-          
-        }}
-        disabled={!diasActivos[dia]} // Deshabilitar el select si el día no está activo
-      >
-        {horarios && horarios.length > 0 ? (
-          horarios.map((horario) => (
-            <MenuItem key={horario.id} value={horario.hora} sx={{ borderRadius: '25px' }}>
-              {horario.hora}
-            </MenuItem>
-          ))
-        ) : (
-          <MenuItem value="" sx={{ borderRadius: '20px' }}>
-            <em>No hay horarios asignados</em>
-          </MenuItem>
-        )}
-      </Select>
-    </FormControl>
-  </Box>
-))}
+
           </Box>
           <Typography variant="h4" component="h1" align="center" sx={{ mr: 33, mt: 2,
             fontFamily: 'Poppins',

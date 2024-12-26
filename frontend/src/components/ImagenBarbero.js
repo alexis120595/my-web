@@ -3,7 +3,7 @@ import { CloudinaryContext, Image } from 'cloudinary-react';
 import axios from 'axios';
 import { Button, CircularProgress, Box, Typography } from '@mui/material';
 
-const SubidaImagenes = ({ onImageUpload }) => {
+const ImagenBarbero = ({ onImageUpload }) => {
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -54,8 +54,8 @@ const SubidaImagenes = ({ onImageUpload }) => {
               justifyContent: 'center',
               backgroundColor: '#D9D9D9',
               color: 'white',
-              mr: { xs: '0px', sm: '180px' },
-              mt:-8,
+              mr: { xs: '0px', sm: '-40px' },
+              mt:-10,
               
               
             }}
@@ -90,4 +90,4 @@ const SubidaImagenes = ({ onImageUpload }) => {
   );
 };
 
-export default SubidaImagenes;
+export default ImagenBarbero;

@@ -77,9 +77,15 @@ const CrearServicio = () => {
     }}
   >
      <Box display="flex" justifyContent="center"  >
-        <Typography sx={{ marginTop: '40px',  marginRight:'190px',
-fontFamily:'Popins', fontSize:'24px',
-marginBottom:'24px',
+        <Typography sx={{ 
+          fontFamily: 'Poppins',
+          fontSize: { xs: '20px', sm: '24px' }, // Tamaño de fuente responsivo
+          fontWeight: 'bold',
+          marginTop: { xs: '20px', sm: '0' },
+          marginBottom: { xs: '16px', sm: '24px' },
+          textAlign: { xs: 'left  ', sm: 'left' }, // Alineación responsiva
+          width: { xs: '100%', sm: 'auto' },
+          mr: { xs: '0', sm: '190px' }, // Margen izquierdo responsivo
         }}>
           Crear empresa
         </Typography>

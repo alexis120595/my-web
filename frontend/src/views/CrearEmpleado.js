@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { Container, Box, TextField, Button, Typography, MenuItem, Select, InputLabel, FormControl} from '@mui/material';
-import SubidaImagenes from '../components/SubidaImagenes';
+import ImagenBarbero from '../components/ImagenBarbero';
 import axios from 'axios';
 
 
@@ -71,18 +71,18 @@ const CrearEmpleado = () => {
     height: "700px",
     }}
     >
-      <Box mt={5} textAlign="center">
+      <Box mt={5} textAlign="left">
         <Typography variant="h4" gutterBottom
         sx={{fontFamily:'Poppins',
 fontSize: '24px', // Tamaño de fuente
 marginBottom: '40px', // Espacio en la parte inferior del texto
-ml: 4
+
         }}
         >
           Añadir Empleado
         </Typography>
         <form onSubmit={handleCrearEmpleado}>
-          <SubidaImagenes onImageUpload={setImagenUrl} />
+          <ImagenBarbero onImageUpload={setImagenUrl} />
           <TextField
             label="Nombre"
             variant="outlined"

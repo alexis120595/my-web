@@ -139,18 +139,50 @@ const DetalleReservaEmpresa = () => {
                   </Typography>
                 </Box>
 
-                {/* Dirección */}
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5, width: '100%' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <LocationOnIcon sx={{ color: 'white', mr: 1 }} />
-                  <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
-                    <strong>Dirección:</strong>
-                  </Typography>
-                </Box>
-                  <Typography sx={{ color: 'white', fontFamily: 'Poppins', fontSize: '16px', textAlign: 'right' }}>
-                    {reservas.ubicacion}
-                  </Typography>
-                </Box>
+{/* Dirección */}
+<Box
+  sx={{
+    display: 'flex',
+    flexDirection: 'column', // Dirección del flex en columna
+    alignItems: 'flex-start',
+    mb: 1.5,
+    width: '100%',
+  }}
+>
+  <Box
+    sx={{
+      display: 'flex',
+      alignItems: 'center',
+      mb: 0.5, // Espacio entre la etiqueta y el valor
+      width: '100%',
+    }}
+  >
+    <LocationOnIcon sx={{ color: 'white', mr: 1 }} />
+    <Typography
+      sx={{
+        color: 'white',
+        fontFamily: 'Poppins',
+        fontSize: '16px',
+        fontWeight: 'bold',
+      }}
+    >
+      Dirección:
+    </Typography>
+  </Box>
+  <Typography
+    sx={{
+      color: 'white',
+      fontFamily: 'Poppins',
+      fontSize: '16px',
+      wordBreak: 'break-word',
+      whiteSpace: 'normal',
+      textAlign: 'left',
+      width: '100%',
+    }}
+  >
+    {reservas.ubicacion}
+  </Typography>
+</Box>
 
                 {/* Servicio */}
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5, width: '100%' }}>

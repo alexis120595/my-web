@@ -69,11 +69,15 @@ const Header = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#121212', color: 'white',
+    <AppBar position="static" sx={{
+       backgroundColor: '#121212', color: 'white',
      boxShadow: 'none',
+     width: { xs: '100%', sm: '600px' },      // Establecer ancho fijo
+     marginLeft: 'auto',
      
      }}>
       <Toolbar>
+        
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           Mi Aplicación
         </Typography>

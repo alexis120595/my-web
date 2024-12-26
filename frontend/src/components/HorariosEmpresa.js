@@ -57,75 +57,139 @@ const HorariosEmpresa = ({ onHorariosChange }) => {
   return (
     <div className="p-4">
       {horarios.map((horarioDia, indexDia) => (
-        <div key={indexDia} className="mb-4">
-          <div className="flex items-center">
-            <label className="switch">
-              <input 
-                type="checkbox" 
-                id={horarioDia.dia} 
-                name={horarioDia.dia} 
-                value={horarioDia.dia} 
-                className="mr-2" 
-                checked={checkboxes[horarioDia.dia]} 
-                onChange={() => handleCheckboxChange(horarioDia.dia)} 
-              />
-              <span className="slider round" style={{ backgroundColor: '#60D669' }}></span>
-            </label>
-            <label htmlFor={horarioDia.dia} className="mr-4"
-             style={{ fontFamily: 'Poppins', fontSize: '14px' }}
-            >{horarioDia.dia.charAt(0).toUpperCase() + horarioDia.dia.slice(1)}</label>
-            {horarioDia.horarios.map((horario, indexHorario) => (
-              <div key={indexHorario} className="flex items-center mb-2"
-              >
-                <select 
-                  id={`horaApertura${horarioDia.dia}${indexHorario}`} 
-                  name={`horaApertura${horarioDia.dia}${indexHorario}`} 
-                  value={horario.horaApertura} 
-                  onChange={(e) => {
-                    const newHorarios = [...horarios];
-                    newHorarios[indexDia].horarios[indexHorario].horaApertura = e.target.value;
-                    setHorarios(newHorarios);
-                  }} 
-                  className="mr-2 p-1 border rounded-full text-black" // Añadir clase text-black para el color del texto
-                  style={{ width: '92px', height: '36px', backgroundColor: '#f0f0f0', borderRadius: '25px' }}
-                >
-                  {opcionesHora.map((opcion) => (
-                    <option key={opcion.value} value={opcion.value} className="text-black">
-                      {opcion.label}
-                    </option>
-                  ))}
-                </select>
-                <select 
-                  id={`horaCierre${horarioDia.dia}${indexHorario}`} 
-                  name={`horaCierre${horarioDia.dia}${indexHorario}`} 
-                  value={horario.horaCierre} 
-                  onChange={(e) => {
-                    const newHorarios = [...horarios];
-                    newHorarios[indexDia].horarios[indexHorario].horaCierre = e.target.value;
-                    setHorarios(newHorarios);
-                  }} 
-                  className="p-1 border rounded-full text-black" // Añadir clase text-black para el color del texto
-                  style={{ width: '92px', height: '36px', backgroundColor: '#f0f0f0', borderRadius: '25px' }}
-                >
-                  {opcionesHora.map((opcion) => (
-                    <option key={opcion.value} value={opcion.value} className="text-black">
-                      {opcion.label}
-                    </option>
-                  ))}
-                </select>
+        <div key={indexDia} className="mb-6">
+          {/* Contenedor del Día y Switch en Columnas */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+            {/* Nombre del Día y Switch */}
+            <div className="flex flex-col sm:flex-col sm:items-start mb-4 md:mb-0">
+              {/* Nombre del Día */}
+              <span className="font-poppins text-sm mb-2">
+                {horarioDia.dia.charAt(0).toUpperCase() + horarioDia.dia.slice(1)}
+              </span>
+              {/* Switch */}
+              <label className="switch">
+                <input 
+                  type="checkbox" 
+                  id={horarioDia.dia} 
+                  name={horarioDia.dia} 
+                  value={horarioDia.dia} 
+                  checked={checkboxes[horarioDia.dia]} 
+                  onChange={() => handleCheckboxChange(horarioDia.dia)} 
+                />
+                <span className="slider round"></span>
+              </label>
+            </div>
+
+            {/* Contenedor de Horarios y Botón */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
+              {/* Horarios */}
+              <div className="flex flex-wrap items-center mb-4 sm:mb-0">
+                {horarioDia.horarios.map((horario, indexHorario) => (
+                  <div key={indexHorario} className="flex items-center mb-2 sm:mb-0 sm:mr-4">
+                    <select 
+                      id={`horaApertura${horarioDia.dia}${indexHorario}`} 
+                      name={`horaApertura${horarioDia.dia}${indexHorario}`} 
+                      value={horario.horaApertura} 
+                      onChange={(e) => {
+                        const newHorarios = [...horarios];
+                        newHorarios[indexDia].horarios[indexHorario].horaApertura = e.target.value;
+                        setHorarios(newHorarios);
+                      }} 
+                      className="mr-2 p-2 border rounded-full text-black bg-gray-200 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                      style={{ width: '120px', height: '40px' }}
+                    >
+                      {opcionesHora.map((opcion) => (
+                        <option key={opcion.value} value={opcion.value} className="text-black">
+                          {opcion.label}
+                        </option>
+                      ))}
+                    </select>
+                    <select 
+                      id={`horaCierre${horarioDia.dia}${indexHorario}`} 
+                      name={`horaCierre${horarioDia.dia}${indexHorario}`} 
+                      value={horario.horaCierre} 
+                      onChange={(e) => {
+                        const newHorarios = [...horarios];
+                        newHorarios[indexDia].horarios[indexHorario].horaCierre = e.target.value;
+                        setHorarios(newHorarios);
+                      }} 
+                      className="p-2 border rounded-full text-black bg-gray-200 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                      style={{ width: '120px', height: '40px' }}
+                    >
+                      {opcionesHora.map((opcion) => (
+                        <option key={opcion.value} value={opcion.value} className="text-black">
+                          {opcion.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                ))}
               </div>
-            ))}
-            <button 
-              type="button"
-              onClick={() => agregarHorario(horarioDia.dia)} 
-              className="flex items-center justify-center w-7 h-7 rounded-full ml-4"
-              style={{ backgroundColor: '#FFD000', color: '#212121', width: '26px', height: '24px' }}
-            >
-              +
-            </button>
+
+              {/* Botón para Agregar Horario */}
+              <button 
+                type="button"
+                onClick={() => agregarHorario(horarioDia.dia)} 
+                className="flex items-center justify-center w-6 h-6 rounded-full bg-[#FFD000] text-[#212121] hover:bg-yellow-400 transition-colors duration-200"
+              >
+                +
+              </button>
+            </div>
           </div>
         </div>
       ))}
+
+      {/* Estilos del Switch */}
+      <style jsx>{`
+        .switch {
+          position: relative;
+          display: inline-block;
+          width: 40px;
+          height: 24px;
+        }
+
+        .switch input {
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #ccc;
+          transition: .4s;
+          border-radius: 24px;
+        }
+
+        .slider:before {
+          position: absolute;
+          content: "";
+          height: 18px;
+          width: 18px;
+          left: 3px;
+          bottom: 3px;
+          background-color: white;
+          transition: .4s;
+          border-radius: 50%;
+        }
+
+        input:checked + .slider {
+          background-color: #60D669;
+        }
+
+        input:focus + .slider {
+          box-shadow: 0 0 1px #60D669;
+        }
+
+        input:checked + .slider:before {
+          transform: translateX(16px);
+        }
+      `}</style>
     </div>
   );
 }
