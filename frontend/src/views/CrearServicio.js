@@ -283,7 +283,7 @@ marginBottom:'24px',
               height: "50px",
               width: "362px",
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px',
+                borderRadius: '25px',
                 backgroundColor: 'white',
                 '& input': {
                   color: 'black',
@@ -375,6 +375,7 @@ marginBottom:'24px',
             fontFamily: 'Poppins',
             fontSize: '16px',
             marginBottom: '24px',
+            textTransform: 'none',
             }}>
             Crear
           </Button>
