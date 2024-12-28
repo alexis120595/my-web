@@ -41,7 +41,7 @@ const Mapa = ({ onLocationSelect }) => {
   };
 
   return (
-    <LoadScript googleMapsApiKey="" loadingElement={<div>Loading...</div>}>
+    <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY} loadingElement={<div>Loading...</div>}>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}

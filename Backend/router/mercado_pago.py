@@ -1,7 +1,10 @@
 from fastapi import APIRouter, HTTPException, Request, BackgroundTasks
 import mercadopago
+import os
 
 router = APIRouter()
+
+MERCADO_PAGO_ACCESS_TOKEN = os.getenv("MERCADO_PAGO_ACCESS_TOKEN")
 
 sdk = mercadopago.SDK("APP_USR-7326986743119520-090914-8c171d7d35fe47dba8a546ad4601413f-1984732162")
 

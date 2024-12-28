@@ -5,10 +5,11 @@ from Backend.db import db_models
 from Backend.db.database import get_db
 from google.oauth2 import id_token
 from google.auth.transport import requests
+import os 
 
 router = APIRouter()
 
-CLIENT_ID = ""
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 
 
 @router.post("/login/google")
@@ -17,7 +18,7 @@ async def login_google(request: LoginRequestGoogle, db: Session = Depends(get_db
 
         print("Token JWT recibido:", request.token)
         # Verificar el token JWT
-        idinfo = id_token.verify_oauth2_token(request.token, requests.Request(), CLIENT_ID)
+        idinfo = id_token.verify_oauth2_token(request.token, requests.Request(),GOOGLE_CLIENT_ID)
 
         # Obtener el email del token JWT
         email = idinfo.get('email')

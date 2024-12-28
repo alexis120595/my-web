@@ -8,15 +8,26 @@ import mercadopago
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+import os
+from dotenv import load_dotenv
 
 
-sdk = mercadopago.SDK("APP_USR-7326986743119520-090914-8c171d7d35fe47dba8a546ad4601413f-1984732162")
+load_dotenv()
 
+# Obtener variables de entorno para Mercado Pago
+MERCADO_PAGO_ACCESS_TOKEN = os.getenv("MERCADO_PAGO_ACCESS_TOKEN")
+
+
+sdk = mercadopago.SDK("MERCADO_PAGO_ACCESS_TOKEN")
+
+CLOUDINARY_CLOUD_NAME = os.getenv("CLOUDINARY_CLOUD_NAME")
+CLOUDINARY_API_KEY = os.getenv("CLOUDINARY_API_KEY")
+CLOUDINARY_API_SECRET = os.getenv("CLOUDINARY_API_SECRET")
 # Configura Cloudinary
 cloudinary.config(
-  cloud_name='dndrldskx',  # Reemplaza con tu cloud name
-  api_key='',        # Reemplaza con tu API key
-  api_secret=''   # Reemplaza con tu AP secre
+  cloud_name=CLOUDINARY_CLOUD_NAME,  # Reemplaza con tu cloud name
+  api_key=CLOUDINARY_API_KEY,        # Reemplaza con tu API key
+  api_secret=CLOUDINARY_API_SECRET   # Reemplaza con tu AP secre
 
 )
 

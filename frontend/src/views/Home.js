@@ -51,7 +51,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
   
   
   
-  initMercadoPago('APP_USR-b9c96612-c5c7-4108-9960-746706eafd35');
+  initMercadoPago(process.env.REACT_APP_MERCADO_PAGO_INIT_KEY);;
 
   useEffect(() => {
     const empresaIdFromStorage = localStorage.getItem('empresaId');

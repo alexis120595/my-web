@@ -1,4 +1,10 @@
 import resend
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+RESEND_API_KEY = os.getenv("RESEND_API_KEY")
 
 # Configura tu API Key de Resend
 resend.api_key = "re_BvwMpm6W_8m3ZBaHzRFu7db8JdDNhkQkL"
