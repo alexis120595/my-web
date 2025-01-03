@@ -1,10 +1,11 @@
+# Archivo con los modelos de la base de datos
 from Backend.db.database import Base
 from sqlalchemy import Column, Integer, String, Boolean, Date, JSON, Table, Enum
 from sqlalchemy.schema import ForeignKey
 from sqlalchemy.orm import relationship
 import enum
 
-
+# Tabla de relación muchos a muchos entre servicios y barberos
 servicio_barbero = Table(
     'servicio_barbero',
     Base.metadata,
@@ -12,12 +13,14 @@ servicio_barbero = Table(
     Column('barbero_id', Integer, ForeignKey('barberos.id', ondelete='CASCADE'), primary_key=True)
 )
 
+# Tabla de relación muchos a muchos entre categorias y servicios
 categoria_servicio = Table(
     'categoria_servicio', Base.metadata,
     Column('categoria_id', Integer, ForeignKey('categorias.id', ondelete='CASCADE'), primary_key=True),
     Column('servicio_id', Integer, ForeignKey('servicios.id', ondelete='CASCADE'), primary_key=True)
 )
 
+# Tabla de empresa con sus respectivos campos y relaciones
 class Empresa(Base):
     __tablename__ = 'empresa'
 
@@ -37,6 +40,7 @@ class Empresa(Base):
     reservas = relationship('Reservas', back_populates='empresa', cascade='delete, merge')
     redes_sociales = relationship('RedesSociales', back_populates='empresa', uselist=False)
    
+# Tabla de sucursales con sus respectivos campos y relaciones
 class Sucursal(Base):
     __tablename__ = 'sucursales'
     id = Column(Integer, primary_key=True, index=True)
@@ -46,6 +50,7 @@ class Sucursal(Base):
     empresa = relationship('Empresa', back_populates='sucursales')
     barberos = relationship('Barbero', back_populates='sucursal', cascade='delete, merge')
 
+# Tabla de categorias con sus respectivos campos y relaciones
 class Categoria(Base):
     __tablename__ = "categorias"
 
@@ -55,6 +60,7 @@ class Categoria(Base):
     servicios = relationship('Servicio', secondary=categoria_servicio, back_populates='categorias')
     empresa = relationship('Empresa', back_populates='categorias')
 
+# Tabla de servicios con sus respectivos campos y relaciones
 class Servicio(Base):
 
     __tablename__ = "servicios"
@@ -73,7 +79,7 @@ class Servicio(Base):
     empresa = relationship('Empresa', back_populates='servicios')
     categorias = relationship("Categoria", secondary=categoria_servicio, back_populates="servicios")
 
-
+# Tabla de barberos con sus respectivos campos y relaciones
 class Barbero(Base):
 
     __tablename__ = "barberos"
@@ -90,7 +96,7 @@ class Barbero(Base):
     servicios = relationship("Servicio", secondary=servicio_barbero, back_populates="barberos")
     empresa = relationship('Empresa', back_populates='barberos')
     sucursal = relationship('Sucursal', back_populates='barberos')
-    
+# Tabla de horarios con sus respectivos campos y relaciones 
 class Horarios(Base):
 
     __tablename__ = "horarios"
@@ -102,11 +108,13 @@ class Horarios(Base):
     empresa_id = Column(Integer, ForeignKey('empresa.id', ondelete='CASCADE'))
     reservas = relationship("Reservas", back_populates="horario")
 
+# Enumeración para el estado de las reservas
 class EstadoReserva(enum.Enum):
     pendiente = "Pendiente"
     cancelada = "Cancelada"
     realizada = "Realizada"
-    
+
+# Tabla de reservas con sus respectivos campos y relaciones 
 class Reservas(Base):
 
     __tablename__ = "reservas"
@@ -124,7 +132,7 @@ class Reservas(Base):
     horario = relationship("Horarios", back_populates="reservas")
     usuario = relationship("Registro", back_populates="reservas")  # Definir la relación con el modelo Registro
     empresa = relationship("Empresa", back_populates="reservas")
-
+# Tabla de registro con sus respectivos campos y relaciones
 class Registro (Base):
     __tablename__ = "registro"
 
@@ -134,7 +142,7 @@ class Registro (Base):
     
     reservas = relationship("Reservas", back_populates="usuario")
     empresas = relationship("Empresa", back_populates="usuario") 
-
+# Tabla de redes sociales con sus respectivos campos y relaciones
 class RedesSociales(Base):
     __tablename__ = 'redes_sociales'
 

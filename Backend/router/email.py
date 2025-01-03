@@ -1,3 +1,7 @@
+# Archivo en el cuanl vamos a encontrar la ruta para crear el email
+# que se envia cuando la reserva es creada con exito
+
+# Ruta para
 @app.post('/reservas/')
 async def crear_reserva(reserva: Reserva, background_tasks: BackgroundTasks):
     # Lógica para crear la reserva (guardar en base de datos, etc.)

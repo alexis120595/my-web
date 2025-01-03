@@ -1,14 +1,19 @@
+#Iportaciones necesarias para enviar correos electrónicos con Resend
 import resend
 import os
 from dotenv import load_dotenv
 
+# Carga las variables de entorno
 load_dotenv()
 
+# Configura tu API Key de Resend
 RESEND_API_KEY = os.getenv("RESEND_API_KEY")
 
-# Configura tu API Key de Resend
-resend.api_key = "re_BvwMpm6W_8m3ZBaHzRFu7db8JdDNhkQkL"
+# Asigna la API Key a la configuración de Resend
+resend.api_key = RESEND_API_KEY
 
+# Función para enviar correos electrónicos
+# cuando se realiza una nueva reserva
 def enviar_email(destinatario, asunto, html_contenido):
     try:
         response = resend.Emails.send({

@@ -1,3 +1,4 @@
+# Archivo con las rutas para el inicio de sesión con Google
 from fastapi import APIRouter, HTTPException, Depends
 from Backend.schemas import LoginRequestGoogle 
 from sqlalchemy.orm import Session
@@ -7,12 +8,15 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 import os 
 
+# Crear un router para las rutas de inicio de sesión con Google
 router = APIRouter()
 
+# Obtener el ID del cliente de Google de las variables de entorno
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 
-
+# Ruta para iniciar sesión con Google
 @router.post("/login/google")
+# Función para iniciar sesión con Google
 async def login_google(request: LoginRequestGoogle, db: Session = Depends(get_db)):
     try:
 
@@ -29,7 +33,7 @@ async def login_google(request: LoginRequestGoogle, db: Session = Depends(get_db
         user = db.query(db_models.Registro).filter(db_models.Registro.email == email).first()
         if user is None:
             raise HTTPException(status_code=404, detail="Usuario no encontrado")
-
+        # Usuario encontrado y verificado, se procede a realizar el inicio de sesión
         return {"message": "Usuario verificado", "user": user}
 
     except ValueError:

@@ -1,3 +1,4 @@
+# Importaciones necesarisas para el funcionamiento del servidor
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
@@ -11,40 +12,40 @@ import cloudinary.api
 import os
 from dotenv import load_dotenv
 
-
+#Cargar variables de entorno desde el archivo .env
 load_dotenv()
 
 # Obtener variables de entorno para Mercado Pago
 MERCADO_PAGO_ACCESS_TOKEN = os.getenv("MERCADO_PAGO_ACCESS_TOKEN")
 
-
+# Inicializar SDK de Mercado Pago con el access token
 sdk = mercadopago.SDK(MERCADO_PAGO_ACCESS_TOKEN)
 
+# Obtener variables de entorno para Cloudinary
 CLOUDINARY_CLOUD_NAME = os.getenv("CLOUDINARY_CLOUD_NAME")
 CLOUDINARY_API_KEY = os.getenv("CLOUDINARY_API_KEY")
 CLOUDINARY_API_SECRET = os.getenv("CLOUDINARY_API_SECRET")
-# Configura Cloudinary
+
+# Configura Cloudinary con las credenciales obtenidas
 cloudinary.config(
   cloud_name=CLOUDINARY_CLOUD_NAME,  # Reemplaza con tu cloud name
   api_key=CLOUDINARY_API_KEY,        # Reemplaza con tu API key
-  api_secret=CLOUDINARY_API_SECRET   # Reemplaza con tu AP secre
+  api_secret=CLOUDINARY_API_SECRET   # Reemplaza con tu AP secret
 
 )
 
+
+# Función para crear las tablas en la base de datos al levantar el servidor
 def create_tables():
     Base.metadata.create_all(bind=engine)
 
+# Crear las tablas en la base de datos
 create_tables()
-#vendedor
-#TESTUSER1946416393
-#8fLwwUhyaH
 
-#comprador
-#TESTUSER1738953231
-#hy7fjpqWL5
-
-
+# Inicializar la aplicación FastAPI
 app = FastAPI()
+
+# Incluir los routers de las diferentes funcionalidades
 app.include_router(servicios.router)
 app.include_router(barberos.router)
 app.include_router(horarios.router)
@@ -59,12 +60,10 @@ app.include_router(sucursales.router)
 app.include_router(redes_sociales.router)
 
 
-
+# Configuración de CORS para permitir solicitudes desde ciertos orígenes
 origins = [
     "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    
-    
+    "http://127.0.0.1:3000",   
 ]
 
 app.add_middleware(
@@ -75,7 +74,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
+# Ejecutar la aplicación con Uvicorn
 if __name__ == '__main__':
   
     port = int(os.getenv("PORT", 8000))
