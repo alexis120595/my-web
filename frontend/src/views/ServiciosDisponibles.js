@@ -1,3 +1,4 @@
+// Archivo que contiene la vista de los servicios disponibles para una empresa
 import React, { useState, useEffect } from 'react';
 import { Container, Box, Typography, List, ListItem, ListItemText, Button, IconButton } from '@mui/material';
 import axios from 'axios';
@@ -9,14 +10,15 @@ const ServiciosDisponibles = () => {
   const [servicios, setServicios] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
-
+// función que se ejecuta al cargar la página para obtener los servicios de la empresa
+// a partir del id de la empresa almacenado en el localStorage
   useEffect(() => {
     const empresaId = localStorage.getItem('empresaId');
     if (empresaId) {
       fetchServicios(empresaId);
     }
   }, []);
-
+// función que obtiene los servicios de una empresa a partir de su id
   const fetchServicios = async (empresaId) => {
     try {
       const response = await axios.get(`http://localhost:8000/empresa/${empresaId}/servicios`);
@@ -25,7 +27,7 @@ const ServiciosDisponibles = () => {
       console.error('Error fetching servicios:', error);
     }
   };
-
+// función que se ejecuta al realizar una búsqueda de servicios por el nombre
   const handleSearch = async (query) => {
     try {
       const response = await axios.get(`http://localhost:8000/servicios/buscar?nombre=${query}`);
@@ -34,20 +36,20 @@ const ServiciosDisponibles = () => {
       console.error('Error searching servicios:', error);
     }
   };
-
+// función que se ejecuta al hacer clic en el botón de añadir servicio
   const handleAddServiceClick = () => {
     navigate('/crear-servicio1');
   };
-
+// función que se ejecuta al hacer clic en el botón de editar servicio
   const handleEditServiceClick = (id) => {
     navigate(`/editar-servicio/${id}`);
   };
-
+// función que se ejecuta al hacer clic en el botón de crear categoría
   const handleCrearCategoriaClick = () => {
     navigate('/crear-categoria');
   };
 
-  // Agrupar servicios por categoría
+  //función que creamos para  Agrupar servicios por categoría
   const serviciosPorCategoria = {};
   servicios.forEach(servicio => {
     if (servicio.categorias.length === 0) {
@@ -79,11 +81,11 @@ const ServiciosDisponibles = () => {
         >
           Servicios 
         </Typography>
-        
+         {/* # Barra de búsqueda de servicios */}
         <Box display="flex" justifyContent="center" mb={2} mr={15}>
           <SearchBar onSearch={handleSearch} />
         </Box>
-        
+         {/* # Verifica si hay categorías y sus servicios; si no, muestra un mensaje */}
         {Object.keys(serviciosPorCategoria).length > 0 ? (
           Object.keys(serviciosPorCategoria).map((categoriaNombre) => (
             <Box key={categoriaNombre} mb={4}>
@@ -93,7 +95,9 @@ const ServiciosDisponibles = () => {
                 fontSize:'20px',
                 marginBottom:'24px',
               }}
-              >{categoriaNombre}</Typography>
+              >{categoriaNombre}
+              </Typography>
+                {/* # Lista de servicios en cada categoría */}
               <List>
                 {serviciosPorCategoria[categoriaNombre].map((servicio) => (
                   <ListItem
@@ -108,6 +112,7 @@ const ServiciosDisponibles = () => {
                       backgroundColor: 'white',
                     }}
                   >
+                     {/* # Se muestra el nombre, duración y precio del servicio */}
                     <ListItemText
                      sx={{ color: '#666666  ',
                       fontfamily: 'Poppins',
@@ -132,6 +137,7 @@ const ServiciosDisponibles = () => {
                         </Box>
                       }
                     />
+                     {/* # Botón para editar el servicio */}
                     <IconButton
                       edge="end"
                       aria-label="edit"
@@ -161,7 +167,7 @@ const ServiciosDisponibles = () => {
         ) : (
           <Typography variant="body1">No hay servicios disponibles</Typography>
         )}
-        
+        {/* # Botón para añadir un nuevo servicio */}
         <Button
           variant="contained"
           color="primary"
@@ -177,7 +183,7 @@ const ServiciosDisponibles = () => {
     Añadir Servicio
   </Typography>
         </Button>
-        
+          {/* # Botón para crear una nueva categoría */}
         <Box >
           <Button
             variant="contained"

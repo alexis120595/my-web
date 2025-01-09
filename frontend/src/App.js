@@ -1,3 +1,9 @@
+// # Este archivo contiene el componente principal de la aplicación React.
+// # Se importan los diferentes componentes y vistas que componen la aplicación.
+// # Se utiliza react-router-dom para configurar las rutas y asociarlas a componentes específicos.
+// # <Header /> representa la cabecera que se muestra en la parte superior de la aplicación.
+// # <Layout /> permite envolver la estructura principal de la aplicación, incluidas las rutas.
+
 import React from 'react';
 import Home from './views/Home';
 import Reserva from './views/Reserva';
@@ -34,10 +40,13 @@ function App () {
   return (
     
     <div>
+            {/* # Se coloca Header en la parte superior de la aplicación */}
       <Header />
+        {/* # Layout envuelve las rutas de la aplicación para proporcionar una estructura consistente */}
+        
       <Layout>
       <Routes>
-      
+         {/* # Cada Route asocia una URL específica con un componente de la carpeta views */}
         <Route path="/home" element={<Home />} />
         <Route path="/reservas" element={<Reserva />} />
         <Route path="/detalle/:id" element={<Detalle />} />

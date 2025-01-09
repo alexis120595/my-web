@@ -1,4 +1,4 @@
-// CrearHorarios.js
+// Vista para crear horarios para un barbero en específico
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Button, Typography, Box, Select, MenuItem, InputLabel, FormControl, Checkbox, ListItemText } from '@mui/material';
@@ -42,7 +42,7 @@ const CrearHorarios = () => {
         barbero_id: barberoId,
         empresa_id: empresaId,
       }));
-
+// ruta para crear horarios multiples
       await axios.post('http://localhost:8000/horarios/multiples', {
         horarios,
       });
@@ -61,10 +61,11 @@ const CrearHorarios = () => {
           Crear Horarios
         </Typography>
         <form onSubmit={handleSubmit}>
-          {/* Eliminamos los campos de entrada para barberoId y empresaId */}
+           {/* # Campo de selección múltiple para seleccionar los horarios disponibles */}
 
           <FormControl variant="outlined" fullWidth margin="normal" sx={{ width: '300px' }}>
             <InputLabel id="horarios-label">Seleccionar Horarios</InputLabel>
+            
             <Select
               labelId="horarios-label"
               multiple
@@ -76,10 +77,11 @@ const CrearHorarios = () => {
                 borderRadius: '20px',
                 backgroundColor: 'white',
               '& input': {
-                color: 'black', // Color del texto que se escribe
+                color: 'black', 
               },
               }}
             >
+              
               {horasDisponibles.map((hora) => (
                 <MenuItem key={hora} value={hora}>
                   <Checkbox checked={horariosSeleccionados.indexOf(hora) > -1} />

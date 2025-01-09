@@ -1,3 +1,4 @@
+// # Archivo para crear una nueva empresa en la aplicación
 import React, { useState } from 'react';
 import Mapa from '../components/Mapa';
 import SubidaImagenes from '../components/SubidaImagenes';
@@ -7,6 +8,7 @@ import HorariosEmpresa from '../components/HorariosEmpresa';
 import { useNavigate } from 'react-router-dom';
 
 const CrearServicio = () => {
+  // # Define estados locales para manejar los datos del formulario y otros estados necesarios
   const [rubro, setRubro] = useState('');
   const [nombre, setNombre] = useState('');
   const [eslogan, setEslogan] = useState('');
@@ -14,21 +16,23 @@ const CrearServicio = () => {
   const [imagenUrl, setImagenUrl] = useState('');
   const [horarios, setHorarios] = useState([]);
   const navigate = useNavigate();
-
+// # Maneja el cambio del campo rubro
   const handleRubroChange = (event) => {
     setRubro(event.target.value);
   };
 
  
-
+// # Maneja el cambio de los horarios
   const handleHorariosChange = (newHorarios) => {
     setHorarios(newHorarios);
   };
 
+  // # Maneja la selección de la ubicación desde el componente Mapa
   const handleLocationSelect = (address) => {
     setUbicacion(address);
   };
 
+  // # Maneja el envío del formulario para crear un nuevo servicio
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -39,7 +43,7 @@ const CrearServicio = () => {
     }, {});
 
     const userId = localStorage.getItem('userId');
-    
+    // # Crear un objeto con los datos del formulario
     const formData = {
       nombre: nombre,
       eslogan: eslogan,
@@ -51,7 +55,7 @@ const CrearServicio = () => {
     };
 
     console.log('Form Data:', formData); 
-
+    // # Enviar los datos del formulario al backend
     try {
       const response = await axios.post('http://localhost:8000/empresa', formData);
       console.log('Response:', response.data);
@@ -79,13 +83,13 @@ const CrearServicio = () => {
      <Box display="flex" justifyContent="center"  >
         <Typography sx={{ 
           fontFamily: 'Poppins',
-          fontSize: { xs: '20px', sm: '24px' }, // Tamaño de fuente responsivo
+          fontSize: { xs: '20px', sm: '24px' }, 
           fontWeight: 'bold',
           marginTop: { xs: '20px', sm: '0' },
           marginBottom: { xs: '16px', sm: '24px' },
-          textAlign: { xs: 'left  ', sm: 'left' }, // Alineación responsiva
+          textAlign: { xs: 'left  ', sm: 'left' }, 
           width: { xs: '100%', sm: 'auto' },
-          mr: { xs: '0', sm: '190px' }, // Margen izquierdo responsivo
+          mr: { xs: '0', sm: '190px' }, 
         }}>
           Crear empresa
         </Typography>
@@ -95,6 +99,7 @@ const CrearServicio = () => {
       <SubidaImagenes onImageUpload={setImagenUrl} />
         </Box>
         <Box display="flex" flexDirection="column" alignItems="center" >
+           {/* # Campo de texto para ingresar el nombre de la empresa */}
           <TextField
           
             label="Ingresar nombre"
@@ -107,31 +112,32 @@ const CrearServicio = () => {
               height:"50px",
               width:"362px",
               '& .MuiOutlinedInput-root': {
-                borderRadius: '25px', // Bordes más redondeados
-                backgroundColor: 'white', // Color de fondo
+                borderRadius: '25px', 
+                backgroundColor: 'white', 
                 '& input': {
                   color: 'black'
                 },
                 '& fieldset': {
-                  borderColor: 'white', // Color del borde
+                  borderColor: 'white', 
                 },
                 '&:hover fieldset': {
-                  borderColor: 'white', // Color del borde al pasar el mouse
+                  borderColor: 'white', 
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'white', // Color del borde al enfocar
+                  borderColor: 'white', 
                 },
               },
               '& .MuiInputLabel-root': {
-                color: '#666666', // Color del label
-                fontSize: '14px', // Tamaño de la fuente
-                fontFamily: 'Popins', // Tipo de fuente
+                color: '#666666', 
+                fontSize: '14px', 
+                fontFamily: 'Popins', 
               },
               '& .MuiInputAdornment-root': {
-                color: 'white', // Color del icono
+                color: 'white', 
               },
             }} 
           />
+           {/* # Campo de texto para ingresar el eslogan de la empresa */}
           <TextField
             
             label="Eslogan"
@@ -145,70 +151,71 @@ const CrearServicio = () => {
               height:"50px",
               width:"362px",
               '& .MuiOutlinedInput-root': {
-                borderRadius: '25px', // Bordes más redondeados
-                backgroundColor: 'white', // Color de fondo
+                borderRadius: '25px', 
+                backgroundColor: 'white', 
                 '& input': {
-                  color: 'black', // Color del texto que se escribe
+                  color: 'black',
                 },
       
                 '& fieldset': {
-                  borderColor: 'white', // Color del borde
+                  borderColor: 'white',
                 },
                 '&:hover fieldset': {
-                  borderColor: 'white', // Color del borde al pasar el mouse
+                  borderColor: 'white', 
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'white', // Color del borde al enfocar
+                  borderColor: 'white', 
                 },
               },
               '& .MuiInputLabel-root': {
-                color: '#666666', // Color del label
-                fontSize: '14px', // Tamaño de la fuente
-                fontFamily: 'Popins', // Tipo de fuente
+                color: '#666666', 
+                fontSize: '14px', 
+                fontFamily: 'Popins', 
               },
               '& .MuiInputAdornment-root': {
-                color: 'white', // Color del icono
+                color: 'white', 
               },
             }} 
           />
           <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" mb={2}>
+  {/* # Campo de selección para el rubro de la empresa */}
   <FormControl fullWidth variant="outlined" margin="normal" sx={{ width: "362px",
   height: "50px",
 marginBottom:'24px',
-  borderRadius: '25px', // Aseguramos que el Select tenga borderRadius
+  borderRadius: '25px', 
         '& .MuiOutlinedInput-root': {
-          borderRadius: '25px', // Bordes más redondeados
-          backgroundColor: 'white', // Color de fondo
+          borderRadius: '25px', 
+          backgroundColor: 'white', 
           '& input': {
-            color: 'black', // Color del texto que se escribe
+            color: 'black', 
           },
           
           '& fieldset': {
-            borderColor: 'white', // Color del borde
-            borderWidth: '1px', // Ancho del borde
+            borderColor: 'white', 
+            borderWidth: '1px', 
           },
           '&:hover fieldset': {
-            borderColor: 'white', // Color del borde al pasar el mouse
-            borderWidth: '1px', // Ancho del borde al pasar el mouse
+            borderColor: 'white', 
+            borderWidth: '1px', 
           },
           '&.Mui-focused fieldset': {
-            borderColor: 'white', // Color del borde al enfocar
-            borderWidth: '1px', // Ancho del borde al enfocar
+            borderColor: 'white', 
+            borderWidth: '1px', 
           },
         },
         '& .MuiInputLabel-root': {
-          color: '#666666', // Color del label
-                fontSize: '14px', // Tamaño de la fuente
-                fontFamily: 'Popins', // Tipo de fuente
+          color: '#666666', 
+                fontSize: '14px', 
+                fontFamily: 'Popins', 
         },
         '& .MuiInputAdornment-root': {
-          color: 'white', // Color del icono
+          color: 'white', 
         },
         '& .MuiSelect-icon': {
-          color: 'white', // Color del icono del select
+          color: 'white', 
         },
         '& .MuiSelect-select': {
-          color: 'white', // Color del texto del select
+          color: 'white', 
         }, }}>
     <InputLabel  sx={{ color: 'white' }}>Selecciona un rubro</InputLabel>
     <Select
@@ -216,38 +223,38 @@ marginBottom:'24px',
       onChange={handleRubroChange}
       label="Selecciona un rubro"
       sx={{
-        borderRadius: '20px', // Aseguramos que el Select tenga borderRadius
+        borderRadius: '20px', 
         '& .MuiOutlinedInput-root': {
-          borderRadius: '20px', // Bordes más redondeados
-          backgroundColor: 'white', // Color de fondo
+          borderRadius: '20px', 
+          backgroundColor: 'white', 
           '& input': {
-            color: 'black', // Color del texto que se escribe
+            color: 'black', 
           },
           
           '& fieldset': {
-            borderColor: 'white', // Color del borde
-            borderWidth: '1px', // Ancho del borde
+            borderColor: 'white', 
+            borderWidth: '1px', 
           },
           '&:hover fieldset': {
-            borderColor: 'white', // Color del borde al pasar el mouse
-            borderWidth: '1px', // Ancho del borde al pasar el mouse
+            borderColor: 'white', 
+            borderWidth: '1px', 
           },
           '&.Mui-focused fieldset': {
-            borderColor: 'white', // Color del borde al enfocar
-            borderWidth: '1px', // Ancho del borde al enfocar
+            borderColor: 'white', 
+            borderWidth: '1px', 
           },
         },
         '& .MuiInputLabel-root': {
-          color: 'black', // Color del label
+          color: 'black', 
         },
         '& .MuiInputAdornment-root': {
-          color: 'white', // Color del icono
+          color: 'white', 
         },
         '& .MuiSelect-icon': {
-          color: 'white', // Color del icono del select
+          color: 'white', 
         },
         '& .MuiSelect-select': {
-          color: 'white', // Color del texto del select
+          color: 'white', 
         },
       }}
     >
@@ -272,6 +279,7 @@ marginBottom:'24px',
       </Box>
         
         <Box display="flex" flexDirection="column" alignItems="center" >
+           {/* # Campo de texto para ingresar la dirección de la empresa */}
           <TextField
             
             label="Ingresar dirección"
@@ -300,9 +308,9 @@ marginBottom:'24px',
                 },
               },
               '& .MuiInputLabel-root': {
-                color: '#666666', // Color del label
-                fontSize: '14px', // Tamaño de la fuente
-                fontFamily: 'Popins', // Tipo de fuente
+                color: '#666666', 
+                fontSize: '14px', 
+                fontFamily: 'Popins', 
               },
               '& .MuiInputAdornment-root': {
                 color: 'white',
@@ -311,6 +319,7 @@ marginBottom:'24px',
           />
         </Box>
         <Box display="flex" justifyContent="center" mb={2}>
+          {/* # Componente Mapa para seleccionar la ubicación */}
           <Mapa onLocationSelect={handleLocationSelect} />
         </Box>
 
@@ -320,7 +329,7 @@ marginBottom:'24px',
       fontSize: '20px',
       fontFamily: 'Poppins',
       marginBottom: '8px',
-      // Otros estilos para el título
+
       marginRight: { xs: '185px', sm: '190px' },
     }}
   >
@@ -331,9 +340,9 @@ marginBottom:'24px',
       fontSize: '14px',
       fontFamily: 'Poppins',
       color: 'white',
-      textAlign: 'left', // Alinea el texto a la izquierda
+      textAlign: 'left', 
       marginBottom: '8px',
-      marginRight: { xs: '130px', sm: '140px' }, // Sin margen en pantallas pequeñas, margen en pantallas grandes
+      marginRight: { xs: '130px', sm: '140px' },
     }}
   >
     Utilizá el botón “todos” para aplicar el 
@@ -345,9 +354,9 @@ marginBottom:'24px',
       fontSize: '14px',
       fontFamily: 'Poppins',
       color: 'white',
-      textAlign: 'left', // Alinea el texto a la izquierda
+      textAlign: 'left', 
       marginBottom: '8px',
-      marginRight: { xs: '140px', sm: '145px' }, // Sin margen en pantallas pequeñas, margen en pantallas grandes
+      marginRight: { xs: '140px', sm: '145px' }, 
     }}
   >
    mismo horario a todos los items.  Y el
@@ -357,19 +366,20 @@ marginBottom:'24px',
       fontSize: '14px',
       fontFamily: 'Poppins',
       color: 'white',
-      textAlign: 'left', // Alinea el texto a la izquierda
+      textAlign: 'left', 
       marginBottom: '24px',
-      marginRight: { xs: '135px', sm: '110px' }, // Sin margen en pantallas pequeñas, margen en pantallas grandes
+      marginRight: { xs: '135px', sm: '110px' }, 
     }}
   >
     botón más para agregar otro rango horario.
   </Typography>
 </Box>
         <Box display="flex" justifyContent="center" mb={2}>
-
+          {/* # Componente HorariosEmpresa para seleccionar los horarios de atención */}
           <HorariosEmpresa onHorariosChange={handleHorariosChange} />
         </Box>
         <Box display="flex" justifyContent="center" mt={2}>
+          {/* # Botón para enviar el formulario y crear la empresa */}
           <Button variant="contained" color="primary" type="submit"
            sx={{ width: '361px', height: '50px', borderRadius: '30px', backgroundColor: '#FFD000', color: 'black',
             fontFamily: 'Poppins',

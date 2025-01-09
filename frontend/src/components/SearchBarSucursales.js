@@ -1,3 +1,4 @@
+// Archivo que contiene la barra de búsqueda de sucursales
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
@@ -6,14 +7,16 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Box from '@mui/material/Box';
 
 function SearchBarSucursales({ onSearch }) {
+  // Estado para almacenar el valor de la búsqueda
   const [query, setQuery] = useState('');
 
+// Función para manejar el cambio en el campo de búsqueda
   const handleInputChange = (event) => {
     const newQuery = event.target.value;
     setQuery(newQuery);
     onSearch(newQuery);
   };
-
+// Función para manejar la búsqueda
   const handleSearch = () => {
     onSearch(query);
   };
@@ -21,6 +24,7 @@ function SearchBarSucursales({ onSearch }) {
   return (
     <Box display="flex" justifyContent="left" width="100%" mb={4}>
     <Box position="relative" width="286px">
+      {/* Campo de búsqueda */}
       <TextField
         variant="outlined"
         value={query}
@@ -30,6 +34,7 @@ function SearchBarSucursales({ onSearch }) {
           startAdornment: (
             <InputAdornment position="start">
               <IconButton onClick={handleSearch}>
+                {/* Icono de búsqueda */}
                 <SearchIcon sx={{ width: '18px', height: '18px' }} />
               </IconButton>
             </InputAdornment>
@@ -40,27 +45,27 @@ function SearchBarSucursales({ onSearch }) {
           width: '286px',
           height: '50px',
           '& .MuiOutlinedInput-root': {
-            borderRadius: '25px', // Bordes redondeados
-            backgroundColor: 'white', // Color de fondo
+            borderRadius: '25px', 
+            backgroundColor: 'white',
             '& fieldset': {
-              borderColor: 'black', // Color del borde
+              borderColor: 'black', 
             },
             '&:hover fieldset': {
-              borderColor: 'black', // Color del borde al pasar el mouse
+              borderColor: 'black', 
             },
             '&.Mui-focused fieldset': {
-              borderColor: 'black', // Color del borde al enfocar
+              borderColor: 'black', 
             },
           },
           '& .MuiInputLabel-root': {
-            fontFamily: 'Poppins', // Aplica la fuente Poppins
+            fontFamily: 'Poppins', 
             fontSize: '14px', 
-            color:'#666666'     // Tamaño de fuente 14px
+            color:'#666666'     
           },
         }}
       />
       <Box position="absolute" top={0} right={0} mt={2} mr={2}>
-        {/* Aquí puedes agregar cualquier otro contenido que desees */}
+        
       </Box>
     </Box>
   </Box>

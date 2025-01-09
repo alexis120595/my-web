@@ -1,13 +1,15 @@
+// Archivo para subir imagenes a Cloudinary 
 import React, { useState } from 'react';
 import { CloudinaryContext, Image } from 'cloudinary-react';
 import axios from 'axios';
 import { Button, CircularProgress, Box, Typography } from '@mui/material';
 
 const SubidaImagenes = ({ onImageUpload }) => {
+  // Estado para la URL de la imagen subida
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
+// Función para subir la imagen a Cloudinary
   const uploadImage = async (event) => {
     const files = event.target.files;
     const data = new FormData();
@@ -34,6 +36,7 @@ const SubidaImagenes = ({ onImageUpload }) => {
   return (
 <CloudinaryContext cloudName="dndrldskx"> {/* Reemplaza con tu cloud name */}
 <Box display="flex" justifyContent="flex-end" alignItems="center">
+        {/* Botón para subir la imagen */}
         <input
           accept="image/*"
           style={{ display: 'none' }}
@@ -42,6 +45,7 @@ const SubidaImagenes = ({ onImageUpload }) => {
           onChange={uploadImage}
         />
         <label htmlFor="upload-button">
+          {/* Botón de carga */}
           <Button
             variant="contained"
             component="span"
@@ -65,10 +69,10 @@ const SubidaImagenes = ({ onImageUpload }) => {
 ) : (
   <Typography
     sx={{
-      fontSize: '12px',      // Tamaño de fuente para altura de 13px
-      color: 'black',        // Color del texto
-      width: '29px',         // Ancho del contenedor
-      fontFamily: 'Popins',   // Fuente Popins
+      fontSize: '12px',      
+      color: 'black',        
+      width: '29px',         
+      fontFamily: 'Popins',  
       textAlign: 'center',
       
     }}
@@ -77,6 +81,7 @@ const SubidaImagenes = ({ onImageUpload }) => {
   </Typography>
 )}
           </Button>
+          {/* Texto del botón */}
         </label>
         {loading && <p>Cargando...</p>}
         {error && <p style={{ color: 'red' }}>{error}</p>}

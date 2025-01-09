@@ -1,10 +1,11 @@
+// vista para crear una nueva categoría
 import React, {useState, useEffect}from 'react';
 import { Typography, Box, TextField, Button, Checkbox, FormControlLabel,  List, ListItem } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const CrearCategoria = () => {
-
+    // Estados para guardar el nombre de la categoría, los servicios y la empresa
     const [nombreCategoria, setNombreCategoria] = useState('');
     const [servicios, setServicios] = useState([]);
     const [selectedServicios, setSelectedServicios] = useState([]);
@@ -12,7 +13,7 @@ const CrearCategoria = () => {
     const [success, setSuccess] = useState(null);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-
+    // Obtener el id de la empresa del local storage y cargar los servicios
     useEffect(() => {
       const storedEmpresaId = localStorage.getItem('empresaId');
       if (storedEmpresaId) {
@@ -20,7 +21,7 @@ const CrearCategoria = () => {
       }
       fetchServicios();
     }, []);
-  
+  // Función para cargar los servicios desde la API 
     const fetchServicios = async () => {
       try {
         const response = await axios.get('http://localhost:8000/servicios');
@@ -29,7 +30,7 @@ const CrearCategoria = () => {
         console.error('Error fetching servicios:', error);
       }
     };
-
+  // Función para manejar el cambio de los servicios seleccionados
     const handleServicioChange = (event) => {
       const servicioId = parseInt(event.target.value, 10);
       if (event.target.checked) {
@@ -38,7 +39,7 @@ const CrearCategoria = () => {
         setSelectedServicios(selectedServicios.filter(id => id !== servicioId));
       }
     };
-  
+  // Función para manejar el envío del formulario
     const handleSubmit = async (event) => {
       event.preventDefault();
       const nuevaCategoria = {
@@ -46,7 +47,7 @@ const CrearCategoria = () => {
         empresa_id: empresaId,
         servicios_ids: selectedServicios,
       };
-  
+      // Enviar la nueva categoría a la API
       try {
         const response = await axios.post('http://localhost:8000/categorias', nuevaCategoria);
         console.log('Respuesta del servidor:', response.data);
@@ -75,7 +76,7 @@ const CrearCategoria = () => {
     <Box
     sx={{backgroundColor:'#504D4D', height: '670px',
       width:'549px',
-      borderRadius: '20px', // Bordes redondeados
+      borderRadius: '20px', 
 
     }}
     >
@@ -108,8 +109,9 @@ const CrearCategoria = () => {
         
          seleciona los servicios de la misma.
       </Typography>
-
+      {/* Formulario para crear una nueva categoría */}
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        {/* Campos para el nombre de la categoría */}
           <TextField
             label="Nombre de la Categoría"
             variant="outlined"
@@ -120,42 +122,42 @@ const CrearCategoria = () => {
               width: '360px',
               height: '50px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '25px', // Bordes redondeados
-                backgroundColor: 'white', // Color de fondo del input
+                borderRadius: '25px', 
+                backgroundColor: 'white', 
                 '& input': {
-                  color: 'black', // Color del texto que se escribe
+                  color: 'black', 
                 },
                 '& fieldset': {
-                  borderColor: 'white', // Color del borde
+                  borderColor: 'white',
                 },
                 '&:hover fieldset': {
-                  borderColor: 'white', // Color del borde al pasar el mouse
+                  borderColor: 'white', 
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'white', // Color del borde al enfocar
+                  borderColor: 'white', 
                 },
               },
               '& .MuiInputLabel-root': {
-                color: '#666666', // Color del label
+                color: '#666666', 
                 fontFamily:'Poppins',
                 fontStyle: 'regular',
                 fontSize: '14px',
               },
               '& .MuiInputAdornment-root': {
-                color: 'white', // Color del icono
+                color: 'white', 
               },
               marginBottom: '24px',
             }}
           />
  <Box display="flex" flexDirection="column"  justifyContent="flex-start"
-  alignItems="flex-start" sx={{ mt: 1,   borderRadius: '8px', // Bordes redondeados
-        backgroundColor: '#2E2F33', // Color de fondo gris
-       width: '360px', height: '180px', // Ancho y alto de 300px
+  alignItems="flex-start" sx={{ mt: 1,   borderRadius: '8px', 
+        backgroundColor: '#2E2F33', 
+       width: '360px', height: '180px', 
        overflow: 'auto', 
       
         
         }}>
-
+              {/* Lista de servicios */}
               <List  >
               {servicios.map((servicio) => (
                 <ListItem key={servicio.id}
@@ -165,6 +167,7 @@ const CrearCategoria = () => {
                   marginLeft: '-140px',
                 }}
                 >
+                  {/* Checkbox para seleccionar los servicios */}
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -172,9 +175,9 @@ const CrearCategoria = () => {
                         onChange={handleServicioChange}
                         value={servicio.id}
                         sx={{ml:19,
-                          color: 'white', // Color del checkbox blanco
+                          color: 'white', 
                           '&.Mui-checked': {
-      color: "#FFD000", // Cambiar el color a amarillo cuando está seleccionado
+      color: "#FFD000", 
     },
                         }}
                       />
@@ -183,8 +186,8 @@ const CrearCategoria = () => {
                     sx={{
                       
                       '& .MuiTypography-root': {
-                        fontFamily: 'Inter', // Aplica la fuente Inter
-                        fontSize: '14px', // Tamaño de fuente 14px
+                        fontFamily: 'Inter', 
+                        fontSize: '14px', 
                       },
                     }}
                   />
@@ -194,31 +197,32 @@ const CrearCategoria = () => {
   
         </Box>
  
-        
+              {/* Botón para crear la categoría */}
           <Button type="submit" variant="contained" color="primary"  sx={{
               mt: '44px',
-              width: '356px', // Más ancho
-              height: '43px', //
-              backgroundColor: '#FFD000', // Color de fondo amarillo
-              color: 'black', // Color de texto negro
+              width: '356px', 
+              height: '43px', 
+              backgroundColor: '#FFD000', 
+              color: 'black', 
           
               borderRadius: '30px', 
               '&:hover': {
-                backgroundColor: 'darkyellow', // Color de fondo al pasar el mouse
+                backgroundColor: 'darkyellow', 
               },
             }}>
             <Typography
     sx={{
        textTransform:'none',
-      fontFamily: 'Poppins', // Aplica la fuente Poppins
-      fontSize: '16px', // Tamaño de fuente 16px
-      color: '#000000', // Asegura que el color del texto sea consistente
+      fontFamily: 'Poppins', 
+      fontSize: '16px', 
+      color: '#000000', 
     }}
   >
     Crear
   </Typography>
           </Button>
         </form>
+        {/* Mensajes de éxito o error al crear la categoría */}
         {success && <Typography color="primary">{success}</Typography>}
         {error && <Typography color="error">{error}</Typography>}
     </Box>

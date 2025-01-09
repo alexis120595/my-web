@@ -1,13 +1,15 @@
+// Archivo que permite subir la foto de perfil del barbero a Cloudinary
 import React, { useState } from 'react';
 import { CloudinaryContext, Image } from 'cloudinary-react';
 import axios from 'axios';
 import { Button, CircularProgress, Box, Typography } from '@mui/material';
 
 const ImagenBarbero = ({ onImageUpload }) => {
+  // Estado para la URL de la imagen subida
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
+// Función para subir la imagen a Cloudinary
   const uploadImage = async (event) => {
     const files = event.target.files;
     const data = new FormData();
@@ -34,6 +36,7 @@ const ImagenBarbero = ({ onImageUpload }) => {
   return (
 <CloudinaryContext cloudName="dndrldskx"> {/* Reemplaza con tu cloud name */}
 <Box display="flex" justifyContent="flex-end" alignItems="center">
+        
         <input
           accept="image/*"
           style={{ display: 'none' }}
@@ -42,6 +45,8 @@ const ImagenBarbero = ({ onImageUpload }) => {
           onChange={uploadImage}
         />
         <label htmlFor="upload-button">
+
+          {/* Botón para subir la imagen */}
           <Button
             variant="contained"
             component="span"
@@ -60,15 +65,16 @@ const ImagenBarbero = ({ onImageUpload }) => {
               
             }}
           >
+            {/* Muestra un spinner mientras se sube la imagen */}
            {loading ? (
   <CircularProgress  />
 ) : (
   <Typography
     sx={{
-      fontSize: '12px',      // Tamaño de fuente para altura de 13px
-      color: 'black',        // Color del texto
-      width: '29px',         // Ancho del contenedor
-      fontFamily: 'Popins',   // Fuente Popins
+      fontSize: '12px',  
+      color: 'black',      
+      width: '29px',       
+      fontFamily: 'Popins',  
       textAlign: 'center',
       
     }}
@@ -78,6 +84,7 @@ const ImagenBarbero = ({ onImageUpload }) => {
 )}
           </Button>
         </label>
+        {/* Muestra la imagen subida */}
         {loading && <p>Cargando...</p>}
         {error && <p style={{ color: 'red' }}>{error}</p>}
         {url && <Image src={url} alt="Uploaded Image" style={{ borderRadius: '50%', marginTop: 16,

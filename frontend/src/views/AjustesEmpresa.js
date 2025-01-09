@@ -1,3 +1,4 @@
+// vista de ajustes de la empresa
 import React, { useState, useEffect, useRef} from 'react';
 import { QRCode } from 'react-qrcode-logo';
 import { Typography, Box, TextField, Button, Checkbox, FormControlLabel, IconButton, InputAdornment} from '@mui/material';
@@ -16,6 +17,7 @@ import axios from 'axios';
 
 
 const AjustesEmpresa = ({  }) => {
+  // Estados para guardar los valores de los campos del formulario
   const [nombreEmpresa, setNombreEmpresa] = useState('');
   const [sloganEmpresa, setSloganEmpresa] = useState('');
   const [descripcionEmpresa, setDescripcionEmpresa] = useState('');
@@ -31,14 +33,14 @@ const AjustesEmpresa = ({  }) => {
   const [id, setId] = useState('');
   const [imagenUrl, setImagenUrl] = useState(''); 
   
-  
+  // Estado para guardar las opciones de configuración de reservas
   const [opciones, setOpciones] = useState({
     opcion1: false,
     opcion2: false,
     opcion3: false,
     
   });
-
+// Función para obtener la información de la empresa desde la API
   useEffect(() => {
     const fetchEmpresa = async () => {
       const empresaId = localStorage.getItem('empresaId');
@@ -61,7 +63,7 @@ const AjustesEmpresa = ({  }) => {
     fetchEmpresa();
   }, []);
 
-
+// función para editar la información de la empresa y enviarla a la API
   const handleSubmit = async (event) => {
     event.preventDefault();
     const empresaId = localStorage.getItem('empresaId');
@@ -71,7 +73,7 @@ const AjustesEmpresa = ({  }) => {
       eslogan: sloganEmpresa,
       imagen_url: imagenUrl,
     };
-
+// Objeto con las redes sociales de la empresa
   const redesSociales = {
       whatsapp,
       instagram,
@@ -79,10 +81,11 @@ const AjustesEmpresa = ({  }) => {
       youtube,
       tiktok,
     };  
-
+// Petición PUT para actualizar la información de la empresa
     try {
       await axios.put(`http://localhost:8000/empresa/${empresaId}`, updatedEmpresa);
 
+      // Petición POST para crear las redes sociales de la empresa
       await axios.post(`http://localhost:8000/empresa/${empresaId}/redes-sociales`, redesSociales);
       
       alert('Información de la empresa actualizada correctamente');
@@ -91,9 +94,9 @@ const AjustesEmpresa = ({  }) => {
       alert('Error al actualizar la información de la empresa');
     }
   };
-
+// Función para limpiar los campos del formulario
   const handleCancel = () => {
-    // Aquí puedes manejar la acción de cancelar, por ejemplo, limpiando los campos del formulario
+
     setNombreEmpresa('');
     setSloganEmpresa('');
     setDescripcionEmpresa('');
@@ -118,23 +121,23 @@ const AjustesEmpresa = ({  }) => {
   };  
 
 
-
+// Función para manejar los cambios en las opciones de configuración de reservas
   const handleOpcionesChange = (event) => {
     setOpciones({
       ...opciones,
       [event.target.name]: event.target.checked,
     });
   };
-
+// Función para copiar el enlace de la empresa al portapapeles
   const handleCopyLink = () => {
     navigator.clipboard.writeText('www.soyprofesional.com/miempresa');
     alert('Enlace copiado al portapapeles');
   };
 
   
-
+// Referencia al elemento que contiene el código QR
   const qrRef = useRef();
-
+// Función para descargar el código QR de la empresa
   const handleDownloadQR = () => {
     const canvas = qrRef.current.querySelector('canvas');
     const pngUrl = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
@@ -172,7 +175,10 @@ const AjustesEmpresa = ({  }) => {
   
 
 </Box>
+        {/* Formulario para editar la información de la empresa */}
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+
+          {/* Campos del formulario, para cambiar el nombre */}
           <TextField
             
             type="text"
@@ -185,31 +191,31 @@ const AjustesEmpresa = ({  }) => {
               height: '50px',
               width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '25px', // Bordes redondeados
-                backgroundColor: 'white', // Color de fondo del input
+                borderRadius: '25px', 
+                backgroundColor: 'white', 
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'black',
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'black', 
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'black', 
                 },
               },
               '& .MuiInputLabel-root': {
-                fontFamily: 'Poppins', // Aplica la fuente Poppins
-                fontSize: '14px',      // Tamaño de fuente 14px
-                color: '#666666',      // Color del label
+                fontFamily: 'Poppins', 
+                fontSize: '14px',      
+                color: '#666666',    
               },
               '& input': {
-                fontFamily: 'Poppins', // Aplica la fuente Poppins
-                fontSize: '14px',      // Tamaño de fuente 14px
-                color: '#666666',        // Color del texto dentro del input
+                fontFamily: 'Poppins',
+                fontSize: '14px',      
+                color: '#666666',  
               },
             }}
           />
-
+{/* Campo del formulario para cambiar el eslogan */}
 <TextField
             
             type="text"
@@ -222,26 +228,27 @@ const AjustesEmpresa = ({  }) => {
               height: '50px',
               width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '25px', // Bordes redondeados
-                backgroundColor: 'white', // Color de fondo del input
+                borderRadius: '25px', 
+                backgroundColor: 'white',
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'black', 
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'black', 
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'black',
                 },
               },
               '& input': {
-                fontFamily: 'Poppins', // Aplica la fuente Poppins
-                fontSize: '14px',      // Tamaño de fuente 14px
-                color: '#666666',        // Color del texto dentro del input
+                fontFamily: 'Poppins', 
+                fontSize: '14px',     
+                color: '#666666',   
               },
             }}
           />
 
+{/* Campo del formulario para cambiar la descripción */}
 <TextField
             label="Descripcion de la empresa"
             type="text"
@@ -256,26 +263,26 @@ const AjustesEmpresa = ({  }) => {
               height: '123px',
               width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '25px', // Bordes redondeados
-                backgroundColor: 'white', // Color de fondo del input
+                borderRadius: '25px', 
+                backgroundColor: 'white', 
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'black', 
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'black', 
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'black', 
                 },
               },
               '& .MuiInputLabel-root': {
-                fontFamily: 'Poppins', // Aplica la fuente Poppins
-                fontSize: '14px',      // Tamaño de fuente 14px
-                color: '#666666',      // Color del label
+                fontFamily: 'Poppins', 
+                fontSize: '14px',      
+                color: '#666666',   
               },
             }}
           />
-
+{ /*componente para la Subida de imagenes de la empresa */}
 <SubidaImagenesAjustes onImageUpload={setImagenUrl} />
 
 
@@ -285,6 +292,8 @@ const AjustesEmpresa = ({  }) => {
         }}>
           Perfil de mi empresa
         </Typography>
+
+        {/* Campos del formulario para cambiar el nombre */}
         <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
   <Typography variant="body1" align="center" sx={{ mr: 8, mt:1,
   fontSize: '16px',
@@ -324,17 +333,18 @@ const AjustesEmpresa = ({  }) => {
     padding: '10px', width:'360px',
     height:'36px',
     }}>
+    {/* Checkbox para mostrar la empresa online */}
   <Checkbox
     checked={mostrarOnline}
     onChange={(e) => setMostrarOnline(e.target.checked)}
     name="mostrarOnline"
     sx={{
-      color: 'white', // Color del checkbox
+      color: 'white', 
       '&.Mui-checked': {
-        color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
+        color: 'yellow', 
       },
       '& .MuiSvgIcon-root': {
-        fontSize: '16px', // Ajusta el tamaño del ícono del checkbox a 16x16px
+        fontSize: '16px', 
       },
     }}
   />
@@ -359,26 +369,26 @@ const AjustesEmpresa = ({  }) => {
     height: '50px',
     width: '360px',
     '& .MuiOutlinedInput-root': {
-      borderRadius: '25px', // Bordes redondeados
-      backgroundColor: 'white', // Color de fondo del input
+      borderRadius: '25px', 
+      backgroundColor: 'white', 
       '& fieldset': {
-        borderColor: 'black', // Color del borde
+        borderColor: 'black',
       },
       '&:hover fieldset': {
-        borderColor: 'black', // Color del borde al pasar el mouse
+        borderColor: 'black', 
       },
       '&.Mui-focused fieldset': {
-        borderColor: 'black', // Color del borde al enfocar
+        borderColor: 'black', 
       },
     },
     '& .MuiInputLabel-root': {
-      fontFamily: 'Poppins', // Aplica la fuente Poppins
-      fontSize: '14px',      // Tamaño de fuente 14px
-      color: '#666666',      // Color del label
+      fontFamily: 'Poppins', 
+      fontSize: '14px',      
+      color: '#666666',    
     },
   }}
 />
-
+{}
 <Typography variant="body1" align="center"  sx={{
     mt: 2,
     mb: 5,
@@ -390,6 +400,8 @@ const AjustesEmpresa = ({  }) => {
           
   }}>
     www.soyprofesional.com/miempresa
+
+    {/* Botón para copiar el enlace de la empresa */}
     <IconButton onClick={handleCopyLink} sx={{ ml: 1, color:"#FFD000"}}>
             <ContentCopyIcon sx={{ fontSize: 22 }}/>
           </IconButton>
@@ -416,6 +428,7 @@ const AjustesEmpresa = ({  }) => {
     de tu empresa cpara utilizarla donde quieras 
   </Typography>
 </Box>
+{/* Código QR de la empresa */}
 
 <div style={{ display: 'none' }} ref={qrRef}>
         <QRCode
@@ -433,7 +446,9 @@ const AjustesEmpresa = ({  }) => {
   fontFamily:'Poppins',
 }}>
           Descargar imagen QR
+          {/* Botón para descargar el código QR */}
           <IconButton onClick={handleDownloadQR} sx={{ ml: 13, color:"#FFD000 " }}>
+            {/* Icono de descarga */}
             <DownloadIcon sx={{ fontSize: 22 }}/>
           </IconButton>
         </Typography>
@@ -465,7 +480,7 @@ const AjustesEmpresa = ({  }) => {
     antes de realizar una reserva 
   </Typography>
 </Box>
-
+{/* Botón para vincular la cuenta de MercadoPago */}
 <Button
     variant="contained"
     color="primary"
@@ -474,10 +489,10 @@ const AjustesEmpresa = ({  }) => {
   >
     <Typography
     sx={{
-      fontFamily: 'Poppins', // Aplica la fuente Poppins
-      fontSize: '16px', // Tamaño de fuente 16px
-      color: 'black', // Asegura que el color del texto sea consistente
-      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+      fontFamily: 'Poppins', 
+      fontSize: '16px', 
+      color: 'black', 
+      textTransform: 'none', 
     }}
   >
     Vincular cuenta
@@ -485,14 +500,14 @@ const AjustesEmpresa = ({  }) => {
   </Button>
 
   <Typography variant="h4" component="h1" align="center"  sx={{ mr:23 , 
-     fontFamily: 'Poppins', // Aplica la fuente Poppins
+     fontFamily: 'Poppins',
       fontSize: '20px'
   }}>
           Configurar reservas 
         </Typography>
         <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
   <Typography variant="body1" align="center" sx={{ mr: 7, mt:1,
-     fontFamily: 'Poppins', // Aplica la fuente Poppins
+     fontFamily: 'Poppins', 
       fontSize: '16px'
   }}>
     Elegi requisitos y configuracion de reservas 
@@ -506,6 +521,7 @@ const AjustesEmpresa = ({  }) => {
     width: '360px',
     height: '108px',
     }}>
+      {/* Checkboxes para configurar las opciones de reserva */}
   <FormControlLabel
               control={
                 <Checkbox
@@ -515,10 +531,10 @@ const AjustesEmpresa = ({  }) => {
                   sx={{
                     color:'white',
                     '&.Mui-checked': {
-                      color: '#FFD000', // Cambiar el color a amarillo cuando está seleccionado
+                      color: '#FFD000', 
                     },
                     '& .MuiSvgIcon-root': {
-          fontSize: '16px', // Ajusta el tamaño del ícono del checkbox a 16x16px
+          fontSize: '16px', 
         },
                   }}
                  
@@ -527,8 +543,8 @@ const AjustesEmpresa = ({  }) => {
               label="Requiere autenticacion del cliente  "
               sx={{ mr: 13,
                 '& .MuiTypography-root': {
-                  fontFamily: 'Inter', // Aplica la fuente Inter
-                  fontSize: '14px',    // Tamaño de fuente 14px
+                  fontFamily: 'Inter', 
+                  fontSize: '14px',    
                   
                 },
               
@@ -543,10 +559,10 @@ const AjustesEmpresa = ({  }) => {
                 sx={{
                   color:'white',
                   '&.Mui-checked': {
-                    color: '#FFD000', // Cambiar el color a amarillo cuando está seleccionado
+                    color: '#FFD000', 
                   },
                   '& .MuiSvgIcon-root': {
-          fontSize: '16px', // Ajusta el tamaño del ícono del checkbox a 16x16px
+          fontSize: '16px', 
         },
                 }}
                
@@ -555,8 +571,8 @@ const AjustesEmpresa = ({  }) => {
             label="Requerir DNI del cliente "
             sx={{ mr: 20,
               '& .MuiTypography-root': {
-                fontFamily: 'Inter', // Aplica la fuente Inter
-                fontSize: '14px',    // Tamaño de fuente 14px
+                fontFamily: 'Inter', 
+                fontSize: '14px',   
               },
              }}
             />
@@ -569,10 +585,10 @@ const AjustesEmpresa = ({  }) => {
                 sx={{
                   color:'white',
                   '&.Mui-checked': {
-                    color: '#FFD000', // Cambiar el color a amarillo cuando está seleccionado
+                    color: '#FFD000', 
                   },
                   '& .MuiSvgIcon-root': {
-          fontSize: '16px', // Ajusta el tamaño del ícono del checkbox a 16x16px
+          fontSize: '16px', 
         },
                 }}
                
@@ -581,13 +597,14 @@ const AjustesEmpresa = ({  }) => {
             label="Requerir Whatsapp del cliente"
             sx={{ mr: 16,
               '& .MuiTypography-root': {
-                fontFamily: 'Inter', // Aplica la fuente Inter
-                fontSize: '14px',    // Tamaño de fuente 14px
+                fontFamily: 'Inter', 
+                fontSize: '14px',   
               },
             }}
             />
 </Box>
 
+{/* input para reprogramar turnos */}
 <TextField
             label="Reprogrmacion de turnos permitida"
             type="text"
@@ -600,26 +617,27 @@ const AjustesEmpresa = ({  }) => {
               height: '50px',
               width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '25px', // Bordes redondeados
-                backgroundColor: 'white', // Color de fondo del input
+                borderRadius: '25px', 
+                backgroundColor: 'white', 
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'black', 
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'black', 
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'black', 
                 },
               },
               '& .MuiInputLabel-root': {
-                fontFamily: 'Poppins', // Aplica la fuente Poppins
-                fontSize: '14px',      // Tamaño de fuente 14px
-                color: '#666666',      // Color del label
+                fontFamily: 'Poppins', 
+                fontSize: '14px',      
+                color: '#666666',    
               },
             }}
           />
 
+{/* input para anticipacion de reserva */}
 <TextField
             label="Hs minimas de anticipacion reserva"
             type="text"
@@ -632,26 +650,27 @@ const AjustesEmpresa = ({  }) => {
               height: '50px',
               width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '25px', // Bordes redondeados
-                backgroundColor: 'white', // Color de fondo del input
+                borderRadius: '25px', 
+                backgroundColor: 'white',
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'black', 
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'black', 
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'black', 
                 },
               },
               '& .MuiInputLabel-root': {
-                fontFamily: 'Poppins', // Aplica la fuente Poppins
-                fontSize: '14px',      // Tamaño de fuente 14px
-                color: '#666666',      // Color del label
+                fontFamily: 'Poppins', 
+                fontSize: '14px',      
+                color: '#666666',    
               },
             }}
           />
 
+{/* input para anticipacion de reprogramar */}
 <TextField
             label="Hs minimas de anticipacion para reprogramar"
             type="text"
@@ -665,22 +684,22 @@ const AjustesEmpresa = ({  }) => {
               height: '50px',
               width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '25px', // Bordes redondeados
-                backgroundColor: 'white', // Color de fondo del input
+                borderRadius: '25px', 
+                backgroundColor: 'white', 
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'black', 
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'black', 
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'black', 
                 },
               },
               '& .MuiInputLabel-root': {
-                fontFamily: 'Poppins', // Aplica la fuente Poppins
-                fontSize: '14px',      // Tamaño de fuente 14px
-                color: '#666666',      // Color del label
+                fontFamily: 'Poppins', 
+                fontSize: '14px',     
+                color: '#666666',  
               },
             }}
           />  
@@ -698,7 +717,7 @@ const AjustesEmpresa = ({  }) => {
   }}>
     Ingresa el enlace a tus redes sociales 
   </Typography>
-
+{ /*input para las redes sociales de la empresa */}
   <TextField
             label="WhatsApp"
             type="number"
@@ -718,16 +737,16 @@ const AjustesEmpresa = ({  }) => {
               height: '43px',
               width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '25px', // Bordes redondeados
-                backgroundColor: 'white', // Color de fondo del input
+                borderRadius: '25px', 
+                backgroundColor: 'white', 
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'black',
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'black', 
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'black', 
                 },
               },
             }}
@@ -751,16 +770,16 @@ const AjustesEmpresa = ({  }) => {
               height: '43px',
               width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '25px', // Bordes redondeados
-                backgroundColor: 'white', // Color de fondo del input
+                borderRadius: '25px', 
+                backgroundColor: 'white', 
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'black', 
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'black', 
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'black', 
                 },
               },
             }}
@@ -784,16 +803,16 @@ const AjustesEmpresa = ({  }) => {
               height: '43px',
               width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '25px', // Bordes redondeados
-                backgroundColor: 'white', // Color de fondo del input
+                borderRadius: '25px', 
+                backgroundColor: 'white', 
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'black', 
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'black', 
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'black', 
                 },
               },
             }}
@@ -817,16 +836,16 @@ const AjustesEmpresa = ({  }) => {
               height: '43px',
               width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '25px', // Bordes redondeados
-                backgroundColor: 'white', // Color de fondo del input
+                borderRadius: '25px', 
+                backgroundColor: 'white', 
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'black', 
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'black', 
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'black', 
                 },
               },
             }}
@@ -851,16 +870,16 @@ const AjustesEmpresa = ({  }) => {
               height: '43px',
               width: '360px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '25px', // Bordes redondeados
-                backgroundColor: 'white', // Color de fondo del input
+                borderRadius: '25px', 
+                backgroundColor: 'white', 
                 '& fieldset': {
-                  borderColor: 'black', // Color del borde
+                  borderColor: 'black', 
                 },
                 '&:hover fieldset': {
-                  borderColor: 'black', // Color del borde al pasar el mouse
+                  borderColor: 'black', 
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'black', // Color del borde al enfocar
+                  borderColor: 'black',
                 },
               },
             }}
@@ -896,6 +915,7 @@ const AjustesEmpresa = ({  }) => {
     recuperarlos
   </Typography>
 
+{/* Botón para eliminar la empresa */}
   <Button
     variant="contained"
     color="secondary"
@@ -905,10 +925,10 @@ const AjustesEmpresa = ({  }) => {
   >
     <Typography
     sx={{
-      fontFamily: 'Poppins', // Aplica la fuente Poppins
-      fontSize: '16px', // Tamaño de fuente 16px
-      color: 'black', // Asegura que el color del texto sea consistente
-      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+      fontFamily: 'Poppins',
+      fontSize: '16px', 
+      color: 'black', 
+      textTransform: 'none',
     }}
   >
     Eliminar cuenta
@@ -919,6 +939,7 @@ const AjustesEmpresa = ({  }) => {
 
 
           <Box display="flex" justifyContent="space-between" width="360px" >
+            {/* Botón para cancelar */}
             <Button
               type="submit"
               variant="contained"
@@ -938,15 +959,16 @@ const AjustesEmpresa = ({  }) => {
             >
                <Typography
     sx={{
-      fontFamily: 'Poppins', // Aplica la fuente Poppins
-      fontSize: '16px', // Tamaño de fuente 16px
-      color: '#FFD000', // Asegura que el color del texto sea consistente
-      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+      fontFamily: 'Poppins', 
+      fontSize: '16px', 
+      color: '#FFD000', 
+      textTransform: 'none', 
     }}
   >
     Cancelar
   </Typography>
             </Button>
+            {/* Botón para guardar los cambios */}
             <Button
               type="submit"
               variant="contained"
@@ -965,10 +987,10 @@ const AjustesEmpresa = ({  }) => {
             >
                <Typography
     sx={{
-      fontFamily: 'Poppins', // Aplica la fuente Poppins
-      fontSize: '16px', // Tamaño de fuente 16px
-      color: 'black', // Asegura que el color del texto sea consistente
-      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+      fontFamily: 'Poppins', 
+      fontSize: '16px', 
+      color: 'black', 
+      textTransform: 'none', 
     }}
   >
     Guardar

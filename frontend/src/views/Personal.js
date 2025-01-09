@@ -1,4 +1,5 @@
-// Personal.js
+// # Vista que maneja la visualización y gestión del personal de una empresa.
+// # Permite buscar, editar y añadir empleados, así como copiar un enlace al portapapeles.
 import React, { useState, useEffect } from 'react';
 import {
   Container,
@@ -10,7 +11,7 @@ import {
   Button,
   Avatar,
   IconButton
-} from '@mui/material'; // Asegúrate de importar ListItemButton
+} from '@mui/material'; 
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import SearchBarEmpleados from '../components/SearchBarEmpleados';
@@ -18,18 +19,19 @@ import EditIcon from '@mui/icons-material/Edit';
 import LinkIcon from '@mui/icons-material/Link';
 
 const Personal = () => {
+    // # Estado para almacenar la lista de barberos y el término de búsqueda
   const [barberos, setBarberos] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
   const [mensaje, setMensaje] = useState('');
-
+  // # Obtiene el ID de la empresa del localStorage y carga los barberos al montar el componente
   useEffect(() => {
     const empresaId = localStorage.getItem('empresaId');
     if (empresaId) {
       fetchBarberos(empresaId);
     }
   }, []);
-
+  // # Función para obtener los barberos de la empresa desde el servidor
   const fetchBarberos = async (empresaId) => {
     try {
       const response = await axios.get(`http://localhost:8000/empresa/${empresaId}/barberos`);
@@ -38,7 +40,7 @@ const Personal = () => {
       console.error('Error fetching personal:', error);
     }
   };
-
+  // # Función para buscar barberos por nombre
   const handleSearch = async (nombre) => {
     try {
       const response = await axios.get(`http://localhost:8000/barberos/buscar?nombre=${nombre}`);
@@ -48,18 +50,17 @@ const Personal = () => {
       console.error('Error searching barberos:', error);
     }
   };
-
+  // # Navega a la vista de creación de empleados
   const handleAddEmpleadoClick = () => {
     navigate('/crear-empleado');
   };
-
+  // # Navega a la vista de edición de un barbero específico
   const handleEditClick = (e, id) => {
-    e.stopPropagation(); // Evita que el clic se propague al ListItemButton
+    e.stopPropagation(); 
     navigate(`/editar-profesional/${id}`);
   };
 
- // Dentro de tu componente Personal.js
-
+  // # Copia el enlace a la página principal al portapapeles y muestra un mensaje
  const handleLinkClick = (e) => {
   e.stopPropagation();
 
@@ -77,11 +78,12 @@ const Personal = () => {
     });
 };
 
+  // # Navega a la vista de creación de horarios para un barbero específico
   const handleCrearHorariosClick = (barbero) => {
     navigate('/crear-horarios', { state: { barbero } });
 
   };
-
+  // # Muestra el mensaje temporalmente y lo oculta después de 3 segundos
   useEffect(() => {
     if (mensaje) {
       const timer = setTimeout(() => {
@@ -94,8 +96,7 @@ const Personal = () => {
   return (
     <Container 
     sx={{
-      width: { xs: '320px', sm: '359px' }, // Ancho 320px en pantallas pequeñas, 359px en pantallas medianas y grandes
-      height: 'auto',
+      width: { xs: '320px', sm: '359px' }, 
       padding: { xs: '16px', sm: '24px' }
     }}
     >
@@ -107,7 +108,7 @@ const Personal = () => {
          }}>
           Personal
         </Typography>
-        
+        {/* # Barra de búsqueda de empleados */}
         <Box display="flex" justifyContent="left" >
           <SearchBarEmpleados onSearch={handleSearch} />
         </Box>
@@ -119,7 +120,7 @@ const Personal = () => {
          }}>
           Profesionales disponibles
         </Typography>
-     
+        {/* # Lista de barberos */}
         <List>
           {barberos.length > 0 ? (
             barberos.map((barbero) => (
@@ -134,12 +135,13 @@ const Personal = () => {
                   width: '361px',
                   height: '89px',
                   ml: -5,
-                  backgroundColor: 'white', // Color de fondo del input
+                  backgroundColor: 'white', 
                   '&:hover': {
-                    backgroundColor: 'lightgray', // Cambiar el color de fondo al pasar el cursor a gris claro
+                    backgroundColor: 'lightgray', 
                   },
                 }}
               >
+                {/* # Avatar del barbero */}
                 <Avatar
                   alt={`${barbero.nombre} ${barbero.apellido}`}
                   src={barbero.imagen_url}
@@ -148,27 +150,29 @@ const Personal = () => {
                   }}
                   
                 />
+                 {/* # Nombre y servicios del barbero */}
                 <ListItemText
                   primary={`${barbero.nombre} ${barbero.apellido}`}
                   secondary={barbero.servicios_id}
                   primaryTypographyProps={{
                     sx: {
-                      fontFamily: 'Poppins', // Aplica la fuente Poppins
-                      fontSize: '16px', // Tamaño de fuente 16px
-                      color: '#666666', // Cambiar el color del nombre del barbero a negro
+                      fontFamily: 'Poppins', 
+                      fontSize: '16px', 
+                      color: '#666666', 
                     },
                   }}
                   secondaryTypographyProps={{
                     sx: {
-                      color: 'gray', // Cambiar el color del texto secundario a gris
+                      color: 'gray', 
                     },
                   }}
                   sx={{
                     '& .MuiListItemText-primary': {
-                      color: '#666666', // Cambiar el color del nombre del barbero a negro
+                      color: '#666666', 
                     },
                   }}
                 />
+                {/* # Botón para editar el barbero */}
                 <IconButton
                   edge="end"
                   aria-label="edit"
@@ -184,6 +188,7 @@ const Personal = () => {
                 >
                   <EditIcon sx={{ color: 'black' }} />
                 </IconButton>
+                  {/* # Botón para copiar el enlace al portapapeles */}
                 <IconButton
                   edge="end"
                   aria-label="link"
@@ -206,19 +211,21 @@ const Personal = () => {
             <Typography>No hay personal disponible para esta empresa.</Typography>
           )}
         </List>
+        {/* # Mensaje de confirmación al copiar el enlace */}
         {mensaje && (
   <Typography
     sx={{
       fontFamily: 'Poppins',
       fontSize: '14px',
       color: 'white',
-      mt: 1,    // Margen superior para separar del título
-      ml: -4    // Alineación con el título
+      mt: 1,    
+      ml: -4   
     }}
   >
     {mensaje}
   </Typography>
 )}
+        {/* # Botón para añadir un nuevo profesional */}
         <Button
           variant="contained"
           color="primary"
@@ -237,10 +244,10 @@ const Personal = () => {
         >
           <Typography
     sx={{
-      fontFamily: 'Poppins', // Aplica la fuente Poppins
-      fontSize: '16px', // Tamaño de fuente 16px
-      color: '#000000', // Asegura que el color del texto sea consistente
-      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+      fontFamily: 'Poppins', 
+      fontSize: '16px', 
+      color: '#000000', 
+      textTransform: 'none', 
     }}
   >
     Añadir profesional

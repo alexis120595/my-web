@@ -1,3 +1,4 @@
+// Archivo que muestra los servicios de la empresa y permite editarlos
 import React, { useState, useEffect } from 'react';
 import { Container, Box, Typography, List, ListItem, ListItemText, IconButton, Checkbox} from '@mui/material';
 import axios from 'axios';
@@ -6,16 +7,17 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Servicios = () => {
+  // Estado para almacenar los servicios
   const [servicios, setServicios] = useState([]);
     const navigate = useNavigate();
-
+// Función que se ejecuta al cargar el componente para obtener los servicios de la empresa
   useEffect(() => {
     const empresaId = localStorage.getItem('empresaId');
     if (empresaId) {
       fetchServicios(empresaId);
     }
   }, []);
-
+// Función para obtener los servicios de la empresa
     const fetchServicios = async (empresaId) => {
       try {
         const response = await axios.get(`http://localhost:8000/empresa/${empresaId}/servicios`);
@@ -25,7 +27,7 @@ const Servicios = () => {
       }
     };
 
-    
+  // Función para redirigir a la página de edición de un servicio
   const handleEditServiceClick = (id) => {
     navigate(`/editar-servicio/${id}`);
   };
@@ -35,7 +37,7 @@ const Servicios = () => {
   return (
     <Container maxWidth="sm">
       <Box mt={2} textAlign="left" sx={{ml:17 }} >
-
+      {/* servicios disponibles */}
         <List>
         {servicios.length > 0 ? (
             servicios.map((servicio) => (
@@ -49,7 +51,7 @@ const Servicios = () => {
                   width: '400px',
                   
                 }}>
-
+{/* Checkbox para seleccionar el servicio */} 
 <Checkbox
                   edge="start"
                   sx={{ mr: 2 }}
@@ -69,6 +71,7 @@ const Servicios = () => {
                 },
               }}
             >
+              {/* Icono para editar el servicio */}
               <EditIcon sx={{ color: 'black' }} />
             </IconButton>
             </ListItem>

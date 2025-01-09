@@ -1,3 +1,8 @@
+// # Bloque que define el componente EditarProfesional para editar profesionales (barberos) en el sistema.
+// # Obtiene el ID del profesional con useParams y lo utiliza para cargar los datos (nombre, apellido, email, sucursal, servicios, horarios) desde la API.
+// # Muestra una lista de sucursales y servicios cargados desde la base de datos, permitiendo seleccionar/actualizar la sucursal y servicios asociados.
+// # handleSubmit envía la información actualizada al servidor mediante un PUT en /barberos/:id, tras lo cual redirige a '/personal'.
+// # También se maneja un estado local para permisos y horarios, y se aplica un filtrado de servicios mediante handleSearch.
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Typography, Box, TextField, Button, FormControl, InputLabel, Select, MenuItem, Checkbox, FormControlLabel, IconButton, Switch} from '@mui/material';
@@ -5,7 +10,7 @@ import HorariosEmpleado from '../components/HorariosEmpleado';
 import SearchBar from '../components/SearchBar';
 import axios from 'axios';
 import EditIcon from '@mui/icons-material/Edit';
-
+// estados iniciales que se utilizan en el formulario
 const EditarProfesional = () => {
   const { id } = useParams(); 
   const navigate = useNavigate();
@@ -13,13 +18,14 @@ const EditarProfesional = () => {
   const [apellido, setApellido] = useState('');
   const [email, setEmail] = useState('');
   const [sucursal, setSucursal] = useState('');
-  const [sucursales, setSucursales] = useState([]); // Inicializa sucursales como un array vacío
+  const [sucursales, setSucursales] = useState([]); 
   const [servicios, setServicios] = useState([]);
-  const [todosServicios, setTodosServicios] = useState([]); // Estado para almacenar todos los servicios disponibles
-  const empresaId = localStorage.getItem('empresaId'); // Obtener el ID de la empresa desde el almacenamiento local
+  const [todosServicios, setTodosServicios] = useState([]); 
+  const empresaId = localStorage.getItem('empresaId'); 
   const [horarios, setHorarios] = useState([]); 
   const [searchTerm, setSearchTerm] = useState('');
-  
+
+  // estado local para permisos de profesionales
   const [permisos, setPermisos] = useState({
     permiso1: false,
     permiso2: false,
@@ -27,7 +33,7 @@ const EditarProfesional = () => {
     permiso4: false,
     permiso5: false,
   });
-
+// useEffect para cargar los datos del profesional y las sucursales al montar el componente
   useEffect(() => {
     const fetchBarbero = async () => {
       try {
@@ -45,7 +51,7 @@ const EditarProfesional = () => {
         console.error('Error fetching barbero:', error);
       }
     };
-
+// función para cargar las sucursales de la empresa
     const fetchSucursales = async () => {
       try {
         const response = await axios.get(`http://localhost:8000/empresa/${empresaId}/sucursales`);
@@ -54,7 +60,7 @@ const EditarProfesional = () => {
         console.error('Error fetching sucursales:', error);
       }
     };
-
+// función para cargar los servicios de la empresa
     const fetchServicios = async () => {
       try {
         const response = await axios.get(`http://localhost:8000/servicios`);
@@ -68,7 +74,7 @@ const EditarProfesional = () => {
     fetchSucursales();
     fetchServicios();
   }, [id, empresaId]);
-
+// función para buscar servicios por nombre
   const handleSearch = async (query) => {
     try {
       const response = await axios.get(`http://localhost:8000/servicios/buscar?nombre=${query}`);
@@ -81,7 +87,7 @@ const EditarProfesional = () => {
   const handleHorariosChange = (nuevosHorarios) => {
     setHorarios(nuevosHorarios);
   };
-
+// función para enviar los datos actualizados al servidor
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -100,11 +106,11 @@ const EditarProfesional = () => {
       console.error('Error updating barbero:', error);
     }
   };
-
+// función para cancelar la edición y volver a la vista de personal
   const handleCancel = () => {
     navigate('/personal');
   };
-
+// funciones para manejar los cambios en los campos del formulario
   const handleSucursalChange = (event) => {
     setSucursal(event.target.value);
   };
@@ -174,9 +180,12 @@ height: '2080px',
             Email del profesional disponible
           </Typography>
         </Box>
+
+        
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-         
+          {/* # Campo de texto para modificar el email del profesional */}
           <TextField
+          
             label="Email"
             type="email"
             variant="outlined"
@@ -193,12 +202,12 @@ height: '2080px',
               },
              
               '& input': {
-                color: 'black', // Color del texto que se escribe
+                color: 'black', 
               },
               '& .MuiInputLabel-root': {
-      fontFamily: 'Poppins', // Aplica la fuente Poppins
-      fontSize: '14px',      // Tamaño de fuente 14px
-      color: '#3A3A3A',      // Color gris
+      fontFamily: 'Poppins', 
+      fontSize: '14px',      
+      color: '#3A3A3A',     
     },
             }}
           />
@@ -223,11 +232,12 @@ height: '2080px',
               prestando sus servicios.
             </Typography>
           </Box>
+          {/* # Selector de sucursal */}
           <FormControl variant="outlined" sx={{ mt: 2, width: '360px', height:'50px', marginBottom: '24px',}}>
             <InputLabel id="sucursal-label"
             sx={{
-              fontFamily: 'Poppins', // Aplica la fuente Poppins
-              fontSize: '14px',      // Tamaño de fuente 14px
+              fontFamily: 'Poppins', 
+              fontSize: '14px',    
               color: '#3A3A3A',
             }}
             >Seleccionar Sucursal</InputLabel>
@@ -241,9 +251,9 @@ height: '2080px',
                 borderRadius: '25px',
                 backgroundColor: 'white',
               '& input': {
-                color: 'black', // Color del texto que se escribe
-                fontFamily: 'Poppins', // Aplica la fuente Poppins
-                fontSize: '14px',      // Tamaño de fuente 14px
+                color: 'black', 
+                fontFamily: 'Poppins', 
+                fontSize: '14px',     
               
               },
               }}
@@ -255,6 +265,7 @@ height: '2080px',
               ))}
             </Select>
           </FormControl>
+          {/* # Mensaje que muestra la sucursal seleccionada */}
           <Typography variant="body1" >
             {sucursal ? `Sucursal seleccionada: ${sucursal}` : 'No se ha seleccionado ninguna sucursal'}
           </Typography>
@@ -272,6 +283,7 @@ height: '2080px',
              }}>
               Otorgar permisos al profesional
             </Typography>
+            {/* # Lista de permisos con checkboxes */}
             <Box
               display="flex"
               flexDirection="column"
@@ -293,9 +305,9 @@ height: '2080px',
                     onChange={handlePermisoChange}
                     name="permiso1"
                     sx={{
-                      color: 'white', // Cambiar el color a amarillo cuando está seleccionado
+                      color: 'white', 
                       '&.Mui-checked': {
-                        color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
+                        color: 'yellow', 
                       },
                     }}
                     
@@ -304,8 +316,8 @@ height: '2080px',
                 label="Opción reservar online"
                 sx={{ 
                   '& .MuiTypography-root': {
-                    fontFamily: 'Inter', // Aplica la fuente Inter
-                    fontSize: '14px',    // Tamaño de fuente 14px
+                    fontFamily: 'Inter', 
+                    fontSize: '14px',    
                   },
                  }}
               />
@@ -316,9 +328,9 @@ height: '2080px',
                     onChange={handlePermisoChange}
                     name="permiso2"
                     sx={{
-                      color:'white', // Cambiar el color a amarillo cuando está seleccionado
+                      color:'white', 
                       '&.Mui-checked': {
-                        color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
+                        color: 'yellow', 
                       },
                     }}
                   />
@@ -326,8 +338,8 @@ height: '2080px',
                 label="Agendar turnos en su agenda"
                 sx={{ mr: 1,
                   '& .MuiTypography-root': {
-                    fontFamily: 'Inter', // Aplica la fuente Inter
-                    fontSize: '14px',    // Tamaño de fuente 14px
+                    fontFamily: 'Inter', 
+                    fontSize: '14px',   
                   },
                  }}
               />
@@ -338,9 +350,9 @@ height: '2080px',
                     onChange={handlePermisoChange}
                     name="permiso3"
                     sx={{
-                      color: 'white', // Cambiar el color a amarillo cuando está seleccionado
+                      color: 'white', 
                       '&.Mui-checked': {
-                        color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
+                        color: 'yellow',
                       },
                     }}
                   />
@@ -348,8 +360,8 @@ height: '2080px',
                 label="Editar turnos en su agenda"
                 sx={{ mr: 3,
                   '& .MuiTypography-root': {
-                    fontFamily: 'Inter', // Aplica la fuente Inter
-                    fontSize: '14px',    // Tamaño de fuente 14px
+                    fontFamily: 'Inter', 
+                    fontSize: '14px',    
                   },
                  }}
               />
@@ -360,9 +372,9 @@ height: '2080px',
                     onChange={handlePermisoChange}
                     name="permiso4"
                     sx={{
-                      color: 'white', // Cambiar el color a amarillo cuando está seleccionado
+                      color: 'white', 
                       '&.Mui-checked': {
-                        color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
+                        color: 'yellow', 
                       },
                     }}
                   />
@@ -370,8 +382,8 @@ height: '2080px',
                 label="Ver datos de clientes"
                 sx={{ mr: 9,
                   '& .MuiTypography-root': {
-                    fontFamily: 'Inter', // Aplica la fuente Inter
-                    fontSize: '14px',    // Tamaño de fuente 14px
+                    fontFamily: 'Inter', 
+                    fontSize: '14px',    
                   },
                 }}
               />
@@ -383,9 +395,9 @@ height: '2080px',
                     name="permiso5"
                     sx={{
                       
-                      color: 'white', // Cambiar el color a amarillo cuando está seleccionado
+                      color: 'white', 
                       '&.Mui-checked': {
-                        color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
+                        color: 'yellow', 
                       },
                     }}
                   />
@@ -393,19 +405,21 @@ height: '2080px',
                 label="Recibir señas en su MP"
                 sx={{ mr: 6,
                   '& .MuiTypography-root': {
-                    fontFamily: 'Inter', // Aplica la fuente Inter
-                    fontSize: '14px',    // Tamaño de fuente 14px
+                    fontFamily: 'Inter', 
+                    fontSize: '14px',   
                   },
                  }}
               />
             </Box>
           </Box>
+
           <Typography variant="h4" component="h1" align="center" sx={{ mr: 22, 
             fontFamily: 'Poppins',
             fontSize: '20px',
           }}>
             Horarios de atención
           </Typography>
+
           <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
             <Typography variant="body1" align="center" sx={{ mr: 20,
               fontFamily: 'Poppins',
@@ -414,6 +428,7 @@ height: '2080px',
              }}>
               Utiliza el botón "todos" para aplicar el
             </Typography>
+
             <Typography variant="body1" align="center" sx={{ mr: 17,
               fontFamily: 'Poppins',
               fontSize: '12px',
@@ -421,6 +436,7 @@ height: '2080px',
             
               mismo horario a todos los items. Y el botón
             </Typography>
+
             <Typography variant="body1" align="center" sx={{ mr: 22, mb: 3,
               fontFamily: 'Poppins',
               fontSize: '12px',
@@ -429,7 +445,7 @@ height: '2080px',
               más para agregar otro rango horario
             </Typography>
             
-          
+              {/* # Componente para gestionar los horarios del profesional */}
              <HorariosEmpleado  onHorariosChange={handleHorariosChange} />
 
 
@@ -440,6 +456,7 @@ height: '2080px',
            }}>
             Servicios
           </Typography>
+
           <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
             <Typography variant="body1" align="center" sx={{ mr : 11,
               fontFamily: 'Poppins',
@@ -454,6 +471,7 @@ height: '2080px',
             
               profesional. Utiliza el buscador y los filtros
             </Typography>
+
             <Typography variant="body1" align="center" sx={{ mr: 18, mb: 3,
               fontFamily: 'Poppins',
               fontSize: '16px',
@@ -465,10 +483,12 @@ height: '2080px',
           <Box display="flex" justifyContent="center" 
           sx={{  ml:5, width: '400px' }}
           >
+            {/* # Barra de búsqueda para filtrar servicios */}
             <SearchBar onSearch={handleSearch} 
           
             />
           </Box>
+           {/* # Lista de servicios con checkboxes para seleccionar los servicios que presta el profesional */}
           <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
             {todosServicios.map((servicio) => (
               
@@ -494,7 +514,7 @@ height: '2080px',
                     value={servicio.id}
                     sx={{
                       '&.Mui-checked': {
-                        color: 'yellow', // Cambiar el color a amarillo cuando está seleccionado
+                        color: 'yellow', 
                       },
                     }}
                   />
@@ -502,9 +522,9 @@ height: '2080px',
                 label={servicio.nombre}
                 sx={{
                   '& .MuiTypography-root': {
-                    fontFamily: 'Poppins', // Aplica la fuente Poppins
-                    fontSize: '16px', // Tamaño de fuente 14px
-                    color: '#666666', // Cambiar el color del texto a negro
+                    fontFamily: 'Poppins', 
+                    fontSize: '16px', 
+                    color: '#666666', 
                   },
                 }}
               />
@@ -525,6 +545,7 @@ height: '2080px',
           </Box>
         ))}
           </Box>
+          {/* # Botones para guardar cambios o cancelar */}
           <Box display="flex" justifyContent="space-between" width="300px" mt={2}>
             <Button
               type="submit"
@@ -545,10 +566,10 @@ height: '2080px',
             >
               <Typography
     sx={{
-      fontFamily: 'Poppins', // Aplica la fuente Poppins
-      fontSize: '16px', // Tamaño de fuente 16px
-      color: '#FFD000', // Asegura que el color del texto sea consistente
-      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+      fontFamily: 'Poppins', 
+      fontSize: '16px', 
+      color: '#FFD000', 
+      textTransform: 'none', 
     }}
   >
     Guardar
@@ -572,10 +593,10 @@ height: '2080px',
             >
               <Typography
     sx={{
-      fontFamily: 'Poppins', // Aplica la fuente Poppins
-      fontSize: '16px', // Tamaño de fuente 16px
-      color: 'black', // Asegura que el color del texto sea consistente
-      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+      fontFamily: 'Poppins', 
+      fontSize: '16px', 
+      color: 'black', 
+      textTransform: 'none', 
     }}
   >
     Cancelar

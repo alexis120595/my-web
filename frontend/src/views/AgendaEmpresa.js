@@ -1,3 +1,4 @@
+// vista de la agenda de la empresa que muestra los turnos de los clientes
 import React, { useState, useEffect } from 'react';
 import { Container, Box, Typography, List, ListItem, ListItemText, ButtonBase } from '@mui/material';
 import axios from 'axios';
@@ -7,12 +8,13 @@ import { useNavigate } from 'react-router-dom';
 
 
 const AgendaEmpresa = () => {
+  // estados para almacenar las reservas, la fecha seleccionada y el ID de la reserva seleccionada
   const [reservas, setReservas] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedReservaId, setSelectedReservaId] = useState(null); // Estado para almacenar el ID de la reserva seleccionada
+  const [selectedReservaId, setSelectedReservaId] = useState(null); 
   const [empresaId, setEmpresaId] = useState(null); 
   const navigate = useNavigate();
-
+// obtener el ID de la empresa del almacenamiento local
   useEffect(() => {
     const storedEmpresaId = localStorage.getItem('empresaId');
     if (storedEmpresaId) {
@@ -21,7 +23,7 @@ const AgendaEmpresa = () => {
       console.error('No se encontró el ID de la empresa en el almacenamiento local');
     }
   }, []);
-
+// función para obtener las reservas de la empresa
   useEffect(() => {
     const fetchReservas = async () => {
       try {
@@ -37,12 +39,15 @@ const AgendaEmpresa = () => {
     fetchReservas();
 }
   }, [empresaId]);
-
+// función para manejar el clic en una reserva
   const handleReservaClick = (id) => {
-    setSelectedReservaId(id); // Guardar el ID de la reserva seleccionada en el estado
+    // Guardar el ID de la reserva seleccionada en el estado
+    setSelectedReservaId(id); 
+    // Navegar a la vista de detalle de la reserva
     navigate(`/detalle-reserva-empresa/${id}`);
   };
 
+// función para manejar el clic en un día del calendario y filtrar las reservas por fecha
   const handleDayClick = async (date) => {
     setSelectedDate(date);
     try {
@@ -55,6 +60,7 @@ const AgendaEmpresa = () => {
     }
   };
 
+// función para buscar las reservas por ID de cliente
   const handleSearchByClienteId = async (userId) => {
     try {
       const response = await axios.get(`http://localhost:8000/reservas/cliente/${userId}`);
@@ -79,12 +85,13 @@ const AgendaEmpresa = () => {
         sx={{
           fontFamily: 'Poppins',
           fontSize: '24px',
-          textAlign: 'left', // Alinea el texto a la izquierda
+          textAlign: 'left', 
         }}> 
           Agenda 
         </Typography>
         <Box
          sx={{ textAlign: 'left' }}>
+          {/* Calendario para seleccionar la fecha */}
         <CalendarioAgenda selectedDate={selectedDate} setSelectedDate={handleDayClick} sx={{mb:2}} />
         </Box>
 
@@ -93,8 +100,9 @@ const AgendaEmpresa = () => {
         }}>
           Proximos turnos
         </Typography>
-
+        { /* Barra de búsqueda para buscar reservas por ID de cliente */}
         <SearchBarReservas onSearch={handleSearchByClienteId} />
+        { /* Lista de reservas */}
         <List>
           {reservas.map((reservas) => (
 
@@ -115,34 +123,37 @@ sx={{ width: '100%', display: 'block', textAlign: 'left' }}
               backgroundColor: 'white'
               
             }}>
+              {/* Información de la reserva */}
                <Box display="flex" flexDirection="column" width="100%">
                   <ListItemText
                     primary={`Cliente n° ${reservas.usuario.id}`}
                     primaryTypographyProps={{
                       sx: {
-                        fontFamily: 'Poppins', // Aplica la fuente Poppins
-                        fontSize: '16px', // Tamaño de fuente 14px
-                        color: '#666666', // Cambiar el color del texto a #666666
+                        fontFamily: 'Poppins', 
+                        fontSize: '16px', 
+                        color: '#666666', 
                       },
                     }}
                     sx={{ color: '#666666' }}
                   />
+
+                  {/* Información del servicio y barbero */}
                <Box display="flex" justifyContent="space-between" width="100%" >
               <ListItemText   primary={` ${reservas.servicio.nombre|| 'N/A'}`}
                     secondary={` ${reservas.barbero.nombre || 'N/A'}`} 
                     
                     primaryTypographyProps={{
                       sx: {
-                        fontFamily: 'Poppins', // Aplica la fuente Poppins
-                        fontSize: '12px', // Tamaño de fuente 12px
-                        color: '#3A3A3A', // Cambiar el color del texto a #3A3A3A
+                        fontFamily: 'Poppins', 
+                        fontSize: '12px',
+                        color: '#3A3A3A', 
                       },
                     }}
                     secondaryTypographyProps={{
                       sx: {
-                        fontFamily: 'Poppins', // Aplica la fuente Poppins
-                        fontSize: '12px', // Tamaño de fuente 12px
-                        color: '#3A3A3A', // Cambiar el color del texto a #3A3A3A
+                        fontFamily: 'Poppins', 
+                        fontSize: '12px', 
+                        color: '#3A3A3A', 
                       },
                     }}
                     />
@@ -168,20 +179,21 @@ sx={{ width: '100%', display: 'block', textAlign: 'left' }}
               <Typography
          
           sx={{
-            fontFamily: 'Poppins', // Aplica la fuente Poppins
-            fontSize: '14px', // Tamaño de fuente 14px
-            color: '#3A3A3A', // Cambiar el color del texto a #3A3A3A
+            fontFamily: 'Poppins', 
+            fontSize: '14px', 
+            color: '#3A3A3A', 
             
           }}
         >
+          {/* Fecha y hora de la reserva */}
           {reservas.fecha}
         </Typography>
         <Typography
           
           sx={{
-            fontFamily: 'Poppins', // Aplica la fuente Poppins
-            fontSize: '14px', // Tamaño de fuente 14px
-            color: '#3A3A3A', // Cambiar el color del texto a #3A3A3A
+            fontFamily: 'Poppins', 
+            fontSize: '14px', 
+            color: '#3A3A3A', 
           }}
         >
           {reservas.horario.hora}

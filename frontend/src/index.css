@@ -1,3 +1,9 @@
+/* 
+# Archivo de estilos globales para la aplicación React.
+# Utiliza Tailwind CSS para proporcionar estilos base, componentes y utilidades.
+# Define estilos personalizados para el body y el elemento code.
+# También incluye un switch con estilos para el control de encendido/apagado.
+*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -21,7 +27,7 @@ code {
 }
 
 
-/* Estilos para el switch */
+/* # Estilos para el switch, que incluye un slider y su comportamiento al activarlo. */
 .switch {
   position: relative;
   display: inline-block;

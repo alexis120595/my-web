@@ -1,3 +1,4 @@
+// # Archivo para crear un nuevo servicio en la aplicación
 import React, { useState, useEffect } from 'react';
 import { Container, Box, TextField, Button, Typography, Checkbox, FormControlLabel,MenuItem,  Card, CardContent, CardMedia, IconButton } from '@mui/material';
 import axios from 'axios';
@@ -5,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const CrearServicio1 = () => {
+  // # Define estados locales para manejar los datos del formulario y otros estados necesarios
   const [nombre, setNombre] = useState('');
   const [empresaId, setEmpresaId] = useState('');
   const [precio, setPrecio] = useState('');
@@ -20,7 +22,7 @@ const CrearServicio1 = () => {
   const [precioServicioChecked, setPrecioServicioChecked] = useState(false);
   const [descripcionChecked, setDescripcionChecked] = useState(false);
   const navigate = useNavigate();
-
+// # useEffect para obtener el ID de la empresa desde el almacenamiento local y cargar los barberos al montar el componente
   useEffect(() => {
     const storedEmpresaId = localStorage.getItem('empresaId');
     if (storedEmpresaId) {
@@ -28,7 +30,7 @@ const CrearServicio1 = () => {
       fetchBarberos(storedEmpresaId);
     }
   }, []);
-
+ // # Función para obtener los barberos de la empresa desde la API
   const fetchBarberos = async (empresaId) => {
     try {
       const response = await axios.get(`http://localhost:8000/empresa/${empresaId}/barberos`);
@@ -37,7 +39,7 @@ const CrearServicio1 = () => {
       console.error('Error fetching barberos:', error);
     }
   };
-
+// # Maneja el envío del formulario para crear un nuevo servicio
   const handleCrearServicio = async (event) => {
     event.preventDefault();
     const form = {
@@ -51,10 +53,10 @@ const CrearServicio1 = () => {
       empresa_id: parseInt(empresaId, 10),
       barberos_ids: selectedBarberos.map(id => parseInt(id, 10))
     };
-    console.log('Formulario enviado:', form); // Añadir console.log para ver el formulario enviado
+    console.log('Formulario enviado:', form); 
     try {
       const response = await axios.post('http://localhost:8000/servicios', form);
-      console.log('Respuesta del servidor:', response.data); // Añadir console.log para ver la respuesta del servidor
+      console.log('Respuesta del servidor:', response.data); 
       setSuccess(response.data.message);
       setError(null);
       // Limpiar los campos del formulario después de crear el servicio
@@ -73,15 +75,15 @@ const CrearServicio1 = () => {
       setSuccess(null);
     }
   };
-
+// # Maneja el cambio del checkbox para el precio del servicio
   const handlePrecioServicioCheckedChange = (event) => {
     setPrecioServicioChecked(event.target.checked);
   };
-
+// # Maneja el cambio del checkbox para la descripción del servicio
   const handleDescripcionCheckedChange = (event) => {
     setDescripcionChecked(event.target.checked);
   };
-
+// # Maneja la selección de barberos para el servicio
   const handleSelectBarbero = (barberoId) => {
     setSelectedBarberos((prevSelected) =>
       prevSelected.includes(barberoId)
@@ -106,6 +108,7 @@ const CrearServicio1 = () => {
           Añadir Servicio
         </Typography>
         <form onSubmit={handleCrearServicio}>
+          {/* # Campo de texto para ingresar el nombre del servicio */}
           <TextField
             label="Nombre del Servicio"
             variant="outlined"
@@ -117,32 +120,32 @@ const CrearServicio1 = () => {
               height:"50px",
               width: { xs: '330px', sm: '361px' },
               '& .MuiOutlinedInput-root': {
-                borderRadius: '25px', // Bordes más redondeados
-                backgroundColor: 'white', // Color de fondo del input
+                borderRadius: '25px', 
+                backgroundColor: 'white', 
                 '& input': {
-                  color: 'black', // Color del texto que se escribe
+                  color: 'black', 
                 },
                 '& fieldset': {
-                  borderColor: 'white', // Color del borde
+                  borderColor: 'white', 
                 },
                 '&:hover fieldset': {
-                  borderColor: 'white', // Color del borde al pasar el mouse
+                  borderColor: 'white', 
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'white', // Color del borde al enfocar
+                  borderColor: 'white', 
                 },
               },
               '& .MuiInputLabel-root': {
-                color: '#666666', // Color del label
+                color: '#666666', 
                 fontFamily: 'Poppins',
                 fontSize: '14px',
               },
               '& .MuiInputAdornment-root': {
-                color: 'white', // Color del icono
+                color: 'white', 
               },
             }} 
           />
-
+ {/* # Campo de texto para ingresar el tipo de servicio */}
 <TextField
             label="Tipo de Servicio"
             variant="outlined"
@@ -154,33 +157,33 @@ const CrearServicio1 = () => {
               height:"50px",
               width: { xs: '330px', sm: '361px' },
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes más redondeados
-                backgroundColor: 'white', // Color de fondo del input
+                borderRadius: '20px', 
+                backgroundColor: 'white', 
                 '& input': {
-                  color: 'black', // Color del texto que se escribe
+                  color: 'black', 
                 },
                 
                 '& fieldset': {
-                  borderColor: 'white', // Color del borde
+                  borderColor: 'white', 
                 },
                 '&:hover fieldset': {
-                  borderColor: 'white', // Color del borde al pasar el mouse
+                  borderColor: 'white', 
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'white', // Color del borde al enfocar
+                  borderColor: 'white', 
                 },
               },
               '& .MuiInputLabel-root': {
-                color: '#666666', // Color del label
+                color: '#666666', 
                 fontFamily: 'Poppins',
                 fontSize: '14px',
               },
               '& .MuiInputAdornment-root': {
-                color: 'white', // Color del icono
+                color: 'white', 
               },
             }} 
           />
-
+{/* # Campo de texto para ingresar la descripción del servicio */}
 <TextField
             label="Descripcion del Servicio"
             variant="outlined"
@@ -193,29 +196,29 @@ const CrearServicio1 = () => {
               height:"50px",
               width: { xs: '330px', sm: '361px' },
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes más redondeados
-                backgroundColor: 'white', // Color de fondo del input
+                borderRadius: '20px', 
+                backgroundColor: 'white', 
                 '& input': {
-                  color: 'black', // Color del texto que se escribe
+                  color: 'black', 
                 },
                 
                 '& fieldset': {
-                  borderColor: 'white', // Color del borde
+                  borderColor: 'white', 
                 },
                 '&:hover fieldset': {
-                  borderColor: 'white', // Color del borde al pasar el mouse
+                  borderColor: 'white', 
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'white', // Color del borde al enfocar
+                  borderColor: 'white', 
                 },
               },
               '& .MuiInputLabel-root': {
-                color: '#666666', // Color del label
+                color: '#666666', 
                 fontFamily: 'Poppins',
                 fontSize: '14px',
               },
               '& .MuiInputAdornment-root': {
-                color: 'white', // Color del icono
+                color: 'white', 
               },
             }} 
           />
@@ -231,6 +234,7 @@ sx={{
         </Typography>
 
 <Box mb={2}>
+           {/* # Checkbox para definir si el precio del servicio está definido */}
           <FormControlLabel
             control={
               <Checkbox
@@ -243,7 +247,7 @@ sx={{
                   marginLeft:'17px',
                   color:"white",
                   '&.Mui-checked': {
-      color: "yellow", // Cambiar el color a amarillo cuando está seleccionado
+      color: "yellow", 
     },
   
                 }}
@@ -263,29 +267,29 @@ sx={{
               height:"50px",
               width:"244px",
               '& .MuiOutlinedInput-root': {
-                borderRadius: '25px', // Bordes más redondeados
-                backgroundColor: 'white', // Color de fondo del input
+                borderRadius: '25px', 
+                backgroundColor: 'white', 
                 '& input': {
-                  color: 'black', // Color del texto que se escribe
+                  color: 'black', 
                 },
                 
                 '& fieldset': {
-                  borderColor: 'white', // Color del borde
+                  borderColor: 'white', 
                 },
                 '&:hover fieldset': {
-                  borderColor: 'white', // Color del borde al pasar el mouse
+                  borderColor: 'white', 
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'white', // Color del borde al enfocar
+                  borderColor: 'white', 
                 },
               },
               '& .MuiInputLabel-root': {
-                color: '#666666', // Color del label
+                color: '#666666', 
                 fontFamily: 'Poppins',
                 fontSize: '14px',
               },
               '& .MuiInputAdornment-root': {
-                color: 'white', // Color del icono
+                color: 'white', 
               },
             }} 
           />
@@ -302,6 +306,7 @@ sx={{
         </Typography>
         </Box>
         <Box mb={2}>
+           {/* # Checkbox para definir si el servicio requiere seña */}
           <FormControlLabel
             control={
               <Checkbox
@@ -315,7 +320,7 @@ sx={{
                   marginLeft:'17px',
                   color:"white",
                   '&.Mui-checked': {
-      color: "yellow", // Cambiar el color a amarillo cuando está seleccionado
+      color: "yellow", 
     },
   
                 }}
@@ -334,29 +339,29 @@ sx={{
               height:"50px",
               width:"244px",
               '& .MuiOutlinedInput-root': {
-                borderRadius: '25px', // Bordes más redondeados
-                backgroundColor: 'white', // Color de fondo del input
+                borderRadius: '25px', 
+                backgroundColor: 'white', 
                 '& input': {
-                  color: 'black', // Color del texto que se escribe
+                  color: 'black', 
                 },
                 
                 '& fieldset': {
-                  borderColor: 'white', // Color del borde
+                  borderColor: 'white', 
                 },
                 '&:hover fieldset': {
-                  borderColor: 'white', // Color del borde al pasar el mouse
+                  borderColor: 'white', 
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'white', // Color del borde al enfocar
+                  borderColor: 'white', 
                 },
               },
               '& .MuiInputLabel-root': {
-                color: '#666666', // Color del label
+                color: '#666666', 
                 fontFamily: 'Poppins',
                 fontSize: '14px',
               },
               '& .MuiInputAdornment-root': {
-                color: 'white', // Color del icono
+                color: 'white', 
               },
             }} 
           />
@@ -379,7 +384,7 @@ sx={{
 }}>
           Modalidad y Duracion 
         </Typography>
-
+           {/* # Campo de texto para ingresar la duración del servicio */}
            <TextField
             label="Duracion del Servicio"
             variant="outlined"
@@ -391,34 +396,34 @@ sx={{
               height:"50px",
               width: { xs: '330px', sm: '361px' },
               '& .MuiOutlinedInput-root': {
-                borderRadius: '25px', // Bordes más redondeados
-                backgroundColor: 'white', // Color de fondo del input
+                borderRadius: '25px', 
+                backgroundColor: 'white', 
                 '& input': {
-                  color: 'black', // Color del texto que se escribe
+                  color: 'black', 
                 },
                 
                 
                 '& fieldset': {
-                  borderColor: 'white', // Color del borde
+                  borderColor: 'white', 
                 },
                 '&:hover fieldset': {
-                  borderColor: 'white', // Color del borde al pasar el mouse
+                  borderColor: 'white', 
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'white', // Color del borde al enfocar
+                  borderColor: 'white', 
                 },
               },
               '& .MuiInputLabel-root': {
-                color: '#666666', // Color del label
+                color: '#666666', 
                 fontFamily: 'Poppins',
                 fontSize: '14px',
               },
               '& .MuiInputAdornment-root': {
-                color: 'white', // Color del icono
+                color: 'white', 
               },
             }} 
           />
-
+{/* # Campo de texto para ingresar la modalidad del servicio */}
 <TextField
             label="Modalidad del Servicio"
             variant="outlined"
@@ -430,28 +435,28 @@ sx={{
               height:"50px",
               width: { xs: '330px', sm: '361px' },
               '& .MuiOutlinedInput-root': {
-                borderRadius: '25px', // Bordes más redondeados
-                backgroundColor: 'white', // Color de fondo del input
+                borderRadius: '25px', 
+                backgroundColor: 'white', 
                 '& input': {
-                  color: 'black', // Color del texto que se escribe
+                  color: 'black', 
                 },
                 '& fieldset': {
-                  borderColor: 'white', // Color del borde
+                  borderColor: 'white', 
                 },
                 '&:hover fieldset': {
-                  borderColor: 'white', // Color del borde al pasar el mouse
+                  borderColor: 'white', 
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: 'white', // Color del borde al enfocar
+                  borderColor: 'white', 
                 },
               },
               '& .MuiInputLabel-root': {
-                color: '#666666', // Color del label
+                color: '#666666', 
                 fontFamily: 'Poppins',
                 fontSize: '14px',
               },
               '& .MuiInputAdornment-root': {
-                color: 'white', // Color del icono
+                color: 'white', 
               },
             }} 
           />
@@ -465,7 +470,7 @@ sx={{
         </Typography>
 
        
-
+         {/* # Lista de barberos con opción de selección */}
         <Box display="grid"
   gridTemplateColumns="repeat(2, 1fr)"
   gap='27px'
@@ -475,13 +480,13 @@ sx={{
               sx={{
                 width: '165px',
                 height: '188px',
-                borderRadius: '15px', // Bordes redondeados
-                backgroundColor: 'white', // Color de fondo
-                display: 'flex', // Para que los elementos estén en fila
-                alignItems: 'center', // Para centrar los elementos verticalmente
+                borderRadius: '15px', 
+                backgroundColor: 'white', 
+                display: 'flex', 
+                alignItems: 'center', 
                 flexDirection:'column',
-                justifyContent: 'center', // Para centrar los elementos horizontalmente
-                marginBottom: '44px', // Espacio entre las tarjetas
+                justifyContent: 'center', 
+                marginBottom: '44px', 
               }}
               >
                 <CardMedia
@@ -489,12 +494,12 @@ sx={{
                   sx={{
                     height: 68,
                     width: 68,
-                    borderRadius: '50%', // Hacer la imagen redonda
-                    marginBottom: '10px', // Espacio entre la imagen y el nombre
-                    marginTop: '20px', // Espacio entre la imagen y el borde superior
+                    borderRadius: '50%', 
+                    marginBottom: '10px', 
+                    marginTop: '20px', 
                    
                   }}
-                  image={barbero.imagen_url} // Asegúrate de que la URL de la foto esté disponible en el objeto barbero
+                  image={barbero.imagen_url} 
                   alt={`${barbero.nombre} ${barbero.apellido}`}
                 />
                 <CardContent  sx={{ padding: 0, textAlign: 'center' }}>
@@ -521,15 +526,15 @@ sx={{
                          },
                          width: '109px',
                          height: '33px',
-                         textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+                         textTransform: 'none', 
                          
                  }}
               >
  <Typography
     sx={{
-      fontFamily: 'Poppins', // Aplica la fuente Poppins
-      fontSize: '14px',       // Tamaño de fuente 14px
-      color: '#3A3A3A',      // Asegura que el color del texto sea consistente
+      fontFamily: 'Poppins', 
+      fontSize: '14px',       
+      color: '#3A3A3A',  
     }}
   >
     {selectedBarberos.includes(barbero.id) ? 'Seleccionado' : 'Seleccionar'}
@@ -539,8 +544,8 @@ sx={{
               </Card>
             ))}
           </Box>
-          
-          <Box>
+   {/* # Botones para cancelar o añadir el servicio */}       
+<Box>
   <Box
     sx={{
       display: 'flex',
@@ -614,6 +619,7 @@ sx={{
 </Box>
 
         </form>
+        {/* # Mensajes de éxito o error */}
         {success && <Typography color="primary">{success}</Typography>}
         {error && <Typography color="error">{error}</Typography>}
       </Box>

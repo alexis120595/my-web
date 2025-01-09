@@ -1,3 +1,4 @@
+// Vista de la lista de Clientes de una empresa
 import React, { useState, useEffect } from 'react';
 import { Container, Box, Typography, List, ListItem, ListItemText, Avatar, IconButton, Button} from '@mui/material';
 import axios from 'axios';
@@ -8,10 +9,11 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Clientes = () => {
+  // Estado para almacenar los registros de clientes
   const [registro, setRegistro] = useState([]);
   const navigate = useNavigate();
     
-
+// Función para obtener los registros de clientes
   useEffect(() => {
     const fetchRegistro = async () => {
       try {
@@ -25,7 +27,7 @@ const Clientes = () => {
 
     fetchRegistro();
   }, []);
-
+// Función para buscar un cliente por email
   const handleSearch = async (email) => {
     try {
       const response = await axios.get(`http://localhost:8000/registro/buscar?email=${email}`);
@@ -35,7 +37,7 @@ const Clientes = () => {
       console.error('Error al buscar clientes:', error);
     }
   };
-
+// Función para crear una reserva desde la vista de Clientes
   const handleCrearReserva = (clienteId) => {
     navigate('/home', { state: { clienteId } });
   };
@@ -55,7 +57,7 @@ const Clientes = () => {
             }}>
           Clientes
         </Typography>
-
+          {/* buscador de clientes */}
         <SearchBarClientes onSearch={handleSearch} />
 
         <Typography  gutterBottom sx={{
@@ -65,6 +67,7 @@ const Clientes = () => {
            }}>
           Mis clientes
         </Typography>
+        {/* Lista de clientes */}
         <List>
           {registro.map((registro) => (
             <ListItem key={registro.id}
@@ -78,6 +81,7 @@ const Clientes = () => {
               height: '89px',
               backgroundColor: 'white'
             }}>
+              {/* imagen del cliente */}
                 <Avatar
                   alt={`${registro.email}`}
                   src={registro.imagen_url}
@@ -86,51 +90,54 @@ const Clientes = () => {
               <ListItemText primary={registro.email}
                 primaryTypographyProps={{
                 sx: {
-                  fontFamily: 'Poppins', // Aplica la fuente Poppins
-                  fontSize: '16px', // Tamaño de fuente 16px
-                  color: '#666666', // Cambiar el color del texto a negro
+                  fontFamily: 'Poppins',
+                  fontSize: '16px', 
+                  color: '#666666', 
                   
                 },
               }}
                sx={{
                 '& .MuiListItemText-primary': {
-                  color: '#666666', // Cambiar el color del texto a negro
+                  color: '#666666', 
                 },
               }}
               />
-
+              {/* botones de crear reserva  */}
               <IconButton edge="end" aria-label="crear reserva"
                onClick={() =>handleCrearReserva (registro.id)}
                   sx={{
                     backgroundColor: '#FFD000',
                     borderRadius: '50%',
                     padding: '10px',
-                    width: '40px', // Ancho del botón
-                    height: '40px', // Alto del botón
+                    width: '40px', 
+                    height: '40px',
                     '&:hover': {
                       backgroundColor: 'darkyellow',
                     },
                   }}>
+                    {/* icono de calendario */}
                   <CalendarTodayIcon sx={{ color: 'black', fontSize: '20px' }} />
                 </IconButton>
+                {/* botón de eliminar cliente */}
                 <IconButton edge="end" aria-label="link" onClick={() => (registro.id)}
                   sx={{
                     ml: 2,
                     backgroundColor: '#FF8272',
                     borderRadius: '50%',
                     padding: '10px',
-                    width: '40px', // Ancho del botón
-                    height: '40px', // Alto del botón
+                    width: '40px', 
+                    height: '40px', 
                     '&:hover': {
                       backgroundColor: 'darkyellow',
                     },
                   }}>
+                    {/* icono de eliminar */}
                   <DeleteIcon sx={{ color: 'black', fontSize: '20px' }} />
                 </IconButton>
             </ListItem>
           ))}
         </List>
-
+        {/* botón de invitar cliente */}
         <Button
   variant="contained"
   color="primary"
@@ -145,16 +152,16 @@ const Clientes = () => {
     mr: 1, 
     mb: 4,
     '&:hover': {
-      backgroundColor: 'gray', // Cambia el fondo a gris al hacer hover
+      backgroundColor: 'gray', 
     },
   }}
 >
 <Typography
     sx={{
-      fontFamily: 'Poppins', // Aplica la fuente Poppins
-      fontSize: '16px', // Tamaño de fuente 16px
-      color: 'black', // Asegura que el color del texto sea consistente
-      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+      fontFamily: 'Poppins', 
+      fontSize: '16px', 
+      color: 'black', 
+      textTransform: 'none', 
     }}
   >
     Invitar cliente

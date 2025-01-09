@@ -1,34 +1,37 @@
+// Archivo que muestra la tarjeta de un barbero en la pantalla de selección de barberos
 import React from 'react';
 import { Card, CardContent, Typography, Box} from '@mui/material';
 
 const BarberoCard = ({ barbero }) => {
   return (
+    
     <Card
       sx={{
-        border: '1px solid black', // Borde negro
-        borderRadius: '15px', // Bordes redondeados
-        margin: '5px', // Margen entre opciones
-        padding: '10px', // Ajusta el padding
-        width: '165px', // Ancho fijo
-        height: '188px', // Altura fija
-        display: 'flex', // Flexbox para centrar el contenido
+        border: '1px solid black', 
+        borderRadius: '15px', 
+        margin: '5px', 
+        padding: '10px', 
+        width: '165px', 
+        height: '188px', 
+        display: 'flex', 
       
-        justifyContent: 'center', // Centrar horizontalmente
-        alignItems: 'center', // Centrar verticalmente
+        justifyContent: 'center',
+        alignItems: 'center', 
         '&:hover': {
-          backgroundColor: 'rgba(0, 0, 0, 0.1)', // Fondo al pasar el mouse
+          backgroundColor: 'rgba(0, 0, 0, 0.1)', 
         },
       }}
     >
+      {/* Contenido de la tarjeta */}
       <CardContent>
       <Box
           sx={{
-            width: '127px', // Ancho del contenedor
-            height: '99px', // Alto del contenedor
-            display: 'flex', // Flexbox para centrar el contenido
-            flexDirection: 'column', // Colocar los elementos en columna
-            justifyContent: 'center', // Centrar verticalmente
-            alignItems: 'center', // Centrar horizontalmente
+            width: '127px', 
+            height: '99px', 
+            display: 'flex', 
+            flexDirection: 'column', 
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
 
@@ -37,12 +40,12 @@ const BarberoCard = ({ barbero }) => {
           sx={{
             height: 68,
             width: 68,
-            borderRadius: '50%', // Hacer la imagen redonda
+            borderRadius: '50%', 
            
             
-          }}
+          }} 
           alt={`${barbero.nombre} ${barbero.apellido}`}
-          src={barbero.imagen_url} // URL de la imagen del barbero
+          src={barbero.imagen_url} 
         />
         <Typography variant="h6"
          sx={{
@@ -53,7 +56,9 @@ const BarberoCard = ({ barbero }) => {
           textAlign: 'center',
           color: '#666666',
         }}
-        >{barbero.nombre} {barbero.apellido} </Typography>
+
+        >
+          {barbero.nombre} {barbero.apellido} </Typography>
         </Box>
       </CardContent>
     </Card>

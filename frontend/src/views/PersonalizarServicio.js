@@ -1,3 +1,4 @@
+// # Vista que permite personalizar un servicio, incluyendo el valor cobrado y los días en que se presta el servicio.
 import React, { useState } from 'react';
 import { Typography, Box, TextField, Button, Checkbox, FormControlLabel} from '@mui/material';
 
@@ -5,7 +6,7 @@ import { Typography, Box, TextField, Button, Checkbox, FormControlLabel} from '@
 const PersonalizarServicio = ({  }) => {
   const [email, setEmail] = useState('');
   
-  
+  // # Estado para manejar los días seleccionados
   const [dias, setDias] = useState({
     dia1: false,
     dia2: false,
@@ -15,7 +16,7 @@ const PersonalizarServicio = ({  }) => {
     dia6: false,
     dia7: false,
   });
-
+ // # Maneja el envío del formulario
   const handleSubmit = (event) => {
     event.preventDefault();
     // Aquí puedes manejar el envío del formulario, por ejemplo, enviando los datos a una API
@@ -23,9 +24,9 @@ const PersonalizarServicio = ({  }) => {
   
     console.log('Dias:', dias);
   };
-
+ // Aquí puedes manejar la acción de cancelar, por ejemplo, limpiando los campos del formulario
   const handleCancel = () => {
-    // Aquí puedes manejar la acción de cancelar, por ejemplo, limpiando los campos del formulario
+   
     setEmail('');
   
     setDias({
@@ -39,7 +40,7 @@ const PersonalizarServicio = ({  }) => {
       });
   };
 
-
+ // # Maneja el cambio de estado de los checkboxes de los días
 
   const handleDiasChange = (event) => {
     setDias({
@@ -48,7 +49,7 @@ const PersonalizarServicio = ({  }) => {
     });
   };
 
- 
+
 
 
   return (
@@ -79,14 +80,13 @@ const PersonalizarServicio = ({  }) => {
               mb: 2,
               width: '300px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes redondeados
+                borderRadius: '20px', 
               },
             }}
           />
 
-
-         
-        <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1,  backgroundColor: 'lightgrey',
+        {/* # Sección para seleccionar los días que el profesional prestará el servicio */}
+         <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ mt: 1,  backgroundColor: 'lightgrey',
     borderRadius: '10px',
     padding: '20px', }}>
   <Typography variant="body1" align="center" sx={{ mr: 1}}>
@@ -184,7 +184,7 @@ const PersonalizarServicio = ({  }) => {
 </Box>
 
 
-
+          {/* # Botón para guardar los cambios */}
           <Box display="flex" justifyContent="space-between" width="300px" mt={2}>
             <Button
               type="submit"

@@ -1,3 +1,4 @@
+// Archivos que contiene el componente de la lista de empleados de la empresa
 import React, { useState, useEffect } from 'react';
 import { Container, Box, Typography, List, ListItem, ListItemText, Avatar } from '@mui/material';
 import axios from 'axios';
@@ -7,16 +8,17 @@ import { useNavigate } from 'react-router-dom';
 
 
 const   Empleados = () => {
+  // Se crea un estado para almacenar los empleados de la empresa
   const [barberos, setBarberos] = useState([]);
     const navigate = useNavigate();
-
+// Se obtiene el id de la empresa del local storage y se llama a la función fetchBarberos
     useEffect(() => {
       const empresaId = localStorage.getItem('empresaId');
       if (empresaId) {
         fetchBarberos(empresaId);
       }
     }, []);
-  
+  // Función para obtener los empleados de la empresa
     const fetchBarberos = async (empresaId) => {
       try {
         const response = await axios.get(`http://localhost:8000/empresa/${empresaId}/barberos`);
@@ -33,6 +35,7 @@ const   Empleados = () => {
   return (
     <Container maxWidth="sm">
         <Box sx={{ mt: 8, textAlign: 'center' }}>
+          {/*lista de empleados*/}
         <List>
           {barberos.length > 0 ? (
             barberos.map((barbero) => (
@@ -46,6 +49,7 @@ const   Empleados = () => {
                   width: '200px'
                 }}
               >
+                {/*avatar del empleado*/}
                   <Avatar
                 alt={`${barbero.nombre} ${barbero.apellido}`}
                 src={barbero.imagen_url}

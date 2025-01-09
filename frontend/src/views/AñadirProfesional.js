@@ -1,32 +1,36 @@
+// vista para añadir un profesional a una sucursal
 import React, { useState } from 'react';
 import { Typography, Box, TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions, List, ListItem, ListItemText } from '@mui/material';
 
 const AñadirProfesional = ({ sucursales }) => {
+  // Definimos los estados para el email, la sucursal y el estado de las ventana modal
   const [email, setEmail] = useState('');
   const [sucursal, setSucursal] = useState('');
   const [open, setOpen] = useState(false);
 
+ // Función para manejar el envío del formulario
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Aquí puedes manejar el envío del formulario, por ejemplo, enviando los datos a una API
+
     console.log('Email:', email);
     console.log('Sucursal:', sucursal);
   };
 
+ // Función para manejar el cancelar
   const handleCancel = () => {
-    // Aquí puedes manejar la acción de cancelar, por ejemplo, limpiando los campos del formulario
+  
     setEmail('');
     setSucursal('');
   };
-
+// Función para manejar el abrir la ventana modal
   const handleClickOpen = () => {
     setOpen(true);
   };
-
+// Función para manejar el cerrar la ventana modal
   const handleClose = () => {
     setOpen(false);
   };
-
+// Función para manejar la selección de la sucursal
   const handleSucursalSelect = (sucursal) => {
     setSucursal(sucursal);
     handleClose();
@@ -49,6 +53,7 @@ const AñadirProfesional = ({ sucursales }) => {
     listado de profesionales disponibles.
   </Typography>
 </Box>
+        {/* Formulario para añadir un profesional */}
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <TextField
             label="Email"
@@ -60,7 +65,7 @@ const AñadirProfesional = ({ sucursales }) => {
               mt: 2,
               width: '300px',
               '& .MuiOutlinedInput-root': {
-                borderRadius: '20px', // Bordes redondeados
+                borderRadius: '20px', 
               },
             }}
           />
@@ -77,6 +82,7 @@ const AñadirProfesional = ({ sucursales }) => {
   </Typography>
  
 </Box>
+          {/* Botón para seleccionar la sucursal */}
           <Button
             variant="outlined"
             onClick={handleClickOpen}
@@ -88,9 +94,11 @@ const AñadirProfesional = ({ sucursales }) => {
           >
             Seleccionar Sucursal
           </Button>
+          {/* Texto para mostrar la sucursal seleccionada */}
           <Typography variant="body1" sx={{ mt: 1 }}>
             {sucursal ? `Sucursal seleccionada: ${sucursal}` : 'No se ha seleccionado ninguna sucursal'}
           </Typography>
+          {/* Botón para cancelar  */}
           <Box display="flex" justifyContent="space-between" width="300px" mt={2}>
             <Button
               type="submit"
@@ -107,6 +115,7 @@ const AñadirProfesional = ({ sucursales }) => {
             >
               Cancelar
             </Button>
+            {/* Botón para añadir el profesional */}
             <Button
               type="button"
               variant="contained"
@@ -126,9 +135,11 @@ const AñadirProfesional = ({ sucursales }) => {
           </Box>
         </form>
       </Box>
+      {/* Ventana modal para seleccionar la sucursal */}
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Seleccionar Sucursal</DialogTitle>
         <DialogContent>
+          {/* Lista de sucursales */}
           <List>
             {((sucursal) => (
               <ListItem button onClick={() => handleSucursalSelect(sucursal)} key={sucursal}>
@@ -138,6 +149,7 @@ const AñadirProfesional = ({ sucursales }) => {
           </List>
         </DialogContent>
         <DialogActions>
+          {/* Botón para cerrar la ventana modal */}
           <Button onClick={handleClose} color="primary">
             Cerrar
           </Button>

@@ -1,15 +1,22 @@
+// # Este archivo define el componente EditarServicio, el cual permite editar los datos de un servicio existente.
+// # Utiliza React Router (useParams para obtener el ID y useNavigate para redirigir tras guardar cambios).
+// # Maneja estados locales para precio, duración y modalidad, y llama a la API para cargar y actualizar la información.
+// # Al enviar, hace un PUT al endpoint correspondiente para guardar los cambios y luego redirige a 'servicios-disponibles'.
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Box, Typography, TextField, Button } from '@mui/material';
 import axios from 'axios';
 
 const EditarServicio = () => {
+  // # useParams obtiene el ID del servicio desde la ruta.
   const { id } = useParams();
+  // # useNavigate permite redirigir luego de editar con éxito.
   const navigate = useNavigate();
+// # Estados locales para almacenar los datos del servicio.
   const [precio, setPrecio] = useState('');
   const [duracion, setDuracion] = useState('');
   const [modalidad, setModalidad] = useState('');
-
+// # Al montar, obtiene la información del servicio usando el ID y setea los estados iniciales.
   useEffect(() => {
     const fetchServicio = async () => {
       try {
@@ -26,6 +33,8 @@ const EditarServicio = () => {
     fetchServicio();
   }, [id]);
 
+  // # handleSubmit envía los datos actualizados al backend mediante un PUT.
+  // # Convierte el precio a entero y envía la nueva información al endpoint /servicios/:id.
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -44,7 +53,7 @@ const EditarServicio = () => {
       alert('Error al actualizar el servicio');
     }
   };
-
+  // # Renderiza un contenedor con campos de texto para editar precio, duración y modalidad, y un botón para guardar cambios.
   return (
     <Container maxWidth="sm">
       <Box mt={5} textAlign="center">
@@ -67,9 +76,9 @@ const EditarServicio = () => {
               marginBottom: '24px',
               '& .MuiOutlinedInput-root': {
                 '& input': {
-                  fontFamily: 'Poppins', // Aplica la fuente Poppins
-                  fontSize: '14px', // Tamaño de la fuente
-                  color: '#666666', // Color del texto
+                  fontFamily: 'Poppins', 
+                  fontSize: '14px', 
+                  color: '#666666', 
                 },
               },
               }}
@@ -88,9 +97,9 @@ const EditarServicio = () => {
               backgroundColor:'white',
               '& .MuiOutlinedInput-root': {
                 '& input': {
-                  fontFamily: 'Poppins', // Aplica la fuente Poppins
-                  fontSize: '14px', // Tamaño de la fuente
-                  color: '#666666', // Color del texto
+                  fontFamily: 'Poppins', 
+                  fontSize: '14px', 
+                  color: '#666666', 
                 },
               },  
             }}
@@ -108,9 +117,9 @@ const EditarServicio = () => {
               backgroundColor:'white',
               '& .MuiOutlinedInput-root': {
                 '& input': {
-                  fontFamily: 'Poppins', // Aplica la fuente Poppins
-                  fontSize: '14px', // Tamaño de la fuente
-                  color: '#666666', // Color del texto
+                  fontFamily: 'Poppins', 
+                  fontSize: '14px', 
+                  color: '#666666', 
                 },
               },
               }}
@@ -118,13 +127,13 @@ const EditarServicio = () => {
           <Button type="submit" variant="contained" color="primary" sx={{  
                 borderRadius: '25px', width:'361px', height:'50px', color:'black', backgroundColor:'#FFD000',
                 '&:hover': {
-                  backgroundColor: '#FFD000', // Mantiene el mismo color al pasar el cursor
+                  backgroundColor: '#FFD000', 
                 },
                 '& .MuiOutlinedInput-root': {
                   '& input': {
-                    fontFamily: 'Poppins', // Aplica la fuente Poppins
-                    fontSize: '16px', // Tamaño de la fuente
-                    color: '#666666', // Color del texto
+                    fontFamily: 'Poppins', 
+                    fontSize: '16px', 
+                    color: '#666666', 
                   },
                 },
                 }}>

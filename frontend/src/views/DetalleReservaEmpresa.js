@@ -1,3 +1,4 @@
+// componente para mostrar el detalle de una reserva de un usuario en una empresa
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, CardContent, Typography, CircularProgress, Box, Button, Snackbar,Alert, Dialog, DialogActions,DialogContent, DialogContentText, DialogTitle} from '@mui/material';
@@ -11,7 +12,9 @@ import EventIcon from '@mui/icons-material/Event';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 const DetalleReservaEmpresa = () => {
+  // # Obtiene el ID de la reserva desde la URL usando useParams
   const { id } = useParams();
+  // # Define estados locales para manejar la reserva, el estado de carga, errores, mensajes de éxito y el estado de las ventanas modales
   const [reservas, setReserva] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -19,7 +22,7 @@ const DetalleReservaEmpresa = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
   
-
+// # useEffect para obtener los datos de la reserva al montar el componente
   useEffect(() => {
     const fetchReserva = async () => {
       try {
@@ -34,18 +37,18 @@ const DetalleReservaEmpresa = () => {
 
     fetchReserva();
   }, [id]);
-
+// # Maneja la apertura de la ventana de confirmación de cancelación
   const handleAnularClick = () => {
     setOpenDialog(true);
   };
-
+// # Maneja el cierre de la ventana de confirmación de cancelación
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
-
+ // # Maneja la cancelación de la reserva, llamando a la API para actualizar el estado a "Cancelada"
   const handleCancelClick = async () => {
     try {
-      // Llamada a la API para cancelar la reserva (actualizar estado a "Cancelada")
+    
       await axios.put(`http://127.0.0.1:8000/reservas/${id}/cancelar`);
       // Mostrar mensaje de éxito
       setSuccessMessage('Reserva cancelada de forma exitosa');
@@ -59,7 +62,7 @@ const DetalleReservaEmpresa = () => {
       console.error('Error canceling reservation:', error);
     }
   };
-
+   // # Muestra un indicador de carga mientras se obtienen los datos
   if (loading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -67,7 +70,7 @@ const DetalleReservaEmpresa = () => {
       </Box>
     );
   }
-
+  // # Muestra un mensaje de error si ocurre un problema al obtener los datos
   if (error) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -83,28 +86,30 @@ const DetalleReservaEmpresa = () => {
       sx={{
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'flex-start', // Alinear al inicio verticalmente
+        alignItems: 'flex-start', 
         width: '100%',
-        minHeight: '100%', // Usar minHeight en lugar de height
-        padding: { xs: 2, sm: 4 }, // Padding responsivo
+        minHeight: '100%',
+        padding: { xs: 2, sm: 4 }, 
        
       }}
     >
+      
       <Box
         sx={{
-          width: { xs: '100%', sm: '550px' }, // Ancho responsivo
+          width: { xs: '100%', sm: '550px' }, 
           height: { xs: 'auto', sm: '673px' },
           backgroundColor: '#504D4D',
           borderRadius: '20px',
           boxShadow: 3,
-          padding: { xs: 2, sm: 4 }, // Padding interno responsivo
+          padding: { xs: 2, sm: 4 },
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
         }}
       >
+        {/* # Tarjeta que contiene los detalles de la reserva */}
         <Card sx={{
-          width: { xs: '100%', sm: '403px' }, // Ancho responsivo: 100% en pantallas pequeñas, 403px en pantallas medianas y grandes
+          width: { xs: '100%', sm: '403px' },
           height: { xs: 'auto', sm: '542px' },
           borderRadius: '15px',
           boxShadow: 3,
@@ -119,7 +124,7 @@ const DetalleReservaEmpresa = () => {
                 fontSize: '24px',
                 marginTop: '24px',
                 marginBottom: '24px',
-                textAlign: 'center', // Centrar el título
+                textAlign: 'center', 
               }}
             >
               Mi turno reservado
@@ -143,7 +148,7 @@ const DetalleReservaEmpresa = () => {
 <Box
   sx={{
     display: 'flex',
-    flexDirection: 'column', // Dirección del flex en columna
+    flexDirection: 'column', 
     alignItems: 'flex-start',
     mb: 1.5,
     width: '100%',
@@ -153,10 +158,11 @@ const DetalleReservaEmpresa = () => {
     sx={{
       display: 'flex',
       alignItems: 'center',
-      mb: 0.5, // Espacio entre la etiqueta y el valor
+      mb: 0.5, 
       width: '100%',
     }}
   >
+    
     <LocationOnIcon sx={{ color: 'white', mr: 1 }} />
     <Typography
       sx={{
@@ -249,7 +255,9 @@ const DetalleReservaEmpresa = () => {
                   </Typography>
                 </Box>
               </>
+              
             ) : (
+              
               <Typography sx={{ mb: 1.5, color: 'white', fontFamily: 'Poppins', fontSize: '16px' }}>
                 No se encontró la reserva.
               </Typography>
@@ -272,9 +280,9 @@ const DetalleReservaEmpresa = () => {
                 margin: '10px',
                 backgroundColor: '#414141',
                 color: 'white',
-                border: '2px solid white', // Añadir borde blanco
+                border: '2px solid white', 
                 '&:hover': {
-                  backgroundColor: '#414141', // Mantener el fondo al hacer hover
+                  backgroundColor: '#414141', 
                   borderColor: 'white',
                 },
               }}
@@ -297,7 +305,7 @@ const DetalleReservaEmpresa = () => {
                 backgroundColor: '#FF8272',
                 color: 'white',
                 '&:hover': {
-                  backgroundColor: 'red', // Cambiar al hover
+                  backgroundColor: 'red', 
                   borderColor: 'white',
                 },
               }}
@@ -325,9 +333,9 @@ const DetalleReservaEmpresa = () => {
           onClose={handleCloseDialog}
           PaperProps={{
             sx: {
-              width: '321px', // Ancho personalizado
-              height: '240px', // Alto personalizado
-              borderRadius: '28px', // Bordes redondeados
+              width: '321px', 
+              height: '240px', 
+              borderRadius: '28px', 
             },
           }}
         >

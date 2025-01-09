@@ -1,3 +1,4 @@
+// Archivo que nos permite crear una nueva sucursal
 import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import { Container, Box, TextField, Button, Typography } from '@mui/material';
@@ -5,20 +6,21 @@ import Mapa from '../components/Mapa';
 
 
 const CrearSucursal = () => {
+  // # Define estados locales para manejar el nombre, ubicación, ID de la empresa, mensajes de éxito y error
   const [nombre, setNombre] = useState('');
   const [ubicacion, setUbicacion] = useState('');
   const [empresaId, setEmpresaId] = useState(null);
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
-
+    // # useEffect para obtener el ID de la empresa desde el almacenamiento local al montar el componente
   useEffect(() => {
-    // Supongamos que obtienes el ID de la empresa desde el almacenamiento local o algún contexto
+    
     const storedEmpresaId = localStorage.getItem('empresaId');
     if (storedEmpresaId) {
       setEmpresaId(parseInt(storedEmpresaId, 10));
     }
   }, []);
-
+  // # Maneja el envío del formulario para crear una nueva sucursal
   const handleCrearSucursal = async (event) => {
     event.preventDefault();
     const form = {
@@ -40,7 +42,7 @@ const CrearSucursal = () => {
       setSuccess(null);
     }
   };
-
+// # Maneja la selección de la ubicación desde el componente Mapa
   const handleLocationSelect = (address) => {
     setUbicacion(address);
   };
@@ -79,6 +81,7 @@ const CrearSucursal = () => {
       }}>
         la sucursal
       </Typography>
+      {/* # Campo de texto para ingresar el nombre de la sucursal */}
       <form onSubmit={handleCrearSucursal}>
         <TextField
           label="Ingresar nombre"
@@ -93,13 +96,13 @@ const CrearSucursal = () => {
             height: '50px',
             width: { xs: '330px', sm: '360px' },
             '& .MuiOutlinedInput-root': {
-              borderRadius: '25px', // Bordes redondeados
-              backgroundColor: 'white', // Fondo blanco
+              borderRadius: '25px', 
+              backgroundColor: 'white', 
             },
             '& .MuiInputLabel-root': {
-              fontFamily: 'Poppins', // Aplica la fuente Poppins
-              fontSize: '14px',      // Tamaño de fuente 14px
-              color: '#666666',      // Color del label
+              fontFamily: 'Poppins', 
+              fontSize: '14px',      
+              color: '#666666',    
             },
           }}
         />
@@ -131,6 +134,7 @@ sx={{
       }}>
         visualizarla en el mapa
       </Typography>
+       {/* # Campo de texto para ingresar la dirección de la sucursal */}
         <TextField
           label="Ingresar dirección"
           variant="outlined"
@@ -144,24 +148,25 @@ sx={{
             width: { xs: '330px', sm: '360px' },
             height: '50px',
             '& .MuiOutlinedInput-root': {
-              borderRadius: '25px', // Bordes redondeados
-              backgroundColor: 'white', // Fondo blanco
+              borderRadius: '25px',
+              backgroundColor: 'white', 
             },
             '& .MuiInputLabel-root': {
-              fontFamily: 'Poppins', // Aplica la fuente Poppins
-              fontSize: '14px',      // Tamaño de fuente 14px
-              color: '#666666',      // Color del label
+              fontFamily: 'Poppins', 
+              fontSize: '14px',      
+              color: '#666666',      
             },
           }}
         />
-<Box display="flex" justifyContent="center"  >
+          {/* # Componente Mapa para seleccionar la ubicación */}
+        <Box display="flex" justifyContent="center"  >
         <Mapa onLocationSelect={handleLocationSelect}  />
         </Box>
-       
+          {/* # Botón para guardar la nueva sucursal */}
         <Button
-  variant="contained"
-  color="primary"
-  onClick={handleCrearSucursal}
+          variant="contained"
+           color="primary"
+          onClick={handleCrearSucursal}
   sx={{
     mt: 3,
     borderRadius: '30px',
@@ -172,16 +177,16 @@ sx={{
     mr: 1,
     mb: 4,
     '&:hover': {
-      backgroundColor: 'gray', // Color de fondo al hacer hover
+      backgroundColor: 'gray', 
     },
   }}
 >
 <Typography
     sx={{
-      fontFamily: 'Poppins', // Aplica la fuente Poppins
-      fontSize: '14px', // Tamaño de fuente 14px
-      color: 'black', // Asegura que el color del texto sea consistente
-      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+      fontFamily: 'Poppins', 
+      fontSize: '14px', 
+      color: 'black', 
+      textTransform: 'none', 
     }}
   >
     Guardar
@@ -189,6 +194,7 @@ sx={{
 </Button>
 
         </form>
+        {/* # Mensajes de éxito o error */}
         {success && <Typography color="primary">{success}</Typography>}
         {error && <Typography color="error">{error}</Typography>}
         </Box>

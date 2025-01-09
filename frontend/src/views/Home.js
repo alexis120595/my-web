@@ -1,3 +1,11 @@
+// # Este componente maneja la lógica para reservar turnos y administrar la interacción del usuario:
+// # 1. Carga servicios, barberos y horarios desde la API usando axios.
+// # 2. Permite seleccionar servicio, barbero, fecha y horario para la reserva.
+// # 3. Integra Mercado Pago (initMercadoPago, Wallet) para el proceso de pago.
+// # 4. Controla diálogos para confirmar selección de servicio, barbero y horario.
+// # 5. Muestra una vista previa antes de confirmar la reserva y proceder al pago.
+// # 6. Maneja estados y validaciones para asegurar que se tengan todos los datos requeridos.
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {  MenuItem, Button, Typography, Box, Dialog, DialogTitle, DialogContent, DialogActions, Collapse, Container, Grid} from '@mui/material';
@@ -14,7 +22,11 @@ import { useLocation } from 'react-router-dom';
 
 const Home = () => {
   
-  
+  // estados para manejar los datos de la reserva
+  //cuando se seleciona un servicio, barbero, horario y fecha
+  //estado de mercado pago para manejar el proceso de pago
+  //estados para manejar las ventanas emergentes de selección de servicio, barbero y horario
+  //estados para almacenar el id de la empresa, el usuario 
   const [servicios, setServicios] = useState([]);
   const [barberos, setBarberos] = useState([]);
   const [horarios, setHorarios] = useState([]);
@@ -35,7 +47,7 @@ const Home = () => {
   const [openPreviewDialog, setOpenPreviewDialog] = useState(false);
   const [empresa, setEmpresa] = useState(null);
   const [horarioSeleccionado, setHorarioSeleccionado] = useState(false);
-  // Añade este estado en tu componente
+  
 const [mostrarVistaPrevia, setMostrarVistaPrevia] = useState(true);
 const [showSuccessModal, setShowSuccessModal] = useState(false);
 
@@ -50,9 +62,9 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
   
   
   
-  
+  // Inicializar Mercado Pago con la clave de inicio
   initMercadoPago(process.env.REACT_APP_MERCADO_PAGO_INIT_KEY);;
-
+//función para manejar la lógica de la reserva
   useEffect(() => {
     const empresaIdFromStorage = localStorage.getItem('empresaId');
     
@@ -66,7 +78,9 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
     }
 
   }, []);
-
+// # Este useEffect se ejecuta siempre que cambien selectedServicio, selectedBarbero o selectedHorario.
+// # Llama a las funciones correspondientes para obtener y actualizar los datos del servicio (nombre),
+// # del barbero (nombre y horarios disponibles) y del horario (hora), manteniendo la información sincronizada.
   useEffect(() => {
     if (selectedServicio) {
       fetchServicioNombre(selectedServicio);
@@ -81,6 +95,10 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
     }
   }, [selectedServicio, selectedBarbero, selectedHorario]);
 
+// # Este useEffect verifica si la URL contiene un parámetro 'status=success'. 
+// # Si existe, muestra un modal de éxito (setShowSuccessModal). 
+// # Luego remueve el parámetro para evitar que permanezca en la URL, 
+// # actualizando la misma sin recargar la página.
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const status = searchParams.get('status');
@@ -92,7 +110,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
       window.history.replaceState(null, '', newRelativePathQuery);
     }
   }, []);
-
+// ruta que trae los servicios de la empresa
   const fetchServicios = async (empresaId) => {
     try {
       const response = await axios.get(`http://localhost:8000/empresa/${empresaId}/servicios`);
@@ -101,7 +119,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
       console.error('Error fetching servicios:', error);
     }
   };
-
+//ruta que trae los barberos de la empresa
   const fetchBarberos = async (empresaId) => {
     try {
       const response = await axios.get(`http://localhost:8000/empresa/${empresaId}/barberos`);
@@ -110,7 +128,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
       console.error('Error fetching barberos:', error);
     }
   };
-
+// ruta que trae los horarios de los barberos
   const fetchHorariosByBarbero = async (barberoId) => {
     try {
       const response = await axios.get(`http://localhost:8000/horarios/barbero/${barberoId}`);
@@ -119,7 +137,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
       console.error('Error fetching horarios:', error);
     }
   };
-
+// ruta que trae el nombre del servicio
   const fetchServicioNombre = async (servicioId) => {
     try {
       const response = await axios.get(`http://localhost:8000/servicios/${servicioId}`);
@@ -129,7 +147,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
       console.error('Error fetching servicio nombre:', error);
     }
   };
-
+// ruta que trae el nombre del barbero
   const fetchBarberoNombre = async (barberoId) => {
     try {
       const response = await axios.get(`http://localhost:8000/barberos/${barberoId}`);
@@ -138,7 +156,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
       console.error('Error fetching barbero nombre:', error);
     }
   };
-
+// ruta que trae la hora espesifica 
   const fetchHorarioHora = async (horarioId) => {
     try {
       const response = await axios.get(`http://localhost:8000/horarios/${horarioId}`);
@@ -147,7 +165,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
       console.error('Error fetching horario hora:', error);
     }
   };
-
+// ruta que trae la empresa, que se muestra en la vista previa y el detalle de la reserva
   const fetchEmpresa = async (empresaId) => {
     try {
       const response = await axios.get(`http://localhost:8000/empresa/${empresaId}`);
@@ -158,36 +176,38 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
   };
 
  
-
+// Verifica que todos los campos requeridos estén seleccionados
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Verifica que todos los campos requeridos estén seleccionados
+
     if (!selectedServicio || !selectedBarbero || !selectedHorario || !selectedDate || !userId || !empresaId) {
       console.error('Todos los campos son requeridos');
       return;
     }
-
+// # Crea un objeto con la información necesaria para la reserva:
+// # (servicio_id, barbero_id, horario_id, fecha, user_id y empresa_id).
+// # Convierte la fecha a formato YYYY-MM-DD (split('T')[0]) para enviarla correctamente al backend.
     const formData = {
       servicio_id: selectedServicio,
       barbero_id: selectedBarbero,
       horario_id: selectedHorario,
-      fecha: selectedDate.toISOString().split('T')[0], // Asegúrate de que la fecha esté en el formato correcto
+      fecha: selectedDate.toISOString().split('T')[0], 
       user_id: userId,
       empresa_id: empresaId
     };
 
     console.log('Formulario enviado', formData);
 
-    
+    // Enviar el formulario al backend para crear la reserva
     axios.post('http://127.0.0.1:8000/reservas', formData)
       .then(response => {
         console.log('Formulario enviado', response.data);
 
         localStorage.setItem('lastReservaId', response.data.id);
-        
 
-       
+
+
         // Puedes manejar la respuesta aquí, como mostrar un mensaje de éxito
         axios.put(`http://127.0.0.1:8000/horarios/${selectedHorario}`, { estado: false })
         .then(response => {
@@ -206,7 +226,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
         // Puedes manejar el error aquí, como mostrar un mensaje de error
       });
   };
-
+// # Esta función crea una preferencia de pago en Mercado Pago con los datos de la reserva.
   const handleCreatePreference = async (reservaId) => {
     try {
       const response = await axios.post('http://127.0.0.1:8000/create_preference', {
@@ -221,59 +241,59 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
       console.error('Error creating preference:', error);
     }
   };
-
+// Abre la ventana de los horarios
   const handleOpenHorarioDialog = () => {
     setOpenHorarioDialog(true);
   };
-
+// Cierra la ventana de los horarios
   const handleCloseHorarioDialog = () => {
     setOpenHorarioDialog(false);
   };
-
+// Selecciona el horario y lo cierra
   const handleSelectHorario = (horarioId) => {
     setSelectedHorario(horarioId);
     setHorarioSeleccionado(true); 
     handleCloseHorarioDialog();
   };
-
+// Abre la ventana de los servicios
   const handleOpenServicioDialog = () => {
     setOpenServicioDialog(true);
   };
-
+// Cierra la ventana de los servicios
   const handleCloseServicioDialog = () => {
     setOpenServicioDialog(false);
   };
-
+// Selecciona el servicio y lo cierra
   const handleSelectServicio = (servicioId) => {
     setSelectedServicio(servicioId);
     handleCloseServicioDialog();
   };
-
+// Abre la ventana de los barberos
   const handleOpenBarberoDialog = () => {
     setOpenBarberoDialog(true);
   };
-
+// Cierra la ventana de los barberos
   const handleCloseBarberoDialog = () => {
     setOpenBarberoDialog(false);
   };
-
+// Selecciona el barbero y lo cierra
   const handleSelectBarbero = (barberoId) => {
     setSelectedBarbero(barberoId);
     handleCloseBarberoDialog();
   };
-
+// Abre la vista previa de la reserva
   const handleToggleExpand = (id) => {
     setExpanded((prevExpanded) => ({
       ...prevExpanded,
       [id]: !prevExpanded[id],
     }));
   };
-
+// Abre la vista previa de la reserva
   const handleOpenPreviewDialog = () => {
     const selectedServicioObj = servicios.find(servicio => servicio.id === selectedServicio);
     const selectedBarberoObj = barberos.find(barbero => barbero.id === selectedBarbero);
     const selectedHorarioObj = horarios.find(horario => horario.id === selectedHorario);
-
+// Crea un objeto con los datos de la reserva para mostrar en la vista previa
     setReserva({
       servicio: selectedServicioObj,
       barbero: selectedBarberoObj,
@@ -281,22 +301,21 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
       fecha: selectedDate,
       empresa: empresa,
     });
-
+    // Abre la ventana de vista previa
     setOpenPreviewDialog(true);
   };
-
+ // Cierra la vista previa de la reserva
   const handleClosePreviewDialog = () => {
     setOpenPreviewDialog(false);
   };
-
+// Confirma la reserva y cierra la vista previa
   const handleConfirmarReserva = async () => {
     try {
-      // Aquí puedes agregar la lógica para crear la reserva y proceder al pago
-      // Por ejemplo, enviar los datos de la reserva al backend y redirigir al pago
+   
       console.log('Reserva confirmada:', reserva);
       setMostrarVistaPrevia(false);
       setOpenPreviewDialog(false);
-      // Redirigir al pago
+
     
     } catch (error) {
       console.error('Error al confirmar la reserva:', error);
@@ -306,48 +325,49 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
   return (
     <Container
     sx={{
-      width: { xs: '100%', sm: '360px' }, // Ancho 100% en pantallas pequeñas, 360px en pantallas medianas y grandes
+      width: { xs: '100%', sm: '360px' }, 
       height: 'auto',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      padding: { xs: 2, sm: 0 }, // Padding 2 en pantallas pequeñas, 0 en pantallas medianas y grandes
-      marginTop: { xs: 2, sm: 5 }, // Margen superior 2 en pantallas pequeñas, 5 en pantallas medianas y grandes
+      padding: { xs: 2, sm: 0 }, 
+      marginTop: { xs: 2, sm: 5 }, 
     }}>
     <Box sx={{ display: 'flex', justifyContent: 'left', alignItems: 'left', marginBottom:"24px" }}>
         <Typography variant="h4" component="h1" gutterBottom
          sx={{
-          fontFamily: 'Poppins', // Fuente Poppins
-          fontSize: '24px', // Tamaño de la fuente
-          width: '360px', // Ancho del texto
-          height: '32px', // Alto del texto
+          fontFamily: 'Poppins', 
+          fontSize: '24px', 
+          width: '360px', 
+          height: '32px', 
         }}
         >
           Reservar turno
         </Typography>
       </Box>
-
+ {/* # Formulario principal para manejar selección de servicio, barbero, fecha y horario */}
+ 
     <form onSubmit={handleSubmit}  style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-    
-    <Button variant="outlined" onClick={handleOpenServicioDialog}  startIcon={<NotificationsIcon />} sx={{ mt: 2,  borderRadius: '25px', // Bordes redondeados
-    borderColor: 'black', // Color del borde negro
-    color: 'black', // Color del texto negro
+    {/* # Botón para mostrar diálogo de selección de servicio */}
+    <Button variant="outlined" onClick={handleOpenServicioDialog}  startIcon={<NotificationsIcon />} sx={{ mt: 2,  borderRadius: '25px', 
+    borderColor: 'black', 
+    color: 'black', 
     height: '50px',
     width:"362px",
     marginBottom:"24px",
     backgroundColor: 'white',
     '&:hover': {
-      backgroundColor: 'white', // Mantener el fondo blanco al pasar el cursor
-      borderColor: 'black', // Mantener el borde negro al pasar el cursor
+      backgroundColor: 'white', 
+      borderColor: 'black', 
     },
-    display: 'flex', // Asegura que el contenido del botón esté alineado correctamente
-    alignItems: 'center', // Centra verticalmente el contenido del botón
-    justifyContent: 'flex-start', // Alinea el contenido del botón a la izquierda
+    display: 'flex', 
+    alignItems: 'center', 
+    justifyContent: 'flex-start', 
     textAlign: 'left',
-    fontFamily: 'Poppins', // Aplica la fuente Poppins
-    fontSize: '14px', // Tamaño de fuente 14px
-    color: '#666666', // Color del texto
+    fontFamily: 'Poppins', 
+    fontSize: '14px', 
+    color: '#666666', 
     textTransform:'none',
    
   }} >
@@ -355,14 +375,14 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
           {selectedServicio ? ` ${servicioNombre}` : 'Seleccionar Servicio'}
         </Button>
        
-
+        {/* # Diálogo para mostrar los diferentes servicios disponibles */}
         <Dialog open={openServicioDialog} onClose={handleCloseServicioDialog}
          fullWidth
-         maxWidth="sm" // Puedes usar "xs", "sm", "md", "lg", "xl"
+         maxWidth="sm" 
          PaperProps={{
            sx: {
-            width: { xs: '100%',  }, // Ancho responsivo: 100% en pantallas pequeñas, 549px en pantallas medianas y grandes
-            height: 'auto', // Altura automática
+            width: { xs: '100%',  }, 
+            height: 'auto', 
              borderRadius: '20px',
              backgroundColor: '#504D4D',
              padding: { xs: 2, sm: 3 },
@@ -372,14 +392,14 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
 
           <Box
     sx={{
-      width: '100%', // Ancho ajustado al 100%
+      width: '100%', 
       height: 'auto',
-      margin: '0 auto', // Centrar el contenedor horizontalmente
+      margin: '0 auto', 
       marginTop: { xs: 2, sm: '80px' },
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'space-between', // Distribuye el espacio entre los elementos
-      alignItems: 'center', // Centra los elementos horizontalmente
+      justifyContent: 'space-between', 
+      alignItems: 'center', 
     }}
   >
     <DialogTitle
@@ -394,7 +414,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
           >Seleccionar servicio</DialogTitle>
           <DialogContent>
 
-        
+             {/* # Se itera sobre los servicios para listarlos como ítems seleccionables */}
             {Array.isArray(servicios) && servicios.map(servicio => (
               <MenuItem key={servicio.id} value={servicio.id}
                 onClick={() => handleSelectServicio(servicio.id)}
@@ -408,7 +428,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
                   position: 'relative',
                   marginBottom: '16px',
                   '&:hover': {
-                    backgroundColor: 'white', // Mantiene el fondo blanco al pasar el cursor
+                    backgroundColor: 'white', 
                   },
                
                 }}
@@ -420,6 +440,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
                 alignItems: 'flex-start',
                  width: '100%',
                   }}>
+          
         <Typography variant="h6" 
         sx={{ color: '#666666', fontSize: '16px',   fontFamily: 'Poppins', }} 
         >{servicio.nombre}</Typography>
@@ -429,6 +450,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
         <Typography variant="body2"
         sx={{ color: '#3A3A3A',  fontSize: '16px',   fontFamily: 'Poppins', }}
         > ${servicio.precio}</Typography>
+          {/* # Botón info que expande descripción del servicio */}
         <IconButton
                   onClick={(e) => {
                     e.stopPropagation();
@@ -437,13 +459,13 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
                   sx={{
                     width: "40px",
                     height: "40px",
-                    position: 'absolute', // Posición absoluta para mover el icono
-                    top: 20, // Alinearlo en la parte superior
-                    right:20, // Alinearlo a la derecha
-                    backgroundColor: '#FFD000', // Fondo amarillo
-                    color: 'black', // Color
+                    position: 'absolute', 
+                    top: 20, 
+                    right:20, 
+                    backgroundColor: '#FFD000', 
+                    color: 'black', 
                     '&:hover': {
-                      backgroundColor: '#FFD700', // Fondo amarillo oscuro al pasar el cursor
+                      backgroundColor: '#FFD700', 
                     },
                   }}
                 >
@@ -467,19 +489,20 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
           </DialogContent>
           <DialogActions
            sx={{
-            padding: 0, // Elimina el padding para ajustar al tamaño del contenedor
-            width: '100%', // Asegura que las acciones ocupen el ancho completo
+            padding: 0, 
+            width: '100%', 
             display: 'flex',
             justifyContent: 'center',
           }}
           >
+             {/* # Botón para cerrar el diálogo y continuar */}
             <Button onClick={handleCloseServicioDialog} color="primary"
             sx={{color:"black", 
               mr:4,
-              backgroundColor: '#FFD000', // Fondo amarillo
-              borderRadius: '30px', // Bordes redondeados para hacer un círculo
-              width: '360px', // Ancho del botón
-              height: '43px', // Alto del botón
+              backgroundColor: '#FFD000', 
+              borderRadius: '30px', 
+              width: '360px', 
+              height: '43px', 
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -488,7 +511,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
               marginBottom: 2,
               textTransform: 'none',
               '&:hover': {
-                backgroundColor: '#FFD700', // Fondo amarillo oscuro al pasar el cursor
+                backgroundColor: '#FFD700', 
               },
             }}>
               Continuar
@@ -497,41 +520,41 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
           </Box>
         </Dialog>
 
-        
 
-       
+
+          {/* # Botón para mostrar diálogo de selección de barbero */}
         <Button variant="outlined" onClick={handleOpenBarberoDialog}  startIcon={<FaceIcon />} sx={{ mt: 2,  borderRadius: '25px', // Bordes redondeados
-    borderColor: 'black', // Color del borde negro
-    color: 'black', // Color del texto negro
-    width: '362px', // Ancho del botón
-    height: '50px', // Alto del botón
+    borderColor: 'black', 
+    color: 'black', 
+    width: '362px', 
+    height: '50px', 
     marginBottom:"24px",
     backgroundColor: 'white',
     '&:hover': {
-      backgroundColor: 'white', // Mantener el fondo blanco al pasar el cursor
-      borderColor: 'black', // Mantener el borde negro al pasar el cursor
+      backgroundColor: 'white', 
+      borderColor: 'black', 
     },
-    display: 'flex', // Asegura que el contenido del botón esté alineado correctamente
-    alignItems: 'center', // Centra verticalmente el contenido del botón
-    justifyContent: 'flex-start', // Alinea el contenido del botón a la izquierda
+    display: 'flex', 
+    alignItems: 'center', 
+    justifyContent: 'flex-start', 
     textAlign: 'left',
-    fontFamily: 'Poppins', // Aplica la fuente Poppins
-    fontSize: '14px', // Tamaño de fuente 14px
-    color: '#666666', // Color del texto
+    fontFamily: 'Poppins', 
+    fontSize: '14px', 
+    color: '#666666', 
     textTransform:'none',
    
    }}>
         {selectedBarbero ? `${barberoNombre}` : 'Seleccionar Barbero'}
         </Button>
        
-      
+          {/* # Diálogo para mostrar los barberos disponibles para el servicio */}
         <Dialog open={openBarberoDialog} onClose={handleCloseBarberoDialog}
          fullWidth
-         maxWidth="md" // Puedes usar "xs", "sm", "md", "lg", "xl"
+         maxWidth="md" 
          PaperProps={{
            sx: {
-             width: '549px', // Ancho personalizado
-             height: '671px', // Alto personalizado
+             width: '549px', 
+             height: '671px', 
              borderRadius: '20px',
              backgroundColor: '#504D4D',
            },
@@ -541,12 +564,12 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
     sx={{
       width: '357px',
       height: '519px',
-      margin: '0 auto', // Centrar el contenedor horizontalmente
+      margin: '0 auto', 
       marginTop:'80px',
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'space-between', // Distribuye el espacio entre los elementos
-      alignItems: 'center', // Centra los elementos horizontalmente
+      justifyContent: 'space-between',
+      alignItems: 'center', 
     }}
   >
 
@@ -560,7 +583,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
 }}
           >Seleccionar profesional</DialogTitle>
           <DialogContent>
-         
+             {/* # Se itera sobre barberosRelacionados para mostrarlos en la lista */}
             {barberosRelacionados.map(barbero => (
                
               <MenuItem key={barbero.id} value={barbero.id}
@@ -574,27 +597,28 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
              
           </DialogContent>
           <DialogActions>
+             {/* # Botón para cerrar el diálogo y continuar */}
             <Button onClick={handleCloseBarberoDialog} color="primary"
              sx={{color:"black", 
               mr:4,
-              backgroundColor: '#FFD000', // Fondo amarillo
-              borderRadius: '30px', // Bordes redondeados para hacer un círculo
+              backgroundColor: '#FFD000', 
+              borderRadius: '30px', 
               width: { xs: '320px', sm: '357px' },
-              height: '43px', // Alto del botón
+              height: '43px', 
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               '&:hover': {
-                backgroundColor: '#FFD700', // Fondo amarillo oscuro al pasar el cursor
+                backgroundColor: '#FFD700', 
               },
             }}>
                <Typography
       sx={{
-        width: '80px', // Ancho del texto
-        height: '24px', // Alto del texto
-        fontSize: '16px', // Tamaño de la fuente
-        textAlign: 'center', // Centrar el texto
-        fontFamily: 'Poppins', // Tipo de fuente
+        width: '80px', 
+        height: '24px', 
+        fontSize: '16px', 
+        textAlign: 'center', 
+        fontFamily: 'Poppins', 
       }}
     >
       Continuar
@@ -603,43 +627,43 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
           </DialogActions>
           </Box>
         </Dialog>
-
+         {/* # Componente Calendario para elegir la fecha de la reserva */}
         <Calendario selectedDate={selectedDate} setSelectedDate={setSelectedDate} 
        
         />
 
-      
-      <Button variant="outlined" onClick={handleOpenHorarioDialog }  startIcon={<AccessTimeIcon />} sx={{ mt: 2,  borderRadius: '25px', // Bordes redondeados
-    borderColor: 'black', // Color del borde negro
-    color: 'black', // Color del texto negro
-    width: '362px', // Ancho del botón
-    height: '50px', // Alto del botón
+        {/* # Botón para abrir el diálogo de selección de horario */}
+      <Button variant="outlined" onClick={handleOpenHorarioDialog }  startIcon={<AccessTimeIcon />} sx={{ mt: 2,  borderRadius: '25px', 
+    borderColor: 'black', 
+    color: 'black', 
+    width: '362px', 
+    height: '50px', 
     marginBottom:"32px",
     backgroundColor: 'white',
     '&:hover': {
-      backgroundColor: 'white', // Mantener el fondo blanco al pasar el cursor
-      borderColor: 'black', // Mantener el borde negro al pasar el cursor
+      backgroundColor: 'white', 
+      borderColor: 'black', 
     },
-    display: 'flex', // Asegura que el contenido del botón esté alineado correctamente
-    alignItems: 'center', // Centra verticalmente el contenido del botón
-    justifyContent: 'flex-start', // Alinea el contenido del botón a la izquierda
+    display: 'flex', 
+    alignItems: 'center', 
+    justifyContent: 'flex-start', 
     textAlign: 'left',
-    fontFamily: 'Poppins', // Aplica la fuente Poppins
-    fontSize: '14px', // Tamaño de fuente 14px
-    color: '#666666', // Color del texto
+    fontFamily: 'Poppins', 
+    fontSize: '14px', 
+    color: '#666666', 
     textTransform:'none',
    }}>
           {selectedHorario ? `${horarioHora}` : 'Seleccionar Horario'}
         </Button>
         
-
+        {/* # Diálogo para mostrar horarios disponibles */}
         <Dialog open={openHorarioDialog} onClose={handleCloseHorarioDialog}
          fullWidth
-         maxWidth="md" // Puedes usar "xs", "sm", "md", "lg", "xl"
+         maxWidth="md" 
          PaperProps={{
            sx: {
-             width: '549px', // Ancho personalizado
-             height: '673px', // Alto personalizado
+             width: '549px', 
+             height: '673px', 
              borderRadius: '20px',
              backgroundColor: '#504D4D',
            },
@@ -650,12 +674,12 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
     sx={{
       width: '360px',
       height: '404px',
-      margin: '0 auto', // Centrar el contenedor horizontalmente
+      margin: '0 auto', 
       marginTop:'80px',
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'space-between', // Distribuye el espacio entre los elementos
-      alignItems: 'center', // Centra los elementos horizontalmente
+      justifyContent: 'space-between', 
+      alignItems: 'center', 
     }}
   >
           <DialogTitle
@@ -671,18 +695,18 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
             sx={{
               display: 'grid',
               gridTemplateColumns: {
-                xs: '1fr 1fr', // 2 columnas en pantallas pequeñas
-                sm: '1fr 1fr 1fr' // 3 columnas en pantallas medianas y grandes
+                xs: '1fr 1fr', 
+                sm: '1fr 1fr 1fr' 
               },
               gap: '10px',
             }}
           >
-            
+            {/* # Lista de horarios disponibles con su estado */}
             {horarios.map(horario => (
               <MenuItem key={horario.id} value={horario.id}
                 onClick={() => handleSelectHorario(horario.id)}
                 sx={{
-                  width: '104px', // Ancho del botón
+                  width: '104px', 
                   height: '47px',
                   border: '1px solid black',
                   fontFamily: 'Poppins',
@@ -703,13 +727,14 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
           <DialogActions
          
           >
+             {/* # Botón para continuar y cerrar el diálogo */}
             <Button onClick={handleCloseHorarioDialog} color="primary"
              sx={{color:"black", 
              
-              backgroundColor: '#FFD000', // Fondo amarillo
-              borderRadius: '30px', // Bordes redondeados para hacer un círculo
-              width: { xs: '310px', sm: '358px' }, // Ancho del botón
-              height: '43px', // Alto del botón
+              backgroundColor: '#FFD000', 
+              borderRadius: '30px', 
+              width: { xs: '310px', sm: '358px' }, 
+              height: '43px',
               display:'flex',
               fontFamily: 'Poppins',
               fontSize: '16px',
@@ -717,7 +742,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
               justifyContent: 'center',
              
               '&:hover': {
-                backgroundColor: '#FFD700', // Fondo amarillo oscuro al pasar el cursor
+                backgroundColor: '#FFD700', 
               },
             }}>
               Continuar
@@ -725,10 +750,11 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
           </DialogActions>
           </Box>
         </Dialog>
+        {/* # Si se seleccionó un horario y está habilitada la vista previa, muestra botón para abrirla */}
         {horarioSeleccionado &&  mostrarVistaPrevia && (
         <Button variant="contained" color="primary" onClick={handleOpenPreviewDialog} sx={{ mt: 2, 
-            backgroundColor: '#FFD000', // Fondo amarillo
-          color: 'black', // Color del texto negro para mejor contraste
+            backgroundColor: '#FFD000', 
+          color: 'black', 
           width:'361px',
           height:'43px',
           borderRadius:'30px',
@@ -738,18 +764,18 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
           Ver Vista Previa
         </Button>
       )}
-
+        {/* # Diálogo para la vista previa de la reserva */}
         <Dialog open={openPreviewDialog} onClose={handleClosePreviewDialog}
          PaperProps={{
           sx: {
-            width: '403px', // Ancho personalizado
-            height: '437px', // Alto personalizado
-            borderRadius: '20px', // Bordes redondeados
+            width: '403px', 
+            height: '437px', 
+            borderRadius: '20px', 
             backgroundColor: '#414141', 
           },
         }}
         >
-          <DialogTitle sx={{ color: 'white',   fontFamily: 'Poppins', // Fuente Poppins
+          <DialogTitle sx={{ color: 'white',   fontFamily: 'Poppins', 
       fontSize: '24px',
        }}>Mi reserva</DialogTitle>
           <DialogContent>
@@ -759,7 +785,7 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '16px', // Añadir separación entre los elementos
+                gap: '16px', 
                
               }}
               >
@@ -778,15 +804,15 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
 
           </DialogContent>
           <DialogActions>
-          
+                {/* # Botón para volver atrás sin confirmar */}
             <Button onClick={handleClosePreviewDialog} color="primary"
              sx={{color:"white", 
               mr:5,
-              backgroundColor: '#414141', // Fondo amarillo
+              backgroundColor: '#414141', 
               border: '1px solid white',
-              borderRadius: '30px', // Bordes redondeados para hacer un círculo
-              width: '168px', // Ancho del botón
-              height: '43px', // Alto del botón
+              borderRadius: '30px', 
+              width: '168px', 
+              height: '43px', 
               display: 'flex',
               alignItems: 'left',
               justifyContent: 'center',
@@ -795,19 +821,19 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
             }}>
               Volver
             </Button>
-           
+           {/* # Botón para confirmar la reserva */}
             <Button onClick={handleConfirmarReserva} color="primary"
              sx={{color:"black", 
               
-              backgroundColor: '#FFD000', // Fondo amarillo
-              borderRadius: '30px', // Bordes redondeados para hacer un círculo
-              width: '168px', // Ancho del botón
-              height: '43px', // Alto del botón
+              backgroundColor: '#FFD000', 
+              borderRadius: '30px', 
+              width: '168px', 
+              height: '43px', 
               display: 'flex',
               alignItems: 'right',
               justifyContent: 'center',
               '&:hover': {
-                backgroundColor: '#FFD000', // Fondo amarillo oscuro al pasar el cursor
+                backgroundColor: '#FFD000', 
               },
             }}>
               Reservar
@@ -815,26 +841,29 @@ const [showSuccessModal, setShowSuccessModal] = useState(false);
             
           </DialogActions>
         </Dialog>
-
+           {/* # Mensaje informativo sobre la necesidad de dejar una seña */}
         <Typography variant="body1" align="center" sx={{  color: 'white', fontFamily:'Poppins', fontSize:'12px' }}>
         Para poder  reservar un turno deberás dejar una seña
       </Typography>
-
+        {/* # Botón final para enviar reserva y generar preferencia en Mercado Pago */}
       <Button type="submit" variant="contained" color="primary" onClick={handleCreatePreference}  sx={{ width: '360px', height:"43px", mt: 2, backgroundColor: '#FFD000',
-    borderRadius: '30px', // Bordes redondeados
+    borderRadius: '30px', 
     color: 'black', 
-    fontFamily: 'Poppins', // Fuente Poppins
-    fontSize: '16px', // Tamaño de la fuente
+    fontFamily: 'Poppins', 
+    fontSize: '16px', 
     textTransform: 'none',
     '&:hover': {
-      backgroundColor: 'lightyellow', // Fondo amarillo más claro al pasar el cursor
-    },}}>Reservar</Button>
-      
+      backgroundColor: 'lightyellow', 
+    },}}>Reservar
+    
+    </Button>
+       {/* # Componente Wallet de Mercado Pago, se muestra si existe preferenceId */}
       {preferenceId && (
         <Wallet initialization={{ preferenceId }} />
       )}
 
     </form>
+    {/* # Diálogo que indica éxito de la reserva */}
     <Dialog open={showSuccessModal} onClose={() => setShowSuccessModal(false)}>
         <DialogTitle>Reserva creada con éxito</DialogTitle>
         <DialogContent>

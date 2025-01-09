@@ -1,19 +1,25 @@
+// Archivo que nos va a permitir visualizar las sucursales de la empresa
+
 import React, { useState, useEffect } from 'react';
+// Importar componentes de Material-UI que vamos a utilizar en este componente
 import { Container, Box, Typography, List, ListItem, ListItemText, IconButton, Button} from '@mui/material';
+// Importar axios para realizar solicitudes HTTP al servidor de la API
 import axios from 'axios';
 import SearchBarSucursales from '../components/SearchBarSucursales';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+// Importar el componente useNavigate para cambiar de ruta en React Router
 import {useNavigate} from 'react-router-dom';
 
 
 const Sucursales = () => {
+  // Definir el estado de las sucursales y una función para actualizarlo
   const [sucursales, setSucursales] = useState([]);
   const navigate = useNavigate();
   const empresaId = localStorage.getItem('empresaId'); // Obtener el ID de la empresa desde el almacenamiento local
 
     
-
+// Función que se ejecuta al cargar el componente y nos permite obtener las sucursales de la empresa
   useEffect(() => {
     const fetchSucursales = async () => {
       try {
@@ -30,6 +36,7 @@ const Sucursales = () => {
     }
   }, [empresaId]);
 
+  // Función que se ejecuta al realizar una búsqueda de sucursales por nombre 
   const handleSearch = async (query) => {
     try {
       const response = await axios.get(`http://localhost:8000/sucursales/buscar?nombre=${encodeURIComponent(query)}`);
@@ -40,15 +47,17 @@ const Sucursales = () => {
     }
   };
 
-
+// Función que se ejecuta al hacer clic en el botón de añadir sucursal y nos lleva a la página de creación de sucursales
   const handleAddSucursalClick = () => {
     navigate('/crear-sucursal');
   };
 
+  // Función que se ejecuta al hacer clic en el botón de editar sucursal y nos lleva a la página de edición de sucursales
   const handleEditClick = (id) => {
     navigate(`/editar-sucursal/${id}`);
   };
 
+  // Función que se ejecuta al hacer clic en el botón de eliminar sucursal y nos permite eliminar una sucursal
   const handleDeleteClick = async (id) => {
     try {
       await axios.delete(`http://localhost:8000/sucursales/${id}`);
@@ -59,7 +68,6 @@ const Sucursales = () => {
       alert('Error al eliminar la sucursal');
     }
   };
-
 
 
   return (
@@ -81,13 +89,15 @@ const Sucursales = () => {
         <SearchBarSucursales onSearch={handleSearch} />
 
         <Typography  gutterBottom sx={{
-            fontFamily: 'Poppins', // Aplica la fuente Poppins
+            fontFamily: 'Poppins', 
             fontSize: '16px', 
             
            }}>
           Mis sucursales
         </Typography>
+        {/* # sección que mapea y muestra la lista de sucursales existentes*/}
         <List>
+         {/* # se recorre el arreglo de sucursales y se muestran en una lista*/}
           {sucursales.map((sucursales) => (
             <ListItem key={sucursales.id}
             sx={{
@@ -105,30 +115,30 @@ const Sucursales = () => {
               secondary={sucursales.ubicacion} 
                primaryTypographyProps={{
                 sx: {
-                  fontFamily: 'Poppins', // Aplica la fuente Poppins
-                  fontSize: '16px', // Tamaño de fuente 16px
-                  color: '#666666', // Cambiar el color del texto a #666666
+                  fontFamily: 'Poppins', 
+                  fontSize: '16px', 
+                  color: '#666666', 
                 },
               }}
               secondaryTypographyProps={{
                 sx: {
-                  fontFamily: 'Poppins', // Aplica la fuente Poppins
-                  fontSize: '12px', // Tamaño de fuente 14px
-                  color: '#3A3A3A', // Cambiar el color del texto a #999999
+                  fontFamily: 'Poppins', 
+                  fontSize: '12px', 
+                  color: '#3A3A3A', 
                 },
               }}
               sx={{
                 '& .MuiListItemText-primary': {
-                  color: '#666666', // Cambiar el color del texto a negro
+                  color: '#666666', 
                 },
               }}/>
-
+         {/* # Botón para editar la sucursal */}
               <IconButton edge="end" aria-label="edit" onClick={() => handleEditClick (sucursales.id)}
                   sx={{
                     backgroundColor: '#FFD000',
                     borderRadius: '50%',
                     padding: '10px',
-                    width: '40px', // Ancho del botón
+                    width: '40px', 
                     height: '40px',
                     '&:hover': {
                       backgroundColor: 'darkyellow',
@@ -136,13 +146,14 @@ const Sucursales = () => {
                   }}>
                   <EditIcon sx={{ color: 'black',fontSize: '24px' }} />
                 </IconButton>
+               {/* # Botón para eliminar la sucursal */}
                 <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteClick(sucursales.id)}
                   sx={{
                     ml: 2,
                     backgroundColor: '#FF8272',
                     borderRadius: '50%',
                     padding: '10px',
-                    width: '40px', // Ancho del botón
+                    width: '40px', 
                     height: '40px',
                     '&:hover': {
                       backgroundColor: 'darkyellow',
@@ -153,7 +164,7 @@ const Sucursales = () => {
             </ListItem>
           ))}
         </List>
-
+{/* # Botón para añadir la sucursal */}
         <Button
   variant="contained"
   color="primary"
@@ -168,17 +179,17 @@ const Sucursales = () => {
     mr: 1,
     mb: 4,
     '&:hover': {
-      backgroundColor: 'gray', // Cambia el fondo a gris al hacer hover
+      backgroundColor: 'gray', 
     },
   }}
   onClick={handleAddSucursalClick}
 >
 <Typography
     sx={{
-      fontFamily: 'Poppins', // Aplica la fuente Poppins
-      fontSize: '16px', // Tamaño de fuente 16px
-      color: 'black', // Asegura que el color del texto sea consistente
-      textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+      fontFamily: 'Poppins', 
+      fontSize: '16px', 
+      color: 'black', 
+      textTransform: 'none', 
     }}
   >
     Añadir sucursal

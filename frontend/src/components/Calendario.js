@@ -1,3 +1,4 @@
+// Archivo que contiene el componente de un calendario para seleccionar una fecha 
 import React from 'react';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -7,6 +8,7 @@ import { TextField } from '@mui/material';
 
 
 const Calendario = ({ selectedDate, setSelectedDate }) => {
+  {/* Función para cambiar la fecha seleccionada */}
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
@@ -32,24 +34,24 @@ const Calendario = ({ selectedDate, setSelectedDate }) => {
             '&:hover fieldset': { borderColor: 'black' },
             '&.Mui-focused fieldset': { borderColor: 'black' },
             '&.Mui-focused': { color: 'black' },
-            fontFamily: 'Poppins', // Aplica la fuente Poppins
-            fontSize: '14px', // Tamaño de fuente 14px
-            color: '#666666', // Color del texto
-            textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+            fontFamily: 'Poppins', 
+            fontSize: '14px', 
+            color: '#666666', 
+            textTransform: 'none', 
           },
           '& .MuiInputLabel-root': { 
             color: 'black',
-            fontFamily: 'Poppins', // Aplica la fuente Poppins
-            fontSize: '14px', // Tamaño de fuente 14px
-            color: '#666666', // Color del texto
-            textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+            fontFamily: 'Poppins', 
+            fontSize: '14px', 
+            color: '#666666',
+            textTransform: 'none', 
           },
           '& .MuiInputAdornment-root': { 
             color: 'black',
-            fontFamily: 'Poppins', // Aplica la fuente Poppins
-            fontSize: '14px', // Tamaño de fuente 14px
-            color: '#666666', // Color del texto
-            textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+            fontFamily: 'Poppins', 
+            fontSize: '14px', 
+            color: '#666666', 
+            textTransform: 'none', 
           },
           
         }}

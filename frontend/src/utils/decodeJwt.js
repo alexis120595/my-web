@@ -1,3 +1,5 @@
+// archivo para decodificar el token de jwt y obtener los datos del usuario
+
 export default function decodeJwt(token) {
     const parts = token.split(".");
     if (parts.length !== 3) {

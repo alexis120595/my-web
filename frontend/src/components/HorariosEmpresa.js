@@ -1,7 +1,9 @@
+// Archivo que permite definir los horarios de atención de la empresa
 import React, { useState, useEffect } from "react";
-import 'tailwindcss/tailwind.css'; // Importa los estilos de Tailwind CSS
+import 'tailwindcss/tailwind.css'; 
 
 const HorariosEmpresa = ({ onHorariosChange }) => {
+  // Estado para los horarios de la empresa
   const [horarios, setHorarios] = useState([
     { dia: "lun", horarios: [{ horaApertura: "09:00", horaCierre: "17:00" }] },
     { dia: "mar", horarios: [{ horaApertura: "09:00", horaCierre: "17:00" }] },
@@ -11,7 +13,7 @@ const HorariosEmpresa = ({ onHorariosChange }) => {
     { dia: "sab", horarios: [{ horaApertura: "09:00", horaCierre: "17:00" }] },
     { dia: "dom", horarios: [{ horaApertura: "09:00", horaCierre: "17:00" }] }
   ]);
-
+// Estado para los checkboxes de los días
   const [checkboxes, setCheckboxes] = useState({
     lun: true,
     mar: true,
@@ -21,7 +23,7 @@ const HorariosEmpresa = ({ onHorariosChange }) => {
     sab: true,
     dom: true
   });
-
+// Opciones de hora para el select
   const opcionesHora = [
     { value: '09:00', label: '09:00 ' },
     { value: '10:00', label: '10:00 ' },
@@ -33,7 +35,7 @@ const HorariosEmpresa = ({ onHorariosChange }) => {
     { value: '16:00', label: '04:00 ' },
     { value: '17:00', label: '05:00 ' },
   ];
-
+// Función para agregar un horario a un día
   const agregarHorario = (dia) => {
     setHorarios(horarios.map(horario => 
       horario.dia === dia 
@@ -41,14 +43,14 @@ const HorariosEmpresa = ({ onHorariosChange }) => {
         : horario
     ));
   };
-
+// Función para manejar el cambio de los checkboxes
   const handleCheckboxChange = (dia) => {
     setCheckboxes({
       ...checkboxes,
       [dia]: !checkboxes[dia]
     });
   };
-
+// Efecto para filtrar los horarios según los checkboxes
   useEffect(() => {
     const horariosFiltrados = horarios.filter(horario => checkboxes[horario.dia]);
     onHorariosChange(horariosFiltrados);
@@ -56,6 +58,7 @@ const HorariosEmpresa = ({ onHorariosChange }) => {
 
   return (
     <div className="p-4">
+      
       {horarios.map((horarioDia, indexDia) => (
         <div key={indexDia} className="mb-6">
           {/* Contenedor del Día y Switch en Columnas */}
@@ -86,6 +89,7 @@ const HorariosEmpresa = ({ onHorariosChange }) => {
               <div className="flex flex-col items-start">
                 {horarioDia.horarios.map((horario, indexHorario) => (
                   <div key={indexHorario} className="flex items-center mb-2">
+                    {/* Horario de Apertura y Cierre */}
                     <select 
                       id={`horaApertura${horarioDia.dia}${indexHorario}`} 
                       name={`horaApertura${horarioDia.dia}${indexHorario}`} 
@@ -98,12 +102,14 @@ const HorariosEmpresa = ({ onHorariosChange }) => {
                       className="mr-2 p-2 border rounded-full text-black bg-gray-200 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                       style={{ width: '90px', height: '40px' }}
                     >
+                      
                       {opcionesHora.map((opcion) => (
                         <option key={opcion.value} value={opcion.value} className="text-black">
                           {opcion.label}
                         </option>
                       ))}
                     </select>
+                    
                     <select 
                       id={`horaCierre${horarioDia.dia}${indexHorario}`} 
                       name={`horaCierre${horarioDia.dia}${indexHorario}`} 

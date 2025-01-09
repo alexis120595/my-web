@@ -1,3 +1,4 @@
+// Archivo que contiene el componente de la barra de búsqueda de servicios
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
@@ -6,14 +7,16 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Box from '@mui/material/Box';
 
 function SearchBar({ onSearch }) {
+  // estado para almacenar la consulta de búsqueda
   const [query, setQuery] = useState('');
 
+  // función para manejar el cambio en el campo de búsqueda
   const handleInputChange = (event) => {
     const newQuery = event.target.value;
     setQuery(newQuery);
     onSearch(newQuery);
   };
-
+// función para manejar la búsqueda
   const handleSearch = () => {
     onSearch(query);
   };
@@ -21,6 +24,7 @@ function SearchBar({ onSearch }) {
   return (
     <Box display="flex" justifyContent="flex-start" width="100%" mb={4}>
     <Box position="relative" width="60%">
+      {/* Campo de texto para la búsqueda */}
       <TextField
         variant="outlined"
         value={query}
@@ -34,6 +38,7 @@ function SearchBar({ onSearch }) {
                 height:'18px',
                 color:'#313131',
               }}>
+                {/* Icono de búsqueda */}
                 <SearchIcon />
               </IconButton>
             </InputAdornment>
@@ -44,18 +49,18 @@ function SearchBar({ onSearch }) {
           width: '286px',
           height: '50px',
           '& .MuiOutlinedInput-root': {
-            borderRadius: '25px', // Bordes redondeados
-            backgroundColor: 'white', // Color de fondo
-            fontFamily: 'Poppins', // Tipo de fuente
-            fontSize: '14px', // Tamaño de fuente
+            borderRadius: '25px', 
+            backgroundColor: 'white', 
+            fontFamily: 'Poppins', 
+            fontSize: '14px',
             '& fieldset': {
-              borderColor: 'black', // Color del borde
+              borderColor: 'black', 
             },
             '&:hover fieldset': {
-              borderColor: 'black', // Color del borde al pasar el mouse
+              borderColor: 'black', 
             },
             '&.Mui-focused fieldset': {
-              borderColor: 'black', // Color del borde al enfocar
+              borderColor: 'black', 
             },
           },
         }}

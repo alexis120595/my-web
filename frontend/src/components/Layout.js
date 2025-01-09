@@ -1,6 +1,9 @@
+// Archivo que se creo para  para crear un diseño de dos columnas, 
+// donde la columna izquierda contiene una imagen y 
+// la columna derecha contiene el contenido principal de la aplicación.
 import React from 'react';
 import { Box } from '@mui/material';
-import SidebarImage from '../assets/recorte.png'; // Asegúrate de que la ruta es correcta
+import SidebarImage from '../assets/recorte.png'; 
 
 const Layout = ({ children }) => {
   return (
@@ -8,12 +11,12 @@ const Layout = ({ children }) => {
       {/* Lado Izquierdo con la Imagen */}
       <Box
         sx={{
-          width: '700px', // Ajusta el ancho según las dimensiones de tu imagen
-          height: '780px', // Ajusta la altura según las dimensiones de tu imagen
+          width: '700px', 
+          height: '780px', 
           backgroundImage: `url(${SidebarImage})`,
-          backgroundSize: 'contain', // Asegura que la imagen completa sea visible
-          backgroundRepeat: 'no-repeat', // Evita que la imagen se repita
-          backgroundPosition: 'center', // Centra la imagen dentro del Box
+          backgroundSize: 'contain', 
+          backgroundRepeat: 'no-repeat', 
+          backgroundPosition: 'center', 
           display: { xs: 'none', md: 'block' }
         }}
       ></Box>

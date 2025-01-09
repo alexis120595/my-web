@@ -1,3 +1,4 @@
+// # Vista que presenta opciones al usuario para reservar un turno o prestar un servicio.
 import React from 'react';
 import { Button, Container, Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -6,14 +7,14 @@ const Opciones = () => {
   return (
     <Container
       sx={{
-        width: { xs: '100%', sm: '360px' }, // Ancho 100% en pantallas pequeñas, 360px en pantallas medianas y grandes
+        width: { xs: '100%', sm: '360px' }, 
         height: 'auto',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: { xs: 2, sm: 0 }, // Padding 2 en pantallas pequeñas, 0 en pantallas medianas y grandes
-        marginTop: { xs: 2, sm: 5 }, // Margen superior 2 en pantallas pequeñas, 5 en pantallas medianas y grandes
+        padding: { xs: 2, sm: 0 }, 
+        marginTop: { xs: 2, sm: 5 }, 
       }}
     >
       <Box textAlign="center" sx={{ color: 'black', width: '100%' }}>
@@ -21,58 +22,60 @@ const Opciones = () => {
           variant="h4"
           gutterBottom
           sx={{
-            color: 'white', // Cambiar el color del texto a blanco
-            marginBottom: '44px', // Añadir margen inferior
-            fontFamily: 'Poppins', // Aplica la fuente Poppins
-            fontSize: '24px', // Tamaño de fuente 24px
-            textAlign: 'left', // Alinear el texto a la izquierda
+            color: 'white', 
+            marginBottom: '44px', 
+            fontFamily: 'Poppins', 
+            fontSize: '24px', 
+            textAlign: 'left', 
           }}
         >
           ¿Qué deseas hacer?
         </Typography>
+        {/* # Botón para reservar un turno */}
         <Button
           component={Link}
           to="/buscar-empresa"
           variant="contained"
           size="small"
           sx={{
-            height: '43px', // Altura del botón
-            width: '100%', // Ancho 100% para que se ajuste al contenedor
-            maxWidth: '360px', // Ancho máximo 360px
-            borderRadius: '30px', // Bordes redondeados
-            backgroundColor: '#FFD000', // Cambiar el color de fondo a amarillo
-            color: 'black', // Cambiar el color del texto a negro para mejor contraste
+            height: '43px', 
+            width: '100%', 
+            maxWidth: '360px', 
+            borderRadius: '30px', 
+            backgroundColor: '#FFD000', 
+            color: 'black', 
             borderColor: 'black',
-            fontFamily: 'Poppins', // Aplica la fuente Poppins
-            fontSize: '14px', // Tamaño de fuente 14px
-            textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+            fontFamily: 'Poppins', 
+            fontSize: '14px', 
+            textTransform: 'none', 
             '&:hover': {
-              backgroundColor: '#FFD700', // Cambiar el color de fondo al pasar el cursor
+              backgroundColor: '#FFD700', 
               borderColor: 'black',
             },
-            marginBottom: 2, // Margen inferior para separar los botones
+            marginBottom: 2, 
           }}
         >
           Quiero reservar un turno
         </Button>
+        {/* # Botón para prestar un servicio */}
         <Button
           component={Link}
           to="/crear-servicio"
           variant="outlined"
           size="small"
           sx={{
-            height: '43px', // Altura del botón
-            width: '100%', // Ancho 100% para que se ajuste al contenedor
-            maxWidth: '360px', // Ancho máximo 360px
-            borderRadius: '30px', // Bordes redondeados
-            backgroundColor: '#FFD000', // Cambiar el color de fondo a amarillo
-            color: 'black', // Cambiar el color del texto a negro para mejor contraste
+            height: '43px', 
+            width: '100%',
+            maxWidth: '360px', 
+            borderRadius: '30px', 
+            backgroundColor: '#FFD000', 
+            color: 'black', 
             borderColor: 'black',
-            fontFamily: 'Poppins', // Aplica la fuente Poppins
-            fontSize: '14px', // Tamaño de fuente 14px
-            textTransform: 'none', // Evita que el texto se ponga en mayúsculas automáticamente
+            fontFamily: 'Poppins', 
+            fontSize: '14px', 
+            textTransform: 'none', 
             '&:hover': {
-              backgroundColor: '#FFD700', // Cambiar el color de fondo al pasar el cursor
+              backgroundColor: '#FFD700', 
               borderColor: 'black',
             },
           }}
