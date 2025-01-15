@@ -179,7 +179,7 @@ const Sucursales = () => {
     mr: 1,
     mb: 4,
     '&:hover': {
-      backgroundColor: 'gray', 
+      backgroundColor: '#FFD000', 
     },
   }}
   onClick={handleAddSucursalClick}

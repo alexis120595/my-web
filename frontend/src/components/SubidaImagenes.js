@@ -35,62 +35,79 @@ const SubidaImagenes = ({ onImageUpload }) => {
 
   return (
 <CloudinaryContext cloudName="dndrldskx"> {/* Reemplaza con tu cloud name */}
-<Box display="flex" justifyContent="flex-end" alignItems="center">
-        {/* Botón para subir la imagen */}
-        <input
-          accept="image/*"
-          style={{ display: 'none' }}
-          id="upload-button"
-          type="file"
-          onChange={uploadImage}
-        />
-        <label htmlFor="upload-button">
-          {/* Botón de carga */}
-          <Button
-            variant="contained"
-            component="span"
-            sx={{
-              borderRadius: '50%',
-              width: '58px',
-              height: '55px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: '#D9D9D9',
-              color: 'white',
-              mr: { xs: '0px', sm: '180px' },
-              mt:-8,
-              
-              
-            }}
-          >
-           {loading ? (
-  <CircularProgress  />
-) : (
-  <Typography
-    sx={{
-      fontSize: '12px',      
-      color: 'black',        
-      width: '29px',         
-      fontFamily: 'Popins',  
-      textAlign: 'center',
-      
-    }}
-  >
-    Logo
-  </Typography>
-)}
-          </Button>
-          {/* Texto del botón */}
-        </label>
-        {loading && <p>Cargando...</p>}
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        {url && <Image src={url} alt="Uploaded Image" style={{ borderRadius: '50%', marginTop: 16,
-            width: '58px',
-            height: '55px',
-            objectFit: 'cover',
-         }} />}
-      </Box>
+<Box
+  display="flex"
+  justifyContent="flex-end"
+  alignItems="center"
+  sx={{
+    position: 'relative', // Se usa posición relativa para superponer la imagen
+    width: '58px',
+    height: '55px',
+    mr: { xs: '0px', sm: '180px' },
+    mt: -8
+  }}
+>
+  {/* Input para subir imagen */}
+  <input
+    accept="image/*"
+    style={{ display: 'none' }}
+    id="upload-button"
+    type="file"
+    onChange={uploadImage}
+  />
+  <label htmlFor="upload-button">
+    <Button
+      variant="contained"
+      component="span"
+      sx={{
+        borderRadius: '50%',
+        width: '58px',
+        height: '55px',
+        backgroundColor: '#D9D9D9',
+        color: 'white',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      {loading ? (
+        <CircularProgress />
+      ) : (
+        <Typography
+          sx={{
+            fontSize: '12px',
+            color: 'black',
+            textAlign: 'center',
+            fontFamily: 'Popins',
+          }}
+        >
+          Logo
+        </Typography>
+      )}
+    </Button>
+  </label>
+
+  {/* Imagen superpuesta al mismo contenedor cuando se ha subido */}
+  {url && (
+    <Box
+      component="img"
+      src={url}
+      alt="Uploaded Image"
+      sx={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '58px',
+        height: '55px',
+        borderRadius: '50%',
+        objectFit: 'cover',
+      }}
+    />
+  )}
+
+  {loading && <p>Cargando...</p>}
+  {error && <p style={{ color: 'red' }}>{error}</p>}
+</Box>
     </CloudinaryContext>
   );
 };

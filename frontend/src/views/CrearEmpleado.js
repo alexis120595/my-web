@@ -259,16 +259,18 @@ marginBottom: '40px',
            sx={{ 
             mb:2,
             mt: 2, 
-            backgroundColor: 'yellow',
+            backgroundColor: '#FFD000',
             color: 'black', 
             borderRadius: '25px', 
             display: 'block',
            
              height:"50px",
              width: { xs: '330px', sm: '361px' },
-            '& .MuiOutlinedInput-root': {
+            '&:hover': {
+      backgroundColor: '#FFD000' 
+    }
             
-            }
+            
           }}>
           <Typography
     sx={{

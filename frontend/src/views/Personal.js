@@ -237,8 +237,11 @@ const Personal = () => {
             color: 'black',
             width: '359px',
             height: '43px',
-           
+
             ml: -4.5, 
+            '&:hover': {
+      backgroundColor: '#FFD000' 
+    }
           }}
           onClick={handleAddEmpleadoClick}
         >

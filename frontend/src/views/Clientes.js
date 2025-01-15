@@ -42,6 +42,18 @@ const Clientes = () => {
     navigate('/home', { state: { clienteId } });
   };
 
+// Nueva función para copiar el enlace de la empresa al portapapeles
+const handleCopyLink = () => {
+  const linkEmpresa = 'https://mi-empresa.com'; // Ajusta con el enlace de tu empresa
+  navigator.clipboard.writeText(linkEmpresa)
+    .then(() => {
+      alert('Link copiado al portapapeles');
+    })
+    .catch(() => {
+      alert('Error al copiar el link');
+    });
+};
+
   return (
     <Container maxWidth="sm"
     sx={{
@@ -142,6 +154,7 @@ const Clientes = () => {
   variant="contained"
   color="primary"
   fullWidth
+  onClick={handleCopyLink} // Se llama a la nueva función
   sx={{ 
     mt: 5, 
     borderRadius: '30px', 
@@ -152,21 +165,22 @@ const Clientes = () => {
     mr: 1, 
     mb: 4,
     '&:hover': {
-      backgroundColor: 'gray', 
+      backgroundColor: '#FFD000',
     },
   }}
 >
-<Typography
+  <Typography
     sx={{
       fontFamily: 'Poppins', 
       fontSize: '16px', 
       color: 'black', 
-      textTransform: 'none', 
+      textTransform: 'none'
     }}
   >
     Invitar cliente
   </Typography>
 </Button>
+
       </Box>
     </Container>
   );

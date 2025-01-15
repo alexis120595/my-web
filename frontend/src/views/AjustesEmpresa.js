@@ -953,7 +953,7 @@ const AjustesEmpresa = ({  }) => {
                 
                 width: '166px',
                 '&:hover': {
-                  backgroundColor: 'darkgrey',
+                  backgroundColor: 'black',
                 },
               }}
             >
@@ -981,7 +981,7 @@ const AjustesEmpresa = ({  }) => {
                 height: '43px',
                 width: '166px',
                 '&:hover': {
-                  backgroundColor: 'darkgrey',
+                  backgroundColor: '#FFD000', 
                 },
               }}
             >

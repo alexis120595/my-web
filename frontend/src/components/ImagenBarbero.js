@@ -91,7 +91,8 @@ const ImagenBarbero = ({ onImageUpload }) => {
             width: '58px',
             height: '55px',
             objectFit: 'cover',
-         }} />}
+         }}
+          />}
       </Box>
     </CloudinaryContext>
   );
